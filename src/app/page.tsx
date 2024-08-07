@@ -30,7 +30,6 @@ export default function Home() {
         </Logo>
         <Menu>
           <FirstNavbarTitle>Sobre</FirstNavbarTitle>
-          <SecondNavbarTitle>Projetos</SecondNavbarTitle>
           <SecondNavbarTitle>Contato</SecondNavbarTitle>
         </Menu>
       </NavBar>
