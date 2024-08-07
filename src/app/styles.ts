@@ -6,7 +6,7 @@ export const FlexDiv = styled.div`
 
 export const Body = styled(FlexDiv)`
   font-size: 30px;
-  padding: 80px 40px 40px 40px;
+  padding: 60px 160px 0 160px;
 `;
 
 export const BodyText = styled.text``;
@@ -15,7 +15,7 @@ export const NavBar = styled(FlexDiv)`
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 20px 0 20px;
+  padding: 0 160px 0 160px;
 
   height: 80px;
 
