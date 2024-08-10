@@ -9,22 +9,78 @@ export const FlexButton = styled.button`
 `;
 
 export const NavBar = styled(FlexDiv)`
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
+  width: 100%;
   height: 80px;
 
   background-color: #171717;
+  padding: 0 16px;
+
+  @media (max-width: 868px) {
+    align-items: start;
+    justify-content: center;
+  }
 `;
 
-export const NavBarContent = styled(FlexDiv)`
+export const HamburgerButton = styled.button`
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  @media (max-width: 868px) {
+    display: flex;
+    z-index: 1;
+  }
+`;
+
+export const MobileMenu = styled.div`
+  display: none;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  padding: 16px 0;
+
+  background-color: #171717;
+
+  @media (max-width: 868px) {
+    display: flex;
+    top: 0;
+    position: absolute;
+  }
+
+  a {
+    margin: 8px 0;
+    color: #fff;
+    text-decoration: none;
+  }
+`;
+
+export const NavbarContent = styled(FlexDiv)`
+  align-items: center;
+  justify-content: center;
+
+  gap: 24px;
   width: 100%;
   max-width: 800px;
+  left: 0;
 
-  justify-content: space-around;
+  @media (max-width: 868px) {
+    display: none;
+  }
 `;
 
-export const NavbarTitle = styled.div`
+export const NavbarTitle = styled(FlexDiv)`
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -37,20 +93,13 @@ export const NavbarTitle = styled.div`
   color: #fff;
 
   &:hover {
+    padding: 12px;
     background-color: #32312e;
   }
-`;
 
-export const NavbarContent = styled(FlexDiv)`
-  align-items: center;
-  justify-content: center;
-  /* justify-content: center; */
-
-  gap: 24px;
-  /* justify-content: space-around; */
-
-  width: 100%;
-  max-width: 800px;
+  @media (max-width: 868px) {
+    padding: 12px 0;
+  }
 `;
 
 export const Container = styled(FlexDiv)`
@@ -60,6 +109,10 @@ export const Container = styled(FlexDiv)`
   width: 100vw;
   height: calc(100vh - 80px);
   padding: 60px 0 24px 0;
+
+  @media (max-width: 868px) {
+    padding: 40px;
+  }
 `;
 
 export const Content = styled.div`
@@ -69,23 +122,16 @@ export const Content = styled.div`
   width: 100%;
   max-width: 800px;
 
-  /* padding: 20px; */
-
   border-radius: 12px;
 `;
 
 export const Title = styled.text`
   font-weight: 600;
-
-  /* font-size: 32px; */
   font-size: 2.25rem;
 `;
 
 export const TitleContainer = styled(FlexDiv)`
-  /* background-color: green; */
   flex-direction: column;
-
-  /* text-align: center; */
 
   padding-bottom: 12px;
 `;
@@ -101,33 +147,23 @@ export const ContentSubtitle = styled(Title)`
 `;
 
 export const DescriptionDiv = styled(FlexDiv)`
-  /* background-color: red; */
   padding: 12px 0;
-
-  /* text-align: center; */
 `;
 
 export const ContentDescription = styled.text`
   font-weight: 200;
-
-  /* font-size: 16px; */
   font-size: 1.125rem;
 `;
 
 export const QuickAccess = styled(FlexDiv)`
   align-items: center;
-  /* justify-content: center; */
 
-  /* background-color: yellow; */
   padding: 48px 0;
 `;
 
 export const QuickAccessButton = styled(FlexButton)`
   padding: 12px;
   margin: 0 4px;
-
-  color: #171717;
-  background-color: #fff;
 
   border: #fff;
   border-radius: 24px;
@@ -141,60 +177,78 @@ export const QuickAccessButton = styled(FlexButton)`
 export const ProjectsContent = styled(FlexDiv)`
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 24px;
 
+  gap: 24px;
   padding-bottom: 24px;
 `;
 
 export const ProjectsCard = styled(FlexDiv)`
+  flex: 1 1 auto;
   position: relative;
   flex-direction: column;
 
-  flex: 1 1 300px;
-  min-width: 250px;
-  max-width: 390px;
+  min-width: 200px;
+  max-width: 100%;
 
-  /* padding: 16px; */
-  /* box-sizing: border-box; */
-
-  /* border-top-left-radius: 12px; */
-  /* border-top-right-radius: 12px; */
+  @media (max-width: 868px) {
+    height: 150px;
+  }
 `;
 
 export const ProjectsSection = styled(FlexDiv)`
   align-items: center;
-  /* background-color: red; */
 
   padding-bottom: 24px;
-
-  /* justify-content: center; */
 `;
 
 export const ProjectsSectionTitle = styled.text`
   font-size: 1.125rem;
-  line-height: 1.75rem;
   font-weight: 700;
+  line-height: 1.75rem;
+`;
+
+export const StyledImageWrapper = styled.div`
+  position: relative;
+
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+
+  &:hover div {
+    opacity: 0.8;
+  }
 `;
 
 export const StyledImage = styled.img`
   width: 100%;
-  height: 180px; /* Define uma altura fixa */
-  object-fit: cover; /* Mantém a proporção da imagem e preenche o espaço */
-  /* border-top-left-radius: 12px;
-  border-top-right-radius: 12px; */
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: transform 0.3s ease-in-out;
+`;
+
+export const Overlay = styled.div`
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
 
   border-radius: 12px;
 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease-in-out;
 
-  opacity: 0.8; /* Define a opacidade do componente */
-  background-color: #f0f0f0; /* Exemplo de cor de fundo */
-
-  transition: transform 0.3s ease-in-out; /* Suaviza a transformação */
-
-  &:hover {
-    transform: scale(1.05); /* Aumenta o componente em 5% ao passar o mouse */
-  }
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 export const ProjectsCardContainer = styled(FlexDiv)`
@@ -208,4 +262,11 @@ export const ProjectsCardText = styled.text`
   line-height: 1.75rem;
 
   color: #fff;
+`;
+
+export const ResponsiveContainer = styled(FlexDiv)`
+  @media (max-width: 868px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
