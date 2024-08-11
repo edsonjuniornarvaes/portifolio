@@ -21,6 +21,7 @@ export const HamburgerButton = styled(FlexButton)`
   cursor: pointer;
 
   @media (max-width: 868px) {
+    display: contents;
     z-index: 1;
   }
 `;
