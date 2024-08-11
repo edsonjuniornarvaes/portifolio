@@ -1,9 +1,13 @@
 "use client";
 
-import { Container } from "../styles";
+import { Container, Content } from "../styles";
 
 const Contact = () => {
-  return <Container></Container>;
+  return (
+    <Container>
+      <Content></Content>
+    </Container>
+  );
 };
 
 export default Contact;

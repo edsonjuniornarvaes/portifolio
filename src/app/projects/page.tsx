@@ -1,9 +1,13 @@
 "use client";
 
-import { Container } from "../styles";
+import { Container, Content } from "../styles";
 
 const Projects = () => {
-  return <Container></Container>;
+  return (
+    <Container>
+      <Content></Content>
+    </Container>
+  );
 };
 
 export default Projects;
