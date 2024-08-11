@@ -8,6 +8,44 @@ export const FlexButton = styled.button`
   display: flex;
 `;
 
+export const HamburgerButton = styled(FlexButton)`
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  @media (max-width: 868px) {
+    z-index: 1;
+  }
+`;
+
+export const MobileMenu = styled(FlexDiv)`
+  display: none;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  padding: 16px 0;
+
+  background-color: #171717;
+
+  @media (max-width: 868px) {
+    top: 0;
+    position: absolute;
+  }
+
+  a {
+    margin: 8px 0;
+    color: #fff;
+    text-decoration: none;
+  }
+`;
 export const NavBar = styled(FlexDiv)`
   flex-direction: column;
   align-items: center;
@@ -22,47 +60,6 @@ export const NavBar = styled(FlexDiv)`
   @media (max-width: 868px) {
     align-items: start;
     justify-content: center;
-  }
-`;
-
-export const HamburgerButton = styled.button`
-  display: none;
-  align-items: center;
-  justify-content: center;
-
-  padding: 8px;
-
-  border: none;
-  background: transparent;
-
-  cursor: pointer;
-
-  @media (max-width: 868px) {
-    display: flex;
-    z-index: 1;
-  }
-`;
-
-export const MobileMenu = styled.div`
-  display: none;
-  flex-direction: column;
-  align-items: center;
-
-  width: 100%;
-  padding: 16px 0;
-
-  background-color: #171717;
-
-  @media (max-width: 868px) {
-    display: flex;
-    top: 0;
-    position: absolute;
-  }
-
-  a {
-    margin: 8px 0;
-    color: #fff;
-    text-decoration: none;
   }
 `;
 
@@ -175,29 +172,43 @@ export const QuickAccessButton = styled(FlexButton)`
 `;
 
 export const ProjectsContent = styled(FlexDiv)`
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: flex; /* Ensure flexbox for horizontal arrangement */
+  flex-wrap: wrap; /* Allow items to wrap if needed */
+  justify-content: space-between; /* Distribute items evenly */
 
-  gap: 24px;
-  padding-bottom: 24px;
+  width: 100%; /* Ensure full width */
+  gap: 12px; /* Add spacing between cards */
 `;
 
 export const ProjectsCard = styled(FlexDiv)`
-  flex: 1 1 auto;
-  position: relative;
+  flex: 1 0 calc(48% - 6px); /* Set width to 48% minus half of gap */
   flex-direction: column;
+  position: relative;
 
-  min-width: 200px;
-  max-width: 100%;
+  min-width: 200px; /* Maintain minimum width for smaller screens */
+  max-width: 100%; /* Allow full width if space permits */
+  text-decoration: none;
+
+  cursor: pointer;
 
   @media (max-width: 868px) {
-    height: 150px;
+    flex: 1 1 auto; /* Reset width for single-column layout */
+    width: 100%; /* Ensure full width on smaller screens */
   }
+`;
+
+export const StyledLink = styled.a`
+  text-decoration: none;
+  color: inherit;
+`;
+
+export const ProjectsContainer = styled(FlexDiv)`
+  flex-direction: column;
+  padding-bottom: 24px;
 `;
 
 export const ProjectsSection = styled(FlexDiv)`
   align-items: center;
-
   padding-bottom: 24px;
 `;
 
@@ -212,6 +223,10 @@ export const StyledImageWrapper = styled.div`
 
   width: 100%;
   height: 180px;
+
+  /* min-width: 200px;
+  max-width: 100%; */
+
   border-radius: 12px;
 
   overflow: hidden;
