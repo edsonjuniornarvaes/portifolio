@@ -14,19 +14,22 @@ export const HamburgerButton = styled(FlexButton)`
   justify-content: center;
 
   padding: 8px;
-
   border: none;
+
   background: transparent;
 
   cursor: pointer;
 
   @media (max-width: 868px) {
-    display: contents;
-    z-index: 1;
+    z-index: 2;
+
+    display: flex;
   }
 `;
 
-export const MobileMenu = styled(FlexDiv)`
+export const MobileMenu = styled.div`
+  z-index: 1;
+
   display: none;
   flex-direction: column;
   align-items: center;
@@ -36,31 +39,41 @@ export const MobileMenu = styled(FlexDiv)`
 
   background-color: #171717;
 
-  @media (max-width: 868px) {
-    top: 0;
-    position: absolute;
-  }
-
   a {
     margin: 8px 0;
+
     color: #fff;
     text-decoration: none;
   }
+
+  @media (max-width: 868px) {
+    display: flex;
+    position: absolute;
+
+    top: 80px;
+    left: 0;
+  }
 `;
+
 export const NavBar = styled(FlexDiv)`
-  flex-direction: column;
+  z-index: 3;
+
+  flex-direction: row;
+  position: relative;
   align-items: center;
   justify-content: center;
 
+  top: 0;
+  left: 0;
+
   width: 100%;
   height: 80px;
-
-  background-color: #171717;
   padding: 0 16px;
 
+  background-color: #171717;
+
   @media (max-width: 868px) {
-    align-items: start;
-    justify-content: center;
+    justify-content: space-between;
   }
 `;
 
@@ -71,7 +84,6 @@ export const NavbarContent = styled(FlexDiv)`
   gap: 24px;
   width: 100%;
   max-width: 800px;
-  left: 0;
 
   @media (max-width: 868px) {
     display: none;
@@ -85,13 +97,11 @@ export const NavbarTitle = styled(FlexDiv)`
 
   margin: 0 4px;
   padding: 12px;
-
   border-radius: 4px;
 
   color: #fff;
 
   &:hover {
-    padding: 12px;
     background-color: #32312e;
   }
 
@@ -101,15 +111,16 @@ export const NavbarTitle = styled(FlexDiv)`
 `;
 
 export const Container = styled(FlexDiv)`
-  align-items: flex-start;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 
-  width: 100vw;
-  height: calc(100vh - 80px);
-  padding: 60px 0 24px 0;
+  width: 100%;
+  min-height: calc(100vh - 160px);
+  padding: 40px 16px;
 
   @media (max-width: 868px) {
-    padding: 40px;
+    padding: 40px 16px;
   }
 `;
 
@@ -119,8 +130,23 @@ export const Content = styled.div`
 
   width: 100%;
   max-width: 800px;
-
   border-radius: 12px;
+`;
+
+export const Footer = styled.footer`
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 80px;
+
+  color: #fff;
+  background-color: #171717;
 `;
 
 export const Title = styled.text`
@@ -130,7 +156,6 @@ export const Title = styled.text`
 
 export const TitleContainer = styled(FlexDiv)`
   flex-direction: column;
-
   padding-bottom: 12px;
 `;
 
@@ -155,14 +180,12 @@ export const ContentDescription = styled.text`
 
 export const QuickAccess = styled(FlexDiv)`
   align-items: center;
-
   padding: 48px 0;
 `;
 
 export const QuickAccessButton = styled(FlexButton)`
   padding: 12px;
-  margin: 0 4px;
-
+  margin-right: 8px;
   border: #fff;
   border-radius: 24px;
 
@@ -173,28 +196,28 @@ export const QuickAccessButton = styled(FlexButton)`
 `;
 
 export const ProjectsContent = styled(FlexDiv)`
-  display: flex; /* Ensure flexbox for horizontal arrangement */
-  flex-wrap: wrap; /* Allow items to wrap if needed */
-  justify-content: space-between; /* Distribute items evenly */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
-  width: 100%; /* Ensure full width */
-  gap: 12px; /* Add spacing between cards */
+  width: 100%;
+  gap: 12px;
 `;
 
 export const ProjectsCard = styled(FlexDiv)`
-  flex: 1 0 calc(48% - 6px); /* Set width to 48% minus half of gap */
+  flex: 1 0 calc(48% - 6px);
   flex-direction: column;
   position: relative;
 
-  min-width: 200px; /* Maintain minimum width for smaller screens */
-  max-width: 100%; /* Allow full width if space permits */
+  min-width: 200px;
+  max-width: 100%;
   text-decoration: none;
 
   cursor: pointer;
 
   @media (max-width: 868px) {
-    flex: 1 1 auto; /* Reset width for single-column layout */
-    width: 100%; /* Ensure full width on smaller screens */
+    flex: 1 1 auto;
+    width: 100%;
   }
 `;
 
@@ -205,11 +228,13 @@ export const StyledLink = styled.a`
 
 export const ProjectsContainer = styled(FlexDiv)`
   flex-direction: column;
+
   padding-bottom: 24px;
 `;
 
 export const ProjectsSection = styled(FlexDiv)`
   align-items: center;
+
   padding-bottom: 24px;
 `;
 
@@ -224,10 +249,6 @@ export const StyledImageWrapper = styled.div`
 
   width: 100%;
   height: 180px;
-
-  /* min-width: 200px;
-  max-width: 100%; */
-
   border-radius: 12px;
 
   overflow: hidden;
@@ -246,7 +267,6 @@ export const StyledImage = styled.img`
   height: 100%;
 
   object-fit: cover;
-
   transition: transform 0.3s ease-in-out;
 `;
 
@@ -258,17 +278,17 @@ export const Overlay = styled.div`
 
   width: 100%;
   height: 100%;
-
   border-radius: 12px;
-
-  transition: opacity 0.3s ease-in-out;
 
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.4);
+
+  transition: opacity 0.3s ease-in-out;
 `;
 
 export const ProjectsCardContainer = styled(FlexDiv)`
   position: absolute;
+
   bottom: 12px;
   padding-left: 12px;
 `;

@@ -22,23 +22,22 @@ const Navbar = () => {
             <FaBars size={24} color="#fff" />
           )}
         </S.HamburgerButton>
-        {!menuOpen && (
-          <S.NavbarContent className={menuOpen ? "hidden" : ""}>
-            <S.NavbarTitle>
-              <Link href="/home">Home</Link>
-            </S.NavbarTitle>
-            <S.NavbarTitle>
-              <Link href="/projects">Projetos</Link>
-            </S.NavbarTitle>
-            <S.NavbarTitle>
-              <Link href="/about">Sobre</Link>
-            </S.NavbarTitle>
-            <S.NavbarTitle>
-              <Link href="/contact">Contato</Link>
-            </S.NavbarTitle>
-          </S.NavbarContent>
-        )}
+        <S.NavbarContent>
+          <S.NavbarTitle>
+            <Link href="/home">Home</Link>
+          </S.NavbarTitle>
+          <S.NavbarTitle>
+            <Link href="/projects">Projetos</Link>
+          </S.NavbarTitle>
+          <S.NavbarTitle>
+            <Link href="/about">Sobre</Link>
+          </S.NavbarTitle>
+          <S.NavbarTitle>
+            <Link href="/contact">Contato</Link>
+          </S.NavbarTitle>
+        </S.NavbarContent>
       </S.NavBar>
+
       {menuOpen && (
         <S.MobileMenu>
           <S.NavbarTitle>
