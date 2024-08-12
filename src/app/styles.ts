@@ -106,31 +106,8 @@ export const NavbarTitle = styled(FlexDiv)`
   }
 
   @media (max-width: 868px) {
-    padding: 12px 0;
+    padding: 12px;
   }
-`;
-
-export const Container = styled(FlexDiv)`
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  min-height: calc(100vh - 160px);
-  padding: 40px 16px;
-
-  @media (max-width: 868px) {
-    padding: 40px 16px;
-  }
-`;
-
-export const Content = styled.div`
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  max-width: 800px;
-  border-radius: 12px;
 `;
 
 export const Footer = styled.footer`
@@ -301,6 +278,8 @@ export const ProjectsCardText = styled.text`
 `;
 
 export const ResponsiveContainer = styled(FlexDiv)`
+  min-height: calc(100vh - 160px);
+
   @media (max-width: 868px) {
     flex-direction: column;
     align-items: center;

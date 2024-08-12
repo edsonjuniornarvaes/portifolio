@@ -37,7 +37,6 @@ const Navbar = () => {
           </S.NavbarTitle>
         </S.NavbarContent>
       </S.NavBar>
-
       {menuOpen && (
         <S.MobileMenu>
           <S.NavbarTitle>

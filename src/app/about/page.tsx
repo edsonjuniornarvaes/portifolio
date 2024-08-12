@@ -1,12 +1,12 @@
 "use client";
 
-import { Container, Content, ContentDescription } from "../styles";
+import * as S from "../styles";
 
 const About = () => {
   return (
-    <Container>
-      <Content>
-        <ContentDescription>
+    <S.Container>
+      <S.Content>
+        <S.ContentDescription>
           Iniciei minha carreira como desenvolvedor Front-End, trabalhando com
           PHP7, Laravel, Slim e Docker. Me especializei em desenvolvimento Web
           com React.js, Next.js, JavaScript e TypeScript, e participei de um
@@ -16,9 +16,9 @@ const About = () => {
           metodologias ágeis, criando designs no Figma e publicando aplicativos
           nas lojas Google Play e App Store. Também já atuei como Scrum Master
           em projetos mobile.
-        </ContentDescription>
-      </Content>
-    </Container>
+        </S.ContentDescription>
+      </S.Content>
+    </S.Container>
   );
 };
 
