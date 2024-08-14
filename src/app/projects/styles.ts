@@ -102,7 +102,7 @@ export const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.55); /* Overlay mais suave */
+  background-color: rgba(0, 0, 0, 0.55);
   border-radius: 12px;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;

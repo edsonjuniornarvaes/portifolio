@@ -28,7 +28,7 @@ export const HamburgerButton = styled(FlexButton)`
 `;
 
 export const MobileMenu = styled.div`
-  z-index: 1;
+  z-index: 3;
 
   display: none;
   flex-direction: column;
