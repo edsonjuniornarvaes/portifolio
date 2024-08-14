@@ -32,8 +32,7 @@ const Projects = () => {
                       <S.Dot />
                       <S.StatusText>Em Desenvolvimento</S.StatusText>
                     </S.StatusContainer>
-
-                    <S.StyledLink href={project.href} passHref>
+                    <S.StyledLink href={project.href}>
                       <GitHubLightIcon />
                       <S.FooterText> {project.linkTitle}</S.FooterText>
                     </S.StyledLink>
