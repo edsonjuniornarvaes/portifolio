@@ -11,7 +11,7 @@ export const projectData = [
   {
     href: "https://github.com/edsonjuniornarvaes/beachgo",
     imgSrc:
-      "https://github.com/edsonjuniornarvaes/beachgo/blob/main/assets/images/icon.png",
+      "https://raw.githubusercontent.com/edsonjuniornarvaes/beachgo/main/assets/images/icon.png",
     alt: "BeachGo",
     text: "BeachGo",
     description: "Seu delivery de praia na palma da mão.",
