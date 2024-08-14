@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 export const FlexDiv = styled.div`
@@ -13,7 +14,7 @@ export const HamburgerButton = styled(FlexButton)`
   align-items: center;
   justify-content: center;
 
-  padding: 8px;
+  padding: 12px;
   border: none;
 
   background: transparent;
@@ -22,7 +23,6 @@ export const HamburgerButton = styled(FlexButton)`
 
   @media (max-width: 868px) {
     z-index: 2;
-
     display: flex;
   }
 `;
@@ -37,7 +37,7 @@ export const MobileMenu = styled.div`
   width: 100%;
   padding: 16px 0;
 
-  background-color: #171717;
+  background-color: #08080b;
 
   a {
     margin: 8px 0;
@@ -70,7 +70,7 @@ export const NavBar = styled(FlexDiv)`
   height: 80px;
   padding: 0 16px;
 
-  background-color: #171717;
+  background-color: #08080b;
 
   @media (max-width: 868px) {
     justify-content: space-between;
@@ -90,7 +90,10 @@ export const NavbarContent = styled(FlexDiv)`
   }
 `;
 
-export const NavbarTitle = styled(FlexDiv)`
+export const LinkContent = styled(Link)`
+  align-items: center;
+  justify-content: center;
+
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -102,28 +105,16 @@ export const NavbarTitle = styled(FlexDiv)`
   color: #fff;
 
   &:hover {
-    background-color: #32312e;
+    background-color: #14141a;
   }
 
   @media (max-width: 868px) {
-    padding: 12px;
+    &:hover {
+      text-align: center;
+
+      width: 150px;
+    }
   }
-`;
-
-export const Footer = styled.footer`
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  bottom: 0;
-  left: 0;
-
-  width: 100%;
-  height: 80px;
-
-  color: #fff;
-  background-color: #171717;
 `;
 
 export const Title = styled.text`
@@ -155,9 +146,30 @@ export const ContentDescription = styled.text`
   font-size: 1.125rem;
 `;
 
+export const ProjectsSectionTitle = styled.text`
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.75rem;
+`;
+
+export const QuickAccessSection = styled(FlexDiv)`
+  flex-direction: column;
+
+  padding: 48px 0;
+
+  border-bottom: 1px solid #14141a;
+`;
+
+export const QuickAccessSectionTitle = styled.text`
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.75rem;
+
+  padding-bottom: 24px;
+`;
+
 export const QuickAccess = styled(FlexDiv)`
   align-items: center;
-  padding: 48px 0;
 `;
 
 export const QuickAccessButton = styled(FlexButton)`
@@ -166,10 +178,15 @@ export const QuickAccessButton = styled(FlexButton)`
   border: #fff;
   border-radius: 24px;
 
+  cursor: pointer;
+
   &:hover {
-    color: #fff;
-    background-color: #32312e;
+    background-color: #f1f1f1;
   }
+`;
+
+export const SocialText = styled.text`
+  padding-left: 8px;
 `;
 
 export const ProjectsContent = styled(FlexDiv)`
@@ -189,8 +206,6 @@ export const ProjectsCard = styled(FlexDiv)`
   min-width: 200px;
   max-width: 100%;
   text-decoration: none;
-
-  cursor: pointer;
 
   @media (max-width: 868px) {
     flex: 1 1 auto;
@@ -213,12 +228,6 @@ export const ProjectsSection = styled(FlexDiv)`
   align-items: center;
 
   padding-bottom: 24px;
-`;
-
-export const ProjectsSectionTitle = styled.text`
-  font-size: 1.125rem;
-  font-weight: 700;
-  line-height: 1.75rem;
 `;
 
 export const StyledImageWrapper = styled.div`
@@ -245,6 +254,8 @@ export const StyledImage = styled.img`
 
   object-fit: cover;
   transition: transform 0.3s ease-in-out;
+
+  opacity: 0.8;
 `;
 
 export const Overlay = styled.div`

@@ -4,6 +4,9 @@ import Link from "next/link";
 import * as S from "../styles";
 import { projectData } from "./helper";
 import Container from "../components/container";
+import GitHubDarkIcon from "@/assets/icons/social/github-dark";
+import LinkedInIcon from "@/assets/icons/social/linkedin";
+import DevtoIcon from "@/assets/icons/social/devto";
 
 export default function Home() {
   return (
@@ -16,22 +19,40 @@ export default function Home() {
         <S.DescriptionDiv>
           <S.ContentDescription>Unindo criação e código.</S.ContentDescription>
         </S.DescriptionDiv>
-        <S.QuickAccess>
-          <S.QuickAccessButton
-            onClick={() =>
-              window.open("https://github.com/edsonjuniornarvaes", "_blank")
-            }
-          >
-            Me acompanhe no GitHub
-          </S.QuickAccessButton>
-          <S.QuickAccessButton
-            onClick={() =>
-              window.open("https://dev.to/edsonjuniornarvaes", "_blank")
-            }
-          >
-            Me acompanhe no Dev.to
-          </S.QuickAccessButton>
-        </S.QuickAccess>
+        <S.ProjectsContainer>
+          <S.QuickAccessSection>
+            <S.QuickAccessSectionTitle>ME ACOMPANHE</S.QuickAccessSectionTitle>
+            <S.QuickAccess>
+              <S.QuickAccessButton
+                onClick={() =>
+                  window.open("https://github.com/edsonjuniornarvaes", "_blank")
+                }
+              >
+                <GitHubDarkIcon />
+                <S.SocialText>GitHub</S.SocialText>
+              </S.QuickAccessButton>
+              <S.QuickAccessButton
+                onClick={() =>
+                  window.open("https://dev.to/edsonjuniornarvaes", "_blank")
+                }
+              >
+                <DevtoIcon />
+                <S.SocialText>Dev.to</S.SocialText>
+              </S.QuickAccessButton>
+              <S.QuickAccessButton
+                onClick={() =>
+                  window.open(
+                    "https://linkedin.com/in/edsonjuniornarvaes",
+                    "_blank"
+                  )
+                }
+              >
+                <LinkedInIcon />
+                <S.SocialText>LinkedIn</S.SocialText>
+              </S.QuickAccessButton>
+            </S.QuickAccess>
+          </S.QuickAccessSection>
+        </S.ProjectsContainer>
         <S.ProjectsContainer>
           <S.ProjectsSection>
             <S.ProjectsSectionTitle>ÚLTIMOS DROPS</S.ProjectsSectionTitle>

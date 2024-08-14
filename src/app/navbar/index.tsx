@@ -1,16 +1,21 @@
 "use client";
 
-import Link from "next/link";
 import * as S from "../styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -23,34 +28,16 @@ const Navbar = () => {
           )}
         </S.HamburgerButton>
         <S.NavbarContent>
-          <S.NavbarTitle>
-            <Link href="/home">Home</Link>
-          </S.NavbarTitle>
-          <S.NavbarTitle>
-            <Link href="/projects">Projetos</Link>
-          </S.NavbarTitle>
-          <S.NavbarTitle>
-            <Link href="/about">Sobre</Link>
-          </S.NavbarTitle>
-          <S.NavbarTitle>
-            <Link href="/contact">Contato</Link>
-          </S.NavbarTitle>
+          <S.LinkContent href="/home">Home</S.LinkContent>
+          <S.LinkContent href="/projects">Projetos</S.LinkContent>
+          <S.LinkContent href="/about">Sobre</S.LinkContent>
         </S.NavbarContent>
       </S.NavBar>
       {menuOpen && (
         <S.MobileMenu>
-          <S.NavbarTitle>
-            <Link href="/home">Home</Link>
-          </S.NavbarTitle>
-          <S.NavbarTitle>
-            <Link href="/projects">Projetos</Link>
-          </S.NavbarTitle>
-          <S.NavbarTitle>
-            <Link href="/about">Sobre</Link>
-          </S.NavbarTitle>
-          <S.NavbarTitle>
-            <Link href="/contact">Contato</Link>
-          </S.NavbarTitle>
+          <S.LinkContent href="/home">Home</S.LinkContent>
+          <S.LinkContent href="/projects">Projetos</S.LinkContent>
+          <S.LinkContent href="/about">Sobre</S.LinkContent>
         </S.MobileMenu>
       )}
     </>

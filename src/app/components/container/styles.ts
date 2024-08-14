@@ -7,7 +7,6 @@ export const Container = styled(FlexDiv)`
   align-items: center;
 
   width: 100%;
-  /* min-height: calc(100vh - 160px); */
   padding: 48px;
 `;
 

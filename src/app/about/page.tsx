@@ -6,6 +6,9 @@ import * as S from "../styles";
 const About = () => {
   return (
     <Container>
+      <S.ProjectsSection>
+        <S.ProjectsSectionTitle>Sobre</S.ProjectsSectionTitle>
+      </S.ProjectsSection>
       <S.ContentDescription>
         Iniciei minha carreira como desenvolvedor Front-End, trabalhando com
         PHP7, Laravel, Slim e Docker. Me especializei em desenvolvimento Web com
