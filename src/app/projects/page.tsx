@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import * as S from "./styles";
 import { projectData } from "./helper";
 import Container from "../components/container";

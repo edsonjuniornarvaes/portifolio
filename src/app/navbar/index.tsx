@@ -19,25 +19,37 @@ const Navbar = () => {
 
   return (
     <>
-      <S.NavBar>
-        <S.HamburgerButton onClick={toggleMenu}>
+      <S.NavBar className="navbar">
+        <S.HamburgerButton className="hamburger-button" onClick={toggleMenu}>
           {menuOpen ? (
-            <FaTimes size={24} color="#fff" />
+            <FaTimes className="hamburger-icon" size={24} color="#fff" />
           ) : (
-            <FaBars size={24} color="#fff" />
+            <FaBars className="hamburger-icon" size={24} color="#fff" />
           )}
         </S.HamburgerButton>
         <S.NavbarContent>
-          <S.LinkContent href="/home">Home</S.LinkContent>
-          <S.LinkContent href="/projects">Projetos</S.LinkContent>
-          <S.LinkContent href="/about">Sobre</S.LinkContent>
+          <S.LinkContent className="navbar-link" href="/home">
+            Home
+          </S.LinkContent>
+          <S.LinkContent className="navbar-link" href="/projects">
+            Projetos
+          </S.LinkContent>
+          <S.LinkContent className="navbar-link" href="/about">
+            Sobre
+          </S.LinkContent>
         </S.NavbarContent>
       </S.NavBar>
       {menuOpen && (
         <S.MobileMenu>
-          <S.LinkContent href="/home">Home</S.LinkContent>
-          <S.LinkContent href="/projects">Projetos</S.LinkContent>
-          <S.LinkContent href="/about">Sobre</S.LinkContent>
+          <S.LinkContent className="navbar-link" href="/home">
+            Home
+          </S.LinkContent>
+          <S.LinkContent className="navbar-link" href="/projects">
+            Projetos
+          </S.LinkContent>
+          <S.LinkContent className="navbar-link" href="/about">
+            Sobre
+          </S.LinkContent>
         </S.MobileMenu>
       )}
     </>

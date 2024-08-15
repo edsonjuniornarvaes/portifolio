@@ -98,13 +98,17 @@ export const StyledImage = styled.img`
 
 export const Overlay = styled.div`
   position: absolute;
+
   top: 0;
   left: 0;
+
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.55);
   border-radius: 12px;
+
   opacity: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+
   transition: opacity 0.3s ease-in-out;
 `;
 
