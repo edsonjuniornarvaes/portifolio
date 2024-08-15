@@ -126,11 +126,13 @@ export const OverlayContent = styled(FlexDiv)`
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out,
     box-shadow 0.3s ease-in-out;
   transform: translateY(20px);
+  z-index: 2;
 `;
 
 export const OverlayText = styled.text`
   flex: 1;
   text-align: center;
+  color: inherit;
 `;
 
 export const OverlayFooter = styled(FlexDiv)`
@@ -151,6 +153,7 @@ export const StatusContainer = styled(FlexDiv)`
 
 export const StatusText = styled.text`
   padding-left: 8px;
+  color: inherit;
   @media (max-width: 868px) {
     flex-direction: column;
     align-items: center;

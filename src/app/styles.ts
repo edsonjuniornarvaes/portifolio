@@ -72,7 +72,7 @@ export const QuickAccessButton = styled(FlexButton)`
 
 export const SocialText = styled.text`
   padding-left: 8px;
-  color: inherit;
+  color: inherit !important;
   text-decoration: none;
   &:visited {
     color: inherit;
