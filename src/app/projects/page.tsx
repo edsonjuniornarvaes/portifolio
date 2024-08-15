@@ -5,6 +5,7 @@ import { projectData } from "./helper";
 import Container from "../components/container";
 import { useEffect, useState } from "react";
 import GitHubLightIcon from "@/assets/icons/social/github-light";
+import PageTitle from "../components/title";
 
 const Projects = () => {
   const [isReady, setIsReady] = useState(false);
@@ -17,6 +18,7 @@ const Projects = () => {
 
   return (
     <Container>
+      <PageTitle title="Projetos" />
       <S.ProjectsContainer>
         <S.ProjectsContent>
           {projectData.map((project, index) => (

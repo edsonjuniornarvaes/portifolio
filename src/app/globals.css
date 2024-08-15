@@ -43,6 +43,10 @@
 }
 
 @media (prefers-color-scheme: light) {
+  text {
+    color: #363a40;
+  }
+
   button {
     border: 1px solid #030307;
     background-color: #f1f1f1;
@@ -53,7 +57,7 @@
   }
 
   .navbar-menu-link {
-    color: inherit !important;
+    color: #363a40 !important;
   }
 
   .navbar-menu-link:hover {

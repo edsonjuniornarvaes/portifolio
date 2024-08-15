@@ -1,14 +1,13 @@
 "use client";
 
 import Container from "../components/container";
+import PageTitle from "../components/title";
 import * as S from "../styles";
 
 const About = () => {
   return (
     <Container>
-      <S.CategorySection>
-        <S.CategorySectionTitle>Sobre</S.CategorySectionTitle>
-      </S.CategorySection>
+      <PageTitle title="Sobre" />
       <S.ContentDescription>
         Iniciei minha carreira como desenvolvedor Front-End, trabalhando com
         PHP7, Laravel, Slim e Docker. Me especializei em desenvolvimento Web com
