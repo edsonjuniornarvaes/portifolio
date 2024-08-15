@@ -126,7 +126,6 @@ export const OverlayContent = styled(FlexDiv)`
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out,
     box-shadow 0.3s ease-in-out;
   transform: translateY(20px);
-  z-index: 2;
 `;
 
 export const OverlayText = styled.text`
