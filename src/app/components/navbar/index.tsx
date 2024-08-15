@@ -1,6 +1,6 @@
 "use client";
 
-import * as S from "../styles";
+import * as S from "./styles";
 import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { usePathname } from "next/navigation";
@@ -28,28 +28,28 @@ const Navbar = () => {
           )}
         </S.HamburgerButton>
         <S.NavbarContent>
-          <S.LinkContent className="navbar-link" href="/home">
+          <S.NavbarLink className="navbar-menu-link" href="/home">
             Home
-          </S.LinkContent>
-          <S.LinkContent className="navbar-link" href="/projects">
+          </S.NavbarLink>
+          <S.NavbarLink className="navbar-menu-link" href="/projects">
             Projetos
-          </S.LinkContent>
-          <S.LinkContent className="navbar-link" href="/about">
+          </S.NavbarLink>
+          <S.NavbarLink className="navbar-menu-link" href="/about">
             Sobre
-          </S.LinkContent>
+          </S.NavbarLink>
         </S.NavbarContent>
       </S.NavBar>
       {menuOpen && (
-        <S.MobileMenu>
-          <S.LinkContent className="navbar-link" href="/home">
+        <S.MobileMenu className="navbar-menu">
+          <S.NavbarLink className="navbar-menu-link" href="/home">
             Home
-          </S.LinkContent>
-          <S.LinkContent className="navbar-link" href="/projects">
+          </S.NavbarLink>
+          <S.NavbarLink className="navbar-menu-link" href="/projects">
             Projetos
-          </S.LinkContent>
-          <S.LinkContent className="navbar-link" href="/about">
+          </S.NavbarLink>
+          <S.NavbarLink className="navbar-menu-link" href="/about">
             Sobre
-          </S.LinkContent>
+          </S.NavbarLink>
         </S.MobileMenu>
       )}
     </>

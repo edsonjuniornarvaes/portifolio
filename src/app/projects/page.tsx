@@ -37,7 +37,6 @@ const Projects = () => {
                     </S.StyledLink>
                   </S.OverlayFooter>
                 </S.OverlayContent>
-
                 <S.ProjectsCardContainer>
                   <S.ProjectsCardTitle className="projects-card-title">
                     {project.text}

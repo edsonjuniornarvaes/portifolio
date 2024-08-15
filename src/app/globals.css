@@ -52,11 +52,11 @@
     background-color: #dadada !important;
   }
 
-  .navbar-link {
+  .navbar-menu-link {
     color: inherit !important;
   }
 
-  .navbar-link:hover {
+  .navbar-menu-link:hover {
     background-color: #f1f1f1 !important;
   }
 
@@ -78,6 +78,16 @@
   }
 
   div.navbar {
+    background-color: transparent;
+    border-bottom: 1px solid #dadada;
+  }
+
+  div.navbar-menu {
+    background-color: #fff;
+    border-bottom: 1px solid #dadada;
+  }
+
+  div.navbar-menu-link {
     background-color: transparent;
     border-bottom: 1px solid #dadada;
   }

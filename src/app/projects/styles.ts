@@ -2,7 +2,6 @@ import styled, { keyframes } from "styled-components";
 import { FlexDiv } from "../styles";
 
 export const ProjectsContent = styled(FlexDiv)`
-  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 
@@ -56,7 +55,6 @@ export const ProjectsCardContainer = styled(FlexDiv)`
   z-index: 1;
   color: #fff;
   width: 100%;
-  display: flex;
   justify-content: space-between;
 `;
 
@@ -112,17 +110,16 @@ export const Overlay = styled.div`
   transition: opacity 0.3s ease-in-out;
 `;
 
-export const OverlayContent = styled.div`
+export const OverlayContent = styled(FlexDiv)`
   position: absolute;
   top: 2px;
   left: 2px;
   right: 2px;
   bottom: 2px;
-  background: rgba(24, 24, 27, 0.95); /* Fundo escuro para tema dark */
+  background: rgba(24, 24, 27, 0.95);
   border-radius: 12px;
-  color: #e4e4e7; /* Texto claro para contraste */
+  color: #e4e4e7;
   padding: 16px;
-  display: flex;
   flex-direction: column;
   align-items: center;
   opacity: 0;
@@ -140,9 +137,7 @@ export const OverlayText = styled.text`
 export const OverlayFooter = styled(FlexDiv)`
   align-items: center;
   justify-content: space-between;
-
   width: 100%;
-
   @media (max-width: 868px) {
     flex-direction: column;
   }
@@ -150,7 +145,6 @@ export const OverlayFooter = styled(FlexDiv)`
 
 export const StatusContainer = styled(FlexDiv)`
   align-items: center;
-
   @media (max-width: 868px) {
     padding-bottom: 12px;
   }
@@ -158,7 +152,6 @@ export const StatusContainer = styled(FlexDiv)`
 
 export const StatusText = styled.text`
   padding-left: 8px;
-
   @media (max-width: 868px) {
     flex-direction: column;
     align-items: center;
@@ -168,11 +161,9 @@ export const StatusText = styled.text`
 export const StyledLink = styled.a`
   display: flex;
   flex-direction: row;
-
   align-items: center;
   justify-content: center;
-  color: #e4e4e7; /* Cor do link no tema dark */
-
+  color: #e4e4e7;
   &:hover {
     color: #dadada;
   }
@@ -181,12 +172,10 @@ export const StyledLink = styled.a`
 export const FooterText = styled.text`
   font-size: 14px;
   align-items: center;
-  color: #e4e4e7; /* Cor do texto de rodapé no tema dark */
-
+  color: #e4e4e7;
   padding-left: 8px;
-
   a {
-    color: #e4e4e7; /* Cor do link no tema dark */
+    color: #e4e4e7;
     text-decoration: none;
   }
 `;
@@ -196,7 +185,7 @@ const pulseBorder = keyframes`
     box-shadow: 0 0 0 0 rgb(34 197 94 / var(--tw-bg-opacity));
   }
   70% {
-    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0); /* Pulso menor */
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
@@ -207,7 +196,7 @@ export const Dot = styled.div`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: rgb(34 197 94 / var(--tw-bg-opacity)); /* Cor da bolinha */
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
   position: relative;
 
   &:before {

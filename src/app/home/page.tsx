@@ -19,7 +19,7 @@ export default function Home() {
         <S.DescriptionDiv>
           <S.ContentDescription>Unindo criação e código.</S.ContentDescription>
         </S.DescriptionDiv>
-        <S.ProjectsContainer>
+        <S.CategorySection>
           <S.QuickAccessSection className="quick-access-section">
             <S.QuickAccessSectionTitle>ME ACOMPANHE</S.QuickAccessSectionTitle>
             <S.QuickAccess>
@@ -52,27 +52,27 @@ export default function Home() {
               </S.QuickAccessButton>
             </S.QuickAccess>
           </S.QuickAccessSection>
-        </S.ProjectsContainer>
-        <S.ProjectsContainer>
-          <S.ProjectsSection>
-            <S.ProjectsSectionTitle>ÚLTIMOS DROPS</S.ProjectsSectionTitle>
-          </S.ProjectsSection>
-          <S.ProjectsContent>
+        </S.CategorySection>
+        <S.CategorySection>
+          <S.CategorySection>
+            <S.CategorySectionTitle>ÚLTIMOS DROPS</S.CategorySectionTitle>
+          </S.CategorySection>
+          <S.CategoryContent>
             {projectData.map((project, index) => (
-              <S.ProjectsCard key={index}>
+              <S.CategoryCard key={index}>
                 <Link href={project.href} passHref>
                   <S.StyledImageWrapper>
                     <S.StyledImage src={project.imgSrc} alt={project.alt} />
                     <S.Overlay />
                   </S.StyledImageWrapper>
-                  <S.ProjectsCardContainer>
-                    <S.ProjectsCardText>{project.text}</S.ProjectsCardText>
-                  </S.ProjectsCardContainer>
+                  <S.CategoryCardContainer>
+                    <S.CategoryCardText>{project.text}</S.CategoryCardText>
+                  </S.CategoryCardContainer>
                 </Link>
-              </S.ProjectsCard>
+              </S.CategoryCard>
             ))}
-          </S.ProjectsContent>
-        </S.ProjectsContainer>
+          </S.CategoryContent>
+        </S.CategorySection>
       </Container>
     </S.ResponsiveContainer>
   );
