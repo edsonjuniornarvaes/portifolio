@@ -70,8 +70,8 @@ export const NavbarLink = styled(Link)`
   align-items: center;
   justify-content: center;
   font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
   margin: 0 4px;
   padding: 12px;
   border-radius: 4px;

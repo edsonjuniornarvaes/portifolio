@@ -42,19 +42,14 @@ export const ContentDescription = styled.text`
   margin-bottom: 12px;
 `;
 
-export const ParagraphPadding = styled.text`
-  font-weight: 300;
-  font-size: 1.125rem;
-
-  margin-top: 12px;
-`;
-
 export const CategorySection = styled.div`
   align-items: center;
   padding-bottom: 24px;
 `;
 
-export const Paragraph = styled.div``;
+export const Paragraph = styled.text`
+  font-weight: 300;
+`;
 
 export const SubtitleCategorySection = styled(FlexDiv)``;
 
@@ -71,13 +66,16 @@ export const CategorySectionSubtitle = styled.text`
 `;
 
 export const LegendContainer = styled(FlexDiv)`
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding-bottom: 8px;
 `;
 
 export const LegendText = styled.text`
   font-weight: 200;
-  font-size: 1.125rem;
-  padding-left: 8px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 `;
 
 export const SectionPadding = styled.div`
