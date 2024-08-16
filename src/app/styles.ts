@@ -31,15 +31,58 @@ export const DescriptionDiv = styled(FlexDiv)`
   padding: 12px 0;
 `;
 
+export const ContentContainer = styled(FlexDiv)`
+  margin-top: 24px;
+`;
+
 export const ContentDescription = styled.text`
   font-weight: 200;
   font-size: 1.125rem;
+
+  margin-bottom: 12px;
 `;
+
+export const ParagraphPadding = styled.text`
+  font-weight: 200;
+  font-size: 1.125rem;
+
+  margin-top: 12px;
+`;
+
+export const CategorySection = styled.div`
+  align-items: center;
+  padding-bottom: 24px;
+`;
+
+export const Paragraph = styled.div``;
+
+export const SubtitleCategorySection = styled(FlexDiv)``;
 
 export const CategorySectionTitle = styled.text`
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.75rem;
+`;
+
+export const CategorySectionSubtitle = styled.text`
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.75rem;
+`;
+
+export const LegendContainer = styled(FlexDiv)`
+  align-items: center;
+`;
+
+export const LegendText = styled.text`
+  font-weight: 200;
+  font-size: 1.125rem;
+  padding-left: 8px;
+`;
+
+export const SectionPadding = styled.div`
+  align-items: center;
+  padding-bottom: 48px;
 `;
 
 export const QuickAccessSection = styled(FlexDiv)`
@@ -112,11 +155,6 @@ export const StyledLink = styled.a`
   color: inherit;
 `;
 
-export const CategorySection = styled.div`
-  align-items: center;
-  padding-bottom: 24px;
-`;
-
 export const StyledImageWrapper = styled.div`
   position: relative;
   width: 100%;
@@ -169,4 +207,9 @@ export const ResponsiveContainer = styled(FlexDiv)`
     flex-direction: column;
     align-items: center;
   }
+`;
+
+export const Separator = styled.div`
+  margin: 24px 0;
+  border-bottom: 1px solid #14141a;
 `;

@@ -4,7 +4,6 @@ import { FlexDiv } from "../styles";
 export const ProjectsContent = styled(FlexDiv)`
   flex-wrap: wrap;
   justify-content: space-between;
-
   width: 100%;
   gap: 12px;
 `;
@@ -13,18 +12,14 @@ export const ProjectsCard = styled(FlexDiv)`
   flex: 1 0 calc(48% - 6px);
   flex-direction: column;
   position: relative;
-
   min-width: 200px;
   max-width: 50%;
   text-decoration: none;
-
   overflow: hidden;
-
   @media (max-width: 868px) {
     flex: 1 1 auto;
     max-width: 100%;
   }
-
   &:hover .projects-card-title {
     opacity: 0;
   }
@@ -32,13 +27,11 @@ export const ProjectsCard = styled(FlexDiv)`
 
 export const ProjectsContainer = styled(FlexDiv)`
   flex-direction: column;
-
   padding-bottom: 24px;
 `;
 
 export const ProjectsSection = styled(FlexDiv)`
   align-items: center;
-
   padding-bottom: 24px;
 `;
 
@@ -71,17 +64,14 @@ export const StyledImageWrapper = styled.div`
   height: 180px;
   border-radius: 12px;
   overflow: hidden;
-
   &:hover img {
     transform: scale(1.05);
   }
-
   &:hover .overlay-content {
     opacity: 1;
     transform: translateY(0);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
-
   &:hover .projects-card-title {
     opacity: 0;
   }
@@ -96,14 +86,11 @@ export const StyledImage = styled.img`
 
 export const Overlay = styled.div`
   position: absolute;
-
   top: 0;
   left: 0;
-
   width: 100%;
   height: 100%;
   border-radius: 12px;
-
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.4);
 
@@ -140,13 +127,16 @@ export const OverlayFooter = styled(FlexDiv)`
   justify-content: space-between;
   width: 100%;
   @media (max-width: 868px) {
+    align-items: center;
+  }
+  @media (max-width: 468px) {
     flex-direction: column;
   }
 `;
 
 export const StatusContainer = styled(FlexDiv)`
   align-items: center;
-  @media (max-width: 868px) {
+  @media (max-width: 468px) {
     padding-bottom: 12px;
   }
 `;
@@ -155,8 +145,10 @@ export const StatusText = styled.text`
   padding-left: 8px;
   color: inherit;
   @media (max-width: 868px) {
-    flex-direction: column;
     align-items: center;
+  }
+  @media (max-width: 468px) {
+    flex-direction: column;
   }
 `;
 

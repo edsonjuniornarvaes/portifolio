@@ -82,7 +82,7 @@ export const NavbarLink = styled(Link)`
   @media (max-width: 868px) {
     &:hover {
       text-align: center;
-      width: 150px;
+      width: 90%;
     }
   }
 `;
