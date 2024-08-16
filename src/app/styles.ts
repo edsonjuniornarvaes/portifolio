@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const FlexDiv = styled.div`
   display: flex;
@@ -8,22 +8,19 @@ export const FlexButton = styled.button`
   display: flex;
 `;
 
-export const Title = styled.text`
-  font-weight: 600;
-  font-size: 2.25rem;
-`;
-
 export const TitleContainer = styled(FlexDiv)`
   flex-direction: column;
   padding-bottom: 12px;
 `;
 
-export const ContentTitle = styled(Title)`
+export const ContentTitle = styled.text`
   font-weight: 700;
+  font-size: 2.25rem;
 `;
 
-export const ContentSubtitle = styled(Title)`
+export const ContentSubtitle = styled.text`
   font-weight: 700;
+  font-size: 2.25rem;
   margin-top: 12px;
 `;
 
@@ -31,14 +28,9 @@ export const DescriptionDiv = styled(FlexDiv)`
   padding: 12px 0;
 `;
 
-export const ContentContainer = styled(FlexDiv)`
-  margin-top: 24px;
-`;
-
 export const ContentDescription = styled.text`
   font-weight: 200;
   font-size: 1.125rem;
-
   margin-bottom: 12px;
 `;
 
@@ -47,40 +39,10 @@ export const CategorySection = styled.div`
   padding-bottom: 24px;
 `;
 
-export const Paragraph = styled.text`
-  font-weight: 300;
-`;
-
-export const SubtitleCategorySection = styled(FlexDiv)``;
-
 export const CategorySectionTitle = styled.text`
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.75rem;
-`;
-
-export const CategorySectionSubtitle = styled.text`
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.75rem;
-`;
-
-export const LegendContainer = styled(FlexDiv)`
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
-  padding-bottom: 8px;
-`;
-
-export const LegendText = styled.text`
-  font-weight: 200;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-`;
-
-export const SectionPadding = styled.div`
-  align-items: center;
-  padding-bottom: 48px;
 `;
 
 export const QuickAccessSection = styled(FlexDiv)`
@@ -115,15 +77,6 @@ export const SocialText = styled.text`
   padding-left: 8px;
   color: inherit !important;
   text-decoration: none;
-  &:visited {
-    color: inherit;
-  }
-  &:hover {
-    color: inherit;
-  }
-  &:active {
-    color: inherit;
-  }
 `;
 
 export const CategoryContent = styled(FlexDiv)`
@@ -131,6 +84,7 @@ export const CategoryContent = styled(FlexDiv)`
   justify-content: space-between;
   width: 100%;
   gap: 12px;
+  padding-top: 24px;
 `;
 
 export const CategoryCard = styled(FlexDiv)`
@@ -146,11 +100,6 @@ export const CategoryCard = styled(FlexDiv)`
     flex: 1 1 auto;
     width: 100%;
   }
-`;
-
-export const StyledLink = styled.a`
-  text-decoration: none;
-  color: inherit;
 `;
 
 export const StyledImageWrapper = styled.div`
@@ -210,4 +159,33 @@ export const ResponsiveContainer = styled(FlexDiv)`
 export const Separator = styled.div`
   margin: 24px 0;
   border-bottom: 1px solid #14141a;
+`;
+
+const FlexColumn = styled(FlexDiv)`
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+`;
+
+export const Paragraph = styled.p`
+  font-weight: 300;
+  margin-bottom: 24px;
+`;
+
+export const LegendContainer = styled(FlexColumn)`
+  padding-bottom: 8px;
+`;
+
+export const LegendText = styled.span`
+  font-weight: 200;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+`;
+
+export const SubtitleCategorySection = styled(FlexDiv)``;
+
+export const CategorySectionSubtitle = styled.span`
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.75rem;
 `;

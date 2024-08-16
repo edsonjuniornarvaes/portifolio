@@ -3,7 +3,7 @@
 import Link from "next/link";
 import * as S from "../styles";
 import { projectData } from "./helper";
-import Container from "../components//container";
+import Container from "../components/container";
 import GitHubDarkIcon from "@/assets/icons/social/github-dark";
 import LinkedInIcon from "@/assets/icons/social/linkedin";
 import DevtoIcon from "@/assets/icons/social/devto";
@@ -54,9 +54,7 @@ export default function Home() {
           </S.QuickAccessSection>
         </S.CategorySection>
         <S.CategorySection>
-          <S.CategorySection>
-            <S.CategorySectionTitle>ATIVIDADES</S.CategorySectionTitle>
-          </S.CategorySection>
+          <S.CategorySectionTitle>INSIGHTS</S.CategorySectionTitle>
           <S.CategoryContent>
             {projectData.map((project, index) => (
               <S.CategoryCard key={index}>
