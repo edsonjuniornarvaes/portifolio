@@ -43,7 +43,7 @@ export const ContentDescription = styled.text`
 `;
 
 export const ParagraphPadding = styled.text`
-  font-weight: 200;
+  font-weight: 300;
   font-size: 1.125rem;
 
   margin-top: 12px;

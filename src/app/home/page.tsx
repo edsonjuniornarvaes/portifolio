@@ -20,7 +20,7 @@ export default function Home() {
           <S.ContentDescription>Unindo criação e código.</S.ContentDescription>
         </S.DescriptionDiv>
         <S.CategorySection>
-          <S.QuickAccessSection className="quick-access-section">
+          <S.QuickAccessSection className="separator">
             <S.QuickAccessSectionTitle>ME ACOMPANHE</S.QuickAccessSectionTitle>
             <S.QuickAccess>
               <S.QuickAccessButton

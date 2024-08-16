@@ -19,7 +19,7 @@ const About = () => {
         criando designs no Figma e publicando aplicativos nas lojas Google Play
         e App Store. Também já atuei como Scrum Master em projetos mobile.
       </S.ParagraphPadding>
-      <S.Separator />
+      <S.Separator className="separator" />
       <S.SectionPadding>
         <PageTitle title="EXPERIÊNCIA" />
         <S.LegendContainer>
@@ -59,7 +59,7 @@ const About = () => {
             investimentos B2B e B2C.
           </S.Paragraph>
         </S.ParagraphPadding>
-        <S.Separator />
+        <S.Separator className="separator" />
         <PageTitle title="FORMAÇÃO" />
         <S.LegendContainer>
           <PageSubtitle subtitle="Graduação em Sistemas:" />
