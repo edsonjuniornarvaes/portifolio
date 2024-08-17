@@ -10,9 +10,9 @@ const About = () => {
   return (
     <Container>
       <PageTitle title="SOBRE" />
-      <S.LegendContainer>
+      <S.ParagraphContainer>
         <PageSubtitle subtitle="Carreira" />
-      </S.LegendContainer>
+      </S.ParagraphContainer>
       <S.Paragraph>
         Iniciei minha carreira como desenvolvedor Front-End, trabalhando com
         PHP7, Laravel, Slim e Docker.
@@ -32,20 +32,21 @@ const About = () => {
       <PageTitle title="EXPERIÊNCIA" />
       {ExperienceData.map((exp, index) => (
         <div key={index}>
-          <S.LegendContainer>
+          <S.ParagraphContainer>
             <PageSubtitle subtitle={exp.company} />
             <S.LegendText>{exp.period}</S.LegendText>
-          </S.LegendContainer>
+          </S.ParagraphContainer>
+          <S.Paragraph>{exp.description}</S.Paragraph>
         </div>
       ))}
       <S.Separator className="separator" />
       <PageTitle title="FORMAÇÃO" />
       {EducationData.map((edu, index) => (
         <div key={index}>
-          <S.LegendContainer>
+          <S.ParagraphContainer>
             <PageSubtitle subtitle={edu.course} />
             <S.LegendText>{edu.period}</S.LegendText>
-          </S.LegendContainer>
+          </S.ParagraphContainer>
           <S.Paragraph>{edu.institution}</S.Paragraph>
         </div>
       ))}

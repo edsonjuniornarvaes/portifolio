@@ -205,3 +205,8 @@ export const Dot = styled.div`
     animation: ${pulseBorder} 1.5s infinite;
   }
 `;
+
+export const ParagraphContainer = styled(FlexDiv)`
+  flex-direction: column;
+  padding: 24px 0;
+`;

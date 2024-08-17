@@ -36,7 +36,6 @@ export const ContentDescription = styled.text`
 
 export const CategorySection = styled.div`
   align-items: center;
-  padding-bottom: 24px;
 `;
 
 export const CategorySectionTitle = styled.text`
@@ -161,19 +160,13 @@ export const Separator = styled.div`
   border-bottom: 1px solid #14141a;
 `;
 
-const FlexColumn = styled(FlexDiv)`
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
-`;
-
 export const Paragraph = styled.p`
   font-weight: 300;
-  margin-bottom: 24px;
 `;
 
-export const LegendContainer = styled(FlexColumn)`
-  padding-bottom: 8px;
+export const ParagraphContainer = styled(FlexDiv)`
+  flex-direction: column;
+  padding: 24px 0;
 `;
 
 export const LegendText = styled.span`

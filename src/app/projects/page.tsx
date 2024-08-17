@@ -18,7 +18,9 @@ const Projects = () => {
 
   return (
     <Container>
-      <PageTitle title="PROJETOS" />
+      <S.ParagraphContainer>
+        <PageTitle title="PROJETOS" />
+      </S.ParagraphContainer>
       <S.ProjectsContainer>
         <S.ProjectsContent>
           {projectData.map((project, index) => (

@@ -7,6 +7,7 @@ import Container from "../components/container";
 import GitHubDarkIcon from "@/assets/icons/social/github-dark";
 import LinkedInIcon from "@/assets/icons/social/linkedin";
 import DevtoIcon from "@/assets/icons/social/devto";
+import PageTitle from "../components/title";
 
 export default function Home() {
   return (
@@ -54,7 +55,9 @@ export default function Home() {
           </S.QuickAccessSection>
         </S.CategorySection>
         <S.CategorySection>
-          <S.CategorySectionTitle>INSIGHTS</S.CategorySectionTitle>
+          <S.ParagraphContainer>
+            <S.CategorySectionTitle>INSIGHTS</S.CategorySectionTitle>
+          </S.ParagraphContainer>
           <S.CategoryContent>
             {projectData.map((project, index) => (
               <S.CategoryCard key={index}>
