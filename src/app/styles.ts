@@ -182,3 +182,27 @@ export const CategorySectionSubtitle = styled.span`
   font-weight: 500;
   line-height: 1.75rem;
 `;
+
+export const StyledImage2 = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain; // Ajuste para manter a proporção da imagem
+  transition: transform 0.3s ease-in-out;
+  opacity: 0.8;
+  max-height: 180px; // Altura máxima para garantir que a imagem não seja esticada
+  max-width: 100%; // Garantir que a imagem não ultrapasse a largura do contêiner
+`;
+
+export const StyledImageWrapper2 = styled.div`
+  position: relative;
+  width: 100%;
+  max-height: 180px; // Definir uma altura máxima para evitar esticamento
+  border-radius: 12px;
+  overflow: hidden;
+  &:hover img {
+    transform: scale(1.05);
+  }
+  &:hover div {
+    opacity: 0.8;
+  }
+`;
