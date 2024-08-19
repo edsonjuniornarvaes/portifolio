@@ -19,6 +19,7 @@ export const Card = styled(FlexDiv)`
   padding: 16px;
   box-sizing: border-box;
   text-align: center;
+  transition: box-shadow 0.3s ease-in-out;
 `;
 
 export const StyledImage = styled.img`
