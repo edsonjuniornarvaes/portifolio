@@ -34,9 +34,9 @@ const Navbar = () => {
           <S.NavbarLink className="navbar-menu-link" href="/projects">
             Projetos
           </S.NavbarLink>
-          <S.NavbarLink className="navbar-menu-link" href="/stack">
+          {/* <S.NavbarLink className="navbar-menu-link" href="/stack">
             Stack
-          </S.NavbarLink>
+          </S.NavbarLink> */}
           <S.NavbarLink className="navbar-menu-link" href="/about">
             Sobre
           </S.NavbarLink>
@@ -50,9 +50,9 @@ const Navbar = () => {
           <S.NavbarLink className="navbar-menu-link" href="/projects">
             Projetos
           </S.NavbarLink>
-          <S.NavbarLink className="navbar-menu-link" href="/stack">
+          {/* <S.NavbarLink className="navbar-menu-link" href="/stack">
             Stack
-          </S.NavbarLink>
+          </S.NavbarLink> */}
           <S.NavbarLink className="navbar-menu-link" href="/about">
             Sobre
           </S.NavbarLink>
