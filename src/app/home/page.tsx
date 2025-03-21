@@ -73,15 +73,15 @@ export default function Home() {
             </S.TitleContainer>
             <S.DescriptionDiv>
               <S.ContentDescription>
-                Especialista em Desenvolvimento Web e Mobile, com mais de 5 anos
-                de experiência.
+                Especialista em Desenvolvimento Web e Mobile, com 6 anos de
+                experiência.
               </S.ContentDescription>
             </S.DescriptionDiv>
           </S.DescriptionColumn>
         </S.Row>
         <S.AttribuitonsRow>
           <S.AttribuitonsSection>
-            <S.AttribuitonsSectionTitle>5+</S.AttribuitonsSectionTitle>
+            <S.AttribuitonsSectionTitle>6+</S.AttribuitonsSectionTitle>
             <S.AttribuitonsSectionSubTitle>
               Anos de Experiência
             </S.AttribuitonsSectionSubTitle>

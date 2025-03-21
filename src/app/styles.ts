@@ -16,6 +16,7 @@ const ResponsiveContainer = styled(FlexDiv)`
   @media (max-width: 868px) {
     flex-direction: column;
     align-items: center;
+    padding: 16px;
   }
 `;
 
@@ -66,6 +67,12 @@ const CategorySection = styled(FlexDiv)`
   justify-content: center; */
 
   /* margin-right: 24px; */
+`;
+
+const CategorySectionTitle = styled.text`
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.75rem;
 `;
 
 const AttribuitonsSection = styled(FlexDiv)`
@@ -147,34 +154,45 @@ const Paragraph = styled.p`
 const Row = styled(FlexDiv)`
   flex-direction: row;
   align-items: center;
-
   justify-content: space-between;
   width: 100%;
+  @media (max-width: 868px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+  }
 `;
 
 const AttribuitonsRow = styled(FlexDiv)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
   width: 100%;
-
   padding-top: 24px;
+  @media (max-width: 868px) {
+    flex-direction: column;
+    padding-top: 12px;
+    align-items: center;
+  }
 `;
 
 const ProfileContainer = styled(FlexDiv)`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* background-color: #14141a; */
   padding: 24px;
   border-radius: 16px;
   margin-right: 48px;
+  @media (max-width: 868px) {
+    margin-right: 0;
+    padding: 16px;
+    margin-bottom: 23px;
+  }
 `;
 
 const ProfileImage = styled(Image).attrs({
-  width: 280,
-  height: 182,
+  width: 320,
+  height: 222,
 })`
   display: "block";
   width: 100%;
@@ -184,8 +202,10 @@ const DescriptionColumn = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-
-  /* justify-content: center; */
+  @media (max-width: 868px) {
+    width: 100%;
+    padding: 0 16px;
+  }
 `;
 
 const ParagraphContainer = styled(FlexDiv)`
@@ -219,6 +239,7 @@ export {
   DescriptionDiv,
   ContentDescription,
   CategorySection,
+  AttribuitonsRow,
   AttribuitonsSection,
   AttribuitonsSectionTitle,
   AttribuitonsSectionSubTitle,
@@ -229,12 +250,12 @@ export {
   Separator,
   Paragraph,
   Row,
-  AttribuitonsRow,
   ProfileContainer,
   ProfileImage,
   DescriptionColumn,
   ParagraphContainer,
   LegendText,
   SubtitleCategorySection,
+  CategorySectionTitle,
   CategorySectionSubtitle,
 };

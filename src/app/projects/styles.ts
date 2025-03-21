@@ -163,6 +163,18 @@ const FooterText = styled.text`
   }
 `;
 
+const PulseBorder = keyframes`
+  0% {
+    box-shadow: 0 0 0 0 rgb(34 197 94 / var(--tw-bg-opacity));
+  }
+  70% {
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+`;
+
 const Dot = styled.div`
   width: 8px;
   height: 8px;

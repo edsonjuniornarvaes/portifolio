@@ -34,10 +34,10 @@ const Navbar = () => {
           </S.NavbarLink>
           {/* <S.NavbarLink className="navbar-menu-link" href="/projects">
             Projetos
-          </S.NavbarLink>
+          </S.NavbarLink> */}
           <S.NavbarLink className="navbar-menu-link" href="/about">
             Sobre
-          </S.NavbarLink> */}
+          </S.NavbarLink>
         </S.NavbarContent>
       </S.NavBar>
       {/* {menuOpen && (

@@ -21,7 +21,7 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
-    optimizeCss: true, // Isso ajuda no carregamento imediato do CSS
+    optimizeCss: true,
   },
 };
 
