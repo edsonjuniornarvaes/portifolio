@@ -1,79 +1,104 @@
 "use client";
 
-import Link from "next/link";
 import * as S from "../styles";
-import { projectData } from "./helper";
 import Container from "../components/container";
-import GitHubDarkIcon from "@/assets/icons/social/github-dark";
+import GitHubIcon from "@/assets/icons/social/github";
 import LinkedInIcon from "@/assets/icons/social/linkedin";
 import DevtoIcon from "@/assets/icons/social/devto";
-import PageTitle from "../components/title";
 
 export default function Home() {
   return (
     <S.ResponsiveContainer>
       <Container>
-        <S.TitleContainer>
-          <S.ContentTitle>Olá, eu sou Edson Junior 👋</S.ContentTitle>
-          <S.ContentSubtitle>Dev Front-end, Web e Mobile.</S.ContentSubtitle>
-        </S.TitleContainer>
-        <S.DescriptionDiv>
-          <S.ContentDescription>Unindo criação e código.</S.ContentDescription>
-        </S.DescriptionDiv>
-        <S.CategorySection>
-          <S.QuickAccessSection className="separator">
-            <S.QuickAccessSectionTitle>ME ACOMPANHE</S.QuickAccessSectionTitle>
-            <S.QuickAccess>
-              <S.QuickAccessButton
-                onClick={() =>
-                  window.open("https://github.com/edsonjuniornarvaes", "_blank")
-                }
-              >
-                <GitHubDarkIcon />
-                <S.SocialText>GitHub</S.SocialText>
-              </S.QuickAccessButton>
-              <S.QuickAccessButton
-                onClick={() =>
-                  window.open("https://dev.to/edsonjuniornarvaes", "_blank")
-                }
-              >
-                <DevtoIcon />
-                <S.SocialText>Dev.to</S.SocialText>
-              </S.QuickAccessButton>
-              <S.QuickAccessButton
-                onClick={() =>
-                  window.open(
-                    "https://linkedin.com/in/edsonjuniornarvaes",
-                    "_blank"
-                  )
-                }
-              >
-                <LinkedInIcon />
-                <S.SocialText>LinkedIn</S.SocialText>
-              </S.QuickAccessButton>
-            </S.QuickAccess>
-          </S.QuickAccessSection>
-        </S.CategorySection>
-        <S.CategorySection>
-          <S.ParagraphContainer>
-            <S.CategorySectionTitle>INSIGHTS</S.CategorySectionTitle>
-          </S.ParagraphContainer>
-          <S.CategoryContent>
-            {projectData.map((project, index) => (
-              <S.CategoryCard key={index}>
-                <Link href={project.href} passHref>
-                  <S.StyledImageWrapper>
-                    <S.StyledImage src={project.imgSrc} alt={project.alt} />
-                    <S.Overlay />
-                  </S.StyledImageWrapper>
-                  <S.CategoryCardContainer>
-                    <S.CategoryCardText>{project.text}</S.CategoryCardText>
-                  </S.CategoryCardContainer>
-                </Link>
-              </S.CategoryCard>
-            ))}
-          </S.CategoryContent>
-        </S.CategorySection>
+        <S.Row>
+          <S.ProfileContainer>
+            <S.ProfileImage src="/images/profile.svg" alt="Profile" />
+            <S.CategorySection>
+              <S.QuickAccessSection>
+                <S.QuickAccessSectionTitle>
+                  Me acompanhe
+                </S.QuickAccessSectionTitle>
+                <S.QuickAccess>
+                  <S.QuickAccessButton
+                    onClick={() =>
+                      window.open(
+                        "https://linkedin.com/in/edsonjuniornarvaes",
+                        "_blank"
+                      )
+                    }
+                  >
+                    <LinkedInIcon
+                      width={24}
+                      height={24}
+                      color="rgb(213, 213, 214)"
+                    />
+                  </S.QuickAccessButton>
+                  <S.QuickAccessButton
+                    onClick={() =>
+                      window.open("https://dev.to/edsonjuniornarvaes", "_blank")
+                    }
+                  >
+                    <DevtoIcon
+                      width={24}
+                      height={24}
+                      color="rgb(213, 213, 214)"
+                    />
+                  </S.QuickAccessButton>
+                  <S.QuickAccessButton
+                    onClick={() =>
+                      window.open(
+                        "https://github.com/edsonjuniornarvaes",
+                        "_blank"
+                      )
+                    }
+                  >
+                    <GitHubIcon
+                      width={24}
+                      height={24}
+                      color="rgb(213, 213, 214)"
+                    />
+                  </S.QuickAccessButton>
+                </S.QuickAccess>
+              </S.QuickAccessSection>
+            </S.CategorySection>
+          </S.ProfileContainer>
+          <S.DescriptionColumn>
+            <S.HeaderTitleContainer>
+              <S.HeaderTitle>Olá, sou Edson Jr.</S.HeaderTitle>
+            </S.HeaderTitleContainer>
+            <S.TitleContainer>
+              <S.ContentTitle>
+                Desenvolvedor Front-end, Web e Mobile.
+              </S.ContentTitle>
+            </S.TitleContainer>
+            <S.DescriptionDiv>
+              <S.ContentDescription>
+                Especialista em Desenvolvimento Web e Mobile, com mais de 5 anos
+                de experiência.
+              </S.ContentDescription>
+            </S.DescriptionDiv>
+          </S.DescriptionColumn>
+        </S.Row>
+        <S.AttribuitonsRow>
+          <S.AttribuitonsSection>
+            <S.AttribuitonsSectionTitle>5+</S.AttribuitonsSectionTitle>
+            <S.AttribuitonsSectionSubTitle>
+              Anos de Experiência
+            </S.AttribuitonsSectionSubTitle>
+          </S.AttribuitonsSection>
+          <S.AttribuitonsSection>
+            <S.AttribuitonsSectionTitle>12+</S.AttribuitonsSectionTitle>
+            <S.AttribuitonsSectionSubTitle>
+              Projetos participados
+            </S.AttribuitonsSectionSubTitle>
+          </S.AttribuitonsSection>
+          <S.AttribuitonsSection>
+            <S.AttribuitonsSectionTitle>2+</S.AttribuitonsSectionTitle>
+            <S.AttribuitonsSectionSubTitle>
+              Graduações
+            </S.AttribuitonsSectionSubTitle>
+          </S.AttribuitonsSection>
+        </S.AttribuitonsRow>
       </Container>
     </S.ResponsiveContainer>
   );

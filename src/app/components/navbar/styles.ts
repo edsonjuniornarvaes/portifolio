@@ -2,7 +2,7 @@ import { FlexButton, FlexDiv } from "@/app/styles";
 import Link from "next/link";
 import styled from "styled-components";
 
-export const HamburgerButton = styled(FlexButton)`
+const HamburgerButton = styled(FlexButton)`
   display: none;
   align-items: center;
   justify-content: center;
@@ -16,7 +16,7 @@ export const HamburgerButton = styled(FlexButton)`
   }
 `;
 
-export const MobileMenu = styled.div`
+const MobileMenu = styled.div`
   z-index: 3;
   display: none;
   flex-direction: column;
@@ -38,46 +38,43 @@ export const MobileMenu = styled.div`
   }
 `;
 
-export const NavBar = styled(FlexDiv)`
+const NavBar = styled(FlexDiv)`
   z-index: 3;
   flex-direction: row;
-  position: relative;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   top: 0;
   left: 0;
-  width: 100%;
   height: 80px;
   padding: 0 16px;
-  background-color: #08080b;
   @media (max-width: 868px) {
     justify-content: space-between;
   }
 `;
 
-export const NavbarContent = styled(FlexDiv)`
+const NavbarContent = styled(FlexDiv)`
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 24px;
-  width: 100%;
-  max-width: 800px;
   @media (max-width: 868px) {
     display: none;
   }
 `;
 
-export const NavbarLink = styled(Link)`
+const NavbarLink = styled(Link)`
   align-items: center;
   justify-content: center;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 1rem;
   line-height: 1.5rem;
-  margin: 0 4px;
+  margin: 0 2px;
   padding: 12px;
   border-radius: 4px;
   color: #fff;
+  border: 1px solid transparent;
+
   &:hover {
-    background-color: #14141a;
+    border-bottom: 1px solid #2eebaa;
   }
   @media (max-width: 868px) {
     &:hover {
@@ -86,3 +83,5 @@ export const NavbarLink = styled(Link)`
     }
   }
 `;
+
+export { HamburgerButton, MobileMenu, NavBar, NavbarContent, NavbarLink };

@@ -1,153 +1,17 @@
+import Image from "next/image";
 import styled, { keyframes } from "styled-components";
 
-export const FlexDiv = styled.div`
+const FlexDiv = styled.div`
   display: flex;
 `;
 
-export const FlexButton = styled.button`
+const FlexButton = styled.button`
   display: flex;
-`;
-
-export const TitleContainer = styled(FlexDiv)`
-  flex-direction: column;
-  padding-bottom: 12px;
-`;
-
-export const ContentTitle = styled.text`
-  font-weight: 700;
-  font-size: 2.25rem;
-`;
-
-export const ContentSubtitle = styled.text`
-  font-weight: 700;
-  font-size: 2.25rem;
-  margin-top: 12px;
-`;
-
-export const DescriptionDiv = styled(FlexDiv)`
-  padding: 12px 0;
-`;
-
-export const ContentDescription = styled.text`
-  font-weight: 200;
-  font-size: 1.125rem;
-  margin-bottom: 12px;
-`;
-
-export const CategorySection = styled.div`
   align-items: center;
+  justify-content: center;
 `;
 
-export const CategorySectionTitle = styled.text`
-  font-size: 1.125rem;
-  font-weight: 700;
-  line-height: 1.75rem;
-`;
-
-export const QuickAccessSection = styled(FlexDiv)`
-  flex-direction: column;
-  padding: 48px 0;
-  border-bottom: 1px solid #14141a;
-`;
-
-export const QuickAccessSectionTitle = styled.text`
-  font-size: 1.125rem;
-  font-weight: 700;
-  line-height: 1.75rem;
-  padding-bottom: 24px;
-`;
-
-export const QuickAccess = styled(FlexDiv)`
-  align-items: center;
-`;
-
-export const QuickAccessButton = styled(FlexButton)`
-  padding: 12px;
-  margin-right: 8px;
-  border: #fff;
-  border-radius: 24px;
-  cursor: pointer;
-  &:hover {
-    background-color: #f1f1f1;
-  }
-`;
-
-export const SocialText = styled.text`
-  padding-left: 8px;
-  color: inherit !important;
-  text-decoration: none;
-`;
-
-export const CategoryContent = styled(FlexDiv)`
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  gap: 12px;
-  padding-top: 24px;
-`;
-
-export const CategoryCard = styled(FlexDiv)`
-  flex: 1 0 calc(48% - 6px);
-  flex-direction: column;
-  position: relative;
-  min-width: 200px;
-  max-width: 100%;
-  text-decoration: none;
-  background-color: rgba(0, 0, 0, 0.9);
-  border-radius: 12px;
-  @media (max-width: 868px) {
-    flex: 1 1 auto;
-    width: 100%;
-  }
-`;
-
-export const StyledImageWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  height: 180px;
-  border-radius: 12px;
-  overflow: hidden;
-  &:hover img {
-    transform: scale(1.05);
-  }
-  &:hover div {
-    opacity: 0.8;
-  }
-`;
-
-export const StyledImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease-in-out;
-  opacity: 0.8;
-`;
-
-export const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  opacity: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  transition: opacity 0.3s ease-in-out;
-`;
-
-export const CategoryCardContainer = styled(FlexDiv)`
-  position: absolute;
-  bottom: 12px;
-  padding-left: 12px;
-`;
-
-export const CategoryCardText = styled.text`
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  color: #fff;
-`;
-
-export const ResponsiveContainer = styled(FlexDiv)`
+const ResponsiveContainer = styled(FlexDiv)`
   min-height: calc(100vh - 160px);
   @media (max-width: 868px) {
     flex-direction: column;
@@ -155,54 +19,222 @@ export const ResponsiveContainer = styled(FlexDiv)`
   }
 `;
 
-export const Separator = styled.div`
+const HeaderTitleContainer = styled(FlexDiv)`
+  flex-direction: column;
+  justify-content: flex-start;
+`;
+
+const HeaderTitle = styled.text`
+  font-weight: 200;
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: #2eebaa;
+`;
+
+const TitleContainer = styled(FlexDiv)`
+  flex-direction: column;
+  padding-bottom: 12px;
+`;
+
+const ContentTitle = styled.text`
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 120%;
+`;
+
+const ContentSubtitle = styled.text`
+  font-weight: 700;
+  font-size: 2.25rem;
+  margin-top: 12px;
+`;
+
+const DescriptionDiv = styled(FlexDiv)`
+  padding: 12px 0;
+`;
+
+const ContentDescription = styled.text`
+  font-weight: 200;
+  line-height: 140%;
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #999999;
+`;
+
+const CategorySection = styled(FlexDiv)`
+  /* flex-direction: column; */
+  /* align-items: center;
+  justify-content: center; */
+
+  /* margin-right: 24px; */
+`;
+
+const AttribuitonsSection = styled(FlexDiv)`
+  flex-direction: column;
+  align-items: center;
+
+  justify-self: space-between;
+  padding: 24px;
+  /* align-items: center;
+  justify-content: center; */
+
+  /* margin-right: 24px; */
+`;
+
+const AttribuitonsSectionTitle = styled.text`
+  font-weight: 200;
+  font-size: 32px;
+  color: #2eebaa;
+`;
+
+const AttribuitonsSectionSubTitle = styled.text`
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 1.75rem;
+`;
+
+const QuickAccessSection = styled(FlexDiv)`
+  flex-direction: column;
+  padding-top: 24px;
+  /* padding: 48px 0; */
+  /* border-top: 1px solid #14141a; */
+`;
+
+const QuickAccessSectionTitle = styled.text`
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #999999;
+`;
+
+const QuickAccess = styled(FlexDiv)`
+  align-items: center;
+`;
+
+const QuickAccessButton = styled(FlexButton)`
+  padding: 4px;
+  margin-right: 8px;
+  /* border: 1px solid rgb(213, 213, 214); */
+  border: 1px solid transparent;
+
+  /* border-radius: 24px; */
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  background-color: transparent;
+  /* color: #fff; */
+  color: #fff;
+  &:hover {
+    border-bottom: 1px solid #2eebaa;
+    /* box-shadow: 0 0 2px 2px #2eebaa; */
+
+    /* color: #fff; */
+    /* background-color: #14141a; */
+
+    /* font-weight: 700; */
+  }
+`;
+
+const Separator = styled.div`
   margin: 24px 0;
   border-bottom: 1px solid #14141a;
 `;
 
-export const Paragraph = styled.p`
+const Paragraph = styled.p`
   font-weight: 300;
 `;
 
-export const ParagraphContainer = styled(FlexDiv)`
+const Row = styled(FlexDiv)`
+  flex-direction: row;
+  align-items: center;
+
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const AttribuitonsRow = styled(FlexDiv)`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+
+  padding-top: 24px;
+`;
+
+const ProfileContainer = styled(FlexDiv)`
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* background-color: #14141a; */
+  padding: 24px;
+  border-radius: 16px;
+  margin-right: 48px;
+`;
+
+const ProfileImage = styled(Image).attrs({
+  width: 280,
+  height: 182,
+})`
+  display: "block";
+  width: 100%;
+`;
+
+const DescriptionColumn = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  /* justify-content: center; */
+`;
+
+const ParagraphContainer = styled(FlexDiv)`
   flex-direction: column;
   padding: 24px 0;
 `;
 
-export const LegendText = styled.span`
+const LegendText = styled.span`
   font-weight: 200;
   font-size: 0.875rem;
   line-height: 1.25rem;
 `;
 
-export const SubtitleCategorySection = styled(FlexDiv)``;
+const SubtitleCategorySection = styled(FlexDiv)``;
 
-export const CategorySectionSubtitle = styled.span`
+const CategorySectionSubtitle = styled.span`
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.75rem;
 `;
 
-export const StyledImage2 = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain; // Ajuste para manter a proporção da imagem
-  transition: transform 0.3s ease-in-out;
-  opacity: 0.8;
-  max-height: 180px; // Altura máxima para garantir que a imagem não seja esticada
-  max-width: 100%; // Garantir que a imagem não ultrapasse a largura do contêiner
-`;
-
-export const StyledImageWrapper2 = styled.div`
-  position: relative;
-  width: 100%;
-  max-height: 180px; // Definir uma altura máxima para evitar esticamento
-  border-radius: 12px;
-  overflow: hidden;
-  &:hover img {
-    transform: scale(1.05);
-  }
-  &:hover div {
-    opacity: 0.8;
-  }
-`;
+export {
+  FlexDiv,
+  FlexButton,
+  ResponsiveContainer,
+  HeaderTitle,
+  HeaderTitleContainer,
+  TitleContainer,
+  ContentTitle,
+  ContentSubtitle,
+  DescriptionDiv,
+  ContentDescription,
+  CategorySection,
+  AttribuitonsSection,
+  AttribuitonsSectionTitle,
+  AttribuitonsSectionSubTitle,
+  QuickAccessSection,
+  QuickAccessSectionTitle,
+  QuickAccess,
+  QuickAccessButton,
+  Separator,
+  Paragraph,
+  Row,
+  AttribuitonsRow,
+  ProfileContainer,
+  ProfileImage,
+  DescriptionColumn,
+  ParagraphContainer,
+  LegendText,
+  SubtitleCategorySection,
+  CategorySectionSubtitle,
+};

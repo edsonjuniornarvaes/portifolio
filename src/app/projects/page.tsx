@@ -4,8 +4,8 @@ import * as S from "./styles";
 import { projectData } from "./helper";
 import Container from "../components//container";
 import { useEffect, useState } from "react";
-import GitHubLightIcon from "@/assets/icons/social/github-light";
 import PageTitle from "../components//title";
+import GitHubIcon from "@/assets/icons/social/github";
 
 const Projects = () => {
   const [isReady, setIsReady] = useState(false);
@@ -36,7 +36,11 @@ const Projects = () => {
                       <S.StatusText>Em Desenvolvimento</S.StatusText>
                     </S.StatusContainer>
                     <S.StyledLink href={project.href}>
-                      <GitHubLightIcon />
+                      <GitHubIcon
+                        width={24}
+                        height={24}
+                        color="rgb(213, 213, 214)"
+                      />
                       <S.FooterText> {project.linkTitle}</S.FooterText>
                     </S.StyledLink>
                   </S.OverlayFooter>

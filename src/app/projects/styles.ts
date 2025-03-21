@@ -1,14 +1,14 @@
 import styled, { keyframes } from "styled-components";
 import { FlexDiv } from "../styles";
 
-export const ProjectsContent = styled(FlexDiv)`
+const ProjectsContent = styled(FlexDiv)`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
   gap: 12px;
 `;
 
-export const ProjectsCard = styled(FlexDiv)`
+const ProjectsCard = styled(FlexDiv)`
   flex: 1 0 calc(48% - 6px);
   flex-direction: column;
   position: relative;
@@ -25,23 +25,12 @@ export const ProjectsCard = styled(FlexDiv)`
   }
 `;
 
-export const ProjectsContainer = styled(FlexDiv)`
+const ProjectsContainer = styled(FlexDiv)`
   flex-direction: column;
   padding-bottom: 24px;
 `;
 
-export const ProjectsSection = styled(FlexDiv)`
-  align-items: center;
-  padding-bottom: 24px;
-`;
-
-export const ProjectsSectionTitle = styled.text`
-  font-size: 1.125rem;
-  font-weight: 700;
-  line-height: 1.75rem;
-`;
-
-export const ProjectsCardContainer = styled(FlexDiv)`
+const ProjectsCardContainer = styled(FlexDiv)`
   position: absolute;
   bottom: 12px;
   padding-left: 12px;
@@ -51,14 +40,14 @@ export const ProjectsCardContainer = styled(FlexDiv)`
   justify-content: space-between;
 `;
 
-export const ProjectsCardTitle = styled.text`
+const ProjectsCardTitle = styled.text`
   font-size: 1.125rem;
   line-height: 1.75rem;
   color: #fff;
   transition: opacity 0.3s ease-in-out;
 `;
 
-export const StyledImageWrapper = styled.div`
+const StyledImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 180px;
@@ -77,14 +66,14 @@ export const StyledImageWrapper = styled.div`
   }
 `;
 
-export const StyledImage = styled.img`
+const StyledImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease-in-out;
 `;
 
-export const Overlay = styled.div`
+const Overlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -97,7 +86,7 @@ export const Overlay = styled.div`
   transition: opacity 0.3s ease-in-out;
 `;
 
-export const OverlayContent = styled(FlexDiv)`
+const OverlayContent = styled(FlexDiv)`
   position: absolute;
   top: 2px;
   left: 2px;
@@ -116,13 +105,13 @@ export const OverlayContent = styled(FlexDiv)`
   z-index: 2;
 `;
 
-export const OverlayText = styled.text`
+const OverlayText = styled.text`
   flex: 1;
   text-align: center;
   color: inherit;
 `;
 
-export const OverlayFooter = styled(FlexDiv)`
+const OverlayFooter = styled(FlexDiv)`
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -134,14 +123,14 @@ export const OverlayFooter = styled(FlexDiv)`
   }
 `;
 
-export const StatusContainer = styled(FlexDiv)`
+const StatusContainer = styled(FlexDiv)`
   align-items: center;
   @media (max-width: 468px) {
     padding-bottom: 12px;
   }
 `;
 
-export const StatusText = styled.text`
+const StatusText = styled.text`
   padding-left: 8px;
   color: inherit;
   @media (max-width: 868px) {
@@ -152,7 +141,7 @@ export const StatusText = styled.text`
   }
 `;
 
-export const StyledLink = styled.a`
+const StyledLink = styled.a`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -163,7 +152,7 @@ export const StyledLink = styled.a`
   }
 `;
 
-export const FooterText = styled.text`
+const FooterText = styled.text`
   font-size: 14px;
   align-items: center;
   color: #e4e4e7;
@@ -174,19 +163,7 @@ export const FooterText = styled.text`
   }
 `;
 
-const pulseBorder = keyframes`
-  0% {
-    box-shadow: 0 0 0 0 rgb(34 197 94 / var(--tw-bg-opacity));
-  }
-  70% {
-    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  }
-`;
-
-export const Dot = styled.div`
+const Dot = styled.div`
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -202,11 +179,31 @@ export const Dot = styled.div`
     bottom: -2px;
     border-radius: 50%;
     border: 2px solid transparent;
-    animation: ${pulseBorder} 1.5s infinite;
+    animation: ${PulseBorder} 1.5s infinite;
   }
 `;
 
-export const ParagraphContainer = styled(FlexDiv)`
+const ParagraphContainer = styled(FlexDiv)`
   flex-direction: column;
   padding: 24px 0;
 `;
+
+export {
+  ProjectsContent,
+  ProjectsCard,
+  ProjectsContainer,
+  ProjectsCardContainer,
+  ProjectsCardTitle,
+  StyledImageWrapper,
+  StyledImage,
+  Overlay,
+  OverlayContent,
+  OverlayText,
+  OverlayFooter,
+  StatusContainer,
+  StatusText,
+  StyledLink,
+  FooterText,
+  Dot,
+  ParagraphContainer,
+};
