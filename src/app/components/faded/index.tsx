@@ -9,6 +9,8 @@ const Faded = ({ children }) => {
     setLoaded(true);
   }, []);
 
+  if (!children) return;
+
   return (
     <div
       style={{
