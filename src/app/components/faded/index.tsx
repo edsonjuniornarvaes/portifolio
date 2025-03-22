@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { usePathname } from "next/navigation";
 
 const Faded = ({ children }) => {
   const [loaded, setLoaded] = useState(false);

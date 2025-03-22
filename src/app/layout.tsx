@@ -17,10 +17,8 @@ export default function RootLayout({
   return (
     <html lang="pt">
       <body className={inter.className}>
-        <Faded>
-          <Navbar />
-          {children}
-        </Faded>
+        <Navbar />
+        <Faded>{children}</Faded>
       </body>
     </html>
   );
