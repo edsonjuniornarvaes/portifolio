@@ -1,26 +1,17 @@
-"use client";
+import { useState, useEffect, ReactNode } from "react";
 
-import { useState, useEffect } from "react";
+interface FadedProps {
+  children: ReactNode;
+}
 
-const Faded = ({ children }) => {
+const Faded: React.FC<FadedProps> = ({ children }) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     setLoaded(true);
   }, []);
 
-  if (!children) return;
-
-  return (
-    <div
-      style={{
-        opacity: loaded ? 1 : 0,
-        transition: "opacity 0.3s ease-in-out",
-      }}
-    >
-      {children}
-    </div>
-  );
+  return <div className={loaded ? "fade-in" : "hidden"}>{children}</div>;
 };
 
 export default Faded;
