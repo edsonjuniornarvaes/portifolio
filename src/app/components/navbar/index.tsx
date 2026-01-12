@@ -5,9 +5,14 @@ import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 
+const navLinks = [
+  { href: "/home", label: "Home" },
+  { href: "/about", label: "Sobre" },
+  { href: "/projects", label: "Projetos" },
+];
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
   const pathname = usePathname();
 
   const toggleMenu = () => {
@@ -18,41 +23,60 @@ const Navbar = () => {
     setMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [menuOpen]);
+
   return (
     <>
-      <S.NavBar className="navbar">
-        {/* <S.HamburgerButton className="hamburger-button" onClick={toggleMenu}>
-          {menuOpen ? (
-            <FaTimes className="hamburger-icon" size={24} color="#fff" />
-          ) : (
-            <FaBars className="hamburger-icon" size={24} color="#fff" />
-          )}
-        </S.HamburgerButton> */}
+      <S.NavBar>
+        <S.Logo href="/home">
+          <S.LogoIcon>EJ</S.LogoIcon>
+          Edson Junior
+        </S.Logo>
+        
         <S.NavbarContent>
-          <S.NavbarLink className="navbar-menu-link" href="/home">
-            Home
-          </S.NavbarLink>
-          {/* <S.NavbarLink className="navbar-menu-link" href="/projects">
-            Projetos
-          </S.NavbarLink> */}
-          <S.NavbarLink className="navbar-menu-link" href="/about">
-            Sobre
-          </S.NavbarLink>
+          {navLinks.map((link) => (
+            <S.NavbarLink 
+              key={link.href} 
+              href={link.href}
+              $isActive={pathname === link.href}
+            >
+              {link.label}
+            </S.NavbarLink>
+          ))}
         </S.NavbarContent>
+        
+        <S.HamburgerButton onClick={toggleMenu} aria-label="Menu">
+          {menuOpen ? (
+            <FaTimes size={20} />
+          ) : (
+            <FaBars size={20} />
+          )}
+        </S.HamburgerButton>
       </S.NavBar>
-      {/* {menuOpen && (
-        <S.MobileMenu className="navbar-menu">
-          <S.NavbarLink className="navbar-menu-link" href="/home">
-            Home
-          </S.NavbarLink>
-          <S.NavbarLink className="navbar-menu-link" href="/projects">
-            Projetos
-          </S.NavbarLink>
-          <S.NavbarLink className="navbar-menu-link" href="/about">
-            Sobre
-          </S.NavbarLink>
-        </S.MobileMenu>
-      )} */}
+      
+      <S.MobileMenuOverlay $isOpen={menuOpen} onClick={() => setMenuOpen(false)} />
+      
+      <S.MobileMenu $isOpen={menuOpen}>
+        {navLinks.map((link, index) => (
+          <S.MobileNavLink 
+            key={link.href} 
+            href={link.href}
+            $isActive={pathname === link.href}
+            style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
+          >
+            {link.label}
+          </S.MobileNavLink>
+        ))}
+      </S.MobileMenu>
     </>
   );
 };
