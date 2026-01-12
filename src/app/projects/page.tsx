@@ -323,6 +323,11 @@ const ActionButton = styled.a<{ $primary?: boolean }>`
 const ProfessionalSection = styled.section`
   animation: ${fadeInUp} 0.6s ease 0.4s forwards;
   opacity: 0;
+  margin-bottom: 80px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const SectionHeader = styled.div`
