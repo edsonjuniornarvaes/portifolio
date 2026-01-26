@@ -35,6 +35,7 @@
 - 🎭 **Animações** - Efeitos visuais com keyframes e transições CSS
 - 🌐 **SSR Ready** - Server-Side Rendering com Styled Components
 - 🚀 **Deploy Automático** - CI/CD integrado com Vercel
+- 📊 **Painel Admin** - Dashboard com analytics e rastreamento de visitas (Supabase)
 
 ---
 
@@ -55,6 +56,9 @@
 
 ### Deploy
 - **[Vercel](https://vercel.com/)** - Hospedagem e deploy contínuo
+
+### Analytics
+- **[Supabase](https://supabase.com/)** - Banco de dados para rastreamento de analytics
 
 ---
 
@@ -103,6 +107,18 @@ yarn dev
 ```
 
 Acesse [http://localhost:3000](http://localhost:3000) 🎉
+
+### 📊 Painel Administrativo
+
+O projeto inclui um painel administrativo completo com analytics. Para configurar:
+
+1. Configure o Supabase (veja [ADMIN_SETUP.md](./ADMIN_SETUP.md))
+2. Acesse: `http://localhost:3000/adminaccess/login`
+3. Credenciais:
+   - Email: `edsonjunior.narvaes@gmail.com`
+   - Senha: `!Edsandrade@030adm`
+
+O dashboard oferece relatórios de visitas, páginas mais acessadas, origem dos visitantes, países, abas verificadas e eventos de clique.
 
 ---
 

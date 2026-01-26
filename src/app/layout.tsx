@@ -3,6 +3,7 @@ import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import StyledComponentsRegistry from "./registry";
+import AnalyticsTracker from "@/components/analytics-tracker";
 
 const outfit = Outfit({ 
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${outfit.variable} ${jetbrainsMono.variable}`}>
       <body>
         <StyledComponentsRegistry>
+          <AnalyticsTracker />
           <Navbar />
           <main style={{ position: 'relative', zIndex: 1 }}>
             {children}
