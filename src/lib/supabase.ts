@@ -9,5 +9,11 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export const createServerClient = () => {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
+  
+  // Validar se a key não é placeholder
+  if (key === 'placeholder-key' || key === 'sua_service_role_key_aqui') {
+    throw new Error('SUPABASE_SERVICE_ROLE_KEY não configurada. Configure no arquivo .env');
+  }
+  
   return createClient(url, key);
 };

@@ -158,10 +158,37 @@ export async function GET(request: NextRequest) {
       click_events: clickCounts,
       range,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Analytics error:', error);
+    
+    // Mensagem de erro mais detalhada
+    let errorMessage = 'Erro ao buscar dados de analytics';
+    let errorDetails: any = {};
+    
+    if (error?.message?.includes('SUPABASE_SERVICE_ROLE_KEY')) {
+      errorMessage = 'Configuração do Supabase incompleta';
+      errorDetails = {
+        message: 'A SUPABASE_SERVICE_ROLE_KEY não está configurada. Configure no arquivo .env',
+        hint: 'Acesse Supabase Dashboard → Settings → API → Copie a service_role key'
+      };
+    } else if (error?.message?.includes('Invalid API key')) {
+      errorMessage = 'Chave de API do Supabase inválida';
+      errorDetails = {
+        message: 'A SUPABASE_SERVICE_ROLE_KEY está incorreta ou expirada',
+        hint: 'Verifique se copiou a service_role key correta do Supabase'
+      };
+    } else if (process.env.NODE_ENV === 'development') {
+      errorDetails = {
+        message: error?.message || 'Erro desconhecido',
+        stack: error?.stack
+      };
+    }
+    
     return NextResponse.json(
-      { error: 'Erro ao buscar dados de analytics' },
+      { 
+        error: errorMessage,
+        details: errorDetails
+      },
       { status: 500 }
     );
   }

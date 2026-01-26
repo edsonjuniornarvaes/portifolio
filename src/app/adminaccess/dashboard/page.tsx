@@ -171,9 +171,19 @@ const ErrorMessage = styled.div`
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.3);
   border-radius: var(--radius-sm);
-  padding: 1rem;
+  padding: 1.5rem;
   color: #ef4444;
   margin-bottom: 2rem;
+  line-height: 1.6;
+  white-space: pre-line;
+  
+  code {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
 `;
 
 interface AnalyticsData {
@@ -252,10 +262,13 @@ export default function DashboardPage() {
         sessionStorage.removeItem('admin_token');
         router.push('/adminaccess/login');
       } else {
-        setError('Erro ao carregar dados');
+        const errorData = await response.json().catch(() => ({}));
+        const errorMsg = errorData?.error || 'Erro ao carregar dados';
+        const errorHint = errorData?.details?.hint || '';
+        setError(errorHint ? `${errorMsg}\n\n💡 ${errorHint}` : errorMsg);
       }
     } catch (err) {
-      setError('Erro ao carregar dados');
+      setError('Erro ao carregar dados. Verifique o console para mais detalhes.');
     } finally {
       setLoading(false);
     }
