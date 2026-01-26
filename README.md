@@ -7,7 +7,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Styled Components](https://img.shields.io/badge/Styled_Components-6-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)](https://styled-components.com/)
 
-**Portfólio pessoal moderno desenvolvido com Next.js, apresentando minha trajetória como Desenvolvedor Mobile Sênior.**
+**Portfólio pessoal moderno desenvolvido com Next.js, apresentando minha trajetória como Desenvolvedor Mobile.**
 
 [🌐 Ver Online](https://portifolio-edson-juniors-projects.vercel.app/) • [💼 LinkedIn](https://www.linkedin.com/in/edsonjuniornarvaes/) • [🐙 GitHub](https://github.com/edsonjuniornarvaes)
 
