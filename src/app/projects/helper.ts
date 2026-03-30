@@ -6,13 +6,56 @@ export interface Project {
   icon: string;
   iconColor?: string;
   iconLetter?: string;
+  /** Se true, renderiza o componente BenjaminLogo em vez de img / letra */
+  useBenjaminLogo?: boolean;
   tags: string[];
   status: "development" | "production" | "paused";
   githubUrl?: string;
   liveUrl?: string;
   features?: Feature[];
   type: "personal" | "professional";
+  /** Texto longo na página de detalhes */
+  longDescription?: string;
+  figmaUrl?: string;
+  /** default: true se houver githubUrl */
+  showGithub?: boolean;
+  /** default: false */
+  showFigma?: boolean;
+  /** URLs opcionais para mockups estilo loja */
+  mockupAppleUrl?: string;
+  mockupPlayUrl?: string;
+  /** Seção Preview (mockups App Store / Play). default: true */
+  showPreview?: boolean;
+  /** Mostrar frame App Store no preview. default: true */
+  showMockupApple?: boolean;
+  /** Mostrar frame Google Play no preview. default: true */
+  showMockupPlay?: boolean;
+  /** Seção Destaques. default: true se houver features */
+  showHighlights?: boolean;
+  /** Carrossel de imagens abaixo do sobre. default: false até ligar no admin */
+  showGallery?: boolean;
+  /** URLs do carrossel (uma por slide) */
+  galleryImages?: string[];
+  /** Texto do botão do link principal (ex.: Confira) */
+  liveCtaLabel?: string;
 }
+
+/** Campos graváveis no CMS (merge sobre o projeto base do código) */
+export type ProjectCmsPatch = Partial<
+  Pick<
+    Project,
+    | "mockupAppleUrl"
+    | "mockupPlayUrl"
+    | "features"
+    | "showPreview"
+    | "showMockupApple"
+    | "showMockupPlay"
+    | "showHighlights"
+    | "showGallery"
+    | "galleryImages"
+    | "liveCtaLabel"
+  >
+>;
 
 export interface Feature {
   title: string;
@@ -20,56 +63,96 @@ export interface Feature {
   icon: string;
 }
 
-// Projeto pessoal em destaque
-export const featuredProject: Project = {
+export const rachaoProject: Project = {
   id: "rachao",
   title: "Rachão",
-  tagline: "O app definitivo para seu rachão",
-  description: `Plataforma completa para organizar e viver o rachão como nunca antes. 
-  Crie partidas, monte times, acompanhe placares em tempo real e construa o histórico completo da sua comunidade.`,
+  tagline: "Partidas, placar e comunidade de futebol",
+  description:
+    "Organize rachões com placar ao vivo, tempo de partida, histórico e cadastro de jogos — sem redundância: foco em quem joga.",
+  longDescription: `O **Rachão** centraliza o que importa na pelada: criar partida, registrar placar e tempo, guardar histórico e conectar a comunidade (campos, avaliações, mural). Tudo com identidade esportiva e fluxos pensados para quem está em campo.
+
+**Destaques:** cronômetro e placar em tempo real, registro de partidas, times e atletas, evolução para reserva de quadras e nota dos jogadores — no mesmo ecossistema.`,
   icon: "/images/rachao-icon.svg",
-  tags: ["React Native", "TypeScript", "Expo", "Firebase", "Real-time"],
+  tags: ["React Native", "TypeScript", "Expo", "Firebase"],
   status: "development",
   githubUrl: "https://github.com/edsonjuniornarvaes/rachao",
   type: "personal",
+  showGithub: true,
+  showFigma: false,
+  figmaUrl: "",
   features: [
     {
-      title: "Partidas ao Vivo",
-      description:
-        "Placar em tempo real, cronômetro e estatísticas durante o jogo",
+      title: "Placar e tempo",
+      description: "Placar ao vivo e controle de tempo de partida",
       icon: "⚽",
     },
     {
-      title: "Histórico Completo",
-      description:
-        "Registro de todas as partidas, gols, assistências e resultados",
+      title: "Histórico",
+      description: "Registro de jogos, resultados e desempenho",
       icon: "📊",
     },
     {
-      title: "Gestão de Times",
-      description: "Crie times, convide jogadores e organize escalações",
+      title: "Times e atletas",
+      description: "Escalações, convites e avaliações",
       icon: "👥",
     },
     {
-      title: "Avaliação de Atletas",
-      description: "Sistema de notas e feedback para cada jogador",
-      icon: "⭐",
-    },
-    {
-      title: "Reserva de Campos",
-      description: "Encontre e reserve campos disponíveis na sua cidade",
-      icon: "🏟️",
-    },
-    {
       title: "Comunidade",
-      description:
-        "Mural de avisos, chat entre jogadores e grupos por interesse",
+      description: "Mural, comentários e campos da cidade (roadmap)",
       icon: "💬",
     },
   ],
 };
 
-// Apps em que atuei profissionalmente
+export const benjaminProject: Project = {
+  id: "benjamin-barbearia",
+  title: "Benjamin Barbearia",
+  tagline: "Agenda, preços e identidade — sem taxas de marketplace",
+  description:
+    "App próprio para agenda, profissionais, serviços e preços. O cliente marca horário com a cara da barbearia, sem depender de apps genéricos e comissões altas.",
+  longDescription: `A **Barbearia Benjamin** ganha um app com a identidade visual do salão (preto, dourado e laranja), experiência fluida e foco em **agenda**, **lista de cortes e preços**, **profissionais** e **histórico do cliente**.
+
+O objetivo é **tirar a dependência de marketplaces** que cobram por agendamento e não refletem a marca. Tudo pensado para escalar com notificações, fidelidade e módulos futuros — mantendo o controle no estabelecimento.`,
+  icon: "",
+  useBenjaminLogo: true,
+  iconColor: "#0a0a0a",
+  tags: ["React Native", "TypeScript", "Expo", "UI dedicada"],
+  status: "development",
+  type: "personal",
+  githubUrl: undefined,
+  showGithub: false,
+  showFigma: true,
+  figmaUrl: "",
+  features: [
+    {
+      title: "Agendamento",
+      description: "Escolha de profissional, horário e serviço",
+      icon: "📅",
+    },
+    {
+      title: "Cardápio de cortes",
+      description: "Serviços e preços sempre atualizados",
+      icon: "✂️",
+    },
+    {
+      title: "Time",
+      description: "Perfis dos barbeiros e especialidades",
+      icon: "👤",
+    },
+    {
+      title: "Marca própria",
+      description: "Visual alinhado à Barbearia Benjamin",
+      icon: "✨",
+    },
+  ],
+};
+
+/** Projetos pessoais (cards compactos + link para detalhes) */
+export const personalProjects: Project[] = [rachaoProject, benjaminProject];
+
+/** @deprecated use rachaoProject */
+export const featuredProject = rachaoProject;
+
 export const professionalProjects: Project[] = [
   {
     id: "pjbank",
@@ -77,6 +160,8 @@ export const professionalProjects: Project[] = [
     tagline: "Conta Digital para Empresas",
     description:
       "App financeiro corporativo para operações bancárias, Pix, emissão de boletos e gestão financeira integrada.",
+    longDescription:
+      "Atuei em funcionalidades críticas do app corporativo: autenticação com Auth0, fluxos sensíveis, MVVM, testes com Jest e observabilidade (Sentry, Datadog, Mixpanel).",
     icon: "pjbank",
     iconColor: "#00D4D4",
     iconLetter: "PJ",
@@ -85,6 +170,8 @@ export const professionalProjects: Project[] = [
     liveUrl:
       "https://apps.apple.com/br/app/pjbank-conta-para-sua-empresa/id1267310347",
     type: "professional",
+    showGithub: false,
+    showFigma: false,
   },
   {
     id: "gruvi",
@@ -92,6 +179,8 @@ export const professionalProjects: Project[] = [
     tagline: "Superapp para Condomínios",
     description:
       "App que conecta moradores a serviços e ao condomínio. Aprovação de visitantes, reserva de espaços e chat.",
+    longDescription:
+      "Desenvolvimento cross-platform em React Native, Redux Saga, testes com Jest, MongoDB em fluxos específicos e CI/CD com Bitrise.",
     icon: "gruvi",
     iconColor: "#FF3B7F",
     iconLetter: "G",
@@ -99,6 +188,8 @@ export const professionalProjects: Project[] = [
     status: "production",
     liveUrl: "https://apps.apple.com/br/app/gruvi/id1561610983",
     type: "professional",
+    showGithub: false,
+    showFigma: false,
   },
   {
     id: "mont-b2b",
@@ -106,6 +197,8 @@ export const professionalProjects: Project[] = [
     tagline: "Gestão de Investimentos",
     description:
       "App para gestão de carteiras financeiras personalizadas com acesso a gestores profissionais.",
+    longDescription:
+      "App publicado na App Store em que atuei em evolução do produto Mont Capital.",
     icon: "mont",
     iconColor: "#3D7A8C",
     iconLetter: "M",
@@ -113,6 +206,8 @@ export const professionalProjects: Project[] = [
     status: "production",
     liveUrl: "https://apps.apple.com/br/app/mont-b2b/id6746648981",
     type: "professional",
+    showGithub: false,
+    showFigma: false,
   },
   {
     id: "mont-b2c",
@@ -126,6 +221,8 @@ export const professionalProjects: Project[] = [
     tags: ["React Native", "TypeScript", "Redux"],
     status: "paused",
     type: "professional",
+    showGithub: false,
+    showFigma: false,
   },
   {
     id: "minha-navex",
@@ -139,6 +236,8 @@ export const professionalProjects: Project[] = [
     tags: ["React Native", "TypeScript", "Redux", "OneSignal"],
     status: "paused",
     type: "professional",
+    showGithub: false,
+    showFigma: false,
   },
   {
     id: "consorcio-gazin",
@@ -152,10 +251,11 @@ export const professionalProjects: Project[] = [
     tags: ["React Native", "TypeScript", "Redux"],
     status: "paused",
     type: "professional",
+    showGithub: false,
+    showFigma: false,
   },
 ];
 
-// Projetos Web em que atuei
 export const webProjects: Project[] = [
   {
     id: "gazin-b2b-b2c",
@@ -236,3 +336,27 @@ export const webProjects: Project[] = [
     type: "professional",
   },
 ];
+
+const allProjects: Project[] = [
+  ...personalProjects,
+  ...professionalProjects,
+  ...webProjects,
+];
+
+export function getProjectById(id: string): Project | undefined {
+  return allProjects.find((p) => p.id === id);
+}
+
+export function mergeProjectPatch(base: Project, patch: ProjectCmsPatch | null | undefined): Project {
+  if (!patch) return base;
+  const out: Project = { ...base };
+  (Object.keys(patch) as (keyof ProjectCmsPatch)[]).forEach((key) => {
+    const v = patch[key];
+    if (v !== undefined) (out as unknown as Record<string, unknown>)[key as string] = v;
+  });
+  return out;
+}
+
+export function getAllProjectsBrief(): { id: string; title: string; type: Project["type"] }[] {
+  return allProjects.map((p) => ({ id: p.id, title: p.title, type: p.type }));
+}

@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  /** Evita chunks quebrados do react-icons no App Router (vendor-chunks/*.js ausente). */
+  transpilePackages: ["react-icons"],
   async redirects() {
     return [
       {

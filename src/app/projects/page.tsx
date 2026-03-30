@@ -1,8 +1,10 @@
 "use client";
 
 import styled, { keyframes } from "styled-components";
-import { featuredProject, professionalProjects, webProjects } from "./helper";
-import { FaGithub, FaRocket, FaExternalLinkAlt, FaBriefcase, FaCode } from "react-icons/fa";
+import Link from "next/link";
+import { personalProjects, professionalProjects, webProjects, type Project } from "./helper";
+import { BenjaminLogo } from "@/components/benjamin-logo";
+import { FaGithub, FaRocket, FaExternalLinkAlt, FaBriefcase, FaCode, FaChevronRight } from "react-icons/fa";
 
 const fadeInUp = keyframes`
   from {
@@ -12,15 +14,6 @@ const fadeInUp = keyframes`
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-`;
-
-const float = keyframes`
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
   }
 `;
 
@@ -72,78 +65,121 @@ const PageSubtitle = styled.p`
   opacity: 0;
 `;
 
-const ProjectShowcase = styled.div`
+const PersonalSection = styled.section`
   animation: ${fadeInUp} 0.6s ease 0.2s forwards;
   opacity: 0;
-  margin-bottom: 80px;
+  margin-bottom: 56px;
 `;
 
-const ShowcaseLabel = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: rgba(0, 230, 118, 0.1);
-  border: 1px solid rgba(0, 230, 118, 0.3);
-  border-radius: 100px;
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #00E676;
-  margin-bottom: 24px;
-  
-  svg {
-    animation: ${pulse} 2s ease-in-out infinite;
+const PersonalGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  @media (max-width: 720px) {
+    grid-template-columns: 1fr;
   }
 `;
 
-const ShowcaseCard = styled.div`
-  position: relative;
-  background: linear-gradient(135deg, rgba(0, 230, 118, 0.08) 0%, rgba(0, 168, 67, 0.04) 100%);
-  border: 1px solid rgba(0, 230, 118, 0.2);
-  border-radius: 32px;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #00E676 0%, #FFD600 50%, #FF9100 100%);
-  }
-`;
-
-const ShowcaseHeader = styled.div`
+const PersonalCard = styled.div`
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 22px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 32px 40px 24px;
-  text-align: center;
-  
-  @media (max-width: 768px) {
-    padding: 24px 20px 20px;
+  gap: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: rgba(46, 235, 170, 0.25);
+    box-shadow: var(--glow-primary);
   }
 `;
 
-const LogoWrapper = styled.div`
-  margin-bottom: 24px;
-  animation: ${float} 4s ease-in-out infinite;
+const PersonalCardTop = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
 `;
 
-const IconWrapper = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 20px;
+const PersonalIcon = styled.div`
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 230, 118, 0.25);
-  animation: ${pulse} 3s ease-in-out infinite;
-  
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+`;
+
+const PersonalTitle = styled.h2`
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+`;
+
+const PersonalTagline = styled.p`
+  font-size: 0.85rem;
+  color: var(--accent-primary);
+  margin: 0 0 8px;
+  font-weight: 500;
+`;
+
+const PersonalDesc = styled.p`
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
+
+const PersonalActions = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 8px;
+`;
+
+const GhostLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  &:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+  }
+`;
+
+const SmallGithub = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  padding: 10px 12px;
+  &:hover {
+    color: var(--accent-primary);
   }
 `;
 
@@ -515,9 +551,32 @@ const CardLink = styled.a`
   }
 `;
 
-const Projects = () => {
-  const project = featuredProject;
+function renderPersonalThumb(p: Project) {
+  if (p.useBenjaminLogo) {
+    return (
+      <PersonalIcon style={{ background: "#0a0a0a", padding: 6 }}>
+        <BenjaminLogo width={120} height={52} style={{ width: "100%", height: "auto" }} />
+      </PersonalIcon>
+    );
+  }
+  if (p.icon && (p.icon.startsWith("/") || p.icon.startsWith("http"))) {
+    return (
+      <PersonalIcon>
+        <img src={p.icon} alt="" />
+      </PersonalIcon>
+    );
+  }
+  if (p.iconLetter) {
+    return (
+      <PersonalIcon style={{ background: p.iconColor || "var(--bg-tertiary)" }}>
+        <IconLetter $small={p.iconLetter.length > 1}>{p.iconLetter}</IconLetter>
+      </PersonalIcon>
+    );
+  }
+  return <PersonalIcon />;
+}
 
+const Projects = () => {
   return (
     <PageWrapper>
       <ContentWrapper>
@@ -528,64 +587,38 @@ const Projects = () => {
           </PageSubtitle>
         </PageHeader>
 
-        {/* Featured Project - Rachão */}
-        <ProjectShowcase>
-          <ShowcaseLabel>
-            <FaRocket size={12} />
-            Projeto Pessoal em Desenvolvimento
-          </ShowcaseLabel>
-          
-          <ShowcaseCard>
-            <ShowcaseHeader>
-              <LogoWrapper>
-                <IconWrapper>
-                  <img src={project.icon} alt={project.title} />
-                </IconWrapper>
-              </LogoWrapper>
-              
-              <ProjectTitle>{project.title}</ProjectTitle>
-              <ProjectTagline>{project.tagline}</ProjectTagline>
-              <ProjectDescription>{project.description}</ProjectDescription>
-              
-              <TagsContainer>
-                {project.tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
-              </TagsContainer>
-              
-              <StatusBadge>Em Desenvolvimento Ativo</StatusBadge>
-            </ShowcaseHeader>
-            
-            {project.features && (
-              <FeaturesSection>
-                <FeaturesTitle>Funcionalidades Principais</FeaturesTitle>
-                <FeaturesGrid>
-                  {project.features.map((feature) => (
-                    <FeatureCard key={feature.title}>
-                      <FeatureIcon>{feature.icon}</FeatureIcon>
-                      <FeatureTitle>{feature.title}</FeatureTitle>
-                      <FeatureDescription>{feature.description}</FeatureDescription>
-                    </FeatureCard>
-                  ))}
-                </FeaturesGrid>
-              </FeaturesSection>
-            )}
-            
-            <ActionsSection>
-              {project.githubUrl && (
-                <ActionButton 
-                  href={project.githubUrl} 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  $primary
-                >
-                  <FaGithub size={20} />
-                  Ver Código no GitHub
-                </ActionButton>
-              )}
-            </ActionsSection>
-          </ShowcaseCard>
-        </ProjectShowcase>
+        <PersonalSection>
+          <SectionHeader style={{ marginBottom: 20 }}>
+            <SectionIcon>
+              <FaRocket size={20} />
+            </SectionIcon>
+            <SectionTitle>Projetos pessoais</SectionTitle>
+          </SectionHeader>
+          <PersonalGrid>
+            {personalProjects.map((p) => (
+              <PersonalCard key={p.id}>
+                <PersonalCardTop>
+                  {renderPersonalThumb(p)}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <PersonalTitle>{p.title}</PersonalTitle>
+                    <PersonalTagline>{p.tagline}</PersonalTagline>
+                  </div>
+                </PersonalCardTop>
+                <PersonalDesc>{p.description}</PersonalDesc>
+                <PersonalActions>
+                  <GhostLink href={`/projects/${p.id}`}>
+                    Detalhes <FaChevronRight size={12} />
+                  </GhostLink>
+                  {p.githubUrl && p.showGithub !== false && (
+                    <SmallGithub href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+                      <FaGithub /> GitHub
+                    </SmallGithub>
+                  )}
+                </PersonalActions>
+              </PersonalCard>
+            ))}
+          </PersonalGrid>
+        </PersonalSection>
 
         {/* Professional Projects */}
         <ProfessionalSection>
@@ -633,6 +666,18 @@ const Projects = () => {
                     </CardLink>
                   )}
                 </CardFooter>
+                <div style={{ marginTop: 12 }}>
+                  <Link
+                    href={`/projects/${proj.id}`}
+                    style={{
+                      fontSize: "0.85rem",
+                      fontWeight: 600,
+                      color: "var(--accent-primary)",
+                    }}
+                  >
+                    Ver detalhes →
+                  </Link>
+                </div>
               </ProfessionalCard>
             ))}
           </ProjectsGrid>
@@ -684,6 +729,18 @@ const Projects = () => {
                     </CardLink>
                   )}
                 </CardFooter>
+                <div style={{ marginTop: 12 }}>
+                  <Link
+                    href={`/projects/${proj.id}`}
+                    style={{
+                      fontSize: "0.85rem",
+                      fontWeight: 600,
+                      color: "var(--accent-primary)",
+                    }}
+                  >
+                    Ver detalhes →
+                  </Link>
+                </div>
               </ProfessionalCard>
             ))}
           </ProjectsGrid>

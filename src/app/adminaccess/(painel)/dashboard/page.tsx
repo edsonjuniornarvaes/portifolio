@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 const DashboardContainer = styled.div`
-  min-height: 100vh;
   padding: 2rem;
-  background: var(--bg-primary);
+  max-width: 1400px;
+  margin: 0 auto;
 `;
 
 const Header = styled.header`
@@ -143,24 +143,6 @@ const ChartContainer = styled.div`
   margin-bottom: 2rem;
 `;
 
-const LogoutButton = styled.button`
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 0.75rem 1.5rem;
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-
-  &:hover {
-    border-color: var(--accent-primary);
-    transform: translateY(-2px);
-  }
-`;
-
 const Loading = styled.div`
   text-align: center;
   padding: 3rem;
@@ -274,11 +256,6 @@ export default function DashboardPage() {
     }
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('admin_token');
-    router.push('/adminaccess/login');
-  };
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('pt-BR');
@@ -294,11 +271,9 @@ export default function DashboardPage() {
 
   return (
     <DashboardContainer>
-      <LogoutButton onClick={handleLogout}>Sair</LogoutButton>
-
         <Header>
-          <Title>Dashboard Admin</Title>
-          <Subtitle>Análise de visitas e interações do portfólio</Subtitle>
+          <Title>Métricas</Title>
+          <Subtitle>Visitas, páginas e eventos do portfólio. Para criar ou editar textos públicos, use Artigos no menu.</Subtitle>
         </Header>
 
         {error && <ErrorMessage>{error}</ErrorMessage>}

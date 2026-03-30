@@ -1,12 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import bcrypt from 'bcryptjs';
-
-// Credenciais do admin (em produção, isso deveria estar no banco de dados)
-const ADMIN_EMAIL = 'edsonjunior.narvaes@gmail.com';
-const ADMIN_PASSWORD_HASH = '$2b$10$v72K7Iq8d1kquoEK.orSXuk/kdGZ1cvMzLmwC1obUSRr3WIcJuJ/u';
-
-// Hash da senha: !Edsandrade@030adm
-// Para gerar: bcrypt.hash('!Edsandrade@030adm', 10)
+import { ADMIN_EMAIL, verifyAdminPassword } from '@/lib/admin-auth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,7 +12,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verificar credenciais
     if (email !== ADMIN_EMAIL) {
       return NextResponse.json(
         { error: 'Credenciais inválidas' },
@@ -27,7 +19,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const isValidPassword = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
+    const isValidPassword = await verifyAdminPassword(password);
 
     if (!isValidPassword) {
       return NextResponse.json(

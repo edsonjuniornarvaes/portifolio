@@ -1,51 +1,30 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '@/lib/supabase';
-
-// Verificar autenticação
-async function verifyAuth(request: NextRequest) {
-  const authHeader = request.headers.get('authorization');
-  const token = authHeader?.replace('Bearer ', '') || request.cookies.get('admin_token')?.value;
-
-  if (!token) {
-    return false;
-  }
-
-  try {
-    const decoded = Buffer.from(token, 'base64').toString('utf-8');
-    const [email] = decoded.split(':');
-    return email === 'edsonjunior.narvaes@gmail.com';
-  } catch {
-    return false;
-  }
-}
+import { NextRequest, NextResponse } from "next/server";
+import { createServerClient } from "@/lib/supabase";
+import { verifyAdminToken } from "@/lib/verify-admin";
 
 export async function GET(request: NextRequest) {
-  // Verificar autenticação
-  const isAuthenticated = await verifyAuth(request);
+  const isAuthenticated = verifyAdminToken(request);
   if (!isAuthenticated) {
-    return NextResponse.json(
-      { error: 'Não autorizado' },
-      { status: 401 }
-    );
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
   try {
     const supabase = createServerClient();
     const { searchParams } = new URL(request.url);
-    const range = searchParams.get('range') || '7d'; // 7d, 30d, 1y
+    const range = searchParams.get("range") || "7d"; // 7d, 30d, 1y
 
     // Calcular datas baseado no range
     const now = new Date();
     let startDate: Date;
-    
+
     switch (range) {
-      case '7d':
+      case "7d":
         startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
         break;
-      case '30d':
+      case "30d":
         startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
         break;
-      case '1y':
+      case "1y":
         startDate = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
         break;
       default:
@@ -54,44 +33,52 @@ export async function GET(request: NextRequest) {
 
     // Buscar page views
     const { data: pageViews, error: pageViewsError } = await supabase
-      .from('page_views')
-      .select('*')
-      .gte('created_at', startDate.toISOString())
-      .order('created_at', { ascending: false });
+      .from("page_views")
+      .select("*")
+      .gte("created_at", startDate.toISOString())
+      .order("created_at", { ascending: false });
 
     if (pageViewsError) throw pageViewsError;
 
     // Buscar tab views
     const { data: tabViews, error: tabViewsError } = await supabase
-      .from('tab_views')
-      .select('*')
-      .gte('created_at', startDate.toISOString())
-      .order('created_at', { ascending: false });
+      .from("tab_views")
+      .select("*")
+      .gte("created_at", startDate.toISOString())
+      .order("created_at", { ascending: false });
 
     if (tabViewsError) throw tabViewsError;
 
     // Buscar click events
     const { data: clickEvents, error: clickEventsError } = await supabase
-      .from('click_events')
-      .select('*')
-      .gte('created_at', startDate.toISOString())
-      .order('created_at', { ascending: false });
+      .from("click_events")
+      .select("*")
+      .gte("created_at", startDate.toISOString())
+      .order("created_at", { ascending: false });
 
     if (clickEventsError) throw clickEventsError;
 
     // Processar estatísticas
     const totalVisits = pageViews?.length || 0;
-    const uniqueVisitors = new Set(pageViews?.map(pv => pv.ip_address).filter(Boolean)).size;
-    
+    const uniqueVisitors = new Set(
+      pageViews?.map((pv) => pv.ip_address).filter(Boolean),
+    ).size;
+
     // Calcular tempo médio de permanência
-    const durations = pageViews?.filter(pv => pv.duration !== null && pv.duration > 0).map(pv => pv.duration) || [];
-    const averageTime = durations.length > 0
-      ? Math.round(durations.reduce((sum, d) => sum + d, 0) / durations.length)
-      : 0;
-    
+    const durations =
+      pageViews
+        ?.filter((pv) => pv.duration !== null && pv.duration > 0)
+        .map((pv) => pv.duration) || [];
+    const averageTime =
+      durations.length > 0
+        ? Math.round(
+            durations.reduce((sum, d) => sum + d, 0) / durations.length,
+          )
+        : 0;
+
     // Top pages
     const pageCounts: Record<string, number> = {};
-    pageViews?.forEach(pv => {
+    pageViews?.forEach((pv) => {
       pageCounts[pv.page_path] = (pageCounts[pv.page_path] || 0) + 1;
     });
     const topPages = Object.entries(pageCounts)
@@ -101,8 +88,8 @@ export async function GET(request: NextRequest) {
 
     // Top referrers
     const referrerCounts: Record<string, number> = {};
-    pageViews?.forEach(pv => {
-      const ref = pv.referrer || 'Direct';
+    pageViews?.forEach((pv) => {
+      const ref = pv.referrer || "Direct";
       referrerCounts[ref] = (referrerCounts[ref] || 0) + 1;
     });
     const topReferrers = Object.entries(referrerCounts)
@@ -112,7 +99,7 @@ export async function GET(request: NextRequest) {
 
     // Top countries
     const countryCounts: Record<string, number> = {};
-    pageViews?.forEach(pv => {
+    pageViews?.forEach((pv) => {
       if (pv.country) {
         countryCounts[pv.country] = (countryCounts[pv.country] || 0) + 1;
       }
@@ -124,8 +111,8 @@ export async function GET(request: NextRequest) {
 
     // Visits by day
     const visitsByDay: Record<string, number> = {};
-    pageViews?.forEach(pv => {
-      const date = new Date(pv.created_at).toISOString().split('T')[0];
+    pageViews?.forEach((pv) => {
+      const date = new Date(pv.created_at).toISOString().split("T")[0];
       visitsByDay[date] = (visitsByDay[date] || 0) + 1;
     });
     const visitsByDayArray = Object.entries(visitsByDay)
@@ -134,14 +121,14 @@ export async function GET(request: NextRequest) {
 
     // Tab views count
     const tabCounts: Record<string, number> = {};
-    tabViews?.forEach(tv => {
+    tabViews?.forEach((tv) => {
       const key = `${tv.page_path}:${tv.tab_name}`;
       tabCounts[key] = (tabCounts[key] || 0) + 1;
     });
 
     // Click events by type
     const clickCounts: Record<string, number> = {};
-    clickEvents?.forEach(ce => {
+    clickEvents?.forEach((ce) => {
       clickCounts[ce.element_type] = (clickCounts[ce.element_type] || 0) + 1;
     });
 
@@ -159,37 +146,43 @@ export async function GET(request: NextRequest) {
       range,
     });
   } catch (error: any) {
-    console.error('Analytics error:', error);
-    
+    console.error("Analytics error:", error);
+
     // Mensagem de erro mais detalhada
-    let errorMessage = 'Erro ao buscar dados de analytics';
+    let errorMessage = "Erro ao buscar dados de analytics";
     let errorDetails: any = {};
-    
-    if (error?.message?.includes('SUPABASE_SERVICE_ROLE_KEY')) {
-      errorMessage = 'Configuração do Supabase incompleta';
+
+    if (error?.message?.includes("SUPABASE_SERVICE_ROLE_KEY")) {
+      const isProduction =
+        process.env.VERCEL || process.env.NODE_ENV === "production";
+      errorMessage = "Configuração do Supabase incompleta";
       errorDetails = {
-        message: 'A SUPABASE_SERVICE_ROLE_KEY não está configurada. Configure no arquivo .env',
-        hint: 'Acesse Supabase Dashboard → Settings → API → Copie a service_role key'
+        message: isProduction
+          ? "A SUPABASE_SERVICE_ROLE_KEY não está configurada no Vercel"
+          : "A SUPABASE_SERVICE_ROLE_KEY não está configurada. Configure no arquivo .env",
+        hint: isProduction
+          ? "Acesse Vercel Dashboard → Settings → Environment Variables → Adicione SUPABASE_SERVICE_ROLE_KEY → Faça redeploy"
+          : "Acesse Supabase Dashboard → Settings → API → Copie a service_role key",
       };
-    } else if (error?.message?.includes('Invalid API key')) {
-      errorMessage = 'Chave de API do Supabase inválida';
+    } else if (error?.message?.includes("Invalid API key")) {
+      errorMessage = "Chave de API do Supabase inválida";
       errorDetails = {
-        message: 'A SUPABASE_SERVICE_ROLE_KEY está incorreta ou expirada',
-        hint: 'Verifique se copiou a service_role key correta do Supabase'
+        message: "A SUPABASE_SERVICE_ROLE_KEY está incorreta ou expirada",
+        hint: "Verifique se copiou a service_role key correta do Supabase",
       };
-    } else if (process.env.NODE_ENV === 'development') {
+    } else if (process.env.NODE_ENV === "development") {
       errorDetails = {
-        message: error?.message || 'Erro desconhecido',
-        stack: error?.stack
+        message: error?.message || "Erro desconhecido",
+        stack: error?.stack,
       };
     }
-    
+
     return NextResponse.json(
-      { 
+      {
         error: errorMessage,
-        details: errorDetails
+        details: errorDetails,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

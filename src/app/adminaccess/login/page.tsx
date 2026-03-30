@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 const LoginContainer = styled.div`
@@ -108,6 +109,17 @@ const ErrorMessage = styled.p`
   margin-top: -1rem;
 `;
 
+const FooterLinks = styled.div`
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 0.875rem;
+  
+  a {
+    color: var(--accent-primary);
+    &:hover { text-decoration: underline; }
+  }
+`;
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -182,6 +194,9 @@ export default function LoginPage() {
             {loading ? 'Entrando...' : 'Entrar'}
           </Button>
         </Form>
+        <FooterLinks>
+          <Link href="/adminaccess/forgot-password">Esqueci minha senha</Link>
+        </FooterLinks>
       </LoginCard>
     </LoginContainer>
   );
