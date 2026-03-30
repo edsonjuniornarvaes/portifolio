@@ -45,7 +45,17 @@ export async function POST(request: NextRequest) {
     }
     if (!slug) slug = slugify(title);
 
-    const supabase = createServerClient();
+    let supabase;
+    try {
+      supabase = createServerClient();
+    } catch (envErr) {
+      const msg = envErr instanceof Error ? envErr.message : String(envErr);
+      return NextResponse.json(
+        { error: 'Supabase não configurado no servidor', details: msg },
+        { status: 500 },
+      );
+    }
+
     const row = {
       slug,
       title,
@@ -60,14 +70,22 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       if (error.code === '23505') {
-        return NextResponse.json({ error: 'Slug já existe' }, { status: 409 });
+        return NextResponse.json({ error: 'Slug já existe', code: error.code }, { status: 409 });
       }
-      throw error;
+      return NextResponse.json(
+        {
+          error: 'Erro ao gravar no Supabase',
+          details: error.message,
+          code: error.code,
+        },
+        { status: 500 },
+      );
     }
 
     return NextResponse.json({ post: data });
   } catch (e) {
     console.error(e);
-    return NextResponse.json({ error: 'Erro ao criar post' }, { status: 500 });
+    const details = e instanceof Error ? e.message : String(e);
+    return NextResponse.json({ error: 'Erro ao criar post', details }, { status: 500 });
   }
 }

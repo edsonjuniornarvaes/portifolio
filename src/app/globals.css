@@ -288,6 +288,9 @@ a {
 
 .admin-md-editor-wrap .w-md-editor {
   background: var(--bg-secondary) !important;
+  --color-fg-default: #f4f4f5;
+  --color-canvas-default: #12121a;
+  --color-neutral-muted: rgba(255, 255, 255, 0.08);
 }
 
 .admin-md-editor-wrap .w-md-editor-toolbar {
@@ -299,9 +302,23 @@ a {
   color: var(--text-secondary) !important;
 }
 
-.admin-md-editor-wrap .w-md-editor-text,
-.admin-md-editor-wrap .w-md-editor-text-pre,
-.admin-md-editor-wrap .w-md-editor-text-input {
-  color: var(--text-primary) !important;
+.admin-md-editor-wrap .w-md-editor-text {
   background: var(--bg-secondary) !important;
+}
+
+/*
+ * O editor usa textarea com -webkit-text-fill-color: transparent e camada Prism.
+ * No dark mode os tokens podem ficar escuros → texto “invisível”.
+ * Mostramos o texto direto na textarea e escondemos o overlay de highlight.
+ */
+.admin-md-editor-wrap .w-md-editor-text-input {
+  color: #f4f4f5 !important;
+  -webkit-text-fill-color: #f4f4f5 !important;
+  caret-color: #2eebaa;
+  background: transparent !important;
+}
+
+.admin-md-editor-wrap .w-md-editor-text-pre {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }

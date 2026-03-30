@@ -115,12 +115,15 @@ export default function NewPostPage() {
         router.push("/adminaccess/login");
         return;
       }
-      const d = await r.json();
+      const d = await r.json().catch(() => ({}));
       if (!r.ok) {
-        alert(d.error || "Erro");
+        const parts = [d.error, d.details, d.code ? `código: ${d.code}` : ""].filter(Boolean);
+        alert(parts.join("\n\n") || "Erro ao criar post");
         return;
       }
       router.push(`/adminaccess/posts/${d.post.id}`);
+    } catch {
+      alert("Falha de rede ao salvar. Tente de novo.");
     } finally {
       setSaving(false);
     }
