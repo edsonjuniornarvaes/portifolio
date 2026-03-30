@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import styled from "styled-components";
 import { MarkdownBody } from "@/components/markdown-body";
+import { AdminMdEditor } from "@/components/admin-md-editor";
+import { AdminCoverField } from "@/components/admin-cover-field";
 
 const Wrap = styled.div`
   max-width: 960px;
@@ -28,11 +30,6 @@ const Field = styled.div`
     border: 1px solid var(--border-color);
     background: var(--bg-secondary);
     color: var(--text-primary);
-  }
-  textarea {
-    min-height: 220px;
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
   }
 `;
 
@@ -100,6 +97,9 @@ export default function EditPostPage() {
     Authorization: `Bearer ${typeof window !== "undefined" ? sessionStorage.getItem("admin_token") || "" : ""}`,
     "Content-Type": "application/json",
   });
+
+  const authBearer = () =>
+    `Bearer ${typeof window !== "undefined" ? sessionStorage.getItem("admin_token") || "" : ""}`;
 
   useEffect(() => {
     if (!id) return;
@@ -187,18 +187,15 @@ export default function EditPostPage() {
             <label>Resumo</label>
             <input value={excerpt} onChange={(e) => setExcerpt(e.target.value)} />
           </Field>
-          <Field>
-            <label>URL da capa</label>
-            <input value={cover} onChange={(e) => setCover(e.target.value)} />
-          </Field>
+          <AdminCoverField value={cover} onChange={setCover} getAuthHeader={authBearer} />
           <Field>
             <label>
               <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} /> Publicado
             </label>
           </Field>
           <Field>
-            <label>Markdown</label>
-            <textarea value={body} onChange={(e) => setBody(e.target.value)} />
+            <label>Conteúdo</label>
+            <AdminMdEditor value={body} onChange={setBody} height={440} />
           </Field>
           <Btn type="button" onClick={save} disabled={saving}>
             {saving ? "Salvando…" : "Salvar alterações"}

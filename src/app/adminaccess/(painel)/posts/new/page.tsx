@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { MarkdownBody } from "@/components/markdown-body";
+import { AdminMdEditor } from "@/components/admin-md-editor";
+import { AdminCoverField } from "@/components/admin-cover-field";
 
 const Wrap = styled.div`
   max-width: 960px;
@@ -29,11 +31,6 @@ const Field = styled.div`
     background: var(--bg-secondary);
     color: var(--text-primary);
     font-family: var(--font-display);
-  }
-  textarea {
-    min-height: 220px;
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
   }
 `;
 
@@ -95,6 +92,9 @@ export default function NewPostPage() {
     "Content-Type": "application/json",
   });
 
+  const authBearer = () =>
+    `Bearer ${typeof window !== "undefined" ? sessionStorage.getItem("admin_token") || "" : ""}`;
+
   const save = async () => {
     if (!title.trim()) return;
     setSaving(true);
@@ -146,10 +146,7 @@ export default function NewPostPage() {
             <label>Resumo</label>
             <input value={excerpt} onChange={(e) => setExcerpt(e.target.value)} />
           </Field>
-          <Field>
-            <label>URL da capa</label>
-            <input value={cover} onChange={(e) => setCover(e.target.value)} placeholder="https://..." />
-          </Field>
+          <AdminCoverField value={cover} onChange={setCover} getAuthHeader={authBearer} />
           <Field>
             <label>
               <input
@@ -161,8 +158,8 @@ export default function NewPostPage() {
             </label>
           </Field>
           <Field>
-            <label>Markdown</label>
-            <textarea value={body} onChange={(e) => setBody(e.target.value)} />
+            <label>Conteúdo</label>
+            <AdminMdEditor value={body} onChange={setBody} height={440} />
           </Field>
           <BtnRow>
             <Btn type="button" onClick={save} disabled={saving}>

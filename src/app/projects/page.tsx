@@ -414,6 +414,9 @@ const ProfessionalCard = styled.div`
   border-radius: 16px;
   transition: all 0.3s ease;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
   
   &::before {
     content: '';
@@ -502,6 +505,7 @@ const CardTags = styled.div`
   flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 16px;
+  flex: 1;
 `;
 
 const SmallTag = styled.span`
@@ -517,6 +521,39 @@ const CardFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 4px;
+`;
+
+const CardActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-left: auto;
+  justify-content: flex-end;
+`;
+
+const DetailLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(46, 235, 170, 0.35);
+  color: #2eebaa;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background: rgba(46, 235, 170, 0.1);
+    border-color: #2eebaa;
+  }
 `;
 
 const ProductionBadge = styled.span<{ $status?: string }>`
@@ -540,14 +577,20 @@ const CardLink = styled.a`
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #a1a1aa;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
   text-decoration: none;
-  transition: color 0.3s ease;
-  
+  white-space: nowrap;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+
   &:hover {
-    color: #2eebaa;
+    color: var(--text-primary);
+    border-color: rgba(46, 235, 170, 0.35);
+    background: rgba(255, 255, 255, 0.04);
   }
 `;
 
@@ -655,29 +698,19 @@ const Projects = () => {
                   <ProductionBadge $status={proj.status}>
                     {proj.status === 'production' ? 'Em Produção' : 'Versão Anterior'}
                   </ProductionBadge>
-                  {proj.liveUrl && (
-                    <CardLink 
-                      href={proj.liveUrl} 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Ver na App Store
-                      <FaExternalLinkAlt size={12} />
-                    </CardLink>
-                  )}
+                  <CardActions>
+                    <DetailLink href={`/projects/${proj.id}`}>
+                      Ver detalhes
+                      <FaChevronRight size={11} />
+                    </DetailLink>
+                    {proj.liveUrl && (
+                      <CardLink href={proj.liveUrl} target="_blank" rel="noopener noreferrer">
+                        App Store
+                        <FaExternalLinkAlt size={11} />
+                      </CardLink>
+                    )}
+                  </CardActions>
                 </CardFooter>
-                <div style={{ marginTop: 12 }}>
-                  <Link
-                    href={`/projects/${proj.id}`}
-                    style={{
-                      fontSize: "0.85rem",
-                      fontWeight: 600,
-                      color: "var(--accent-primary)",
-                    }}
-                  >
-                    Ver detalhes →
-                  </Link>
-                </div>
               </ProfessionalCard>
             ))}
           </ProjectsGrid>
@@ -718,29 +751,19 @@ const Projects = () => {
                   <ProductionBadge $status={proj.status}>
                     {proj.status === 'production' ? 'Em Produção' : 'Versão Anterior'}
                   </ProductionBadge>
-                  {proj.liveUrl && (
-                    <CardLink 
-                      href={proj.liveUrl} 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Visitar
-                      <FaExternalLinkAlt size={12} />
-                    </CardLink>
-                  )}
+                  <CardActions>
+                    <DetailLink href={`/projects/${proj.id}`}>
+                      Ver detalhes
+                      <FaChevronRight size={11} />
+                    </DetailLink>
+                    {proj.liveUrl && (
+                      <CardLink href={proj.liveUrl} target="_blank" rel="noopener noreferrer">
+                        Visitar
+                        <FaExternalLinkAlt size={11} />
+                      </CardLink>
+                    )}
+                  </CardActions>
                 </CardFooter>
-                <div style={{ marginTop: 12 }}>
-                  <Link
-                    href={`/projects/${proj.id}`}
-                    style={{
-                      fontSize: "0.85rem",
-                      fontWeight: 600,
-                      color: "var(--accent-primary)",
-                    }}
-                  >
-                    Ver detalhes →
-                  </Link>
-                </div>
               </ProfessionalCard>
             ))}
           </ProjectsGrid>
