@@ -60,16 +60,9 @@ const Star = styled.div<{ $top: string; $left: string; $delay: string; $dur: str
 `;
 
 const meteors = [
-  { top: "8%", left: "15%", delay: "0s", dur: "3.5s", dx: "600px", dy: "400px", size: 2 },
-  { top: "2%", left: "55%", delay: "1.8s", dur: "4s", dx: "500px", dy: "350px", size: 2 },
-  { top: "25%", left: "80%", delay: "4s", dur: "3s", dx: "-550px", dy: "380px", size: 1.5 },
-  { top: "12%", left: "35%", delay: "6.5s", dur: "3.8s", dx: "650px", dy: "300px", size: 2 },
-  { top: "5%", left: "70%", delay: "2.5s", dur: "4.5s", dx: "-400px", dy: "500px", size: 1.5 },
-  { top: "30%", left: "10%", delay: "8s", dur: "3.2s", dx: "700px", dy: "250px", size: 2 },
-  { top: "15%", left: "90%", delay: "5s", dur: "3.6s", dx: "-600px", dy: "350px", size: 1.5 },
-  { top: "40%", left: "45%", delay: "10s", dur: "4.2s", dx: "500px", dy: "300px", size: 1.5 },
-  { top: "3%", left: "25%", delay: "12s", dur: "3.4s", dx: "550px", dy: "420px", size: 2 },
-  { top: "20%", left: "60%", delay: "7.5s", dur: "3.9s", dx: "-500px", dy: "350px", size: 1.5 },
+  { top: "10%", left: "20%", delay: "0s", dur: "4s", dx: "600px", dy: "400px", size: 2 },
+  { top: "5%", left: "75%", delay: "6s", dur: "3.5s", dx: "-500px", dy: "-350px", size: 1.5 },
+  { top: "45%", left: "60%", delay: "12s", dur: "4.5s", dx: "450px", dy: "-300px", size: 2 },
 ];
 
 export function ShootingStars() {
@@ -90,6 +83,3 @@ export function ShootingStars() {
     </Wrap>
   );
 }
-
-/** @deprecated use ShootingStars */
-export const OrbitBackground = ShootingStars;

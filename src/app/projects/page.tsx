@@ -332,28 +332,32 @@ const CardDescription = styled.p`
 const TechStrip = styled.div`
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(0, 0, 0, 0.15);
   padding: 10px 0;
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 `;
 
 const TechTrack = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 16px;
   width: max-content;
-  animation: ${scroll} 18s linear infinite;
+  animation: ${scroll} 22s linear infinite;
 `;
 
 const TechChip = styled.span`
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: #71717a;
+  font-size: 0.8rem;
+  color: var(--text-primary);
   white-space: nowrap;
-  svg { font-size: 0.85rem; color: rgba(46, 235, 170, 0.6); flex-shrink: 0; }
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: rgba(26, 26, 36, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-weight: 500;
+  svg { font-size: 1rem; color: var(--accent-primary); flex-shrink: 0; }
 `;
 
 /* ===== Footer do card ===== */
