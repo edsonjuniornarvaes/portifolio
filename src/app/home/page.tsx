@@ -120,6 +120,30 @@ const BlogSeeAll = styled(Link)`
   &:hover { text-decoration: underline; }
 `;
 
+const BlogEmptyPanel = styled.div`
+  padding: 28px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--border-color);
+  background: rgba(26, 26, 36, 0.35);
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto;
+`;
+
+const BlogEmptyText = styled.p`
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+`;
+
+const BlogLoadingText = styled.p`
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 24px 0 8px;
+`;
+
 /* ===== Types ===== */
 
 type BlogPostPreview = {
@@ -133,12 +157,14 @@ type BlogPostPreview = {
 
 export default function Home() {
   const [blogPosts, setBlogPosts] = useState<BlogPostPreview[]>([]);
+  const [blogLoading, setBlogLoading] = useState(true);
 
   useEffect(() => {
     fetch("/api/posts")
       .then((r) => r.json())
       .then((d) => setBlogPosts((d.posts || []).slice(0, 6)))
-      .catch(() => setBlogPosts([]));
+      .catch(() => setBlogPosts([]))
+      .finally(() => setBlogLoading(false));
   }, []);
 
   return (
@@ -193,8 +219,8 @@ export default function Home() {
             <S.ProfileImageWrapper>
               <S.ProfileImageContainer>
                 <S.ProfileImage
-                  src="/images/profile.svg"
-                  alt="Edson Junior - Desenvolvedor Mobile"
+                  src="/images/profile-hero.png"
+                  alt="Edson Junior no ambiente de trabalho"
                 />
               </S.ProfileImageContainer>
               <S.StatusBadge>
@@ -218,20 +244,23 @@ export default function Home() {
         </S.StatsGrid>
       </S.StatsSection>
 
-      {/* Blog */}
-      {blogPosts.length > 0 && (
-        <BlogSection aria-label="Artigos recentes">
-          <BlogHeaderRow>
-            <div>
-              <S.SectionTitle style={{ textAlign: "left", marginBottom: 8 }}>
-                Artigos
-              </S.SectionTitle>
-              <S.SectionSubtitle style={{ textAlign: "left", marginBottom: 0 }}>
-                Notas e reflexões sobre tecnologia, trabalho e aprendizado contínuo.
-              </S.SectionSubtitle>
-            </div>
-            <BlogSeeAll href="/blog">Ver linha do tempo</BlogSeeAll>
-          </BlogHeaderRow>
+      {/* Blog: área fixa na home — últimos posts em carrossel quando houver publicações */}
+      <BlogSection aria-label="Artigos recentes">
+        <BlogHeaderRow>
+          <div>
+            <S.SectionTitle style={{ textAlign: "left", marginBottom: 8 }}>
+              Artigos
+            </S.SectionTitle>
+            <S.SectionSubtitle style={{ textAlign: "left", marginBottom: 0 }}>
+              Os últimos textos publicados no blog aparecem aqui. Publique pelo painel admin e eles
+              entram automaticamente (até 6 em carrossel).
+            </S.SectionSubtitle>
+          </div>
+          <BlogSeeAll href="/blog">Ver todos</BlogSeeAll>
+        </BlogHeaderRow>
+        {blogLoading ? (
+          <BlogLoadingText>Carregando artigos…</BlogLoadingText>
+        ) : blogPosts.length > 0 ? (
           <BlogCarousel>
             {blogPosts.map((p) => (
               <BlogCard key={p.id} href={`/blog/${p.slug}`}>
@@ -270,8 +299,16 @@ export default function Home() {
               </BlogCard>
             ))}
           </BlogCarousel>
-        </BlogSection>
-      )}
+        ) : (
+          <BlogEmptyPanel>
+            <BlogEmptyText>
+              Ainda não há posts públicos. Quando você publicar no painel, os mais recentes surgem
+              neste carrossel com capa e trecho.
+            </BlogEmptyText>
+            <BlogSeeAll href="/blog">Abrir o blog</BlogSeeAll>
+          </BlogEmptyPanel>
+        )}
+      </BlogSection>
     </S.PageWrapper>
   );
 }

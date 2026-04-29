@@ -190,7 +190,7 @@ O foco é oferecer peças refinadas, curadoria de qualidade e uma experiência d
 };
 
 /** Projetos pessoais (cards compactos + link para detalhes) */
-export const personalProjects: Project[] = [rachaoProject, osBarberClubProject, clubeDaClutchProject];
+export const personalProjects: Project[] = [osBarberClubProject, clubeDaClutchProject, rachaoProject];
 
 /** @deprecated use rachaoProject */
 export const featuredProject = rachaoProject;

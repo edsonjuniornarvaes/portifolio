@@ -58,13 +58,22 @@ const pulse = keyframes`
 
 const PageWrapper = styled.div`
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   padding: 40px 24px 100px;
+  background: var(--bg-primary, #0a0a0f);
   @media (max-width: 768px) { padding: 20px 16px 60px; }
 `;
 
 const ContentWrapper = styled.div`
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  width: 100%;
   max-width: 1100px;
   margin: 0 auto;
+  min-width: 0;
 `;
 
 const PageHeader = styled.div`
@@ -99,13 +108,15 @@ const PersonalSection = styled.section`
 
 const PersonalGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
-  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
-  @media (max-width: 600px) { grid-template-columns: 1fr; }
+  @media (max-width: 900px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 600px) { grid-template-columns: minmax(0, 1fr); }
 `;
 
 const PersonalCard = styled.div`
+  min-width: 0;
+  overflow: hidden;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
@@ -239,13 +250,14 @@ const SectionTitle = styled.h2`
 
 const ProjectsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
-  @media (max-width: 600px) { grid-template-columns: 1fr; }
+  @media (max-width: 600px) { grid-template-columns: minmax(0, 1fr); }
 `;
 
 const ProfessionalCard = styled.div`
   position: relative;
+  min-width: 0;
   background: rgba(26, 26, 36, 0.4);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -330,6 +342,9 @@ const CardDescription = styled.p`
 
 /* ===== Marquee de techs ===== */
 const TechStrip = styled.div`
+  position: relative;
+  width: 100%;
+  min-width: 0;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   padding: 10px 0;

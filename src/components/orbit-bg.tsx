@@ -2,24 +2,19 @@
 
 import styled, { keyframes } from "styled-components";
 
-const drift1 = keyframes`
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(80px, -60px) scale(1.1); }
-  66%  { transform: translate(-40px, 40px) scale(0.95); }
-  100% { transform: translate(0, 0) scale(1); }
+const moveLines = keyframes`
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(80px); }
 `;
 
-const drift2 = keyframes`
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(-70px, 50px) scale(1.05); }
-  66%  { transform: translate(50px, -30px) scale(0.9); }
-  100% { transform: translate(0, 0) scale(1); }
+const pulse1 = keyframes`
+  0%, 100% { opacity: 0.04; }
+  50%      { opacity: 0.08; }
 `;
 
-const drift3 = keyframes`
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(60px, 70px) scale(1.08); }
-  100% { transform: translate(0, 0) scale(1); }
+const pulse2 = keyframes`
+  0%, 100% { opacity: 0.03; }
+  50%      { opacity: 0.06; }
 `;
 
 const Wrap = styled.div`
@@ -30,7 +25,19 @@ const Wrap = styled.div`
   z-index: 0;
 `;
 
-const Blob = styled.div<{ $top: string; $left: string; $size: string; $color: string; $anim: number }>`
+const GridOverlay = styled.div`
+  position: absolute;
+  inset: -80px 0 0 0;
+  background-image:
+    linear-gradient(rgba(46, 235, 170, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 235, 170, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: ${moveLines} 12s linear infinite;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 0%, transparent 70%);
+`;
+
+const GlowOrb = styled.div<{ $top: string; $left: string; $size: string; $color: string; $anim: 1 | 2 }>`
   position: absolute;
   top: ${(p) => p.$top};
   left: ${(p) => p.$left};
@@ -38,16 +45,16 @@ const Blob = styled.div<{ $top: string; $left: string; $size: string; $color: st
   height: ${(p) => p.$size};
   border-radius: 50%;
   background: ${(p) => p.$color};
-  filter: blur(100px);
-  animation: ${(p) => [drift1, drift2, drift3][p.$anim]} ${(p) => 20 + p.$anim * 8}s ease-in-out infinite;
+  filter: blur(120px);
+  animation: ${(p) => (p.$anim === 1 ? pulse1 : pulse2)} ${(p) => 6 + p.$anim * 4}s ease-in-out infinite;
 `;
 
 export function ShootingStars() {
   return (
     <Wrap aria-hidden>
-      <Blob $top="5%" $left="15%" $size="400px" $color="rgba(46, 235, 170, 0.03)" $anim={0} />
-      <Blob $top="50%" $left="70%" $size="350px" $color="rgba(6, 182, 212, 0.025)" $anim={1} />
-      <Blob $top="70%" $left="20%" $size="300px" $color="rgba(46, 235, 170, 0.02)" $anim={2} />
+      <GridOverlay />
+      <GlowOrb $top="10%" $left="20%" $size="500px" $color="rgba(46, 235, 170, 0.06)" $anim={1} />
+      <GlowOrb $top="55%" $left="65%" $size="400px" $color="rgba(6, 182, 212, 0.05)" $anim={2} />
     </Wrap>
   );
 }
