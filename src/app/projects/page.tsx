@@ -347,17 +347,12 @@ const TechTrack = styled.div`
 const TechChip = styled.span`
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-primary);
+  font-size: 0.7rem;
+  color: #71717a;
   white-space: nowrap;
-  padding: 8px 16px;
-  border-radius: 100px;
-  background: rgba(26, 26, 36, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  font-weight: 500;
-  svg { font-size: 1rem; color: var(--accent-primary); flex-shrink: 0; }
+  svg { font-size: 0.85rem; color: rgba(46, 235, 170, 0.6); flex-shrink: 0; }
 `;
 
 /* ===== Footer do card ===== */

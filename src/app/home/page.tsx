@@ -7,27 +7,14 @@ import * as S from "../styles";
 import GitHubIcon from "@/assets/icons/social/github";
 import LinkedInIcon from "@/assets/icons/social/linkedin";
 import DevtoIcon from "@/assets/icons/social/devto";
-import { FaMobileAlt, FaApple, FaAndroid, FaRocket } from "react-icons/fa";
-import {
-  SiTypescript,
-  SiRedux,
-  SiJest,
-  SiExpo,
-  SiFirebase,
-  SiReact,
-} from "react-icons/si";
 
-const techMarquee = [
-  { icon: <SiReact />, name: "React Native" },
-  { icon: <SiTypescript />, name: "TypeScript" },
-  { icon: <SiRedux />, name: "Redux" },
-  { icon: <FaApple />, name: "iOS" },
-  { icon: <FaAndroid />, name: "Android" },
-  { icon: <SiJest />, name: "Jest" },
-  { icon: <SiExpo />, name: "Expo" },
-  { icon: <FaRocket />, name: "CI/CD" },
-  { icon: <SiFirebase />, name: "Firebase" },
-  { icon: <FaMobileAlt />, name: "MVVM" },
+const techStack = [
+  "React Native",
+  "TypeScript",
+  "Redux",
+  "iOS",
+  "Android",
+  "Jest",
 ];
 
 const stats = [
@@ -133,50 +120,6 @@ const BlogSeeAll = styled(Link)`
   &:hover { text-decoration: underline; }
 `;
 
-/* ===== Tech Marquee (mesma linguagem do projects) ===== */
-
-const scroll = keyframes`
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-`;
-
-const TechStrip = styled.div`
-  overflow: hidden;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 0 40px;
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-`;
-
-const TechTrack = styled.div`
-  display: flex;
-  gap: 16px;
-  width: max-content;
-  animation: ${scroll} 30s linear infinite;
-`;
-
-const TechChip = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border-radius: 100px;
-  background: rgba(26, 26, 36, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  white-space: nowrap;
-
-  svg {
-    font-size: 1rem;
-    color: var(--accent-primary);
-    flex-shrink: 0;
-  }
-`;
-
 /* ===== Types ===== */
 
 type BlogPostPreview = {
@@ -198,8 +141,6 @@ export default function Home() {
       .catch(() => setBlogPosts([]));
   }, []);
 
-  const doubled = [...techMarquee, ...techMarquee];
-
   return (
     <S.PageWrapper>
       {/* Hero */}
@@ -213,6 +154,12 @@ export default function Home() {
               Especializado em React Native, construindo aplicativos com alta performance,
               arquitetura escalável e experiência do usuário de excelência para iOS e Android.
             </S.HeroDescription>
+
+            <S.TechStack>
+              {techStack.map((tech) => (
+                <S.TechBadge key={tech}>{tech}</S.TechBadge>
+              ))}
+            </S.TechStack>
 
             <S.SocialLinks>
               <S.SocialButton
@@ -258,17 +205,6 @@ export default function Home() {
           </S.HeroImageContent>
         </S.HeroContent>
       </S.HeroSection>
-
-      {/* Tech marquee */}
-      <TechStrip>
-        <TechTrack>
-          {doubled.map((t, i) => (
-            <TechChip key={`t-${i}`}>
-              {t.icon} {t.name}
-            </TechChip>
-          ))}
-        </TechTrack>
-      </TechStrip>
 
       {/* Stats */}
       <S.StatsSection>
