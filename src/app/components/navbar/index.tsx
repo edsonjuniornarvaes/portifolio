@@ -40,7 +40,6 @@ const Navbar = () => {
       <S.NavBar>
         <S.Logo href="/home">
           <S.LogoMark>ej</S.LogoMark>
-          <S.LogoName>Edson Junior</S.LogoName>
         </S.Logo>
         
         <S.NavbarContent>

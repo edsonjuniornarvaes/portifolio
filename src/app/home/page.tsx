@@ -9,6 +9,7 @@ import LinkedInIcon from "@/assets/icons/social/linkedin";
 import DevtoIcon from "@/assets/icons/social/devto";
 import { FaReact, FaMobileAlt, FaApple, FaAndroid, FaCode, FaRocket } from "react-icons/fa";
 import { SiTypescript, SiRedux } from "react-icons/si";
+import { OrbitBackground } from "@/components/orbit-bg";
 
 const techStack = [
   "React Native",
@@ -182,6 +183,7 @@ export default function Home() {
 
   return (
     <S.PageWrapper>
+      <OrbitBackground />
       {/* Hero Section */}
       <S.HeroSection>
         <S.HeroContent>
