@@ -2,6 +2,8 @@ import { NextRequest } from 'next/server';
 import { ADMIN_EMAIL } from '@/lib/admin-auth';
 
 export function verifyAdminToken(request: NextRequest): boolean {
+  if (!ADMIN_EMAIL) return false;
+
   const authHeader = request.headers.get('authorization');
   const token =
     authHeader?.replace('Bearer ', '') || request.cookies.get('admin_token')?.value;

@@ -1,11 +1,7 @@
 import { createServerClient } from '@/lib/supabase';
 import bcrypt from 'bcryptjs';
 
-export const ADMIN_EMAIL = 'edsonjunior.narvaes@gmail.com';
-
-/** Hash bcrypt de !Edsandrade@030adm — usado se a tabela ainda não existir */
-export const FALLBACK_PASSWORD_HASH =
-  '$2b$10$v72K7Iq8d1kquoEK.orSXuk/kdGZ1cvMzLmwC1obUSRr3WIcJuJ/u';
+export const ADMIN_EMAIL = process.env.ADMIN_EMAIL || '';
 
 export async function getAdminPasswordHash(): Promise<string> {
   try {
@@ -19,7 +15,13 @@ export async function getAdminPasswordHash(): Promise<string> {
   } catch {
     /* tabela pode não existir ainda */
   }
-  return process.env.ADMIN_PASSWORD_HASH || FALLBACK_PASSWORD_HASH;
+  const envHash = process.env.ADMIN_PASSWORD_HASH;
+  if (!envHash) {
+    throw new Error(
+      'ADMIN_PASSWORD_HASH não configurado. Defina no .env ou no Vercel para login funcionar sem Supabase.',
+    );
+  }
+  return envHash;
 }
 
 export async function setAdminPasswordHash(hash: string): Promise<void> {

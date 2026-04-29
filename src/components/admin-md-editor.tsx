@@ -14,7 +14,13 @@ type Props = {
 export function AdminMdEditor({ value, onChange, height = 400 }: Props) {
   return (
     <div data-color-mode="dark" className="admin-md-editor-wrap">
-      <MDEditor value={value} onChange={(v) => onChange(v ?? "")} height={height} preview="edit" />
+      <MDEditor
+        value={value}
+        onChange={(v) => onChange(v ?? "")}
+        height={height}
+        preview="edit"
+        visibleDragbar={false}
+      />
     </div>
   );
 }

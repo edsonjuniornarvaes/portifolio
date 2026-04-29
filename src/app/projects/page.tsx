@@ -3,7 +3,6 @@
 import styled, { keyframes } from "styled-components";
 import Link from "next/link";
 import { personalProjects, professionalProjects, webProjects, type Project } from "./helper";
-import { BenjaminLogo } from "@/components/benjamin-logo";
 import { FaGithub, FaRocket, FaExternalLinkAlt, FaBriefcase, FaCode, FaChevronRight } from "react-icons/fa";
 
 const fadeInUp = keyframes`
@@ -595,16 +594,10 @@ const CardLink = styled.a`
 `;
 
 function renderPersonalThumb(p: Project) {
-  if (p.useBenjaminLogo) {
-    return (
-      <PersonalIcon style={{ background: "#0a0a0a", padding: 6 }}>
-        <BenjaminLogo width={120} height={52} style={{ width: "100%", height: "auto" }} />
-      </PersonalIcon>
-    );
-  }
   if (p.icon && (p.icon.startsWith("/") || p.icon.startsWith("http"))) {
     return (
-      <PersonalIcon>
+      <PersonalIcon style={{ background: p.iconColor || "var(--bg-secondary)" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={p.icon} alt="" />
       </PersonalIcon>
     );

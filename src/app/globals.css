@@ -279,15 +279,16 @@ a {
   color: var(--text-primary);
 }
 
-/* Admin markdown editor (uiw) — tema escuro alinhado ao site */
+/* Admin markdown editor (uiw) */
 .admin-md-editor-wrap {
-  border-radius: var(--radius-sm);
+  border-radius: 0;
   overflow: hidden;
-  border: 1px solid var(--border-color);
 }
 
 .admin-md-editor-wrap .w-md-editor {
   background: var(--bg-secondary) !important;
+  border: none !important;
+  box-shadow: none !important;
   --color-fg-default: #f4f4f5;
   --color-canvas-default: #12121a;
   --color-neutral-muted: rgba(255, 255, 255, 0.08);
@@ -296,29 +297,36 @@ a {
 .admin-md-editor-wrap .w-md-editor-toolbar {
   background: var(--bg-tertiary) !important;
   border-bottom: 1px solid var(--border-color) !important;
+  padding: 6px 8px !important;
 }
 
 .admin-md-editor-wrap .w-md-editor-toolbar svg {
   color: var(--text-secondary) !important;
 }
 
+.admin-md-editor-wrap .w-md-editor-toolbar li > button:hover svg {
+  color: var(--accent-primary) !important;
+}
+
 .admin-md-editor-wrap .w-md-editor-text {
   background: var(--bg-secondary) !important;
 }
 
-/*
- * O editor usa textarea com -webkit-text-fill-color: transparent e camada Prism.
- * No dark mode os tokens podem ficar escuros → texto “invisível”.
- * Mostramos o texto direto na textarea e escondemos o overlay de highlight.
- */
 .admin-md-editor-wrap .w-md-editor-text-input {
   color: #f4f4f5 !important;
   -webkit-text-fill-color: #f4f4f5 !important;
   caret-color: #2eebaa;
   background: transparent !important;
+  font-size: 0.9rem !important;
+  line-height: 1.7 !important;
+  padding: 16px !important;
 }
 
 .admin-md-editor-wrap .w-md-editor-text-pre {
   opacity: 0 !important;
   pointer-events: none !important;
+}
+
+.admin-md-editor-wrap .w-md-editor-content {
+  border: none !important;
 }

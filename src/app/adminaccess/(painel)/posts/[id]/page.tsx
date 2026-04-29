@@ -9,65 +9,158 @@ import { AdminMdEditor } from "@/components/admin-md-editor";
 import { AdminCoverField } from "@/components/admin-cover-field";
 
 const Wrap = styled.div`
-  max-width: 960px;
+  max-width: 780px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 1.5rem;
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+
+  h1 {
+    color: var(--text-primary);
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+`;
+
+const BackLink = styled(Link)`
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  &:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-primary);
+  }
 `;
 
 const Field = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+
   label {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 500;
     color: var(--text-secondary);
     margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
-  input,
-  textarea {
+
+  input {
     width: 100%;
     padding: 10px 12px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border-color);
     background: var(--bg-secondary);
     color: var(--text-primary);
+    font-size: 0.9rem;
+    font-family: inherit;
   }
 `;
 
-const Grid = styled.div`
+const Row2 = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  @media (max-width: 900px) {
+  gap: 16px;
+  @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
 `;
 
-const Preview = styled.div`
+const CheckboxLabel = styled.label`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  margin-bottom: 1.25rem;
+
+  input[type="checkbox"] {
+    accent-color: #2eebaa;
+    width: 16px;
+    height: 16px;
+  }
+`;
+
+const Tabs = styled.div`
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border-color);
+`;
+
+const Tab = styled.button<{ $active: boolean }>`
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: ${(p) => (p.$active ? "var(--accent-primary)" : "var(--text-muted)")};
+  border-bottom: 2px solid ${(p) => (p.$active ? "var(--accent-primary)" : "transparent")};
+  transition: color 0.2s, border-color 0.2s;
+  &:hover {
+    color: var(--text-primary);
+  }
+`;
+
+const EditorPane = styled.div`
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 1rem;
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-secondary);
+`;
+
+const PreviewPane = styled.div`
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: 1.5rem;
   background: var(--bg-card);
+  min-height: 320px;
   max-height: 560px;
   overflow: auto;
 `;
 
+const BtnRow = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 1.5rem;
+`;
+
 const Btn = styled.button`
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: var(--radius-sm);
   border: none;
   background: var(--accent-gradient);
-  color: var(--text-primary);
-  font-weight: 600;
+  color: var(--bg-primary);
+  font-weight: 700;
+  font-size: 0.9rem;
   cursor: pointer;
-  margin-right: 10px;
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `;
 
-const Ghost = styled(Link)`
-  padding: 10px 16px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  text-decoration: none;
+const PublicLink = styled(Link)`
+  font-size: 0.85rem;
+  color: var(--accent-primary);
+  margin-left: auto;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 type Post = {
@@ -92,6 +185,7 @@ export default function EditPostPage() {
   const [body, setBody] = useState("");
   const [published, setPublished] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [tab, setTab] = useState<"edit" | "preview">("edit");
 
   const authHeaders = (): HeadersInit => ({
     Authorization: `Bearer ${typeof window !== "undefined" ? sessionStorage.getItem("admin_token") || "" : ""}`,
@@ -148,12 +242,14 @@ export default function EditPostPage() {
         router.push("/adminaccess/login");
         return;
       }
+      const d = await r.json().catch(() => ({}));
       if (!r.ok) {
-        const d = await r.json();
-        alert(d.error || "Erro");
+        alert(d.error || "Erro ao salvar");
         return;
       }
-      alert("Salvo");
+      alert("Salvo com sucesso!");
+    } catch {
+      alert("Falha de rede ao salvar. Tente de novo.");
     } finally {
       setSaving(false);
     }
@@ -169,54 +265,69 @@ export default function EditPostPage() {
 
   return (
     <Wrap>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, flexWrap: "wrap", gap: 12 }}>
-        <h1 style={{ color: "var(--text-primary)" }}>Editar post</h1>
-        <Ghost href="/adminaccess/posts">← Lista de posts</Ghost>
-      </div>
-      <Grid>
-        <div>
-          <Field>
-            <label>Título</label>
-            <input value={title} onChange={(e) => setTitle(e.target.value)} />
-          </Field>
-          <Field>
-            <label>Slug</label>
-            <input value={slug} onChange={(e) => setSlug(e.target.value)} />
-          </Field>
-          <Field>
-            <label>Resumo</label>
-            <input value={excerpt} onChange={(e) => setExcerpt(e.target.value)} />
-          </Field>
-          <AdminCoverField value={cover} onChange={setCover} getAuthHeader={authBearer} />
-          <Field>
-            <label>
-              <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} /> Publicado
-            </label>
-          </Field>
-          <Field>
-            <label>Conteúdo</label>
-            <AdminMdEditor value={body} onChange={setBody} height={440} />
-          </Field>
-          <Btn type="button" onClick={save} disabled={saving}>
-            {saving ? "Salvando…" : "Salvar alterações"}
-          </Btn>
-        </div>
-        <div>
-          <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", marginBottom: 8 }}>Preview</p>
-          <Preview>
-            {cover && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={cover} alt="" style={{ width: "100%", borderRadius: 8, marginBottom: 12 }} />
-            )}
+      <Header>
+        <h1>Editar artigo</h1>
+        <BackLink href="/adminaccess/posts">← Artigos</BackLink>
+      </Header>
+
+      <Row2>
+        <Field>
+          <label>Título</label>
+          <input value={title} onChange={(e) => setTitle(e.target.value)} />
+        </Field>
+        <Field>
+          <label>Slug</label>
+          <input value={slug} onChange={(e) => setSlug(e.target.value)} />
+        </Field>
+      </Row2>
+
+      <Field>
+        <label>Resumo</label>
+        <input value={excerpt} onChange={(e) => setExcerpt(e.target.value)} />
+      </Field>
+
+      <AdminCoverField value={cover} onChange={setCover} getAuthHeader={authBearer} />
+
+      <CheckboxLabel>
+        <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} />
+        Publicado
+      </CheckboxLabel>
+
+      <Tabs>
+        <Tab type="button" $active={tab === "edit"} onClick={() => setTab("edit")}>
+          Escrever
+        </Tab>
+        <Tab type="button" $active={tab === "preview"} onClick={() => setTab("preview")}>
+          Preview
+        </Tab>
+      </Tabs>
+
+      {tab === "edit" ? (
+        <EditorPane>
+          <AdminMdEditor value={body} onChange={setBody} height={420} />
+        </EditorPane>
+      ) : (
+        <PreviewPane>
+          {cover && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={cover} alt="" style={{ width: "100%", borderRadius: 8, marginBottom: 16 }} />
+          )}
+          {body ? (
             <MarkdownBody markdown={body} />
-          </Preview>
-          <p style={{ marginTop: 12, fontSize: "0.85rem" }}>
-            <Link href={`/blog/${slug}`} style={{ color: "var(--accent-primary)" }} target="_blank" rel="noreferrer">
-              Ver no site (artigo público)
-            </Link>
-          </p>
-        </div>
-      </Grid>
+          ) : (
+            <p style={{ color: "var(--text-muted)", fontStyle: "italic" }}>Nenhum conteúdo ainda.</p>
+          )}
+        </PreviewPane>
+      )}
+
+      <BtnRow>
+        <Btn type="button" onClick={save} disabled={saving}>
+          {saving ? "Salvando…" : "Salvar alterações"}
+        </Btn>
+        <PublicLink href={`/blog/${slug}`} target="_blank" rel="noreferrer">
+          Ver no site ↗
+        </PublicLink>
+      </BtnRow>
     </Wrap>
   );
 }

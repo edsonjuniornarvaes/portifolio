@@ -6,7 +6,7 @@ export interface Project {
   icon: string;
   iconColor?: string;
   iconLetter?: string;
-  /** Se true, renderiza o componente BenjaminLogo em vez de img / letra */
+  /** @deprecated usar icon com path de imagem */
   useBenjaminLogo?: boolean;
   tags: string[];
   status: "development" | "production" | "paused";
@@ -104,18 +104,17 @@ export const rachaoProject: Project = {
   ],
 };
 
-export const benjaminProject: Project = {
-  id: "benjamin-barbearia",
-  title: "Benjamin Barbearia",
+export const osBarberClubProject: Project = {
+  id: "os-barber-club",
+  title: "OS Barber Club",
   tagline: "Agenda, preços e identidade — sem taxas de marketplace",
   description:
     "App próprio para agenda, profissionais, serviços e preços. O cliente marca horário com a cara da barbearia, sem depender de apps genéricos e comissões altas.",
-  longDescription: `A **Barbearia Benjamin** ganha um app com a identidade visual do salão (preto, dourado e laranja), experiência fluida e foco em **agenda**, **lista de cortes e preços**, **profissionais** e **histórico do cliente**.
+  longDescription: `O **OS Barber Club** ganha um app com a identidade visual do salão, experiência fluida e foco em **agenda**, **lista de cortes e preços**, **profissionais** e **histórico do cliente**.
 
 O objetivo é **tirar a dependência de marketplaces** que cobram por agendamento e não refletem a marca. Tudo pensado para escalar com notificações, fidelidade e módulos futuros — mantendo o controle no estabelecimento.`,
-  icon: "",
-  useBenjaminLogo: true,
-  iconColor: "#0a0a0a",
+  icon: "/images/osbarberclub-icon.svg",
+  iconColor: "#0D0D12",
   tags: ["React Native", "TypeScript", "Expo", "UI dedicada"],
   status: "development",
   type: "personal",
@@ -141,14 +140,55 @@ O objetivo é **tirar a dependência de marketplaces** que cobram por agendament
     },
     {
       title: "Marca própria",
-      description: "Visual alinhado à Barbearia Benjamin",
+      description: "Visual alinhado ao OS Barber Club",
+      icon: "✨",
+    },
+  ],
+};
+
+export const clubeDaClutchProject: Project = {
+  id: "clube-da-clutch",
+  title: "Clube da Clutch & Joias",
+  tagline: "Semijoias, locação de clutchs e acessórios exclusivos",
+  description:
+    "Descubra a sofisticação e elegância com nossas semijoias de alta qualidade e serviço exclusivo de locação de acessórios e clutchs. Peças refinadas para elevar seu estilo em qualquer ocasião.",
+  longDescription: `O **Clube da Clutch & Joias** é uma plataforma que une **e-commerce de semijoias** com um serviço exclusivo de **locação de clutchs e acessórios** para eventos especiais.
+
+O foco é oferecer peças refinadas, curadoria de qualidade e uma experiência de compra elegante — do catálogo ao checkout. Tudo com identidade visual sofisticada e fluxos pensados para quem busca brilho e praticidade.`,
+  icon: "/images/clubedaclutch-logo.png",
+  iconColor: "#b5a17c",
+  tags: ["React Native", "TypeScript", "Expo", "E-commerce"],
+  status: "development",
+  type: "personal",
+  githubUrl: undefined,
+  showGithub: false,
+  showFigma: false,
+  features: [
+    {
+      title: "Catálogo",
+      description: "Semijoias e acessórios com fotos e detalhes",
+      icon: "💎",
+    },
+    {
+      title: "Locação",
+      description: "Clutchs e acessórios para eventos especiais",
+      icon: "👜",
+    },
+    {
+      title: "Carrinho e checkout",
+      description: "Compra simples e segura",
+      icon: "🛒",
+    },
+    {
+      title: "Elegância",
+      description: "UI sofisticada alinhada à marca",
       icon: "✨",
     },
   ],
 };
 
 /** Projetos pessoais (cards compactos + link para detalhes) */
-export const personalProjects: Project[] = [rachaoProject, benjaminProject];
+export const personalProjects: Project[] = [rachaoProject, osBarberClubProject, clubeDaClutchProject];
 
 /** @deprecated use rachaoProject */
 export const featuredProject = rachaoProject;

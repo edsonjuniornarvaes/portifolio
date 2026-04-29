@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Link from "next/link";
 import { type Project } from "../helper";
-import { BenjaminLogo } from "@/components/benjamin-logo";
 import { MarkdownBody } from "@/components/markdown-body";
 import {
   FaGithub,
@@ -322,16 +321,10 @@ const Dot = styled.button<{ $active: boolean }>`
 `;
 
 function renderIcon(p: Project) {
-  if (p.useBenjaminLogo) {
-    return (
-      <IconBox $bg="#0a0a0a">
-        <BenjaminLogo width={200} height={88} style={{ maxWidth: "100%", height: "auto" }} />
-      </IconBox>
-    );
-  }
   if (p.icon && (p.icon.startsWith("/") || p.icon.startsWith("http"))) {
     return (
-      <IconBox>
+      <IconBox $bg={p.iconColor || "var(--bg-card)"}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={p.icon} alt="" />
       </IconBox>
     );

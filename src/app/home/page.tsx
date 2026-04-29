@@ -23,7 +23,6 @@ const stats = [
   { number: "7+", label: "Anos de Experiência" },
   { number: "12+", label: "Projetos Entregues" },
   { number: "2", label: "Graduações" },
-  { number: "6", label: "Apps Publicados" },
 ];
 
 const blogFade = keyframes`

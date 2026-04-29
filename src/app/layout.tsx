@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
+import Footer from "@/components/footer";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
 
@@ -41,6 +42,7 @@ export default function RootLayout({
           <main style={{ position: 'relative', zIndex: 1 }}>
             {children}
           </main>
+          <Footer />
         </StyledComponentsRegistry>
       </body>
     </html>
