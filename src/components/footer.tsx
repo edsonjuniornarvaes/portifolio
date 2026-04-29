@@ -18,12 +18,21 @@ const Inner = styled.div`
   gap: 8px;
 `;
 
-const Name = styled.span`
+const LogoMark = styled.span`
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  letter-spacing: 0.02em;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  letter-spacing: -0.02em;
+
+  &::before {
+    content: '<';
+    color: var(--text-muted);
+  }
+  &::after {
+    content: ' />';
+    color: var(--text-muted);
+  }
 `;
 
 const Copy = styled.span`
@@ -37,7 +46,7 @@ export default function Footer() {
   return (
     <Foot>
       <Inner>
-        <Name>edson junior</Name>
+        <LogoMark>ej</LogoMark>
         <Copy>&copy; {year} Todos os direitos reservados.</Copy>
       </Inner>
     </Foot>

@@ -528,6 +528,7 @@ const Projects = () => {
                   </div>
                 </PersonalCardTop>
                 <PersonalDesc>{p.description}</PersonalDesc>
+                <TechMarquee tags={p.tags} />
                 <PersonalActions>
                   <GhostLink href={`/projects/${p.id}`}>
                     Detalhes <FaChevronRight size={12} />

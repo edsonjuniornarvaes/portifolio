@@ -7,8 +7,8 @@ import * as S from "../styles";
 import GitHubIcon from "@/assets/icons/social/github";
 import LinkedInIcon from "@/assets/icons/social/linkedin";
 import DevtoIcon from "@/assets/icons/social/devto";
-import { FaReact, FaMobileAlt, FaApple, FaAndroid, FaCode, FaRocket } from "react-icons/fa";
-import { SiTypescript, SiRedux } from "react-icons/si";
+import { FaMobileAlt, FaApple, FaAndroid, FaRocket } from "react-icons/fa";
+import { SiTypescript, SiRedux, SiJest, SiExpo, SiFirebase } from "react-icons/si";
 import { OrbitBackground } from "@/components/orbit-bg";
 
 const techStack = [
@@ -138,38 +138,80 @@ type BlogPostPreview = {
   created_at?: string;
 };
 
-const skills = [
-  {
-    icon: <FaMobileAlt />,
-    name: "React Native",
-    description: "Apps nativos de alta performance para iOS e Android",
-  },
-  {
-    icon: <SiTypescript />,
-    name: "TypeScript",
-    description: "Código tipado, seguro e escalável",
-  },
-  {
-    icon: <SiRedux />,
-    name: "Redux",
-    description: "Gerenciamento de estado previsível",
-  },
-  {
-    icon: <FaApple />,
-    name: "iOS",
-    description: "Publicação e manutenção na App Store",
-  },
-  {
-    icon: <FaAndroid />,
-    name: "Android",
-    description: "Publicação e manutenção na Play Store",
-  },
-  {
-    icon: <FaRocket />,
-    name: "CI/CD",
-    description: "Automação com Bitrise e Harness",
-  },
+const skillsRow1 = [
+  { icon: <FaMobileAlt />, name: "React Native" },
+  { icon: <SiTypescript />, name: "TypeScript" },
+  { icon: <SiRedux />, name: "Redux" },
+  { icon: <FaApple />, name: "iOS" },
+  { icon: <FaAndroid />, name: "Android" },
+  { icon: <SiJest />, name: "Jest" },
 ];
+
+const skillsRow2 = [
+  { icon: <SiExpo />, name: "Expo" },
+  { icon: <FaRocket />, name: "CI/CD" },
+  { icon: <SiFirebase />, name: "Firebase" },
+  { icon: <FaMobileAlt />, name: "MVVM" },
+  { icon: <SiTypescript />, name: "Clean Arch" },
+  { icon: <FaRocket />, name: "Bitrise" },
+];
+
+const marqueeScroll = keyframes`
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+`;
+
+const marqueeScrollReverse = keyframes`
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+`;
+
+const SkillsMarqueeSection = styled.section`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 0 80px;
+`;
+
+const MarqueeWrap = styled.div`
+  overflow: hidden;
+  padding: 10px 0;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+`;
+
+const MarqueeTrack = styled.div<{ $reverse?: boolean }>`
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: ${(p) => (p.$reverse ? marqueeScrollReverse : marqueeScroll)} 28s linear infinite;
+`;
+
+const SkillPill = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 100px;
+  background: rgba(26, 26, 36, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  transition: border-color 0.2s, background 0.2s;
+
+  svg {
+    font-size: 1.1rem;
+    color: var(--accent-primary);
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    border-color: rgba(46, 235, 170, 0.3);
+    background: rgba(46, 235, 170, 0.06);
+  }
+`;
 
 export default function Home() {
   const [blogPosts, setBlogPosts] = useState<BlogPostPreview[]>([]);
@@ -313,24 +355,27 @@ export default function Home() {
         </BlogSection>
       )}
 
-      {/* Skills Section */}
-      <S.SkillsSection>
+      {/* Skills Marquee */}
+      <SkillsMarqueeSection>
         <S.SectionTitle>Minhas Especialidades</S.SectionTitle>
         <S.SectionSubtitle>
           Tecnologias e ferramentas que uso no dia a dia
         </S.SectionSubtitle>
-        <S.SkillsGrid>
-          {skills.map((skill) => (
-            <S.SkillCard key={skill.name}>
-              <S.SkillIcon>{skill.icon}</S.SkillIcon>
-              <S.SkillContent>
-                <S.SkillName>{skill.name}</S.SkillName>
-                <S.SkillDescription>{skill.description}</S.SkillDescription>
-              </S.SkillContent>
-            </S.SkillCard>
-          ))}
-        </S.SkillsGrid>
-      </S.SkillsSection>
+        <MarqueeWrap>
+          <MarqueeTrack>
+            {[...skillsRow1, ...skillsRow1].map((s, i) => (
+              <SkillPill key={`a-${i}`}>{s.icon} {s.name}</SkillPill>
+            ))}
+          </MarqueeTrack>
+        </MarqueeWrap>
+        <MarqueeWrap style={{ marginTop: 12 }}>
+          <MarqueeTrack $reverse>
+            {[...skillsRow2, ...skillsRow2].map((s, i) => (
+              <SkillPill key={`b-${i}`}>{s.icon} {s.name}</SkillPill>
+            ))}
+          </MarqueeTrack>
+        </MarqueeWrap>
+      </SkillsMarqueeSection>
     </S.PageWrapper>
   );
 }
