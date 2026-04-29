@@ -2,89 +2,94 @@
 
 import styled, { keyframes } from "styled-components";
 
-const spin = keyframes`
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+const shoot = keyframes`
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(var(--dx)) translateY(var(--dy));
+    opacity: 0;
+  }
 `;
 
 const Wrap = styled.div`
-  position: absolute;
+  position: fixed;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
-const System = styled.div`
-  position: relative;
-  width: 700px;
-  height: 700px;
+const Star = styled.div<{ $top: string; $left: string; $delay: string; $dur: string; $dx: string; $dy: string; $size: number }>`
+  --dx: ${(p) => p.$dx};
+  --dy: ${(p) => p.$dy};
+  position: absolute;
+  top: ${(p) => p.$top};
+  left: ${(p) => p.$left};
+  width: ${(p) => p.$size}px;
+  height: ${(p) => p.$size}px;
+  border-radius: 50%;
+  background: rgba(46, 235, 170, 0.7);
+  box-shadow: 0 0 ${(p) => p.$size * 3}px rgba(46, 235, 170, 0.3),
+    0 0 ${(p) => p.$size * 6}px rgba(46, 235, 170, 0.1);
+  opacity: 0;
+  animation: ${shoot} ${(p) => p.$dur} linear ${(p) => p.$delay} infinite;
 
-  @media (max-width: 768px) {
-    width: 500px;
-    height: 500px;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    width: ${(p) => p.$size * 30}px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(46, 235, 170, 0.15),
+      rgba(46, 235, 170, 0.4)
+    );
   }
 `;
 
-const Orbit = styled.div<{ $size: number; $dur: number; $tiltX: number; $tiltY: number }>`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: ${(p) => p.$size}px;
-  height: ${(p) => p.$size}px;
-  margin-left: ${(p) => -p.$size / 2}px;
-  margin-top: ${(p) => -p.$size / 2}px;
-  border: 1px solid rgba(46, 235, 170, 0.06);
-  border-radius: 50%;
-  transform: rotateX(${(p) => p.$tiltX}deg) rotateY(${(p) => p.$tiltY}deg);
-  animation: ${spin} ${(p) => p.$dur}s linear infinite;
-`;
-
-const Planet = styled.span<{ $size: number; $color: string; $glow: string }>`
-  position: absolute;
-  top: -${(p) => p.$size / 2}px;
-  left: 50%;
-  margin-left: -${(p) => p.$size / 2}px;
-  width: ${(p) => p.$size}px;
-  height: ${(p) => p.$size}px;
-  border-radius: 50%;
-  background: ${(p) => p.$color};
-  box-shadow: 0 0 ${(p) => p.$size * 2}px ${(p) => p.$glow};
-`;
-
-const Core = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  margin: -3px 0 0 -3px;
-  border-radius: 50%;
-  background: rgba(46, 235, 170, 0.3);
-  box-shadow: 0 0 30px rgba(46, 235, 170, 0.15), 0 0 60px rgba(46, 235, 170, 0.08);
-`;
-
-const orbits = [
-  { size: 200, dur: 20, tiltX: 70, tiltY: 10, planet: 5, color: "rgba(46, 235, 170, 0.6)", glow: "rgba(46, 235, 170, 0.2)" },
-  { size: 340, dur: 32, tiltX: 65, tiltY: -15, planet: 4, color: "rgba(6, 182, 212, 0.5)", glow: "rgba(6, 182, 212, 0.15)" },
-  { size: 480, dur: 45, tiltX: 72, tiltY: 5, planet: 3, color: "rgba(46, 235, 170, 0.4)", glow: "rgba(46, 235, 170, 0.12)" },
-  { size: 600, dur: 60, tiltX: 68, tiltY: -8, planet: 3, color: "rgba(6, 182, 212, 0.3)", glow: "rgba(6, 182, 212, 0.1)" },
+const meteors = [
+  { top: "8%", left: "15%", delay: "0s", dur: "3.5s", dx: "600px", dy: "400px", size: 2 },
+  { top: "2%", left: "55%", delay: "1.8s", dur: "4s", dx: "500px", dy: "350px", size: 2 },
+  { top: "25%", left: "80%", delay: "4s", dur: "3s", dx: "-550px", dy: "380px", size: 1.5 },
+  { top: "12%", left: "35%", delay: "6.5s", dur: "3.8s", dx: "650px", dy: "300px", size: 2 },
+  { top: "5%", left: "70%", delay: "2.5s", dur: "4.5s", dx: "-400px", dy: "500px", size: 1.5 },
+  { top: "30%", left: "10%", delay: "8s", dur: "3.2s", dx: "700px", dy: "250px", size: 2 },
+  { top: "15%", left: "90%", delay: "5s", dur: "3.6s", dx: "-600px", dy: "350px", size: 1.5 },
+  { top: "40%", left: "45%", delay: "10s", dur: "4.2s", dx: "500px", dy: "300px", size: 1.5 },
+  { top: "3%", left: "25%", delay: "12s", dur: "3.4s", dx: "550px", dy: "420px", size: 2 },
+  { top: "20%", left: "60%", delay: "7.5s", dur: "3.9s", dx: "-500px", dy: "350px", size: 1.5 },
 ];
 
-export function OrbitBackground() {
+export function ShootingStars() {
   return (
     <Wrap aria-hidden>
-      <System>
-        <Core />
-        {orbits.map((o, i) => (
-          <Orbit key={i} $size={o.size} $dur={o.dur} $tiltX={o.tiltX} $tiltY={o.tiltY}>
-            <Planet $size={o.planet} $color={o.color} $glow={o.glow} />
-          </Orbit>
-        ))}
-      </System>
+      {meteors.map((m, i) => (
+        <Star
+          key={i}
+          $top={m.top}
+          $left={m.left}
+          $delay={m.delay}
+          $dur={m.dur}
+          $dx={m.dx}
+          $dy={m.dy}
+          $size={m.size}
+        />
+      ))}
     </Wrap>
   );
 }
+
+/** @deprecated use ShootingStars */
+export const OrbitBackground = ShootingStars;

@@ -5,6 +5,7 @@ import Navbar from "./components/navbar";
 import Footer from "@/components/footer";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
+import { ShootingStars } from "@/components/orbit-bg";
 
 const outfit = Outfit({ 
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${outfit.variable} ${jetbrainsMono.variable}`}>
       <body>
         <StyledComponentsRegistry>
+          <ShootingStars />
           <AnalyticsTracker />
           <Navbar />
           <main style={{ position: 'relative', zIndex: 1 }}>

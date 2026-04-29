@@ -8,16 +8,26 @@ import GitHubIcon from "@/assets/icons/social/github";
 import LinkedInIcon from "@/assets/icons/social/linkedin";
 import DevtoIcon from "@/assets/icons/social/devto";
 import { FaMobileAlt, FaApple, FaAndroid, FaRocket } from "react-icons/fa";
-import { SiTypescript, SiRedux, SiJest, SiExpo, SiFirebase } from "react-icons/si";
-import { OrbitBackground } from "@/components/orbit-bg";
+import {
+  SiTypescript,
+  SiRedux,
+  SiJest,
+  SiExpo,
+  SiFirebase,
+  SiReact,
+} from "react-icons/si";
 
-const techStack = [
-  "React Native",
-  "TypeScript", 
-  "Redux",
-  "iOS",
-  "Android",
-  "Jest",
+const techMarquee = [
+  { icon: <SiReact />, name: "React Native" },
+  { icon: <SiTypescript />, name: "TypeScript" },
+  { icon: <SiRedux />, name: "Redux" },
+  { icon: <FaApple />, name: "iOS" },
+  { icon: <FaAndroid />, name: "Android" },
+  { icon: <SiJest />, name: "Jest" },
+  { icon: <SiExpo />, name: "Expo" },
+  { icon: <FaRocket />, name: "CI/CD" },
+  { icon: <SiFirebase />, name: "Firebase" },
+  { icon: <FaMobileAlt />, name: "MVVM" },
 ];
 
 const stats = [
@@ -25,6 +35,8 @@ const stats = [
   { number: "12+", label: "Projetos Entregues" },
   { number: "2", label: "Graduações" },
 ];
+
+/* ===== Blog styled ===== */
 
 const blogFade = keyframes`
   from { opacity: 0; transform: translateY(10px); }
@@ -54,13 +66,8 @@ const BlogCarousel = styled.div`
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 
-  &::-webkit-scrollbar {
-    height: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: var(--bg-tertiary);
-    border-radius: 4px;
-  }
+  &::-webkit-scrollbar { height: 6px; }
+  &::-webkit-scrollbar-thumb { background: var(--bg-tertiary); border-radius: 4px; }
 `;
 
 const BlogCard = styled(Link)`
@@ -123,11 +130,54 @@ const BlogSeeAll = styled(Link)`
   color: var(--accent-primary);
   text-decoration: none;
   font-weight: 500;
+  &:hover { text-decoration: underline; }
+`;
 
-  &:hover {
-    text-decoration: underline;
+/* ===== Tech Marquee (mesma linguagem do projects) ===== */
+
+const scroll = keyframes`
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+`;
+
+const TechStrip = styled.div`
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 0 40px;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+`;
+
+const TechTrack = styled.div`
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: ${scroll} 30s linear infinite;
+`;
+
+const TechChip = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: rgba(26, 26, 36, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+
+  svg {
+    font-size: 1rem;
+    color: var(--accent-primary);
+    flex-shrink: 0;
   }
 `;
+
+/* ===== Types ===== */
 
 type BlogPostPreview = {
   id: string;
@@ -137,81 +187,6 @@ type BlogPostPreview = {
   cover_image_url: string | null;
   created_at?: string;
 };
-
-const skillsRow1 = [
-  { icon: <FaMobileAlt />, name: "React Native" },
-  { icon: <SiTypescript />, name: "TypeScript" },
-  { icon: <SiRedux />, name: "Redux" },
-  { icon: <FaApple />, name: "iOS" },
-  { icon: <FaAndroid />, name: "Android" },
-  { icon: <SiJest />, name: "Jest" },
-];
-
-const skillsRow2 = [
-  { icon: <SiExpo />, name: "Expo" },
-  { icon: <FaRocket />, name: "CI/CD" },
-  { icon: <SiFirebase />, name: "Firebase" },
-  { icon: <FaMobileAlt />, name: "MVVM" },
-  { icon: <SiTypescript />, name: "Clean Arch" },
-  { icon: <FaRocket />, name: "Bitrise" },
-];
-
-const marqueeScroll = keyframes`
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-`;
-
-const marqueeScrollReverse = keyframes`
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-`;
-
-const SkillsMarqueeSection = styled.section`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 0 80px;
-`;
-
-const MarqueeWrap = styled.div`
-  overflow: hidden;
-  padding: 10px 0;
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-`;
-
-const MarqueeTrack = styled.div<{ $reverse?: boolean }>`
-  display: flex;
-  gap: 16px;
-  width: max-content;
-  animation: ${(p) => (p.$reverse ? marqueeScrollReverse : marqueeScroll)} 28s linear infinite;
-`;
-
-const SkillPill = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 24px;
-  border-radius: 100px;
-  background: rgba(26, 26, 36, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  white-space: nowrap;
-  transition: border-color 0.2s, background 0.2s;
-
-  svg {
-    font-size: 1.1rem;
-    color: var(--accent-primary);
-    flex-shrink: 0;
-  }
-
-  &:hover {
-    border-color: rgba(46, 235, 170, 0.3);
-    background: rgba(46, 235, 170, 0.06);
-  }
-`;
 
 export default function Home() {
   const [blogPosts, setBlogPosts] = useState<BlogPostPreview[]>([]);
@@ -223,46 +198,41 @@ export default function Home() {
       .catch(() => setBlogPosts([]));
   }, []);
 
+  const doubled = [...techMarquee, ...techMarquee];
+
   return (
     <S.PageWrapper>
-      <OrbitBackground />
-      {/* Hero Section */}
+      {/* Hero */}
       <S.HeroSection>
         <S.HeroContent>
           <S.HeroTextContent>
-            <S.Greeting>👋 Olá, eu sou</S.Greeting>
+            <S.Greeting>Olá, eu sou</S.Greeting>
             <S.HeroTitle>Edson Junior</S.HeroTitle>
             <S.HeroRole>Desenvolvedor Mobile Sênior</S.HeroRole>
             <S.HeroDescription>
-              Especializado em React Native, construindo aplicativos com alta performance, 
+              Especializado em React Native, construindo aplicativos com alta performance,
               arquitetura escalável e experiência do usuário de excelência para iOS e Android.
             </S.HeroDescription>
-            
-            <S.TechStack>
-              {techStack.map((tech) => (
-                <S.TechBadge key={tech}>{tech}</S.TechBadge>
-              ))}
-            </S.TechStack>
-            
+
             <S.SocialLinks>
-              <S.SocialButton 
-                href="https://linkedin.com/in/edsonjuniornarvaes" 
+              <S.SocialButton
+                href="https://linkedin.com/in/edsonjuniornarvaes"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="LinkedIn"
               >
                 <LinkedInIcon width={24} height={24} color="currentColor" />
               </S.SocialButton>
-              <S.SocialButton 
-                href="https://github.com/edsonjuniornarvaes" 
+              <S.SocialButton
+                href="https://github.com/edsonjuniornarvaes"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="GitHub"
               >
                 <GitHubIcon width={24} height={24} color="currentColor" />
               </S.SocialButton>
-              <S.SocialButton 
-                href="https://dev.to/edsonjuniornarvaes" 
+              <S.SocialButton
+                href="https://dev.to/edsonjuniornarvaes"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Dev.to"
@@ -271,13 +241,13 @@ export default function Home() {
               </S.SocialButton>
             </S.SocialLinks>
           </S.HeroTextContent>
-          
+
           <S.HeroImageContent>
             <S.ProfileImageWrapper>
               <S.ProfileImageContainer>
-                <S.ProfileImage 
-                  src="/images/profile.svg" 
-                  alt="Edson Junior - Desenvolvedor Mobile" 
+                <S.ProfileImage
+                  src="/images/profile.svg"
+                  alt="Edson Junior - Desenvolvedor Mobile"
                 />
               </S.ProfileImageContainer>
               <S.StatusBadge>
@@ -289,7 +259,18 @@ export default function Home() {
         </S.HeroContent>
       </S.HeroSection>
 
-      {/* Stats Section */}
+      {/* Tech marquee */}
+      <TechStrip>
+        <TechTrack>
+          {doubled.map((t, i) => (
+            <TechChip key={`t-${i}`}>
+              {t.icon} {t.name}
+            </TechChip>
+          ))}
+        </TechTrack>
+      </TechStrip>
+
+      {/* Stats */}
       <S.StatsSection>
         <S.StatsGrid>
           {stats.map((stat) => (
@@ -301,6 +282,7 @@ export default function Home() {
         </S.StatsGrid>
       </S.StatsSection>
 
+      {/* Blog */}
       {blogPosts.length > 0 && (
         <BlogSection aria-label="Artigos recentes">
           <BlogHeaderRow>
@@ -354,28 +336,6 @@ export default function Home() {
           </BlogCarousel>
         </BlogSection>
       )}
-
-      {/* Skills Marquee */}
-      <SkillsMarqueeSection>
-        <S.SectionTitle>Minhas Especialidades</S.SectionTitle>
-        <S.SectionSubtitle>
-          Tecnologias e ferramentas que uso no dia a dia
-        </S.SectionSubtitle>
-        <MarqueeWrap>
-          <MarqueeTrack>
-            {[...skillsRow1, ...skillsRow1].map((s, i) => (
-              <SkillPill key={`a-${i}`}>{s.icon} {s.name}</SkillPill>
-            ))}
-          </MarqueeTrack>
-        </MarqueeWrap>
-        <MarqueeWrap style={{ marginTop: 12 }}>
-          <MarqueeTrack $reverse>
-            {[...skillsRow2, ...skillsRow2].map((s, i) => (
-              <SkillPill key={`b-${i}`}>{s.icon} {s.name}</SkillPill>
-            ))}
-          </MarqueeTrack>
-        </MarqueeWrap>
-      </SkillsMarqueeSection>
     </S.PageWrapper>
   );
 }
