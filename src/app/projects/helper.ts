@@ -160,6 +160,8 @@ O foco é oferecer peças refinadas, curadoria de qualidade e uma experiência d
   tags: ["React Native", "TypeScript", "Expo", "E-commerce"],
   status: "development",
   type: "personal",
+  liveUrl: "https://www.clubedaclutch.com.br",
+  liveCtaLabel: "Visitar site",
   githubUrl: undefined,
   showGithub: false,
   showFigma: false,
