@@ -46,31 +46,47 @@ export const NavBar = styled.nav`
 export const Logo = styled(Link)`
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-family: var(--font-display, 'Outfit', sans-serif);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #ffffff;
+  gap: 10px;
   text-decoration: none;
   transition: opacity 0.3s ease;
   
   &:hover {
-    opacity: 0.8;
+    opacity: 0.85;
   }
 `;
 
-export const LogoIcon = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #2eebaa 0%, #06b6d4 100%);
+export const LogoMark = styled.span`
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  color: #0a0a0f;
+  color: var(--accent-primary);
+  letter-spacing: -0.02em;
+
+  &::before {
+    content: '<';
+    color: var(--text-muted);
+  }
+  &::after {
+    content: ' />';
+    color: var(--text-muted);
+  }
+`;
+
+export const LogoName = styled.span`
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
+`;
+
+/** @deprecated usar LogoMark + LogoName */
+export const LogoIcon = styled.div`
+  display: none;
 `;
 
 export const LogoImage = styled.img`

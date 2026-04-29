@@ -39,8 +39,8 @@ const Navbar = () => {
     <>
       <S.NavBar>
         <S.Logo href="/home">
-          <S.LogoIcon>EJ</S.LogoIcon>
-          Edson Junior
+          <S.LogoMark>ej</S.LogoMark>
+          <S.LogoName>Edson Junior</S.LogoName>
         </S.Logo>
         
         <S.NavbarContent>
