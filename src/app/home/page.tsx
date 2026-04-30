@@ -33,16 +33,40 @@ const blogFade = keyframes`
 const BlogSection = styled.section`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 0 48px;
+  padding: 8px 0 40px;
 `;
 
 const BlogHeaderRow = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: flex-end;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 12px 20px;
+  margin-bottom: 18px;
+`;
+
+const BlogHeaderText = styled.div`
+  flex: 1;
+  min-width: 0;
+`;
+
+const BlogHeading = styled.h2`
+  font-family: var(--font-display, system-ui, sans-serif);
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  font-weight: 600;
+  color: #e4e4e7;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  margin: 0 0 6px;
+`;
+
+const BlogLead = styled.p`
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #71717a;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 36rem;
 `;
 
 const BlogCarousel = styled.div`
@@ -113,35 +137,40 @@ const BlogExcerpt = styled.p`
 `;
 
 const BlogSeeAll = styled(Link)`
-  font-size: 0.9375rem;
+  flex-shrink: 0;
+  font-size: 0.8125rem;
   color: var(--accent-primary);
   text-decoration: none;
   font-weight: 500;
-  &:hover { text-decoration: underline; }
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  &:hover {
+    border-bottom-color: rgba(46, 235, 170, 0.45);
+  }
 `;
 
 const BlogEmptyPanel = styled.div`
-  padding: 28px 24px;
-  border-radius: var(--radius-lg);
-  border: 1px dashed var(--border-color);
-  background: rgba(26, 26, 36, 0.35);
+  padding: 22px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: rgba(26, 26, 36, 0.25);
   text-align: center;
-  max-width: 520px;
+  max-width: 400px;
   margin: 0 auto;
 `;
 
 const BlogEmptyText = styled.p`
-  font-size: 0.95rem;
+  font-size: 0.8125rem;
   color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 16px;
+  line-height: 1.55;
+  margin-bottom: 12px;
 `;
 
 const BlogLoadingText = styled.p`
-  font-size: 0.9rem;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   text-align: center;
-  padding: 24px 0 8px;
+  padding: 16px 0 4px;
 `;
 
 /* ===== Types ===== */
@@ -244,22 +273,16 @@ export default function Home() {
         </S.StatsGrid>
       </S.StatsSection>
 
-      {/* Blog: área fixa na home — últimos posts em carrossel quando houver publicações */}
-      <BlogSection aria-label="Artigos recentes">
+      <BlogSection aria-label="Últimas publicações do blog">
         <BlogHeaderRow>
-          <div>
-            <S.SectionTitle style={{ textAlign: "left", marginBottom: 8 }}>
-              Artigos
-            </S.SectionTitle>
-            <S.SectionSubtitle style={{ textAlign: "left", marginBottom: 0 }}>
-              Os últimos textos publicados no blog aparecem aqui. Publique pelo painel admin e eles
-              entram automaticamente (até 6 em carrossel).
-            </S.SectionSubtitle>
-          </div>
-          <BlogSeeAll href="/blog">Ver todos</BlogSeeAll>
+          <BlogHeaderText>
+            <BlogHeading>Confira minhas últimas publicações</BlogHeading>
+            <BlogLead>Textos em markdown sobre tecnologia, mobile e o que venho aprendendo.</BlogLead>
+          </BlogHeaderText>
+          <BlogSeeAll href="/blog">Ver todas</BlogSeeAll>
         </BlogHeaderRow>
         {blogLoading ? (
-          <BlogLoadingText>Carregando artigos…</BlogLoadingText>
+          <BlogLoadingText>Carregando…</BlogLoadingText>
         ) : blogPosts.length > 0 ? (
           <BlogCarousel>
             {blogPosts.map((p) => (
@@ -301,11 +324,8 @@ export default function Home() {
           </BlogCarousel>
         ) : (
           <BlogEmptyPanel>
-            <BlogEmptyText>
-              Ainda não há posts públicos. Quando você publicar no painel, os mais recentes surgem
-              neste carrossel com capa e trecho.
-            </BlogEmptyText>
-            <BlogSeeAll href="/blog">Abrir o blog</BlogSeeAll>
+            <BlogEmptyText>Em breve novos textos por aqui. Até lá, você pode abrir o blog.</BlogEmptyText>
+            <BlogSeeAll href="/blog">Ir ao blog</BlogSeeAll>
           </BlogEmptyPanel>
         )}
       </BlogSection>
