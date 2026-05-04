@@ -270,12 +270,17 @@ const GalleryTrack = styled.div<{ $index: number }>`
 const GallerySlide = styled.div`
   flex: 0 0 100%;
   min-width: 0;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  background: var(--bg-secondary);
   img {
-    width: 100%;
     display: block;
-    max-height: min(52vh, 520px);
+    max-height: min(65vh, 600px);
+    max-width: 100%;
     object-fit: contain;
-    background: var(--bg-secondary);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   }
 `;
 
@@ -400,7 +405,7 @@ function ProjectDetailClient({ project }: { project: Project }) {
     project.showHighlights !== false && !!project.features && project.features.length > 0;
 
   const galleryUrls = (project.galleryImages || []).map((u) => u.trim()).filter(Boolean);
-  const showGallery = project.showGallery === true && galleryUrls.length > 0;
+  const showGallery = galleryUrls.length > 0 && project.showGallery !== false;
 
   const liveLabel = (project.liveCtaLabel || "Confira").trim() || "Confira";
 

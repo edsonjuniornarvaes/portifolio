@@ -122,6 +122,8 @@ O objetivo é **tirar a dependência de marketplaces** que cobram por agendament
   showGithub: false,
   showFigma: true,
   figmaUrl: "",
+  showPreview: false,
+  galleryImages: ["/images/osbarberclub-screenshot.png"],
   features: [
     {
       title: "Agendamento",
@@ -165,6 +167,8 @@ O foco é oferecer peças refinadas, curadoria de qualidade e uma experiência d
   githubUrl: undefined,
   showGithub: false,
   showFigma: false,
+  showPreview: false,
+  galleryImages: ["/images/clubedaclutch-screenshot.png"],
   features: [
     {
       title: "Catálogo",
