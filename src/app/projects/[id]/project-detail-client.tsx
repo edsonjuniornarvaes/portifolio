@@ -396,9 +396,11 @@ function ProjectDetailClient({ project }: { project: Project }) {
     !!project.figmaUrl && project.figmaUrl.startsWith("http") && project.showFigma === true;
   const md = project.longDescription || project.description;
 
-  const showPreview = project.showPreview !== false;
-  const showApple = showPreview && project.showMockupApple !== false;
-  const showPlay = showPreview && project.showMockupPlay !== false;
+  const hasAppleUrl = !!project.mockupAppleUrl?.trim();
+  const hasPlayUrl = !!project.mockupPlayUrl?.trim();
+  const showPreview = project.showPreview !== false && (hasAppleUrl || hasPlayUrl);
+  const showApple = showPreview && project.showMockupApple !== false && hasAppleUrl;
+  const showPlay = showPreview && project.showMockupPlay !== false && hasPlayUrl;
   const mockCount = (showApple ? 1 : 0) + (showPlay ? 1 : 0);
 
   const highlightsOn =
