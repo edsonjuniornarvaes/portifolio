@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
-/** Alterna claro/escuro; segue o sistema até a primeira escolha. */
+/** Alterna claro/escuro; o padrão é sempre o claro. */
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme | null>(null);
 
   useEffect(() => {
     const attr = document.documentElement.getAttribute("data-theme");
     if (attr === "light" || attr === "dark") return setTheme(attr);
-    setTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    setTheme("light");
   }, []);
 
   const toggle = () => {

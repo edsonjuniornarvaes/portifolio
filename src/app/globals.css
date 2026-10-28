@@ -35,18 +35,6 @@
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #0f0e0b;
-    --paper-2: #181612;
-    --ink: #ece7da;
-    --muted: #9b9484;
-    --line: #2b2822;
-    --accent: #ff7a4d;
-    color-scheme: dark;
-  }
-}
-
 :root[data-theme="dark"] {
   --paper: #0f0e0b;
   --paper-2: #181612;
