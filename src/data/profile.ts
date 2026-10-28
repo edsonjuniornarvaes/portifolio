@@ -12,7 +12,7 @@ export const yearsCareer = NOW - CAREER_SINCE;
 export const yearsMobile = NOW - MOBILE_SINCE;
 
 export const contact = {
-  email: "edsonjunior.narvaes@gmail.com",
+  email: "dev.edsonjr@gmail.com",
   linkedin: "https://linkedin.com/in/edsonjuniornarvaes",
   github: "https://github.com/edsonjuniornarvaes",
   devto: "https://dev.to/edsonjuniornarvaes",
@@ -35,10 +35,10 @@ export type WorkRow = {
 
 /** Índice de trabalho selecionado na home. */
 export const selectedWork: WorkRow[] = [
+  { year: "2026", name: "Clube da Joia — Marketplace", what: "Loja online com painel admin, checkout Mercado Pago e backend Supabase", stack: "Next.js · Supabase", href: "/projects/clube-da-joia-marketplace" },
+  { year: "2026", name: "Clube da Joia — App", what: "App iOS e Android da loja, no mesmo backend do site", stack: "React Native · Expo", href: "/projects/clube-da-joia-app" },
   { year: "2025 —", name: "PJBank", what: "Conta digital para empresas: autenticação, autorizações e Pix Automático", stack: "React Native · Auth0", href: "/projects/pjbank" },
-  { year: "2026", name: "Clube da Joia", what: "Loja de joias: site, painel, app e pagamentos, do zero", stack: "Next.js · Expo · Supabase", href: "/projects/clube-da-joia" },
   { year: "2024", name: "Gruvi", what: "Superapp para condomínios: visitantes, reservas e chat", stack: "React Native · Redux Saga", href: "/projects/gruvi" },
-  { year: "2021–23", name: "Mont Capital e Minha Navex", what: "Apps de investimentos e de telecom, na App Store e Play Store", stack: "React Native · Expo", href: "/projects/mont-b2b" },
 ];
 
 export type JourneyItem = {
@@ -130,21 +130,39 @@ export const cases: CaseStudy[] = [
     cta: "Ver Mont B2B",
   },
   {
-    id: "clube-da-joia",
-    name: "Clube da Joia",
+    id: "clube-da-joia-marketplace",
+    name: "Clube da Joia — Marketplace",
     tag: "E-commerce · Projeto próprio",
     period: "2026 · Do zero, ponta a ponta",
     color: "#b08d57",
-    summary: "Joalheria online completa: site, painel admin, app iOS/Android e pagamentos, sobre um único backend.",
-    role: "Produto, design, front, mobile e backend — tudo.",
+    summary: "Site e painel de uma joalheria online (prata 925 e moissanite), com pagamentos reais.",
+    role: "Produto, design, front-end e backend — tudo.",
     highlights: [
       "Checkout Mercado Pago (cartão, Pix e boleto) com preços validados no servidor e webhook assinado",
-      "Painel com login, 2FA obrigatório e permissões por papel via RLS",
-      "Catálogo com filtros, cupons, frete por UF e Meus Pedidos",
-      "App em MVVM com traduções tipadas (pt, en, es)",
+      "Painel /admin com login, 2FA obrigatório e permissões por papel via RLS",
+      "Catálogo com filtros, cupons, frete por UF, conta de cliente e Meus Pedidos",
+      "Catálogo e banners no Supabase, com fallback estático",
     ],
-    stack: ["Next.js", "React Native", "Expo", "Supabase", "Mercado Pago"],
-    href: "/projects/clube-da-joia",
+    stack: ["Next.js", "Tailwind", "Supabase", "Mercado Pago", "Vercel"],
+    href: "/projects/clube-da-joia-marketplace",
+    cta: "Ver detalhes",
+  },
+  {
+    id: "clube-da-joia-app",
+    name: "Clube da Joia — App",
+    tag: "App · Projeto próprio",
+    period: "2026",
+    color: "#8a6d3b",
+    summary: "App iOS e Android da loja, no mesmo backend do site.",
+    role: "Arquitetura, telas, integração com Supabase e checkout.",
+    highlights: [
+      "MVVM com view, viewModel, models e styles por tela",
+      "Abas Início, Loja, Sacola, Categorias e Conta com expo-router",
+      "Checkout Mercado Pago com retorno ao app por deep link",
+      "Textos em pt, en e es com tipagem; Jest e Sentry",
+    ],
+    stack: ["React Native", "Expo", "TypeScript", "Supabase"],
+    href: "/projects/clube-da-joia-app",
     cta: "Ver detalhes",
   },
 ];

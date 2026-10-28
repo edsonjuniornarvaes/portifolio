@@ -2,12 +2,21 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { FaEnvelope } from "react-icons/fa";
 import * as S from "./styles";
 import Reveal from "@/components/ui/reveal";
 import LocalTime from "@/components/ui/local-time";
+import GitHubIcon from "@/assets/icons/social/github";
+import LinkedInIcon from "@/assets/icons/social/linkedin";
+import DevtoIcon from "@/assets/icons/social/devto";
 import { ExperienceData } from "../about/helper";
+import { getProjectById } from "../projects/helper";
 import { skillGroups } from "./skills";
-import { contact, selectedWork, yearsMobile } from "@/data/profile";
+import { contact, yearsMobile } from "@/data/profile";
+
+const FEATURED = ["clube-da-joia-marketplace", "clube-da-joia-app", "pjbank", "gruvi"];
+
+const STATUS = { production: "No ar", development: "Em desenvolvimento", paused: "Entregue" } as const;
 
 type BlogPostPreview = {
   id: string;
@@ -27,6 +36,8 @@ export default function Home() {
       .catch(() => setPosts([]));
   }, []);
 
+  const featured = FEATURED.map((id) => getProjectById(id)).filter(Boolean);
+
   return (
     <S.Page>
       <S.Kicker>
@@ -34,7 +45,9 @@ export default function Home() {
           <span className="dot" />
           Aberto a conversas
         </span>
-        <span>Desenvolvedor mobile · Brasil · <LocalTime /></span>
+        <span>
+          Brasil · <LocalTime />
+        </span>
       </S.Kicker>
 
       <S.Display>
@@ -42,36 +55,64 @@ export default function Home() {
       </S.Display>
 
       <S.Lead>
-        Sou o Edson, desenvolvedor mobile sênior. Trabalho com React Native e TypeScript há mais de{" "}
-        {yearsMobile} anos, hoje no <Link href="/projects/pjbank">PJBank</Link>, na Superlógica, em
-        fluxos como autenticação e Pix Automático.
-      </S.Lead>
-      <S.Lead>
-        Antes passei pelo <Link href="/projects/gruvi">Gruvi</Link>, por apps de investimentos e de
-        telecom na E/Code e por projetos web com React e PHP. Estudo e escrevo código desde 2015 e,
-        fora do trabalho, construo meus próprios produtos, como o{" "}
-        <Link href="/projects/clube-da-joia">Clube da Joia</Link>.
+        Sou o Edson, desenvolvedor mobile sênior. Trabalho com <b>React Native</b> e{" "}
+        <b>TypeScript</b> há mais de {yearsMobile} anos, hoje no{" "}
+        <Link href="/projects/pjbank">PJBank</Link> (Superlógica), em fluxos como autenticação e Pix
+        Automático. Estudo e escrevo código desde 2015 e, fora do trabalho, construo meus próprios
+        produtos, como o <Link href="/projects/clube-da-joia-marketplace">Clube da Joia</Link>.
       </S.Lead>
 
-      <S.Section id="trabalho">
-        <S.Label>Trabalho selecionado</S.Label>
-        <div>
-          <S.List>
-            {selectedWork.map((w) => (
-              <S.Row key={w.name}>
-                <S.RowLink href={w.href}>
-                  <span className="year">{w.year}</span>
-                  <span>
-                    <span className="name">{w.name}</span>
-                    <span className="what">{w.what}</span>
-                  </span>
-                  <span className="meta">{w.stack}</span>
-                </S.RowLink>
-              </S.Row>
-            ))}
-          </S.List>
-          <S.TextLink href="/projects">Ver todos os projetos →</S.TextLink>
-        </div>
+      <S.Actions>
+        <S.Primary href="/projects">Ver projetos</S.Primary>
+        <S.Ghost href={`mailto:${contact.email}`}>
+          <FaEnvelope size={13} /> Falar comigo
+        </S.Ghost>
+        <S.IconLink href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <LinkedInIcon width={18} height={18} color="currentColor" />
+        </S.IconLink>
+        <S.IconLink href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <GitHubIcon width={18} height={18} color="currentColor" />
+        </S.IconLink>
+        <S.IconLink href={contact.devto} target="_blank" rel="noopener noreferrer" aria-label="Dev.to">
+          <DevtoIcon width={18} height={18} color="currentColor" />
+        </S.IconLink>
+      </S.Actions>
+
+      <S.Section id="projetos">
+        <S.Label>
+          Projetos em destaque
+          <S.TextLink href="/projects">Ver todos →</S.TextLink>
+        </S.Label>
+        <S.Grid>
+          {featured.map((p) =>
+            p ? (
+              <Reveal key={p.id}>
+                <S.Card href={`/projects/${p.id}`} $color={p.iconColor}>
+                  <div className="thumb">
+                    {p.galleryImages?.[0] ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} />
+                    ) : (
+                      p.iconLetter ?? p.title[0]
+                    )}
+                  </div>
+                  <div className="body">
+                    <div className="top">
+                      <h3>{p.title}</h3>
+                      <span className="status">{STATUS[p.status]}</span>
+                    </div>
+                    <p>{p.tagline}</p>
+                    <S.Chips>
+                      {p.tags.slice(0, 3).map((t) => (
+                        <span key={t}>{t}</span>
+                      ))}
+                    </S.Chips>
+                  </div>
+                </S.Card>
+              </Reveal>
+            ) : null,
+          )}
+        </S.Grid>
       </S.Section>
 
       <Reveal>
@@ -93,97 +134,70 @@ export default function Home() {
               </S.Row>
             ))}
           </S.List>
-        </S.Section>
-      </Reveal>
-
-      <Reveal>
-        <S.Section id="jeito">
-          <S.Label>Como eu trabalho</S.Label>
-          <S.Prose>
-            <p>
-              Gosto de código que o time inteiro entende. Por isso uso MVVM, padronizo a arquitetura
-              e escrevo testes com Jest nos fluxos que não podem quebrar.
-            </p>
-            <p>
-              Depois do lançamento o app continua sendo trabalho: acompanho com Sentry, Datadog,
-              Mixpanel e Kibana, e automatizo builds e releases com Bitrise e Harness.
-            </p>
-            <p>
-              Já fui Scrum Master do time mobile da E/Code, então converso bem com design e negócio.
-              Quando preciso, desenho no Figma.
-            </p>
-            <p style={{ marginTop: 28 }}>
-              <S.TextLink href="/about" style={{ marginTop: 0 }}>
-                Minha história desde 2015 →
-              </S.TextLink>
-            </p>
-          </S.Prose>
+          <div style={{ marginTop: 14 }}>
+            <S.TextLink href="/about">Minha jornada desde 2015 →</S.TextLink>
+          </div>
         </S.Section>
       </Reveal>
 
       <Reveal>
         <S.Section id="ferramentas">
           <S.Label>Ferramentas</S.Label>
-          <div style={{ maxWidth: "38rem" }}>
+          <S.Panel>
             {skillGroups.map((g) => (
-              <S.Plain key={g.title}>
-                <b>{g.title}.</b> {g.items.join(", ")}.
-              </S.Plain>
+              <div key={g.title} style={{ marginBottom: 16 }}>
+                <S.Plain>
+                  <b>{g.title}</b>
+                </S.Plain>
+                <S.Chips>
+                  {g.items.map((i) => (
+                    <span key={i}>{i}</span>
+                  ))}
+                </S.Chips>
+              </div>
             ))}
-          </div>
+          </S.Panel>
         </S.Section>
       </Reveal>
 
       {posts.length > 0 && (
         <Reveal>
-          <S.Section id="escrita">
-            <S.Label>Escrita</S.Label>
-            <div>
-              <S.List>
-                {posts.map((p) => (
-                  <S.Row key={p.id}>
-                    <S.RowLink href={`/blog/${p.slug}`}>
-                      <span className="year">
-                        {p.created_at
-                          ? new Date(p.created_at).toLocaleDateString("pt-BR", { month: "short", year: "numeric" })
-                          : ""}
-                      </span>
-                      <span>
-                        <span className="name">{p.title}</span>
-                        {p.excerpt && <span className="what">{p.excerpt}</span>}
-                      </span>
-                      <span className="meta" />
-                    </S.RowLink>
-                  </S.Row>
-                ))}
-              </S.List>
-              <S.TextLink href="/blog">Todos os textos →</S.TextLink>
-            </div>
+          <S.Section id="blog">
+            <S.Label>
+              Blog
+              <S.TextLink href="/blog">Ver todos →</S.TextLink>
+            </S.Label>
+            <S.List>
+              {posts.map((p) => (
+                <S.Row key={p.id}>
+                  <S.RowLink href={`/blog/${p.slug}`}>
+                    <span className="year">
+                      {p.created_at
+                        ? new Date(p.created_at).toLocaleDateString("pt-BR", { month: "short", year: "numeric" })
+                        : ""}
+                    </span>
+                    <span>
+                      <span className="name">{p.title}</span>
+                      {p.excerpt && <span className="what">{p.excerpt}</span>}
+                    </span>
+                    <span className="meta" />
+                  </S.RowLink>
+                </S.Row>
+              ))}
+            </S.List>
           </S.Section>
         </Reveal>
       )}
 
       <S.Section id="contato">
-        <S.Label>Contato</S.Label>
-        <div>
+        <S.Panel>
           <S.H2>
             Tem um app, uma vaga ou uma ideia? <em>Vamos conversar.</em>
           </S.H2>
-          <div style={{ marginTop: 36 }}>
+          <div style={{ marginTop: 20 }}>
             <S.Big href={`mailto:${contact.email}`}>{contact.email}</S.Big>
           </div>
-          <S.Plain style={{ marginTop: 28 }}>
-            Ou me ache no{" "}
-            <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}>
-              LinkedIn
-            </a>{" "}
-            e no{" "}
-            <a href={contact.github} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}>
-              GitHub
-            </a>
-            .
-          </S.Plain>
-        </div>
+        </S.Panel>
       </S.Section>
     </S.Page>
   );

@@ -8,7 +8,7 @@ import { personalProjects, professionalProjects, webProjects, type Project } fro
 type Filter = "all" | "personal" | "mobile" | "web";
 
 const FILTERS: { id: Filter; label: string }[] = [
-  { id: "all", label: "Tudo" },
+  { id: "all", label: "Todos" },
   { id: "personal", label: "Produtos próprios" },
   { id: "mobile", label: "Apps profissionais" },
   { id: "web", label: "Web" },
@@ -23,41 +23,29 @@ const STATUS: Record<Project["status"], string> = {
 const Tabs = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 24px;
-  margin: 40px 0 8px;
+  gap: 6px;
+  margin: 24px 0 20px;
   button {
     font: inherit;
-    font-size: 0.95rem;
+    font-size: 0.82rem;
+    height: 30px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--card);
     color: var(--muted);
-    background: none;
-    border: 0;
-    padding: 0 0 3px;
     cursor: pointer;
-    border-bottom: 1px solid transparent;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition: all 0.15s ease;
   }
-  button:hover { color: var(--ink); }
-  button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+  button:hover { color: var(--ink); border-color: var(--muted); }
+  button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 `;
 
-function Item({ p }: { p: Project }) {
-  const year = STATUS[p.status];
-  const inner = (
-    <>
-      <span className="year">{year}</span>
-      <span>
-        <span className="name">{p.title}</span>
-        <span className="what">{p.tagline}</span>
-      </span>
-      <span className="meta">{p.tags.slice(0, 3).join(" · ")}</span>
-    </>
-  );
-  return (
-    <S.Row>
-      <S.RowLink href={`/projects/${p.id}`}>{inner}</S.RowLink>
-    </S.Row>
-  );
-}
+const Cols = styled(S.Grid)`
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  @media (max-width: 800px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 520px) { grid-template-columns: 1fr; }
+`;
 
 export default function Projects() {
   const [filter, setFilter] = useState<Filter>("all");
@@ -71,10 +59,7 @@ export default function Projects() {
 
   return (
     <S.Page>
-      <S.Kicker>Trabalho</S.Kicker>
-      <S.Display style={{ maxWidth: "15ch" }}>
-        O que eu já <em>coloquei no ar</em>.
-      </S.Display>
+      <S.Display>Projetos</S.Display>
       <S.Lead>
         Apps financeiros, superapps, e-commerce e sistemas web: o que construí no trabalho e o que
         criei por conta própria.
@@ -88,11 +73,32 @@ export default function Projects() {
         ))}
       </Tabs>
 
-      <S.List style={{ marginTop: 24 }}>
+      <Cols>
         {list.map((p) => (
-          <Item key={p.id} p={p} />
+          <S.Card key={p.id} href={`/projects/${p.id}`} $color={p.iconColor}>
+            <div className="thumb">
+              {p.galleryImages?.[0] ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} />
+              ) : (
+                p.iconLetter ?? p.title[0]
+              )}
+            </div>
+            <div className="body">
+              <div className="top">
+                <h3>{p.title}</h3>
+              </div>
+              <span className="status">{STATUS[p.status]}</span>
+              <p>{p.tagline}</p>
+              <S.Chips>
+                {p.tags.slice(0, 2).map((t) => (
+                  <span key={t}>{t}</span>
+                ))}
+              </S.Chips>
+            </div>
+          </S.Card>
         ))}
-      </S.List>
+      </Cols>
     </S.Page>
   );
 }
