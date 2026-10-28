@@ -2,32 +2,22 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-type RevealProps = {
-  children: ReactNode;
-  delay?: number;
-  className?: string;
-};
-
-/** Anima a entrada do bloco quando ele aparece na tela. */
-export default function Reveal({ children, delay = 0, className }: RevealProps) {
+/** Entrada discreta: só opacidade e 8px de deslocamento. */
+export default function Reveal({ children, className }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
+    if (!el || typeof IntersectionObserver === "undefined") return setVisible(true);
     const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      ([e]) => {
+        if (e.isIntersecting) {
           setVisible(true);
           io.disconnect();
         }
       },
-      { threshold: 0.12 },
+      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -39,8 +29,8 @@ export default function Reveal({ children, delay = 0, className }: RevealProps) 
       className={className}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? "none" : "translateY(24px)",
-        transition: `opacity 0.7s ease ${delay}ms, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) ${delay}ms`,
+        transform: visible ? "none" : "translateY(8px)",
+        transition: "opacity 0.6s ease, transform 0.6s ease",
       }}
     >
       {children}

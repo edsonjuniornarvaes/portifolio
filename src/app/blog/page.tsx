@@ -11,15 +11,17 @@ const fade = keyframes`
 
 const Wrap = styled.div`
   min-height: 100vh;
-  padding: 100px 24px 80px;
-  max-width: 800px;
+  padding: 72px 24px 0;
+  max-width: 1080px;
   margin: 0 auto;
 `;
 
 const Title = styled.h1`
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 4vw, 2.35rem);
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-size: clamp(2.7rem, 7vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  font-weight: 400;
   margin-bottom: 10px;
   color: var(--text-primary);
 `;
