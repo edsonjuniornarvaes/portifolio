@@ -193,8 +193,35 @@ O foco é oferecer peças refinadas, curadoria de qualidade e uma experiência d
   ],
 };
 
+export const clubeDaJoiaProject: Project = {
+  id: "clube-da-joia",
+  title: "Clube da Joia",
+  tagline: "Loja de prata 925 e moissanite — site, painel admin e app iOS/Android",
+  description:
+    "Joalheria online completa: site com loja e filtros, painel administrativo com 2FA, app mobile e checkout com Mercado Pago, tudo sobre um único backend Supabase.",
+  longDescription: `O **Clube da Joia** é um ecossistema de e-commerce construído de ponta a ponta: **site em Next.js**, **painel admin** com login e 2FA, **app React Native (Expo)** e backend em **Supabase** com Edge Functions.
+
+**Destaques:** catálogo com filtros (categoria, modelo, aro, pedra, preço), sacola, checkout com **Mercado Pago** (cartão em até 10x, Pix e boleto) com preços sempre validados no servidor, cupons, frete por UF, pedidos e permissões por papel (admin/editor/cliente) com RLS.`,
+  icon: "",
+  iconLetter: "J",
+  iconColor: "#b08d57",
+  tags: ["Next.js", "React Native", "Expo", "Supabase", "Mercado Pago"],
+  status: "development",
+  type: "personal",
+  githubUrl: undefined,
+  showGithub: false,
+  showFigma: false,
+  showPreview: false,
+  features: [
+    { title: "Loja e filtros", description: "Catálogo com filtros e busca no site e no app", icon: "💎" },
+    { title: "Pagamentos", description: "Mercado Pago: cartão, Pix e boleto com webhook assinado", icon: "💳" },
+    { title: "Painel admin", description: "CRUD de produtos, banners e pedidos com 2FA", icon: "🔐" },
+    { title: "Um backend", description: "Supabase com RLS, Storage e Edge Functions", icon: "⚡" },
+  ],
+};
+
 /** Projetos pessoais (cards compactos + link para detalhes) */
-export const personalProjects: Project[] = [osBarberClubProject, clubeDaClutchProject, rachaoProject];
+export const personalProjects: Project[] = [clubeDaJoiaProject, osBarberClubProject, clubeDaClutchProject, rachaoProject];
 
 /** @deprecated use rachaoProject */
 export const featuredProject = rachaoProject;

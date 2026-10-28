@@ -29,8 +29,8 @@ const GridOverlay = styled.div`
   position: absolute;
   inset: -80px 0 0 0;
   background-image:
-    linear-gradient(rgba(46, 235, 170, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(46, 235, 170, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(139, 92, 246, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
   background-size: 60px 60px;
   animation: ${moveLines} 12s linear infinite;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 0%, transparent 70%);
@@ -53,8 +53,8 @@ export function ShootingStars() {
   return (
     <Wrap aria-hidden>
       <GridOverlay />
-      <GlowOrb $top="10%" $left="20%" $size="500px" $color="rgba(46, 235, 170, 0.06)" $anim={1} />
-      <GlowOrb $top="55%" $left="65%" $size="400px" $color="rgba(6, 182, 212, 0.05)" $anim={2} />
+      <GlowOrb $top="10%" $left="20%" $size="500px" $color="rgba(139, 92, 246, 0.06)" $anim={1} />
+      <GlowOrb $top="55%" $left="65%" $size="400px" $color="rgba(34, 211, 238, 0.05)" $anim={2} />
     </Wrap>
   );
 }

@@ -1,404 +1,169 @@
 "use client";
 
-import styled, { keyframes } from "styled-components";
-import Container from "../components/container";
+import styled from "styled-components";
+import { FaGraduationCap, FaEnvelope } from "react-icons/fa";
+import * as S from "../home/styles";
+import Reveal from "@/components/ui/reveal";
+import GlowCard from "@/components/ui/glow-card";
 import { ExperienceData, EducationData, AboutText, DailyPractices } from "./helper";
-import { FaBriefcase, FaGraduationCap, FaCheckCircle, FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
+import { contact, journey, yearsStudying, STUDY_SINCE } from "@/data/profile";
 
-const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-const PageWrapper = styled.div`
-  min-height: 100vh;
-  padding: 40px 24px 100px;
-  
-  @media (max-width: 768px) {
-    padding: 20px 16px 60px;
-  }
-`;
-
-const ContentWrapper = styled.div`
-  max-width: 900px;
-  margin: 0 auto;
-`;
-
-const PageTitle = styled.h1`
-  font-family: var(--font-display, 'Outfit', sans-serif);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 16px;
-  animation: ${fadeInUp} 0.6s ease forwards;
-`;
-
-const PageSubtitle = styled.p`
-  font-size: 1.125rem;
-  color: #71717a;
-  margin-bottom: 40px;
-  animation: ${fadeInUp} 0.6s ease 0.1s forwards;
-  opacity: 0;
-`;
-
-const Section = styled.section`
-  margin-bottom: 60px;
-  animation: ${fadeInUp} 0.6s ease forwards;
-  animation-delay: var(--delay, 0s);
-  opacity: 0;
-`;
-
-const SectionHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-`;
-
-const SectionIcon = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(46, 235, 170, 0.1);
-  color: #2eebaa;
-`;
-
-const SectionTitle = styled.h2`
-  font-family: var(--font-display, 'Outfit', sans-serif);
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #ffffff;
-`;
-
-const AboutCard = styled.div`
-  padding: 32px;
-  background: rgba(26, 26, 36, 0.4);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-`;
-
-const AboutParagraph = styled.p`
-  font-size: 1rem;
-  color: #a1a1aa;
-  line-height: 1.8;
-  white-space: pre-line;
-  margin-bottom: 24px;
-  
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-const PracticesList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
+const Intro = styled.header`
   display: grid;
-  gap: 12px;
+  grid-template-columns: 1.4fr 0.8fr;
+  gap: 56px;
+  align-items: center;
+  @media (max-width: 860px) { grid-template-columns: 1fr; gap: 32px; }
+  h1 { font-size: clamp(2.2rem, 5.5vw, 3.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; }
+  p { color: var(--text-secondary); line-height: 1.75; margin-bottom: 14px; }
 `;
 
-const PracticeItem = styled.li`
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 0.95rem;
-  color: #a1a1aa;
-  line-height: 1.6;
-  
-  svg {
-    flex-shrink: 0;
-    margin-top: 4px;
-    color: #2eebaa;
-  }
-`;
-
-const Timeline = styled.div`
+const Photo = styled.div`
   position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    left: 19px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, rgba(46, 235, 170, 0.3) 0%, rgba(46, 235, 170, 0.05) 100%);
-  }
+  border-radius: 28px;
+  padding: 3px;
+  background: var(--accent-gradient-wide);
+  box-shadow: var(--glow-intense);
+  img { display: block; width: 100%; border-radius: 26px; aspect-ratio: 1 / 1; object-fit: cover; object-position: top; }
 `;
 
-const TimelineItem = styled.div`
-  position: relative;
-  padding-left: 60px;
-  padding-bottom: 40px;
-  
-  &:last-child {
-    padding-bottom: 0;
-  }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    left: 12px;
-    top: 4px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #0a0a0f;
-    border: 3px solid #2eebaa;
-    z-index: 1;
-  }
+const Two = styled.div`
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  @media (max-width: 760px) { grid-template-columns: 1fr; }
+  h3 { font-size: 1.05rem; margin-bottom: 4px; }
+  .meta { font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono); }
+  > div > div { padding: 24px; height: 100%; }
+  ul { list-style: none; display: grid; gap: 12px; }
+  li { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.55; padding-left: 20px; position: relative; }
+  li::before { content: "→"; position: absolute; left: 0; color: var(--accent-primary); }
 `;
 
-const ExperienceCard = styled.div`
-  padding: 24px;
-  background: rgba(26, 26, 36, 0.4);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background: rgba(46, 235, 170, 0.05);
-    border-color: rgba(46, 235, 170, 0.2);
-  }
-`;
-
-const ExperienceHeader = styled.div`
-  margin-bottom: 16px;
-`;
-
-const ExperienceCompany = styled.h3`
-  font-family: var(--font-display, 'Outfit', sans-serif);
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 4px;
-`;
-
-const ExperienceRole = styled.span`
-  font-size: 1rem;
-  font-weight: 500;
-  background: linear-gradient(135deg, #2eebaa 0%, #06b6d4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`;
-
-const ExperienceMeta = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 8px;
-`;
-
-const MetaItem = styled.span`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.85rem;
-  color: #71717a;
-  
-  svg {
-    font-size: 0.75rem;
-  }
-`;
-
-const ExperienceDescription = styled.p`
-  font-size: 0.95rem;
-  color: #a1a1aa;
-  line-height: 1.7;
-  margin-bottom: 16px;
-`;
-
-const HighlightsList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0 0 16px 0;
-  display: grid;
-  gap: 8px;
-`;
-
-const HighlightItem = styled.li`
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 0.875rem;
-  color: #a1a1aa;
-  
-  &::before {
-    content: '→';
-    color: #2eebaa;
-    flex-shrink: 0;
-  }
-`;
-
-const SkillTags = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-`;
-
-const SkillTag = styled.span`
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: #2eebaa;
-  padding: 4px 10px;
-  border-radius: 100px;
-  background: rgba(46, 235, 170, 0.1);
-  border: 1px solid rgba(46, 235, 170, 0.2);
-`;
-
-const EducationGrid = styled.div`
-  display: grid;
-  gap: 16px;
-`;
-
-const EducationCard = styled.div`
-  padding: 24px;
-  background: rgba(26, 26, 36, 0.4);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background: rgba(46, 235, 170, 0.05);
-    border-color: rgba(46, 235, 170, 0.2);
-  }
-`;
-
-const EducationTitle = styled.h3`
-  font-family: var(--font-display, 'Outfit', sans-serif);
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 8px;
-`;
-
-const EducationInstitution = styled.p`
-  font-size: 0.95rem;
-  color: #a1a1aa;
-  margin-bottom: 4px;
-`;
-
-const EducationPeriod = styled.span`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.85rem;
-  color: #71717a;
-  
-  svg {
-    font-size: 0.75rem;
-  }
-`;
-
-const About = () => {
+export default function About() {
   return (
-    <PageWrapper>
-      <ContentWrapper>
-        <PageTitle>Sobre Mim</PageTitle>
-        <PageSubtitle>Conheça minha trajetória e experiência profissional</PageSubtitle>
+    <S.Page>
+      <Intro>
+        <div>
+          <S.Eyebrow>sobre mim</S.Eyebrow>
+          <h1>
+            Código que chega à loja <span className="gradient-text-wide">e se mantém de pé</span>
+          </h1>
+          {AboutText.split("\n\n").map((t) => (
+            <p key={t.slice(0, 20)}>{t}</p>
+          ))}
+          <S.Actions style={{ marginTop: 24 }}>
+            <S.Primary href={`mailto:${contact.email}`}>
+              <FaEnvelope size={14} /> Falar comigo
+            </S.Primary>
+            <S.Ghost href={contact.linkedin} target="_blank" rel="noopener noreferrer">
+              LinkedIn
+            </S.Ghost>
+          </S.Actions>
+        </div>
+        <Photo>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/edson.webp" alt="Retrato de Edson Junior" />
+        </Photo>
+      </Intro>
 
-        <Section style={{ '--delay': '0.2s' } as React.CSSProperties}>
-          <SectionHeader>
-            <SectionIcon>
-              <FaBriefcase size={18} />
-            </SectionIcon>
-            <SectionTitle>Quem sou eu</SectionTitle>
-          </SectionHeader>
-          <AboutCard>
-            <AboutParagraph>{AboutText}</AboutParagraph>
-            <SectionTitle style={{ fontSize: '1.1rem', marginBottom: '16px', marginTop: '24px' }}>
-              No dia a dia, aplico:
-            </SectionTitle>
-            <PracticesList>
-              {DailyPractices.map((practice, index) => (
-                <PracticeItem key={index}>
-                  <FaCheckCircle size={14} />
-                  {practice}
-                </PracticeItem>
-              ))}
-            </PracticesList>
-          </AboutCard>
-        </Section>
+      {/* Jornada */}
+      <S.Section id="jornada">
+        <Reveal>
+          <S.Eyebrow>jornada</S.Eyebrow>
+          <S.SectionTitle>De {STUDY_SINCE} até hoje</S.SectionTitle>
+          <S.SectionLead>
+            São {yearsStudying} anos estudando e construindo software: da faculdade ao primeiro
+            emprego, da web ao mobile e, agora, a produtos próprios.
+          </S.SectionLead>
+          <S.Legend>
+            <span style={{ ["--c" as string]: "var(--accent-warm)" }}>estudo</span>
+            <span style={{ ["--c" as string]: "var(--accent-primary)" }}>carreira</span>
+            <span style={{ ["--c" as string]: "var(--accent-secondary)" }}>produtos próprios</span>
+          </S.Legend>
+        </Reveal>
+        <S.Journey>
+          {journey.map((j) => (
+            <Reveal key={j.year + j.title}>
+              <S.JourneyItem $kind={j.kind}>
+                <span className="year">{j.year}</span>
+                <div>
+                  <h3>{j.title}</h3>
+                  <p>{j.text}</p>
+                </div>
+              </S.JourneyItem>
+            </Reveal>
+          ))}
+        </S.Journey>
+      </S.Section>
 
-        <Section style={{ '--delay': '0.3s' } as React.CSSProperties}>
-          <SectionHeader>
-            <SectionIcon>
-              <FaBriefcase size={18} />
-            </SectionIcon>
-            <SectionTitle>Experiência Profissional</SectionTitle>
-          </SectionHeader>
-          <Timeline>
-            {ExperienceData.map((exp, index) => (
-              <TimelineItem key={index}>
-                <ExperienceCard>
-                  <ExperienceHeader>
-                    <ExperienceCompany>{exp.company}</ExperienceCompany>
-                    <ExperienceRole>{exp.role}</ExperienceRole>
-                    <ExperienceMeta>
-                      <MetaItem>
-                        <FaCalendarAlt />
-                        {exp.period}
-                      </MetaItem>
-                      <MetaItem>
-                        <FaMapMarkerAlt />
-                        {exp.location}
-                      </MetaItem>
-                    </ExperienceMeta>
-                  </ExperienceHeader>
-                  <ExperienceDescription>{exp.description}</ExperienceDescription>
-                  <HighlightsList>
-                    {exp.highlights.map((highlight, idx) => (
-                      <HighlightItem key={idx}>{highlight}</HighlightItem>
-                    ))}
-                  </HighlightsList>
-                  <SkillTags>
-                    {exp.skills.map((skill) => (
-                      <SkillTag key={skill}>{skill}</SkillTag>
-                    ))}
-                  </SkillTags>
-                </ExperienceCard>
-              </TimelineItem>
-            ))}
-          </Timeline>
-        </Section>
+      {/* Experiência */}
+      <S.Section id="experiencia">
+        <Reveal>
+          <S.Eyebrow>carreira</S.Eyebrow>
+          <S.SectionTitle>Experiência profissional</S.SectionTitle>
+        </Reveal>
+        <S.Timeline style={{ marginTop: 32 }}>
+          {ExperienceData.map((job) => (
+            <Reveal key={`${job.company}-${job.period}`}>
+              <S.TimelineItem>
+                <header>
+                  <h3>{job.role}</h3>
+                  <span className="period">{job.period}</span>
+                </header>
+                <div className="company">
+                  {job.company} · {job.location}
+                </div>
+                <p>{job.description}</p>
+                <ul>
+                  {job.highlights.map((h) => (
+                    <li key={h}>{h}</li>
+                  ))}
+                </ul>
+                <S.Chips>
+                  {job.skills.map((s) => (
+                    <span key={s}>{s}</span>
+                  ))}
+                </S.Chips>
+              </S.TimelineItem>
+            </Reveal>
+          ))}
+        </S.Timeline>
+      </S.Section>
 
-        <Section style={{ '--delay': '0.4s' } as React.CSSProperties}>
-          <SectionHeader>
-            <SectionIcon>
-              <FaGraduationCap size={18} />
-            </SectionIcon>
-            <SectionTitle>Formação Acadêmica</SectionTitle>
-          </SectionHeader>
-          <EducationGrid>
-            {EducationData.map((edu, index) => (
-              <EducationCard key={index}>
-                <EducationTitle>{edu.course}</EducationTitle>
-                <EducationInstitution>{edu.institution}</EducationInstitution>
-                <EducationPeriod>
-                  <FaCalendarAlt />
-                  {edu.period}
-                </EducationPeriod>
-              </EducationCard>
-            ))}
-          </EducationGrid>
-        </Section>
-      </ContentWrapper>
-    </PageWrapper>
+      {/* Formação + práticas */}
+      <S.Section>
+        <Two>
+          <Reveal>
+            <GlowCard>
+              <div>
+                <S.Eyebrow>formação</S.Eyebrow>
+                <ul style={{ marginTop: 12 }}>
+                  {EducationData.map((e) => (
+                    <li key={e.course} style={{ paddingLeft: 0 }}>
+                      <FaGraduationCap style={{ color: "var(--accent-primary)", marginRight: 8 }} />
+                      <strong style={{ color: "var(--text-primary)" }}>{e.course}</strong>
+                      <div className="meta">
+                        {e.institution} · {e.period}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </GlowCard>
+          </Reveal>
+          <Reveal delay={80}>
+            <GlowCard>
+              <div>
+                <S.Eyebrow>no dia a dia</S.Eyebrow>
+                <ul style={{ marginTop: 12 }}>
+                  {DailyPractices.map((d) => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
+              </div>
+            </GlowCard>
+          </Reveal>
+        </Two>
+      </S.Section>
+    </S.Page>
   );
-};
-
-export default About;
+}

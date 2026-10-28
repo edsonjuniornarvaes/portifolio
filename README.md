@@ -114,9 +114,7 @@ O projeto inclui um painel administrativo completo com analytics. Para configura
 
 1. Configure o Supabase (veja [ADMIN_SETUP.md](./ADMIN_SETUP.md))
 2. Acesse: `http://localhost:3000/adminaccess/login`
-3. Credenciais:
-   - Email: `edsonjunior.narvaes@gmail.com`
-   - Senha: `!Edsandrade@030adm`
+3. Defina `ADMIN_EMAIL` e `ADMIN_PASSWORD_HASH` nas variáveis de ambiente (veja `.env.example`).
 
 O dashboard oferece relatórios de visitas, páginas mais acessadas, origem dos visitantes, países, abas verificadas e eventos de clique.
 

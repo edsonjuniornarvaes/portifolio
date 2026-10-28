@@ -86,7 +86,7 @@ const CheckboxLabel = styled.label`
   margin-bottom: 1.25rem;
 
   input[type="checkbox"] {
-    accent-color: #2eebaa;
+    accent-color: #8b5cf6;
     width: 16px;
     height: 16px;
   }
