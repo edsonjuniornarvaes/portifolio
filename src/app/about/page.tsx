@@ -24,7 +24,7 @@ const Photo = styled.div`
   padding: 3px;
   background: var(--accent-gradient-wide);
   box-shadow: var(--glow-intense);
-  img { display: block; width: 100%; border-radius: 26px; aspect-ratio: 4 / 5; object-fit: cover; }
+  img { display: block; width: 100%; border-radius: 26px; aspect-ratio: 1 / 1; object-fit: cover; object-position: top; }
 `;
 
 const Two = styled.div`
@@ -61,7 +61,7 @@ export default function About() {
         </div>
         <Photo>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/profile-hero.png" alt="Edson Junior" />
+          <img src="/images/edson.webp" alt="Retrato de Edson Junior" />
         </Photo>
       </Intro>
 

@@ -39,8 +39,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     url: siteUrl,
+    images: [{ url: "/images/edson.webp", width: 800, height: 800, alt: "Edson Junior" }],
   },
-  twitter: { card: "summary_large_image", title: "Edson Junior | Desenvolvedor Mobile Sênior" },
+  twitter: { card: "summary", title: "Edson Junior | Desenvolvedor Mobile Sênior", images: ["/images/edson.webp"] },
 };
 
 const personJsonLd = {
@@ -49,6 +50,7 @@ const personJsonLd = {
   name: "Edson Junior Narvaes",
   jobTitle: "Desenvolvedor Mobile Sênior",
   url: siteUrl,
+  image: `${siteUrl}/images/edson.webp`,
   sameAs: [
     "https://www.linkedin.com/in/edsonjuniornarvaes/",
     "https://github.com/edsonjuniornarvaes",

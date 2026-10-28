@@ -75,6 +75,14 @@ export const Status = styled.span`
   }
 `;
 
+export const Avatar = styled.img`
+  width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: top;
+  border: 2px solid transparent;
+  background: linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box, var(--accent-gradient-wide) border-box;
+  box-shadow: var(--glow-primary);
+  margin-bottom: 20px; display: block;
+`;
+
 export const Title = styled.h1`
   font-size: clamp(2.6rem, 7vw, 4.8rem);
   font-weight: 800;

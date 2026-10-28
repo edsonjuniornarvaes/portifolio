@@ -38,6 +38,7 @@ export default function Home() {
       {/* Hero */}
       <S.Hero>
         <div>
+          <S.Avatar src="/images/edson.webp" alt="Edson Junior" width={72} height={72} />
           <S.Status>Aberto a novas oportunidades</S.Status>
           <S.Title>
             Olá, eu sou <span className="gradient-text-wide">Edson Junior</span>
