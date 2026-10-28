@@ -52,8 +52,8 @@ const scroll = keyframes`
 `;
 
 const pulse = keyframes`
-  0%, 100% { opacity: 1; box-shadow: 0 0 20px rgba(0, 230, 118, 0.3); }
-  50% { opacity: 0.8; box-shadow: 0 0 40px rgba(0, 230, 118, 0.5); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+  50% { opacity: 0.8; box-shadow: 0 0 40px rgba(139, 92, 246, 0.5); }
 `;
 
 const PageWrapper = styled.div`
@@ -126,7 +126,7 @@ const PersonalCard = styled.div`
   gap: 14px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   &:hover {
-    border-color: rgba(46, 235, 170, 0.25);
+    border-color: rgba(139, 92, 246, 0.25);
     box-shadow: var(--glow-primary);
   }
 `;
@@ -237,8 +237,8 @@ const SectionIcon = styled.div`
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(46, 235, 170, 0.1);
-  color: #2eebaa;
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
 `;
 
 const SectionTitle = styled.h2`
@@ -272,14 +272,14 @@ const ProfessionalCard = styled.div`
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, #2eebaa 0%, #06b6d4 100%);
+    background: linear-gradient(90deg, #8b5cf6 0%, #22d3ee 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
   }
 
   &:hover {
-    background: rgba(46, 235, 170, 0.05);
-    border-color: rgba(46, 235, 170, 0.2);
+    background: rgba(139, 92, 246, 0.05);
+    border-color: rgba(139, 92, 246, 0.2);
     transform: translateY(-2px);
     &::before { opacity: 1; }
   }
@@ -329,7 +329,7 @@ const CardTitle = styled.h3`
 const CardTagline = styled.span`
   font-size: 0.75rem;
   font-weight: 500;
-  color: #2eebaa;
+  color: #8b5cf6;
 `;
 
 const CardDescription = styled.p`
@@ -367,7 +367,7 @@ const TechChip = styled.span`
   font-size: 0.7rem;
   color: #71717a;
   white-space: nowrap;
-  svg { font-size: 0.85rem; color: rgba(46, 235, 170, 0.6); flex-shrink: 0; }
+  svg { font-size: 0.85rem; color: rgba(139, 92, 246, 0.6); flex-shrink: 0; }
 `;
 
 /* ===== Footer do card ===== */
@@ -396,12 +396,12 @@ const DetailLink = styled(Link)`
   font-weight: 600;
   padding: 8px 12px;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(46, 235, 170, 0.35);
-  color: #2eebaa;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  color: #8b5cf6;
   text-decoration: none;
   white-space: nowrap;
   transition: background 0.2s ease, border-color 0.2s ease;
-  &:hover { background: rgba(46, 235, 170, 0.1); border-color: #2eebaa; }
+  &:hover { background: rgba(139, 92, 246, 0.1); border-color: #8b5cf6; }
 `;
 
 const ProductionBadge = styled.span<{ $status?: string }>`
@@ -434,7 +434,7 @@ const CardLink = styled.a`
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
   &:hover {
     color: var(--text-primary);
-    border-color: rgba(46, 235, 170, 0.35);
+    border-color: rgba(139, 92, 246, 0.35);
     background: rgba(255, 255, 255, 0.04);
   }
 `;

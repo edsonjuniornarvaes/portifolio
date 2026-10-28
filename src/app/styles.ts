@@ -58,10 +58,10 @@ const float = keyframes`
 
 const glow = keyframes`
   0%, 100% {
-    box-shadow: 0 0 20px rgba(46, 235, 170, 0.2);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
   }
   50% {
-    box-shadow: 0 0 40px rgba(46, 235, 170, 0.4);
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
   }
 `;
 
@@ -141,7 +141,7 @@ export const Greeting = styled.span`
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 1rem;
   font-weight: 400;
-  color: #2eebaa;
+  color: #8b5cf6;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 16px;
@@ -165,7 +165,7 @@ export const HeroRole = styled.h2`
   font-family: var(--font-display, 'Outfit', sans-serif);
   font-size: clamp(1.25rem, 2.5vw, 1.75rem);
   font-weight: 500;
-  background: linear-gradient(135deg, #2eebaa 0%, #06b6d4 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -208,16 +208,16 @@ export const TechBadge = styled.span`
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.75rem;
   font-weight: 500;
-  color: #2eebaa;
+  color: #8b5cf6;
   padding: 8px 16px;
   border-radius: 100px;
-  background: rgba(46, 235, 170, 0.1);
-  border: 1px solid rgba(46, 235, 170, 0.2);
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
   transition: all 0.3s ease;
   
   &:hover {
-    background: rgba(46, 235, 170, 0.15);
-    border-color: rgba(46, 235, 170, 0.4);
+    background: rgba(139, 92, 246, 0.15);
+    border-color: rgba(139, 92, 246, 0.4);
     transform: translateY(-2px);
   }
 `;
@@ -248,11 +248,11 @@ export const SocialButton = styled.a`
   cursor: pointer;
   
   &:hover {
-    background: rgba(46, 235, 170, 0.1);
-    border-color: rgba(46, 235, 170, 0.3);
-    color: #2eebaa;
+    background: rgba(139, 92, 246, 0.1);
+    border-color: rgba(139, 92, 246, 0.3);
+    color: #8b5cf6;
     transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(46, 235, 170, 0.2);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
   }
   
   svg {
@@ -279,7 +279,7 @@ export const ProfileImageContainer = styled.div`
   height: 100%;
   border-radius: 24px;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(46, 235, 170, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(34, 211, 238, 0.2) 100%);
   padding: 4px;
   animation: ${glow} 3s ease-in-out infinite;
   
@@ -289,7 +289,7 @@ export const ProfileImageContainer = styled.div`
     inset: 0;
     border-radius: 24px;
     padding: 2px;
-    background: linear-gradient(135deg, #2eebaa 0%, #06b6d4 100%);
+    background: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -315,7 +315,7 @@ export const StatusBadge = styled.div`
   padding: 10px 20px;
   background: rgba(10, 10, 15, 0.9);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(46, 235, 170, 0.3);
+  border: 1px solid rgba(139, 92, 246, 0.3);
   border-radius: 100px;
   font-size: 0.875rem;
   font-weight: 500;
@@ -363,8 +363,8 @@ export const StatCard = styled.div`
   transition: all 0.3s ease;
   
   &:hover {
-    background: rgba(46, 235, 170, 0.05);
-    border-color: rgba(46, 235, 170, 0.2);
+    background: rgba(139, 92, 246, 0.05);
+    border-color: rgba(139, 92, 246, 0.2);
     transform: translateY(-4px);
   }
 `;
@@ -373,7 +373,7 @@ export const StatNumber = styled.span`
   font-family: var(--font-display, 'Outfit', sans-serif);
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #2eebaa 0%, #06b6d4 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -427,8 +427,8 @@ export const SkillCard = styled.div`
   transition: all 0.3s ease;
   
   &:hover {
-    background: rgba(46, 235, 170, 0.05);
-    border-color: rgba(46, 235, 170, 0.2);
+    background: rgba(139, 92, 246, 0.05);
+    border-color: rgba(139, 92, 246, 0.2);
     transform: translateY(-4px);
   }
 `;
@@ -440,8 +440,8 @@ export const SkillIcon = styled.div`
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: rgba(46, 235, 170, 0.1);
-  color: #2eebaa;
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
   flex-shrink: 0;
   font-size: 1.5rem;
 `;
@@ -506,7 +506,7 @@ export const HeaderTitle = styled.span`
   font-weight: 200;
   font-size: 24px;
   margin-bottom: 12px;
-  color: #2eebaa;
+  color: #8b5cf6;
 `;
 
 export const TitleContainer = styled(FlexDiv)`
@@ -556,7 +556,7 @@ export const AttribuitonsSection = styled(FlexDiv)`
 export const AttribuitonsSectionTitle = styled.span`
   font-weight: 200;
   font-size: 32px;
-  color: #2eebaa;
+  color: #8b5cf6;
 `;
 
 export const AttribuitonsSectionSubTitle = styled.span`
@@ -590,7 +590,7 @@ export const QuickAccessButton = styled(FlexButton)`
   background-color: transparent;
   color: #fff;
   &:hover {
-    border-bottom: 1px solid #2eebaa;
+    border-bottom: 1px solid #8b5cf6;
   }
 `;
 

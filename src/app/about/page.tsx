@@ -68,8 +68,8 @@ const SectionIcon = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: rgba(46, 235, 170, 0.1);
-  color: #2eebaa;
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
 `;
 
 const SectionTitle = styled.h2`
@@ -118,7 +118,7 @@ const PracticeItem = styled.li`
   svg {
     flex-shrink: 0;
     margin-top: 4px;
-    color: #2eebaa;
+    color: #8b5cf6;
   }
 `;
 
@@ -132,7 +132,7 @@ const Timeline = styled.div`
     top: 0;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(180deg, rgba(46, 235, 170, 0.3) 0%, rgba(46, 235, 170, 0.05) 100%);
+    background: linear-gradient(180deg, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.05) 100%);
   }
 `;
 
@@ -154,7 +154,7 @@ const TimelineItem = styled.div`
     height: 16px;
     border-radius: 50%;
     background: #0a0a0f;
-    border: 3px solid #2eebaa;
+    border: 3px solid #8b5cf6;
     z-index: 1;
   }
 `;
@@ -168,8 +168,8 @@ const ExperienceCard = styled.div`
   transition: all 0.3s ease;
   
   &:hover {
-    background: rgba(46, 235, 170, 0.05);
-    border-color: rgba(46, 235, 170, 0.2);
+    background: rgba(139, 92, 246, 0.05);
+    border-color: rgba(139, 92, 246, 0.2);
   }
 `;
 
@@ -188,7 +188,7 @@ const ExperienceCompany = styled.h3`
 const ExperienceRole = styled.span`
   font-size: 1rem;
   font-weight: 500;
-  background: linear-gradient(135deg, #2eebaa 0%, #06b6d4 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -237,7 +237,7 @@ const HighlightItem = styled.li`
   
   &::before {
     content: '→';
-    color: #2eebaa;
+    color: #8b5cf6;
     flex-shrink: 0;
   }
 `;
@@ -252,11 +252,11 @@ const SkillTag = styled.span`
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.7rem;
   font-weight: 500;
-  color: #2eebaa;
+  color: #8b5cf6;
   padding: 4px 10px;
   border-radius: 100px;
-  background: rgba(46, 235, 170, 0.1);
-  border: 1px solid rgba(46, 235, 170, 0.2);
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
 `;
 
 const EducationGrid = styled.div`
@@ -273,8 +273,8 @@ const EducationCard = styled.div`
   transition: all 0.3s ease;
   
   &:hover {
-    background: rgba(46, 235, 170, 0.05);
-    border-color: rgba(46, 235, 170, 0.2);
+    background: rgba(139, 92, 246, 0.05);
+    border-color: rgba(139, 92, 246, 0.2);
   }
 `;
 

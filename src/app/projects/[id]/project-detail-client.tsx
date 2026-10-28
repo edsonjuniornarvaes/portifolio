@@ -114,8 +114,8 @@ const Tag = styled.span`
   font-size: 0.7rem;
   padding: 6px 12px;
   border-radius: 100px;
-  background: rgba(46, 235, 170, 0.1);
-  border: 1px solid rgba(46, 235, 170, 0.25);
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.25);
   color: var(--accent-primary);
 `;
 

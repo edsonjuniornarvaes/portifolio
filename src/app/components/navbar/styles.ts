@@ -94,8 +94,8 @@ export const LogoImage = styled.img`
   height: 40px;
   border-radius: 10px;
   object-fit: cover;
-  border: 2px solid #2eebaa;
-  box-shadow: 0 0 12px rgba(46, 235, 170, 0.3);
+  border: 2px solid #8b5cf6;
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
 `;
 
 export const NavbarContent = styled.div`
@@ -116,7 +116,7 @@ export const NavbarLink = styled(Link)<{ $isActive?: boolean }>`
   font-family: var(--font-display, 'Outfit', sans-serif);
   font-size: 0.9rem;
   font-weight: 500;
-  color: ${props => props.$isActive ? '#2eebaa' : '#a1a1aa'};
+  color: ${props => props.$isActive ? '#8b5cf6' : '#a1a1aa'};
   text-decoration: none;
   border-radius: 8px;
   transition: all 0.3s ease;
@@ -129,7 +129,7 @@ export const NavbarLink = styled(Link)<{ $isActive?: boolean }>`
     transform: translateX(-50%) scaleX(${props => props.$isActive ? 1 : 0});
     width: 20px;
     height: 2px;
-    background: linear-gradient(135deg, #2eebaa 0%, #06b6d4 100%);
+    background: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%);
     border-radius: 2px;
     transition: transform 0.3s ease;
   }
@@ -199,7 +199,7 @@ export const MobileNavLink = styled(Link)<{ $isActive?: boolean }>`
   font-family: var(--font-display, 'Outfit', sans-serif);
   font-size: 1rem;
   font-weight: 500;
-  color: ${props => props.$isActive ? '#2eebaa' : '#a1a1aa'};
+  color: ${props => props.$isActive ? '#8b5cf6' : '#a1a1aa'};
   text-decoration: none;
   border-radius: 12px;
   transition: all 0.3s ease;

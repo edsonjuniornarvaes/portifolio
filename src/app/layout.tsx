@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
 import { ShootingStars } from "@/components/orbit-bg";
+import Spotlight from "@/components/ui/spotlight";
 
 const outfit = Outfit({ 
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
       <body>
         <StyledComponentsRegistry>
           <ShootingStars />
+          <Spotlight />
           <AnalyticsTracker />
           <Navbar />
           <main style={{ position: 'relative', zIndex: 1 }}>
