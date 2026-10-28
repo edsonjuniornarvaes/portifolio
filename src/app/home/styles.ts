@@ -322,3 +322,86 @@ export const Marquee = styled.div`
   span { font-family: var(--font-mono); font-size: 0.95rem; color: var(--text-muted); white-space: nowrap; }
   @keyframes marquee { to { transform: translateX(-50%); } }
 `;
+
+/* ---------- Bento ---------- */
+export const Bento = styled.div`
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 560px) { grid-template-columns: 1fr; }
+`;
+
+export const BentoCell = styled.div<{ $span?: number }>`
+  grid-column: span ${(p) => p.$span ?? 2};
+  > div { height: 100%; padding: 28px; }
+  h3 { font-size: 0.8rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-secondary); margin-bottom: 14px; font-weight: 500; }
+  p { color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem; }
+  p + p { margin-top: 12px; }
+  .big { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--text-primary); margin-bottom: 8px; }
+  ul { list-style: none; display: grid; gap: 10px; }
+  li { color: var(--text-secondary); font-size: 0.9rem; padding-left: 18px; position: relative; line-height: 1.5; }
+  li::before { content: "→"; position: absolute; left: 0; color: var(--accent-primary); }
+  @media (max-width: 900px) { grid-column: span ${(p) => (p.$span && p.$span >= 4 ? 2 : 1)}; }
+  @media (max-width: 560px) { grid-column: span 1; }
+`;
+
+/* ---------- Estudos de caso ---------- */
+export const CaseList = styled.div`
+  display: grid; gap: 20px;
+`;
+
+export const CaseCard = styled.div<{ $color: string }>`
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 36px;
+  padding: 36px;
+  border-left: 4px solid ${(p) => p.$color};
+  @media (max-width: 860px) { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+  .tag { font-family: var(--font-mono); font-size: 0.74rem; color: ${(p) => p.$color}; text-transform: uppercase; letter-spacing: 0.06em; }
+  h3 { font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -0.03em; margin: 8px 0 6px; }
+  .period { font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 16px; }
+  .summary { color: var(--text-primary); line-height: 1.65; margin-bottom: 12px; }
+  .role { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+  .side h4 { font-size: 0.78rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 14px; font-weight: 500; }
+  .side ul { list-style: none; display: grid; gap: 12px; margin-bottom: 20px; }
+  .side li { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.55; padding-left: 20px; position: relative; }
+  .side li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 8px; height: 8px; border-radius: 2px; background: ${(p) => p.$color}; }
+  .link { display: inline-block; margin-top: 18px; color: var(--text-primary); font-weight: 600; font-size: 0.9rem; border-bottom: 1px solid ${(p) => p.$color}; padding-bottom: 2px; }
+  .link:hover { color: ${(p) => p.$color}; }
+`;
+
+/* ---------- Jornada ---------- */
+export const Journey = styled.ol`
+  list-style: none;
+  display: grid; gap: 0;
+  position: relative;
+  &::before { content: ""; position: absolute; left: 87px; top: 8px; bottom: 8px; width: 2px; background: var(--border-color); }
+  @media (max-width: 600px) { &::before { left: 65px; } }
+`;
+
+export const JourneyItem = styled.li<{ $kind: "study" | "work" | "build" }>`
+  display: grid; grid-template-columns: 72px 1fr; gap: 0 32px;
+  padding-bottom: 28px; position: relative;
+  @media (max-width: 600px) { grid-template-columns: 52px 1fr; gap: 0 28px; }
+  .year { font-family: var(--font-mono); font-weight: 700; color: var(--text-primary); text-align: right; font-size: 0.95rem; padding-top: 2px; }
+  &::before {
+    content: ""; position: absolute; left: 78px; top: 6px; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--bg-primary);
+    border: 3px solid ${(p) => (p.$kind === "study" ? "var(--accent-warm)" : p.$kind === "build" ? "var(--accent-secondary)" : "var(--accent-primary)")};
+    @media (max-width: 600px) { left: 56px; }
+  }
+  h3 { font-size: 1.05rem; margin-bottom: 4px; }
+  p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; max-width: 40rem; }
+`;
+
+export const Legend = styled.div`
+  display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 28px;
+  font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);
+  span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; background: var(--c); }
+`;
+
+export const Pill = styled.span`
+  display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.78rem; font-family: var(--font-mono);
+  color: var(--accent-secondary); border: 1px solid var(--border-hover); background: rgba(139, 92, 246, 0.08);
+`;

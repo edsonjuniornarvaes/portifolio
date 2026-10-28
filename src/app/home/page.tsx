@@ -8,9 +8,11 @@ import Typewriter from "@/components/ui/typewriter";
 import GitHubIcon from "@/assets/icons/social/github";
 import LinkedInIcon from "@/assets/icons/social/linkedin";
 import DevtoIcon from "@/assets/icons/social/devto";
-import { ExperienceData } from "../about/helper";
 import { personalProjects } from "../projects/helper";
-import { skillGroups, heroWords, heroStats, contact } from "./skills";
+import GlowCard from "@/components/ui/glow-card";
+import TechMarquee from "@/components/ui/tech-marquee";
+import { skillGroups } from "./skills";
+import { heroWords, heroStats, contact, cases, yearsStudying, STUDY_SINCE } from "@/data/profile";
 
 type BlogPostPreview = {
   id: string;
@@ -20,8 +22,6 @@ type BlogPostPreview = {
   cover_image_url: string | null;
   created_at?: string;
 };
-
-const marqueeItems = skillGroups.flatMap((g) => g.items.slice(0, 3));
 
 export default function Home() {
   const [posts, setPosts] = useState<BlogPostPreview[]>([]);
@@ -101,13 +101,9 @@ export default function Home() {
         ))}
       </S.Stats>
 
-      <S.Marquee aria-hidden>
-        <div>
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <span key={i}>{item}</span>
-          ))}
-        </div>
-      </S.Marquee>
+      <div style={{ marginTop: 72 }}>
+        <TechMarquee />
+      </div>
 
       {/* Skills */}
       <S.Section id="skills">
@@ -135,42 +131,126 @@ export default function Home() {
         </S.SkillGrid>
       </S.Section>
 
-      {/* Experiência */}
-      <S.Section id="experiencia">
+      {/* Sobre (bento) */}
+      <S.Section id="sobre">
         <Reveal>
-          <S.Eyebrow>carreira</S.Eyebrow>
-          <S.SectionTitle>Experiência</S.SectionTitle>
+          <S.Eyebrow>sobre</S.Eyebrow>
+          <S.SectionTitle>Engenharia com olhar de produto</S.SectionTitle>
           <S.SectionLead>
-            Superlógica, E/Code e os produtos que ajudei a colocar no ar: PJBank, Gruvi, Mont
-            Capital, Minha Navex e Gazin.
+            Não entrego só telas: penso em arquitetura, segurança, testes e em como aquilo vai
+            ser operado depois de ir para a loja.
           </S.SectionLead>
         </Reveal>
-        <S.Timeline>
-          {ExperienceData.map((job) => (
-            <Reveal key={`${job.company}-${job.period}`}>
-              <S.TimelineItem>
-                <header>
-                  <h3>{job.role}</h3>
-                  <span className="period">{job.period}</span>
-                </header>
-                <div className="company">
-                  {job.company} · {job.location}
-                </div>
-                <p>{job.description}</p>
-                <ul>
-                  {job.highlights.map((h) => (
-                    <li key={h}>{h}</li>
-                  ))}
-                </ul>
-                <S.Chips>
-                  {job.skills.map((s) => (
-                    <span key={s}>{s}</span>
-                  ))}
-                </S.Chips>
-              </S.TimelineItem>
+        <S.Bento>
+          <S.BentoCell $span={4}>
+            <GlowCard>
+              <h3>Quem sou</h3>
+              <p>
+                Sou desenvolvedor mobile sênior, com foco em React Native e TypeScript. Já levei
+                para produção apps financeiros com Pix, superapps de condomínio e apps de
+                investimentos e telecom, sempre com MVVM, testes e observabilidade desde o dia um.
+              </p>
+              <p>
+                Também venho do web (React, Next.js, PHP) e liderei times como Scrum Master — o que
+                me ajuda a conversar bem com design, negócio e backend.
+              </p>
+            </GlowCard>
+          </S.BentoCell>
+          <S.BentoCell $span={2}>
+            <GlowCard>
+              <h3>Na estrada</h3>
+              <div className="big">{yearsStudying} anos</div>
+              <p>
+                Estudando e construindo software desde {STUDY_SINCE}.{" "}
+                <S.TextLink href="/about">Ver a jornada →</S.TextLink>
+              </p>
+            </GlowCard>
+          </S.BentoCell>
+          <S.BentoCell $span={2}>
+            <GlowCard>
+              <h3>Agora</h3>
+              <ul>
+                <li>Mobile no PJBank (Superlógica)</li>
+                <li>Clube da Joia: site, app e pagamentos</li>
+                <li>Notificações, Mixpanel e frete real</li>
+              </ul>
+            </GlowCard>
+          </S.BentoCell>
+          <S.BentoCell $span={2}>
+            <GlowCard>
+              <h3>Como trabalho</h3>
+              <ul>
+                <li>MVVM e código que o time entende</li>
+                <li>Jest e CI/CD antes do release</li>
+                <li>Sentry, Datadog e Mixpanel em produção</li>
+              </ul>
+            </GlowCard>
+          </S.BentoCell>
+          <S.BentoCell $span={2}>
+            <GlowCard>
+              <h3>Vamos conversar</h3>
+              <p>Aberto a vagas e projetos em mobile e produto digital.</p>
+              <p>
+                <S.TextLink href="#contato">Falar comigo →</S.TextLink>
+              </p>
+            </GlowCard>
+          </S.BentoCell>
+        </S.Bento>
+      </S.Section>
+
+      {/* Estudos de caso */}
+      <S.Section id="trabalho">
+        <Reveal>
+          <S.Eyebrow>trabalho</S.Eyebrow>
+          <S.SectionTitle>Produtos que coloquei no ar</S.SectionTitle>
+          <S.SectionLead>
+            Quatro projetos, o que eu fiz em cada um e com quais ferramentas.
+          </S.SectionLead>
+        </Reveal>
+        <S.CaseList>
+          {cases.map((c) => (
+            <Reveal key={c.id}>
+              <GlowCard>
+                <S.CaseCard as="div" $color={c.color}>
+                  <div>
+                    <span className="tag">{c.tag}</span>
+                    <h3>{c.name}</h3>
+                    <div className="period">{c.period}</div>
+                    <p className="summary">{c.summary}</p>
+                    <p className="role">{c.role}</p>
+                    <S.Chips>
+                      {c.stack.map((t) => (
+                        <span key={t}>{t}</span>
+                      ))}
+                    </S.Chips>
+                    {c.href && (
+                      <a
+                        className="link"
+                        href={c.href}
+                        {...(c.href.startsWith("http")
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                      >
+                        {c.cta} →
+                      </a>
+                    )}
+                  </div>
+                  <div className="side">
+                    <h4>O que eu fiz</h4>
+                    <ul>
+                      {c.highlights.map((h) => (
+                        <li key={h}>{h}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </S.CaseCard>
+              </GlowCard>
             </Reveal>
           ))}
-        </S.Timeline>
+        </S.CaseList>
+        <div style={{ marginTop: 20 }}>
+          <S.TextLink href="/about">Ver toda a experiência →</S.TextLink>
+        </div>
       </S.Section>
 
       {/* Projetos */}
