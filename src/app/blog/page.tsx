@@ -10,9 +10,8 @@ const fade = keyframes`
 `;
 
 const Wrap = styled.div`
-  min-height: 100vh;
-  padding: 56px 24px 0;
-  max-width: 880px;
+  padding: 0;
+  max-width: none;
   margin: 0 auto;
 `;
 

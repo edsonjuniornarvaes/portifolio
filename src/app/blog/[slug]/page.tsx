@@ -8,9 +8,9 @@ import { MarkdownBody } from "@/components/markdown-body";
 import { FaArrowLeft } from "react-icons/fa";
 
 const Wrap = styled.article`
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 100px 24px 80px;
+  max-width: none;
+  margin: 0;
+  padding: 0;
 `;
 
 const Back = styled(Link)`

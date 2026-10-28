@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import styled from "styled-components";
 import { type Project } from "../helper";
 import { MarkdownBody } from "@/components/markdown-body";
 import { cases } from "@/data/profile";
@@ -12,49 +10,6 @@ const STATUS: Record<Project["status"], string> = {
   development: "Em desenvolvimento",
   paused: "Entregue",
 };
-
-const Back = styled(Link)`
-  display: block;
-  width: fit-content;
-  margin-bottom: 28px;
-  font-size: 0.9rem;
-  color: var(--muted);
-  &:hover { color: var(--ink); }
-`;
-
-const Links = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 28px;
-  margin-top: 20px;
-  a {
-    font-size: 0.88rem;
-    text-decoration: underline;
-    text-decoration-color: var(--line);
-    text-underline-offset: 4px;
-  }
-  a:hover { color: var(--accent); }
-`;
-
-const Facts = styled.dl`
-  display: grid;
-  grid-template-columns: 130px minmax(0, 1fr);
-  gap: 12px 20px;
-  max-width: 44rem;
-  dt { font-size: 0.82rem; color: var(--muted); padding-top: 2px; }
-  dd { line-height: 1.6; font-size: 0.92rem; }
-  ul { list-style: none; display: grid; gap: 10px; }
-  li { position: relative; padding-left: 20px; }
-  li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
-  @media (max-width: 600px) { grid-template-columns: 1fr; gap: 4px; dd { margin-bottom: 18px; } }
-`;
-
-const Shots = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  img { width: 100%; border: 1px solid var(--line); border-radius: 6px; display: block; }
-`;
 
 function ProjectDetailClient({ project }: { project: Project }) {
   const showGh = !!project.githubUrl && project.showGithub !== false;
@@ -72,40 +27,38 @@ function ProjectDetailClient({ project }: { project: Project }) {
     .filter(Boolean);
 
   const features = project.showHighlights !== false ? project.features || [] : [];
-  const liveLabel = (project.liveCtaLabel || "Ver online").trim() || "Ver online";
   const live = project.liveUrl;
-  const external = live?.startsWith("http");
+  const liveLabel = (project.liveCtaLabel || "Ver online").trim() || "Ver online";
 
   return (
     <S.Page>
-      <Back href="/projects">← Todos os projetos</Back>
+      <S.Back href="/home#projetos">← Projetos</S.Back>
 
-      <S.Kicker>
-        <span>{STATUS[project.status]}</span>
-        {study && <span>{study.period}</span>}
-      </S.Kicker>
-      <S.Display>{project.title}</S.Display>
+      <S.Mono style={{ marginTop: 0, marginBottom: 12 }}>
+        <em>›</em> {STATUS[project.status]}
+        {study ? ` · ${study.period}` : ""}
+      </S.Mono>
+      <S.Title>{project.title}</S.Title>
       <S.Lead>{project.tagline}</S.Lead>
 
-      <Links>
+      <S.Row>
         {live && (
-          <a href={live} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+          <S.Pill
+            href={live}
+            {...(live.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
             {liveLabel} ↗
-          </a>
+          </S.Pill>
         )}
         {showGh && (
-          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-            Código no GitHub ↗
-          </a>
+          <S.Pill href={project.githubUrl} target="_blank" rel="noopener noreferrer">GitHub ↗</S.Pill>
         )}
         {showFig && (
-          <a href={project.figmaUrl} target="_blank" rel="noopener noreferrer">
-            Design no Figma ↗
-          </a>
+          <S.Pill href={project.figmaUrl} target="_blank" rel="noopener noreferrer">Figma ↗</S.Pill>
         )}
-      </Links>
+      </S.Row>
 
-      <S.Section>
+      <S.Section style={{ marginTop: 56 }}>
         <S.Label>Sobre</S.Label>
         <S.Prose>
           <MarkdownBody markdown={md} />
@@ -115,10 +68,10 @@ function ProjectDetailClient({ project }: { project: Project }) {
       {study && (
         <S.Section>
           <S.Label>Meu papel</S.Label>
-          <Facts>
+          <S.Facts>
             <dt>Função</dt>
             <dd>{study.role}</dd>
-            <dt>O que eu fiz</dt>
+            <dt>O que fiz</dt>
             <dd>
               <ul>
                 {study.highlights.map((h) => (
@@ -128,40 +81,44 @@ function ProjectDetailClient({ project }: { project: Project }) {
             </dd>
             <dt>Ferramentas</dt>
             <dd>{study.stack.join(", ")}</dd>
-          </Facts>
+          </S.Facts>
         </S.Section>
       )}
 
       {!study && project.tags.length > 0 && (
         <S.Section>
           <S.Label>Ferramentas</S.Label>
-          <S.Plain>{project.tags.join(", ")}</S.Plain>
+          <S.Tags style={{ marginTop: 0 }}>
+            {project.tags.map((t) => (
+              <li key={t}>{t}</li>
+            ))}
+          </S.Tags>
         </S.Section>
       )}
 
       {features.length > 0 && (
         <S.Section>
           <S.Label>Destaques</S.Label>
-          <Facts>
+          <S.Facts>
             {features.map((f) => (
               <div key={f.title} style={{ display: "contents" }}>
                 <dt>{f.title}</dt>
                 <dd>{f.description}</dd>
               </div>
             ))}
-          </Facts>
+          </S.Facts>
         </S.Section>
       )}
 
       {shots.length > 0 && (
         <S.Section>
           <S.Label>Telas</S.Label>
-          <Shots>
+          <S.Shots>
             {shots.map((src) => (
               // eslint-disable-next-line @next/next/no-img-element
               <img key={src} src={src} alt={`Tela de ${project.title}`} loading="lazy" />
             ))}
-          </Shots>
+          </S.Shots>
         </S.Section>
       )}
     </S.Page>

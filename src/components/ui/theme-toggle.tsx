@@ -37,10 +37,9 @@ export default function ThemeToggle() {
         borderRadius: 999,
         width: 30,
         height: 30,
-        marginLeft: 2,
         flexShrink: 0,
         cursor: "pointer",
-        alignSelf: "center",
+
         lineHeight: 1,
       }}
     >
