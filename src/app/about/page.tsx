@@ -9,12 +9,10 @@ import { contact, journey, yearsStudying, STUDY_SINCE } from "@/data/profile";
 
 const Intro = styled.div`
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 56px;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  gap: 40px;
   align-items: start;
-  @media (max-width: 860px) { grid-template-columns: 1fr; gap: 36px; }
-  figure { order: 2; }
-  @media (min-width: 861px) { figure { position: sticky; top: 100px; } }
+  @media (max-width: 760px) { grid-template-columns: 1fr; gap: 24px; figure { max-width: 180px; order: -1; } }
 `;
 
 export default function About() {
@@ -23,30 +21,28 @@ export default function About() {
       <Intro>
         <div>
           <S.Kicker>Sobre</S.Kicker>
-          <S.Display style={{ maxWidth: "14ch" }}>
+          <S.Display>
             Oi, eu sou o <em>Edson</em>.
           </S.Display>
           <S.Lead>
-            Sou desenvolvedor mobile sênior e passo meus dias com React Native, TypeScript e as
-            lojas de aplicativos. Gosto do trabalho que ninguém vê: arquitetura, testes e o
-            monitoramento que avisa quando algo quebra antes de o usuário perceber.
+            Sou desenvolvedor mobile sênior e passo meus dias com React Native, TypeScript e as lojas
+            de aplicativos. Gosto do trabalho que ninguém vê: arquitetura, testes e o monitoramento
+            que avisa quando algo quebra antes de o usuário perceber.
           </S.Lead>
           <S.Lead>
             Comecei a estudar tecnologia em {STUDY_SINCE}. Foram {yearsStudying} anos entre
-            faculdade, pós-graduação, primeiro emprego com PHP, a virada para o mobile e a
-            liderança de um time como Scrum Master. Hoje faço parte do time do PJBank e, nas horas
-            vagas, construo produtos meus.
+            faculdade, pós-graduação, primeiro emprego com PHP, a virada para o mobile e a liderança
+            de um time como Scrum Master. Hoje faço parte do time do PJBank e, nas horas vagas,
+            construo produtos meus.
           </S.Lead>
           <S.Lead>
-            Me dou bem com quem desenha e com quem decide, porque já estive dos dois lados da
-            conversa. Se quiser trocar uma ideia,{" "}
-            <a href={`mailto:${contact.email}`}>é só escrever</a>.
+            Se quiser trocar uma ideia, <a href={`mailto:${contact.email}`}>é só escrever</a>.
           </S.Lead>
         </div>
         <S.Photo>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/edson.webp" alt="Retrato de Edson Junior" />
-          <figcaption>Edson Junior, desenvolvedor mobile.</figcaption>
+          <figcaption>Edson Junior</figcaption>
         </S.Photo>
       </Intro>
 
@@ -83,9 +79,7 @@ export default function About() {
                     <span className="what">
                       {job.company} · {job.location}
                     </span>
-                    <span className="what" style={{ color: "var(--ink)", opacity: 0.8, marginTop: 10 }}>
-                      {job.description}
-                    </span>
+                    <span className="what" style={{ marginTop: 8 }}>{job.description}</span>
                   </span>
                   <span className="meta" />
                 </S.RowStatic>
@@ -104,7 +98,7 @@ export default function About() {
                 <S.RowStatic>
                   <span className="year">{e.period}</span>
                   <span>
-                    <span className="name" style={{ fontSize: "1.35rem" }}>{e.course}</span>
+                    <span className="name">{e.course}</span>
                     <span className="what">{e.institution}</span>
                   </span>
                   <span className="meta" />
@@ -118,13 +112,20 @@ export default function About() {
       <Reveal>
         <S.Section id="ferramentas">
           <S.Label>Ferramentas</S.Label>
-          <div style={{ maxWidth: "38rem" }}>
+          <S.Panel>
             {skillGroups.map((g) => (
-              <S.Plain key={g.title}>
-                <b>{g.title}.</b> {g.items.join(", ")}.
-              </S.Plain>
+              <div key={g.title} style={{ marginBottom: 16 }}>
+                <S.Plain>
+                  <b>{g.title}</b>
+                </S.Plain>
+                <S.Chips>
+                  {g.items.map((i) => (
+                    <span key={i}>{i}</span>
+                  ))}
+                </S.Chips>
+              </div>
             ))}
-          </div>
+          </S.Panel>
         </S.Section>
       </Reveal>
     </S.Page>

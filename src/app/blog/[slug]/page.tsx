@@ -43,9 +43,9 @@ const Cover = styled.div`
 `;
 
 const H1 = styled.h1`
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: clamp(1.6rem, 4vw, 2.25rem);
-  font-weight: 400;
+  font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 12px;
   line-height: 1.2;

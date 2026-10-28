@@ -23,11 +23,11 @@ const Links = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px 28px;
-  margin-top: 32px;
+  margin-top: 20px;
   a {
-    font-size: 0.98rem;
+    font-size: 0.88rem;
     text-decoration: underline;
-    text-decoration-color: var(--accent);
+    text-decoration-color: var(--line);
     text-underline-offset: 4px;
   }
   a:hover { color: var(--accent); }
@@ -35,14 +35,14 @@ const Links = styled.div`
 
 const Facts = styled.dl`
   display: grid;
-  grid-template-columns: 140px minmax(0, 1fr);
-  gap: 14px 24px;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 12px 20px;
   max-width: 44rem;
-  dt { font-size: 0.82rem; color: var(--muted); padding-top: 4px; letter-spacing: 0.03em; }
-  dd { line-height: 1.6; }
+  dt { font-size: 0.82rem; color: var(--muted); padding-top: 2px; }
+  dd { line-height: 1.6; font-size: 0.92rem; }
   ul { list-style: none; display: grid; gap: 10px; }
   li { position: relative; padding-left: 20px; }
-  li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+  li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
   @media (max-width: 600px) { grid-template-columns: 1fr; gap: 4px; dd { margin-bottom: 18px; } }
 `;
 
@@ -77,11 +77,11 @@ function ProjectDetailClient({ project }: { project: Project }) {
     <S.Page>
       <Back href="/projects">← Todos os projetos</Back>
 
-      <S.Kicker style={{ marginTop: 40 }}>
+      <S.Kicker style={{ marginTop: 28 }}>
         <span>{STATUS[project.status]}</span>
         {study && <span>{study.period}</span>}
       </S.Kicker>
-      <S.Display style={{ maxWidth: "16ch" }}>{project.title}</S.Display>
+      <S.Display>{project.title}</S.Display>
       <S.Lead>{project.tagline}</S.Lead>
 
       <Links>

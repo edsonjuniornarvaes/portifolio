@@ -63,149 +63,55 @@ export interface Feature {
   icon: string;
 }
 
-export const rachaoProject: Project = {
-  id: "rachao",
-  title: "Rachão",
-  tagline: "Partidas, placar e comunidade de futebol",
+export const clubeDaJoiaMarketplaceProject: Project = {
+  id: "clube-da-joia-marketplace",
+  title: "Clube da Joia — Marketplace",
+  tagline: "Loja online de prata 925 e moissanite, com painel administrativo e checkout",
   description:
-    "Organize rachões com placar ao vivo, tempo de partida, histórico e cadastro de jogos — sem redundância: foco em quem joga.",
-  longDescription: `O **Rachão** centraliza o que importa na pelada: criar partida, registrar placar e tempo, guardar histórico e conectar a comunidade (campos, avaliações, mural). Tudo com identidade esportiva e fluxos pensados para quem está em campo.
+    "Site de e-commerce com catálogo filtrável, sacola, checkout Mercado Pago e painel /admin com 2FA, tudo sobre um backend Supabase.",
+  longDescription: `O **Marketplace do Clube da Joia** é o site e o painel de uma joalheria que vende prata 925 e moissanite. Foi construído do zero em **Next.js (App Router)** com **Tailwind** e **Supabase**, e publicado na **Vercel**.
 
-**Destaques:** cronômetro e placar em tempo real, registro de partidas, times e atletas, evolução para reserva de quadras e nota dos jogadores — no mesmo ecossistema.`,
-  icon: "/images/rachao-icon.svg",
-  tags: ["React Native", "TypeScript", "Expo", "Firebase"],
-  status: "development",
-  githubUrl: "https://github.com/edsonjuniornarvaes/rachao",
-  type: "personal",
-  showGithub: true,
-  showFigma: false,
-  figmaUrl: "",
-  features: [
-    {
-      title: "Placar e tempo",
-      description: "Placar ao vivo e controle de tempo de partida",
-      icon: "⚽",
-    },
-    {
-      title: "Histórico",
-      description: "Registro de jogos, resultados e desempenho",
-      icon: "📊",
-    },
-    {
-      title: "Times e atletas",
-      description: "Escalações, convites e avaliações",
-      icon: "👥",
-    },
-    {
-      title: "Comunidade",
-      description: "Mural, comentários e campos da cidade (roadmap)",
-      icon: "💬",
-    },
-  ],
-};
+**Loja:** catálogo com filtros (categoria, modelo, aro, pedra, preço, promoção e ordem), tamanho do aro por produto, sacola, conta de cliente com *Meus Pedidos*, cupons, frete por UF e carrossel do Instagram.
 
-export const osBarberClubProject: Project = {
-  id: "os-barber-club",
-  title: "OS Barber Club",
-  tagline: "Agenda, preços e identidade — sem taxas de marketplace",
-  description:
-    "App próprio para agenda, profissionais, serviços e preços. O cliente marca horário com a cara da barbearia, sem depender de apps genéricos e comissões altas.",
-  longDescription: `O **OS Barber Club** ganha um app com a identidade visual do salão, experiência fluida e foco em **agenda**, **lista de cortes e preços**, **profissionais** e **histórico do cliente**.
+**Pagamentos:** checkout com **Mercado Pago** (cartão em até 10x, Pix e boleto). Os preços são sempre lidos do banco, no servidor, e o webhook é validado por assinatura HMAC.
 
-O objetivo é **tirar a dependência de marketplaces** que cobram por agendamento e não refletem a marca. Tudo pensado para escalar com notificações, fidelidade e módulos futuros — mantendo o controle no estabelecimento.`,
-  icon: "/images/osbarberclub-icon.svg",
-  iconColor: "#0D0D12",
-  tags: ["React Native", "TypeScript", "Expo", "UI dedicada"],
-  status: "development",
-  type: "personal",
-  githubUrl: undefined,
-  showGithub: false,
-  showFigma: true,
-  figmaUrl: "",
-  showPreview: false,
-  galleryImages: ["/images/osbarberclub-screenshot.png"],
-  features: [
-    {
-      title: "Agendamento",
-      description: "Escolha de profissional, horário e serviço",
-      icon: "📅",
-    },
-    {
-      title: "Cardápio de cortes",
-      description: "Serviços e preços sempre atualizados",
-      icon: "✂️",
-    },
-    {
-      title: "Time",
-      description: "Perfis dos barbeiros e especialidades",
-      icon: "👤",
-    },
-    {
-      title: "Marca própria",
-      description: "Visual alinhado ao OS Barber Club",
-      icon: "✨",
-    },
-  ],
-};
-
-export const clubeDaClutchProject: Project = {
-  id: "clube-da-clutch",
-  title: "Clube da Clutch & Joias",
-  tagline: "Semijoias, locação de clutchs e acessórios exclusivos",
-  description:
-    "Descubra a sofisticação e elegância com nossas semijoias de alta qualidade e serviço exclusivo de locação de acessórios e clutchs. Peças refinadas para elevar seu estilo em qualquer ocasião.",
-  longDescription: `O **Clube da Clutch & Joias** é uma plataforma que une **e-commerce de semijoias** com um serviço exclusivo de **locação de clutchs e acessórios** para eventos especiais.
-
-O foco é oferecer peças refinadas, curadoria de qualidade e uma experiência de compra elegante — do catálogo ao checkout. Tudo com identidade visual sofisticada e fluxos pensados para quem busca brilho e praticidade.`,
-  icon: "/images/clubedaclutch-logo.png",
-  iconColor: "#b5a17c",
-  tags: ["React Native", "TypeScript", "Expo", "E-commerce"],
-  status: "development",
-  type: "personal",
-  liveUrl: "https://www.clubedaclutch.com.br",
-  liveCtaLabel: "Visitar site",
-  githubUrl: undefined,
-  showGithub: false,
-  showFigma: false,
-  showPreview: false,
-  galleryImages: ["/images/clubedaclutch-screenshot.png"],
-  features: [
-    {
-      title: "Catálogo",
-      description: "Semijoias e acessórios com fotos e detalhes",
-      icon: "💎",
-    },
-    {
-      title: "Locação",
-      description: "Clutchs e acessórios para eventos especiais",
-      icon: "👜",
-    },
-    {
-      title: "Carrinho e checkout",
-      description: "Compra simples e segura",
-      icon: "🛒",
-    },
-    {
-      title: "Elegância",
-      description: "UI sofisticada alinhada à marca",
-      icon: "✨",
-    },
-  ],
-};
-
-export const clubeDaJoiaProject: Project = {
-  id: "clube-da-joia",
-  title: "Clube da Joia",
-  tagline: "Loja de prata 925 e moissanite — site, painel admin e app iOS/Android",
-  description:
-    "Joalheria online completa: site com loja e filtros, painel administrativo com 2FA, app mobile e checkout com Mercado Pago, tudo sobre um único backend Supabase.",
-  longDescription: `O **Clube da Joia** é um ecossistema de e-commerce construído de ponta a ponta: **site em Next.js**, **painel admin** com login e 2FA, **app React Native (Expo)** e backend em **Supabase** com Edge Functions.
-
-**Destaques:** catálogo com filtros (categoria, modelo, aro, pedra, preço), sacola, checkout com **Mercado Pago** (cartão em até 10x, Pix e boleto) com preços sempre validados no servidor, cupons, frete por UF, pedidos e permissões por papel (admin/editor/cliente) com RLS.`,
+**Painel /admin:** login com 2FA TOTP obrigatório, recuperação de senha, convite de usuários, CRUD de produtos, categorias e banners (com upload no Storage), pedidos e permissões por papel (admin, editor, cliente) reforçadas por RLS no banco.`,
   icon: "",
-  iconLetter: "J",
+  iconLetter: "CJ",
   iconColor: "#b08d57",
-  tags: ["Next.js", "React Native", "Expo", "Supabase", "Mercado Pago"],
+  tags: ["Next.js", "Tailwind", "Supabase", "Mercado Pago", "Vercel"],
+  status: "development",
+  type: "personal",
+  githubUrl: undefined,
+  showGithub: false,
+  showFigma: false,
+  showPreview: false,
+  galleryImages: ["/images/marketplace-loja.jpg"],
+  features: [
+    { title: "Catálogo", description: "Filtros por categoria, modelo, aro, pedra e preço", icon: "" },
+    { title: "Pagamentos", description: "Mercado Pago com cartão, Pix e boleto; webhook assinado", icon: "" },
+    { title: "Painel admin", description: "2FA obrigatório e permissões por papel com RLS", icon: "" },
+    { title: "Backend único", description: "Supabase com Edge Functions, Storage e RLS", icon: "" },
+  ],
+};
+
+export const clubeDaJoiaAppProject: Project = {
+  id: "clube-da-joia-app",
+  title: "Clube da Joia — App",
+  tagline: "App iOS e Android da loja, no mesmo backend do site",
+  description:
+    "App em React Native (Expo) com catálogo, sacola, checkout Mercado Pago, conta e Meus Pedidos, compartilhando login e dados com o site.",
+  longDescription: `O **App do Clube da Joia** leva a loja para o celular. Foi feito com **Expo (SDK 54)**, **expo-router** e **React Native**, em arquitetura **MVVM**, e usa o mesmo projeto Supabase do site: o cliente entra com a mesma conta e vê os mesmos pedidos.
+
+**Navegação:** abas Início, Loja, Sacola (botão central), Categorias e Conta. O catálogo e os banners vêm do Supabase, com uma cópia local de reserva caso a rede falhe.
+
+**Compra:** sacola, cupom validado no servidor e pagamento pelo **Mercado Pago**, aberto no navegador do sistema e com retorno para dentro do app por deep link.
+
+**Qualidade:** textos em português, inglês e espanhol com tipagem que acusa chave faltando, Jest nos testes e Sentry para monitoramento.`,
+  icon: "",
+  iconLetter: "CJ",
+  iconColor: "#8a6d3b",
+  tags: ["React Native", "Expo", "TypeScript", "Supabase", "MVVM"],
   status: "development",
   type: "personal",
   githubUrl: undefined,
@@ -213,18 +119,15 @@ export const clubeDaJoiaProject: Project = {
   showFigma: false,
   showPreview: false,
   features: [
-    { title: "Loja e filtros", description: "Catálogo com filtros e busca no site e no app", icon: "💎" },
-    { title: "Pagamentos", description: "Mercado Pago: cartão, Pix e boleto com webhook assinado", icon: "💳" },
-    { title: "Painel admin", description: "CRUD de produtos, banners e pedidos com 2FA", icon: "🔐" },
-    { title: "Um backend", description: "Supabase com RLS, Storage e Edge Functions", icon: "⚡" },
+    { title: "MVVM", description: "Telas separadas em view, viewModel, models e styles", icon: "" },
+    { title: "Checkout", description: "Mercado Pago com retorno ao app por deep link", icon: "" },
+    { title: "i18n tipado", description: "pt, en e es verificados pelo TypeScript", icon: "" },
+    { title: "Mesma conta do site", description: "Login e pedidos compartilhados via Supabase", icon: "" },
   ],
 };
 
-/** Projetos pessoais (cards compactos + link para detalhes) */
-export const personalProjects: Project[] = [clubeDaJoiaProject, osBarberClubProject, clubeDaClutchProject, rachaoProject];
-
-/** @deprecated use rachaoProject */
-export const featuredProject = rachaoProject;
+/** Projetos pessoais */
+export const personalProjects: Project[] = [clubeDaJoiaMarketplaceProject, clubeDaJoiaAppProject];
 
 export const professionalProjects: Project[] = [
   {
