@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { FaEnvelope } from "react-icons/fa";
 import * as S from "./styles";
 import Reveal from "@/components/ui/reveal";
@@ -12,7 +11,7 @@ import DevtoIcon from "@/assets/icons/social/devto";
 import { ExperienceData } from "../about/helper";
 import { getProjectById } from "../projects/helper";
 import { skillGroups } from "./skills";
-import { contact, yearsMobile } from "@/data/profile";
+import { contact } from "@/data/profile";
 
 const FEATURED = ["clube-da-joia-marketplace", "clube-da-joia-app", "pjbank", "gruvi"];
 
@@ -43,29 +42,32 @@ export default function Home() {
       <S.Kicker>
         <span>
           <span className="dot" />
-          Aberto a conversas
+          Disponível para projetos
         </span>
         <span>
           Brasil · <LocalTime />
         </span>
       </S.Kicker>
 
-      <S.Display>
-        Faço apps de celular que <em>ficam de pé</em> depois do lançamento.
-      </S.Display>
+      <S.Greeting>Olá, eu sou</S.Greeting>
+      <S.Display>Edson Junior</S.Display>
+      <S.Role>Desenvolvedor Mobile Sênior</S.Role>
 
       <S.Lead>
-        Sou o Edson, desenvolvedor mobile sênior. Trabalho com <b>React Native</b> e{" "}
-        <b>TypeScript</b> há mais de {yearsMobile} anos, hoje no{" "}
-        <Link href="/projects/pjbank">PJBank</Link> (Superlógica), em fluxos como autenticação e Pix
-        Automático. Estudo e escrevo código desde 2015 e, fora do trabalho, construo meus próprios
-        produtos, como o <Link href="/projects/clube-da-joia-marketplace">Clube da Joia</Link>.
+        Especializado em React Native, construindo aplicativos com alta performance, arquitetura
+        escalável e experiência do usuário de excelência para iOS e Android.
       </S.Lead>
+
+      <S.Chips style={{ marginTop: 18 }}>
+        {["React Native", "TypeScript", "Redux", "iOS", "Android", "Jest"].map((t) => (
+          <span key={t}>{t}</span>
+        ))}
+      </S.Chips>
 
       <S.Actions>
         <S.Primary href="/projects">Ver projetos</S.Primary>
         <S.Ghost href={`mailto:${contact.email}`}>
-          <FaEnvelope size={13} /> Falar comigo
+          <FaEnvelope size={13} /> Contato
         </S.Ghost>
         <S.IconLink href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           <LinkedInIcon width={18} height={18} color="currentColor" />
@@ -190,13 +192,14 @@ export default function Home() {
       )}
 
       <S.Section id="contato">
+        <S.Label>Contato</S.Label>
         <S.Panel>
-          <S.H2>
-            Tem um app, uma vaga ou uma ideia? <em>Vamos conversar.</em>
-          </S.H2>
-          <div style={{ marginTop: 20 }}>
-            <S.Big href={`mailto:${contact.email}`}>{contact.email}</S.Big>
-          </div>
+          <S.Big href={`mailto:${contact.email}`}>{contact.email}</S.Big>
+          <S.Actions style={{ marginTop: 18 }}>
+            <S.Ghost href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</S.Ghost>
+            <S.Ghost href={contact.github} target="_blank" rel="noopener noreferrer">GitHub</S.Ghost>
+            <S.Ghost href={contact.devto} target="_blank" rel="noopener noreferrer">Dev.to</S.Ghost>
+          </S.Actions>
         </S.Panel>
       </S.Section>
     </S.Page>

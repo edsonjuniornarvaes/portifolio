@@ -36,7 +36,7 @@ export default function About() {
             construo produtos meus.
           </S.Lead>
           <S.Lead>
-            Se quiser trocar uma ideia, <a href={`mailto:${contact.email}`}>é só escrever</a>.
+            Contato: <a href={`mailto:${contact.email}`}>{contact.email}</a>.
           </S.Lead>
         </div>
         <S.Photo>

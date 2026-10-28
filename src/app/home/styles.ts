@@ -24,6 +24,20 @@ export const Kicker = styled.p`
   }
 `;
 
+export const Greeting = styled.p`
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 2px;
+`;
+
+export const Role = styled.h2`
+  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  margin-top: 6px;
+`;
+
 export const Display = styled.h1`
   font-weight: 600;
   font-size: clamp(1.8rem, 4vw, 2.5rem);
