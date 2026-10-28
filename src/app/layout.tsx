@@ -1,23 +1,28 @@
 import type { Metadata } from "next";
-import { Outfit, JetBrains_Mono } from "next/font/google";
+import { Instrument_Serif, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import Footer from "@/components/footer";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
-import { ShootingStars } from "@/components/orbit-bg";
-import Spotlight from "@/components/ui/spotlight";
-import ScrollProgress from "@/components/ui/scroll-progress";
 
-const outfit = Outfit({ 
+const serif = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-display",
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif-next",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({ 
+const sans = Hanken_Grotesk({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-sans-next",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono-next",
   display: "swap",
 });
 
@@ -59,25 +64,29 @@ const personJsonLd = {
   knowsAbout: ["React Native", "TypeScript", "iOS", "Android", "Next.js"],
 };
 
+const themeScript = `try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${outfit.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`${serif.variable} ${sans.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <StyledComponentsRegistry>
-          <ShootingStars />
-          <Spotlight />
-          <ScrollProgress />
           <AnalyticsTracker />
           <Navbar />
-          <main style={{ position: 'relative', zIndex: 1 }}>
-            {children}
-          </main>
+          <main>{children}</main>
           <Footer />
         </StyledComponentsRegistry>
       </body>

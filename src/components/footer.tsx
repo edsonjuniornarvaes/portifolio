@@ -1,76 +1,44 @@
 "use client";
 
 import styled from "styled-components";
-import Link from "next/link";
-import GitHubIcon from "@/assets/icons/social/github";
-import LinkedInIcon from "@/assets/icons/social/linkedin";
-import DevtoIcon from "@/assets/icons/social/devto";
+import { usePathname } from "next/navigation";
+import LocalTime from "@/components/ui/local-time";
+import { contact } from "@/data/profile";
 
 const Foot = styled.footer`
-  position: relative;
-  z-index: 1;
-  border-top: 1px solid var(--border-color);
-  padding: 40px 24px;
+  border-top: 1px solid var(--line);
+  margin-top: 120px;
 `;
 
 const Inner = styled.div`
-  max-width: 1160px;
+  max-width: 1080px;
   margin: 0 auto;
+  padding: 28px 24px 44px;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: space-between;
-  gap: 20px;
-`;
-
-const Brand = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  strong {
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
-    color: var(--accent-primary);
-  }
-  strong::before { content: "<"; color: var(--text-muted); }
-  strong::after { content: " />"; color: var(--text-muted); }
-  span { font-size: 0.78rem; color: var(--text-muted); }
-`;
-
-const Links = styled.nav`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  a { transition: color 0.2s ease; }
-  a:hover { color: var(--accent-primary); }
+  gap: 12px 32px;
+  font-size: 0.84rem;
+  color: var(--muted);
+  a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  .links { display: flex; gap: 20px; }
 `;
 
 export default function Footer() {
-  const year = new Date().getFullYear();
+  const pathname = usePathname();
+  if (pathname.startsWith("/adminaccess")) return null;
 
   return (
     <Foot>
       <Inner>
-        <Brand>
-          <strong>edson junior</strong>
-          <span>&copy; {year} · Feito com Next.js, TypeScript e muito café</span>
-        </Brand>
-        <Links aria-label="Rodapé">
-          <Link href="/about">Sobre</Link>
-          <Link href="/projects">Projetos</Link>
-          <Link href="/blog">Artigos</Link>
-          <a href="https://github.com/edsonjuniornarvaes" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <GitHubIcon width={20} height={20} color="currentColor" />
-          </a>
-          <a href="https://linkedin.com/in/edsonjuniornarvaes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <LinkedInIcon width={20} height={20} color="currentColor" />
-          </a>
-          <a href="https://dev.to/edsonjuniornarvaes" target="_blank" rel="noopener noreferrer" aria-label="Dev.to">
-            <DevtoIcon width={20} height={20} color="currentColor" />
-          </a>
-        </Links>
+        <span>
+          © {new Date().getFullYear()} Edson Junior · Brasil · <LocalTime />
+        </span>
+        <span className="links">
+          <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href={contact.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href={contact.devto} target="_blank" rel="noopener noreferrer">Dev.to</a>
+        </span>
       </Inner>
     </Foot>
   );

@@ -25,11 +25,20 @@ export const heroWords = [
   "produtos do design à loja",
 ];
 
-export const heroStats = [
-  { number: `${yearsMobile}+`, label: "anos só em mobile (React Native)" },
-  { number: `${yearsCareer}+`, label: "anos de carreira profissional" },
-  { number: "6", label: "apps publicados em produção" },
-  { number: "3", label: "formações em tecnologia" },
+export type WorkRow = {
+  year: string;
+  name: string;
+  what: string;
+  stack: string;
+  href: string;
+};
+
+/** Índice de trabalho selecionado na home. */
+export const selectedWork: WorkRow[] = [
+  { year: "2025 —", name: "PJBank", what: "Conta digital para empresas: autenticação, autorizações e Pix Automático", stack: "React Native · Auth0", href: "/projects/pjbank" },
+  { year: "2026", name: "Clube da Joia", what: "Loja de joias: site, painel, app e pagamentos, do zero", stack: "Next.js · Expo · Supabase", href: "/projects/clube-da-joia" },
+  { year: "2024", name: "Gruvi", what: "Superapp para condomínios: visitantes, reservas e chat", stack: "React Native · Redux Saga", href: "/projects/gruvi" },
+  { year: "2021–23", name: "Mont Capital e Minha Navex", what: "Apps de investimentos e de telecom, na App Store e Play Store", stack: "React Native · Expo", href: "/projects/mont-b2b" },
 ];
 
 export type JourneyItem = {
@@ -103,7 +112,7 @@ export const cases: CaseStudy[] = [
     cta: "Ver na App Store",
   },
   {
-    id: "mont",
+    id: "mont-b2b",
     name: "Mont Capital & Minha Navex",
     tag: "Investimentos · Telecom",
     period: "Jun 2021 – Jun 2023 · E/Code",
