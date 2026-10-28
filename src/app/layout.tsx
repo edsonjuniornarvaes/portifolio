@@ -6,6 +6,7 @@ import Navbar from "./components/navbar";
 import Footer from "@/components/footer";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
+import Spotlight from "@/components/ui/spotlight";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portifolio-wheat-omega-16.vercel.app";
 
@@ -66,6 +67,7 @@ export default function RootLayout({
         />
         <StyledComponentsRegistry>
           <AnalyticsTracker />
+          <Spotlight />
           <Navbar />
           <main>{children}</main>
           <Footer />

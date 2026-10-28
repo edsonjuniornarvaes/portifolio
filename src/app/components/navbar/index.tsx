@@ -12,56 +12,56 @@ const links = [
   { href: "/home#contato", label: "Contato" },
 ];
 
-const Bar = styled.header`
+const Wrap = styled.header`
   position: sticky;
-  top: 0;
+  top: 14px;
   z-index: 50;
-  background: color-mix(in srgb, var(--paper) 85%, transparent);
-  backdrop-filter: saturate(180%) blur(10px);
-  -webkit-backdrop-filter: saturate(180%) blur(10px);
-  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: center;
+  padding: 0 12px;
+  pointer-events: none;
 `;
 
-const Inner = styled.div`
-  max-width: 880px;
-  margin: 0 auto;
-  height: 56px;
-  padding: 0 24px;
+const Pill = styled.div`
+  pointer-events: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  @media (max-width: 560px) { padding: 0 16px; }
+  gap: 6px;
+  padding: 6px 6px 6px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper) 72%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  max-width: 100%;
 `;
 
 const Brand = styled(Link)`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  padding-right: 10px;
+  margin-right: 4px;
+  border-right: 1px solid var(--line);
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   letter-spacing: -0.015em;
   white-space: nowrap;
-  @media (max-width: 480px) { .last { display: none; } }
-  img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; object-position: top; border: 1px solid var(--line); }
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.85rem;
-  @media (max-width: 560px) { font-size: 0.8rem; }
+  img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; object-position: top; }
+  @media (max-width: 520px) { .last { display: none; } }
 `;
 
 const NavLink = styled(Link)<{ $active: boolean }>`
-  color: ${(p) => (p.$active ? "var(--ink)" : "var(--muted)")};
-  background: ${(p) => (p.$active ? "var(--paper-2)" : "transparent")};
-  padding: 6px 10px;
-  border-radius: 6px;
-  transition: color 0.15s ease, background 0.15s ease;
-  &:hover { color: var(--ink); background: var(--paper-2); }
-  @media (max-width: 560px) { padding: 6px 7px; }
+  font-size: 0.84rem;
+  color: ${(p) => (p.$active ? "var(--on-accent)" : "var(--muted)")};
+  background: ${(p) => (p.$active ? "var(--accent)" : "transparent")};
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-weight: ${(p) => (p.$active ? 600 : 400)};
+  transition: color 0.2s ease, background 0.2s ease;
+  &:hover { color: ${(p) => (p.$active ? "var(--on-accent)" : "var(--ink)")}; background: ${(p) => (p.$active ? "var(--accent)" : "var(--paper-2)")}; }
+  @media (max-width: 520px) { padding: 7px 9px; font-size: 0.8rem; }
 `;
 
 export default function Navbar() {
@@ -69,8 +69,8 @@ export default function Navbar() {
   if (pathname.startsWith("/adminaccess")) return null;
 
   return (
-    <Bar>
-      <Inner>
+    <Wrap>
+      <Pill as="nav" aria-label="Principal">
         <Brand href="/home" aria-label="Edson Junior, página inicial">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/edson.webp" alt="" />
@@ -78,19 +78,17 @@ export default function Navbar() {
             Edson<span className="last"> Junior</span>
           </span>
         </Brand>
-        <Nav aria-label="Principal">
-          {links.map((l) => (
-            <NavLink
-              key={l.href}
-              href={l.href}
-              $active={l.href !== "/home#contato" && pathname.startsWith(l.href)}
-            >
-              {l.label}
-            </NavLink>
-          ))}
-          <ThemeToggle />
-        </Nav>
-      </Inner>
-    </Bar>
+        {links.map((l) => (
+          <NavLink
+            key={l.href}
+            href={l.href}
+            $active={l.href !== "/home#contato" && pathname.startsWith(l.href)}
+          >
+            {l.label}
+          </NavLink>
+        ))}
+        <ThemeToggle />
+      </Pill>
+    </Wrap>
   );
 }
