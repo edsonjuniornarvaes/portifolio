@@ -12,7 +12,7 @@ export const yearsCareer = NOW - CAREER_SINCE;
 export const yearsMobile = NOW - MOBILE_SINCE;
 
 export const contact = {
-  email: "edsonjunior.narvaes@gmail.com",
+  email: "dev.edsonjr@gmail.com",
   linkedin: "https://linkedin.com/in/edsonjuniornarvaes",
   github: "https://github.com/edsonjuniornarvaes",
   devto: "https://dev.to/edsonjuniornarvaes",
