@@ -11,6 +11,7 @@ import LocalTime from "@/components/ui/local-time";
 import CopyButton from "@/components/ui/copy-button";
 import GithubActivity from "@/components/ui/github-activity";
 import ProjectCarousel from "@/components/ui/project-carousel";
+import StackGroups from "@/components/ui/stack-groups";
 import { ExperienceData } from "../about/helper";
 import { getProjectById, type Project } from "../projects/helper";
 import { contact, githubUsers, location, yearsCareer, yearsMobile, STUDY_SINCE } from "@/data/profile";
@@ -162,6 +163,16 @@ export default function Home() {
         </motion.div>
       </S.HeroWrap>
 
+      {/* POSICIONAMENTO */}
+      <S.Block id="manifesto" style={{ marginTop: 72 }}>
+        <Reveal>
+          <S.Statement>
+            Gosto de <b>problemas complexos</b>, de entender bases de código existentes e de entregar soluções{" "}
+            <em>confiáveis que escalam</em>.
+          </S.Statement>
+        </Reveal>
+      </S.Block>
+
       {/* PROJETOS */}
       <S.Block id="projetos">
         <S.Head2>
@@ -173,6 +184,18 @@ export default function Home() {
           <S.TextLink href="/projects">Ver todos →</S.TextLink>
         </S.Head2>
         <ProjectCarousel projects={projects} />
+      </S.Block>
+
+      {/* STACK */}
+      <S.Block id="stack">
+        <S.Head2>
+          <div>
+            <span className="tag">stack</span>
+            <h2>Minha stack</h2>
+            <p>O que uso no dia a dia, do app à entrega em produção.</p>
+          </div>
+        </S.Head2>
+        <StackGroups />
       </S.Block>
 
       {/* EXPERIÊNCIA */}
