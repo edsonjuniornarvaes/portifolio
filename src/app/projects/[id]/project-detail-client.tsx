@@ -14,6 +14,9 @@ const STATUS: Record<Project["status"], string> = {
 };
 
 const Back = styled(Link)`
+  display: block;
+  width: fit-content;
+  margin-bottom: 28px;
   font-size: 0.9rem;
   color: var(--muted);
   &:hover { color: var(--ink); }
@@ -77,7 +80,7 @@ function ProjectDetailClient({ project }: { project: Project }) {
     <S.Page>
       <Back href="/projects">← Todos os projetos</Back>
 
-      <S.Kicker style={{ marginTop: 28 }}>
+      <S.Kicker>
         <span>{STATUS[project.status]}</span>
         {study && <span>{study.period}</span>}
       </S.Kicker>

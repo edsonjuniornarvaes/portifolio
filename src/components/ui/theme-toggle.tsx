@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
-/** Alterna claro/escuro; o padrão é sempre o claro. */
+/** Alterna escuro/claro; o padrão é sempre o escuro. */
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme | null>(null);
 
   useEffect(() => {
     const attr = document.documentElement.getAttribute("data-theme");
     if (attr === "light" || attr === "dark") return setTheme(attr);
-    setTheme("light");
+    setTheme("dark");
   }, []);
 
   const toggle = () => {
@@ -37,7 +37,8 @@ export default function ThemeToggle() {
         borderRadius: 999,
         width: 30,
         height: 30,
-        marginLeft: 4,
+        marginLeft: 2,
+        flexShrink: 0,
         cursor: "pointer",
         alignSelf: "center",
         lineHeight: 1,

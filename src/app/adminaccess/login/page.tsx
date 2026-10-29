@@ -71,7 +71,7 @@ const Input = styled.input`
   &:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    box-shadow: 0 0 0 3px rgba(46, 235, 170, 0.1);
   }
 
   &::placeholder {

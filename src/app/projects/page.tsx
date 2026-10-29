@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 import * as S from "../home/styles";
+import GlowCard from "@/components/ui/glow-card";
 import { personalProjects, professionalProjects, webProjects, type Project } from "./helper";
 
 type Filter = "all" | "personal" | "mobile" | "web";
@@ -32,17 +33,20 @@ const Tabs = styled.div`
     padding: 0 12px;
     border-radius: 999px;
     border: 1px solid var(--line);
-    background: var(--card);
+    background: transparent;
     color: var(--muted);
     cursor: pointer;
     transition: all 0.15s ease;
   }
   button:hover { color: var(--ink); border-color: var(--muted); }
-  button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 600; }
 `;
 
 const Cols = styled(S.Grid)`
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  > div, a { height: 100%; }
+  .thumb:not(:has(img)) { flex: 1; min-height: 72px; }
   @media (max-width: 800px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   @media (max-width: 520px) { grid-template-columns: 1fr; }
 `;
@@ -75,7 +79,8 @@ export default function Projects() {
 
       <Cols>
         {list.map((p) => (
-          <S.Card key={p.id} href={`/projects/${p.id}`} $color={p.iconColor}>
+          <GlowCard key={p.id}>
+            <S.Card href={`/projects/${p.id}`} $color={p.iconColor}>
             <div className="thumb">
               {p.galleryImages?.[0] ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -96,7 +101,8 @@ export default function Projects() {
                 ))}
               </S.Chips>
             </div>
-          </S.Card>
+            </S.Card>
+          </GlowCard>
         ))}
       </Cols>
     </S.Page>

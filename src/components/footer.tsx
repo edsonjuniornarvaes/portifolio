@@ -11,7 +11,7 @@ const Foot = styled.footer`
 `;
 
 const Inner = styled.div`
-  max-width: 880px;
+  max-width: 1160px;
   margin: 0 auto;
   padding: 22px 24px 36px;
   display: flex;
