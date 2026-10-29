@@ -11,6 +11,9 @@ export const yearsStudying = NOW - STUDY_SINCE;
 export const yearsCareer = NOW - CAREER_SINCE;
 export const yearsMobile = NOW - MOBILE_SINCE;
 
+/** Contas do GitHub somadas no mapa de atividade (pessoal + trabalho). */
+export const githubUsers = ["edsonjuniornarvaes", "edsonjuniorsuperlogica"];
+
 export const contact = {
   email: "dev.edsonjr@gmail.com",
   linkedin: "https://linkedin.com/in/edsonjuniornarvaes",

@@ -1,17 +1,17 @@
 /* ===== Tokens: escuro (padrão) e claro ===== */
 :root {
-  --paper: #07060c;
-  --paper-2: #0f0d18;
-  --card: #0c0a14;
-  --ink: #ffffff;
-  --muted: #a6a2ba;
+  --paper: #090b0d;
+  --paper-2: #0f1316;
+  --card: #0c1013;
+  --ink: #e8eef2;
+  --muted: #8b98a5;
   --line: rgba(255, 255, 255, 0.08);
-  --accent: #8b5cf6;
-  --accent-ink: #a78bfa;
-  --accent-2: #6d28d9;
-  --brand-gradient: linear-gradient(135deg, #c4a1ff 0%, #8b5cf6 45%, #6d28d9 100%);
-  --on-accent: #ffffff;
-  --glow: rgba(139, 92, 246, 0.2);
+  --accent: #2eebaa;
+  --accent-ink: #2eebaa;
+  --accent-2: #06b6d4;
+  --brand-gradient: linear-gradient(135deg, #2eebaa 0%, #06b6d4 100%);
+  --on-accent: #04130d;
+  --glow: rgba(46, 235, 170, 0.1);
 
   --font-sans: var(--font-outfit), system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
@@ -42,17 +42,17 @@
 }
 
 :root[data-theme="light"] {
-  --paper: #faf9ff;
-  --paper-2: #f0eefb;
+  --paper: #f5f8f7;
+  --paper-2: #eaf0ee;
   --card: #ffffff;
-  --ink: #15112b;
-  --muted: #5d5878;
-  --line: rgba(21, 17, 43, 0.1);
-  --accent: #7c3aed;
-  --accent-ink: #6d28d9;
-  --accent-2: #5b21b6;
-  --brand-gradient: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
-  --glow: rgba(124, 58, 237, 0.16);
+  --ink: #0b1512;
+  --muted: #53635b;
+  --line: rgba(0, 0, 0, 0.1);
+  --accent: #1fcf94;
+  --accent-ink: #0b8a5f;
+  --accent-2: #0e8aa6;
+  --brand-gradient: linear-gradient(135deg, #0b8a5f 0%, #0e8aa6 100%);
+  --glow: rgba(31, 207, 148, 0.14);
   color-scheme: light;
 }
 
