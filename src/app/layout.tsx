@@ -1,17 +1,26 @@
 import type { Metadata } from "next";
-import { Outfit, JetBrains_Mono } from "next/font/google";
+import { Outfit, JetBrains_Mono, Anton } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import Footer from "@/components/footer";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
 import Spotlight from "@/components/ui/spotlight";
+import Starfield from "@/components/ui/starfield";
+import SideRail from "@/components/ui/side-rail";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portifolio-wheat-omega-16.vercel.app";
 
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
+  display: "swap",
+});
+
+const anton = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-condensed",
   display: "swap",
 });
 
@@ -65,7 +74,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${outfit.variable} ${jetbrains.variable}`}
+      className={`${outfit.variable} ${jetbrains.variable} ${anton.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -78,7 +87,9 @@ export default function RootLayout({
         />
         <StyledComponentsRegistry>
           <AnalyticsTracker />
+          <Starfield />
           <Spotlight />
+          <SideRail />
           <Navbar />
           <main>{children}</main>
           <Footer />

@@ -440,7 +440,7 @@ export const Head2 = styled.div`
   display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px 24px; margin-bottom: 32px;
   .tag { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent-ink); margin-bottom: 8px; display: block; }
   .tag::before { content: "## "; color: var(--muted); }
-  h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; }
+  h2 { font-family: var(--font-condensed); font-weight: 400; font-size: clamp(2.4rem, 5.6vw, 4rem); letter-spacing: 0.015em; text-transform: uppercase; line-height: 1; }
   p { color: var(--muted); margin-top: 10px; max-width: 32rem; }
 `;
 
@@ -576,4 +576,16 @@ export const PhotoCard = styled.div`
   }
   .cap strong { font-weight: 600; }
   .cap span { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-ink); }
+`;
+
+export const Statement = styled.p`
+  font-size: clamp(1.7rem, 4.2vw, 3.1rem);
+  font-weight: 300;
+  line-height: 1.22;
+  letter-spacing: -0.035em;
+  max-width: 24ch;
+  color: var(--muted);
+  b { font-weight: 500; color: var(--ink); }
+  em { font-style: normal; color: var(--accent-ink); font-weight: 500; }
+  max-width: 28ch;
 `;
