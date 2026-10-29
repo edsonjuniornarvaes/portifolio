@@ -12,6 +12,8 @@ export const yearsCareer = NOW - CAREER_SINCE;
 export const yearsMobile = NOW - MOBILE_SINCE;
 
 /** Contas do GitHub somadas no mapa de atividade (pessoal + trabalho). */
+export const location = "Umuarama, PR";
+
 export const githubUsers = ["edsonjuniornarvaes", "edsonjuniorsuperlogica"];
 
 export const contact = {
@@ -57,9 +59,9 @@ export const journey: JourneyItem[] = [
   { year: "2019", title: "Primeiro emprego como dev", text: "E/Code, como Desenvolvedor Web Júnior (PHP, Laravel). Em paralelo, pós-graduação em Desenvolvimento Web e Mobile.", kind: "work" },
   { year: "2020", title: "Web Pleno", text: "React, Next.js e TypeScript em projetos de grande volume: Gazin, Navex e Lojas do Manão.", kind: "work" },
   { year: "2021", title: "Virada para o mobile", text: "React Native e Expo: Mont Capital, Minha Navex (do zero) e Consórcio Gazin nas lojas.", kind: "work" },
-  { year: "2023", title: "Liderança como Scrum Master", text: "Ritos, priorização e alinhamento entre negócio, design e desenvolvimento no time mobile.", kind: "work" },
+  { year: "2023", title: "Scrum Master e desenvolvedor mobile", text: "Ritos, métricas e decisões técnicas no time mobile, sem sair do código: Mont Capital, Gazin Consórcio e Minha Navex.", kind: "work" },
   { year: "2024", title: "Gruvi na Superlógica", text: "Superapp para condomínios com Redux Saga, MongoDB, Jest e CI/CD com Bitrise.", kind: "work" },
-  { year: "2025", title: "PJBank", text: "App financeiro corporativo: Auth0, Pix Automático, MVVM e observabilidade completa.", kind: "work" },
+  { year: "2025", title: "Mobile Sênior no PJBank", text: "Conta digital para empresas: MVVM, Auth0, Pix Automático, autorização corporativa e observabilidade completa.", kind: "work" },
   { year: "Hoje", title: "Produtos próprios", text: "Clube da Joia: site, painel, app e pagamentos em um backend só. Construo de ponta a ponta.", kind: "build" },
 ];
 
@@ -87,10 +89,11 @@ export const cases: CaseStudy[] = [
     summary: "App financeiro corporativo em produção: operações bancárias, Pix, boletos e gestão financeira.",
     role: "Desenvolvedor Mobile — funcionalidades críticas, autenticação e qualidade.",
     highlights: [
-      "Fluxo de autenticação com Auth0 e fluxos sensíveis de autorização",
-      "Pix Automático e autorizações de pagamento",
-      "MVVM e padronização da arquitetura do app",
+      "Arquitetura MVVM aplicada e padronizada para escalar e facilitar a manutenção",
+      "Fluxos de autenticação seguros com Auth0",
+      "Fluxos financeiros críticos: Pix Automático e autorização corporativa",
       "Jest, Sentry, Datadog, Mixpanel e Kibana; CI/CD com Bitrise e Harness",
+      "Comportamento consistente em iOS e Android",
     ],
     stack: ["React Native", "TypeScript", "Redux", "Auth0", "Jest"],
     href: "https://apps.apple.com/br/app/pjbank-conta-para-sua-empresa/id1267310347",
@@ -102,13 +105,13 @@ export const cases: CaseStudy[] = [
     tag: "Superapp · Condomínios",
     period: "Jan 2024 – Abr 2025 · Superlógica",
     color: "#ff3b7f",
-    summary: "Conecta moradores ao condomínio e aos vizinhos: visitantes, aluguel, reservas e salas de bate-papo por interesse.",
+    summary: "Superapp para condomínios com milhões de usuários: visitantes, aluguel, reservas e chat.",
     role: "Desenvolvedor Mobile Pleno — funcionalidades cross-platform e qualidade.",
     highlights: [
-      "Aprovação de visitantes, pagamento de aluguel e reserva de espaços",
-      "Chats por interesses em comum entre moradores",
-      "Testes unitários em fluxos críticos e builds automatizados no Bitrise",
-      "Dados em MongoDB e observabilidade com Sentry, Datadog e Mixpanel",
+      "Pagamento de aluguel e outros fluxos financeiros",
+      "Reservas e funcionalidades de imóveis",
+      "Chat em tempo real entre moradores",
+      "Integração com APIs e backend em MongoDB; melhoria de arquitetura e confiabilidade",
     ],
     stack: ["React Native", "TypeScript", "Redux Saga", "MongoDB", "Bitrise"],
     href: "https://apps.apple.com/br/app/gruvi/id1561610983",

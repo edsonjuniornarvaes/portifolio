@@ -10,10 +10,10 @@ import CountUp from "@/components/ui/count-up";
 import LocalTime from "@/components/ui/local-time";
 import CopyButton from "@/components/ui/copy-button";
 import GithubActivity from "@/components/ui/github-activity";
+import ProjectCarousel from "@/components/ui/project-carousel";
 import { ExperienceData } from "../about/helper";
 import { getProjectById, type Project } from "../projects/helper";
-import { skillGroups } from "./skills";
-import { contact, githubUsers, yearsCareer, yearsMobile, yearsStudying, STUDY_SINCE, CAREER_SINCE } from "@/data/profile";
+import { contact, githubUsers, location, yearsCareer, yearsMobile, STUDY_SINCE } from "@/data/profile";
 
 const FEATURED = [
   "clube-da-joia-marketplace",
@@ -23,26 +23,6 @@ const FEATURED = [
   "mont-b2b",
   "minha-navex",
 ];
-
-const STATUS = { production: "No ar", development: "Em desenvolvimento", paused: "Entregue" } as const;
-const TONE = { production: "live", development: "dev", paused: "done" } as const;
-
-const LANG_COLOR: Record<string, string> = {
-  "React Native": "#61dafb",
-  TypeScript: "#3178c6",
-  "Next.js": "#e8eef2",
-  Expo: "#e8eef2",
-  Redux: "#a78bfa",
-  "Redux Saga": "#a78bfa",
-  Supabase: "#3ecf8e",
-  Tailwind: "#38bdf8",
-  Auth0: "#eb5424",
-  MongoDB: "#47a248",
-  Jest: "#c21325",
-  OneSignal: "#e54b4d",
-  "Mercado Pago": "#00b1ea",
-  Vercel: "#e8eef2",
-};
 
 type BlogPostPreview = { id: string; slug: string; title: string; excerpt: string | null; created_at?: string };
 
@@ -88,41 +68,6 @@ function History() {
   );
 }
 
-function PackageJson() {
-  return (
-    <S.CodeCard aria-label="Resumo de tecnologias em formato package.json">
-      <span className="p">{"{"}</span>
-      {"\n  "}
-      <span className="k">&quot;name&quot;</span>: <span className="s">&quot;edson-junior&quot;</span>,
-      {"\n  "}
-      <span className="k">&quot;role&quot;</span>: <span className="s">&quot;mobile-engineer&quot;</span>,
-      {"\n  "}
-      <span className="k">&quot;since&quot;</span>: <span className="s">{STUDY_SINCE}</span>,
-      {"\n  "}
-      <span className="k">&quot;stack&quot;</span>: <span className="p">{"{"}</span>
-      {skillGroups.map((g, gi) => (
-        <span key={g.title}>
-          {"\n    "}
-          <span className="k">&quot;{g.title.toLowerCase().replace(/[^a-z]+/g, "-").replace(/-$/, "")}&quot;</span>:{" "}
-          <span className="p">[</span>
-          {g.items.map((it, i) => (
-            <span key={it}>
-              <span className="s">&quot;{it}&quot;</span>
-              {i < g.items.length - 1 ? ", " : ""}
-            </span>
-          ))}
-          <span className="p">]</span>
-          {gi < skillGroups.length - 1 ? "," : ""}
-        </span>
-      ))}
-      {"\n  "}
-      <span className="p">{"}"}</span>
-      {"\n"}
-      <span className="p">{"}"}</span>
-    </S.CodeCard>
-  );
-}
-
 export default function Home() {
   const [posts, setPosts] = useState<BlogPostPreview[]>([]);
 
@@ -151,7 +96,7 @@ export default function Home() {
               disponível para projetos
             </span>
             <span>
-              Brasil · <LocalTime />
+              {location} · <LocalTime />
             </span>
           </S.Caption>
           <S.Name>Edson Junior</S.Name>
@@ -183,19 +128,17 @@ export default function Home() {
               <dt>
                 <CountUp to={yearsCareer} suffix="+" />
               </dt>
-              <dd>anos de carreira profissional, desde {CAREER_SINCE}</dd>
+              <dd>anos como desenvolvedor</dd>
             </div>
             <div>
               <dt>
                 <CountUp to={yearsMobile} suffix="+" />
               </dt>
-              <dd>anos com React Native</dd>
+              <dd>anos em desenvolvimento mobile</dd>
             </div>
             <div>
-              <dt>
-                <CountUp to={yearsStudying} />
-              </dt>
-              <dd>na área, entre estudo e prática, desde {STUDY_SINCE}</dd>
+              <dt>{STUDY_SINCE}</dt>
+              <dd>ano em que comecei a estudar tecnologia</dd>
             </div>
           </S.Shortlog>
         </motion.div>
@@ -205,7 +148,15 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.2, 0.7, 0.2, 1] }}
         >
-          <S.Window>
+          <S.PhotoCard>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/edson.webp" alt="Retrato de Edson Junior" />
+            <div className="cap">
+              <strong>Edson Junior</strong>
+              <span>{location}</span>
+            </div>
+          </S.PhotoCard>
+          <S.Window style={{ marginTop: 14 }}>
             <GithubActivity users={githubUsers} />
           </S.Window>
         </motion.div>
@@ -221,37 +172,7 @@ export default function Home() {
           </div>
           <S.TextLink href="/projects">Ver todos →</S.TextLink>
         </S.Head2>
-        <S.ProjList>
-          {projects.map((p) => (
-            <S.ProjRow key={p.id} href={`/projects/${p.id}`}>
-              <div className="lead">
-                {p.galleryImages?.[0] ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} />
-                ) : (
-                  <span style={{ background: p.iconColor }}>{p.iconLetter ?? p.title[0]}</span>
-                )}
-              </div>
-              <div className="main">
-                <h3>{p.title}</h3>
-                <p>{p.tagline}</p>
-              </div>
-              <div className="side">
-                <S.StatusTag $tone={TONE[p.status]}>{STATUS[p.status]}</S.StatusTag>
-                <div className="langs">
-                  {p.tags.slice(0, 3).map((t) => (
-                    <span key={t} style={{ ["--c" as string]: LANG_COLOR[t] }}>
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <span className="go" aria-hidden>
-                →
-              </span>
-            </S.ProjRow>
-          ))}
-        </S.ProjList>
+        <ProjectCarousel projects={projects} />
       </S.Block>
 
       {/* EXPERIÊNCIA */}
@@ -264,48 +185,6 @@ export default function Home() {
           </div>
         </S.Head2>
         <History />
-      </S.Block>
-
-      {/* SOBRE */}
-      <S.Block id="sobre">
-        <S.Head2>
-          <div>
-            <span className="tag">sobre</span>
-            <h2>Quem eu sou</h2>
-          </div>
-          <S.TextLink href="/about">Minha jornada desde {STUDY_SINCE} →</S.TextLink>
-        </S.Head2>
-        <S.AboutGrid>
-          <div className="text">
-            <p>
-              Sou <b>desenvolvedor mobile sênior</b>, com foco em <b>React Native</b> e{" "}
-              <b>TypeScript</b>. Já levei para produção apps financeiros com Pix, um superapp para
-              condomínios e apps de investimentos e telecom.
-            </p>
-            <p>
-              Venho também do front-end web com React e Next.js e já liderei um time como Scrum
-              Master. Gosto de arquitetura limpa, testes e de acompanhar o app depois do
-              lançamento.
-            </p>
-            <div className="now">
-              <small>agora</small>
-              <ul>
-                <li>
-                  <b>PJBank</b> na Superlógica: autenticação, autorizações e Pix Automático
-                </li>
-                <li>
-                  <b>Clube da Joia</b>: site, painel e app com pagamentos
-                </li>
-                <li>
-                  Próximos passos: <b>notificações push</b>, <b>Mixpanel</b> e frete real
-                </li>
-              </ul>
-            </div>
-          </div>
-          <S.Window>
-            <PackageJson />
-          </S.Window>
-        </S.AboutGrid>
       </S.Block>
 
       {/* BLOG */}

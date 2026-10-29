@@ -152,9 +152,9 @@ export const professionalProjects: Project[] = [
   {
     id: "gruvi",
     title: "Gruvi",
-    tagline: "Superapp para Condomínios",
+    tagline: "Superapp para condomínios, com milhões de usuários",
     description:
-      "App que conecta moradores a serviços e ao condomínio. Aprovação de visitantes, reserva de espaços e chat.",
+      "Superapp que conecta moradores a serviços e ao condomínio: pagamento de aluguel, reserva de espaços e chat em tempo real.",
     longDescription:
       "Desenvolvimento cross-platform em React Native, Redux Saga, testes com Jest, MongoDB em fluxos específicos e CI/CD com Bitrise.",
     icon: "gruvi",

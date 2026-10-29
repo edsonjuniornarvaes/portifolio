@@ -560,3 +560,20 @@ export const ContactBox = styled.div`
   .mail { display: inline-block; margin-top: 14px; font-size: clamp(1.3rem, 4vw, 2.2rem); font-weight: 650; letter-spacing: -0.035em; word-break: break-word; background: var(--brand-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
   .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 `;
+
+export const PhotoCard = styled.div`
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--card);
+  img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: center 18%; }
+  .cap {
+    position: absolute; left: 14px; bottom: 14px; display: flex; flex-direction: column; gap: 2px;
+    padding: 8px 14px; border-radius: 12px; font-size: 0.8rem;
+    background: color-mix(in srgb, var(--paper) 72%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--line);
+  }
+  .cap strong { font-weight: 600; }
+  .cap span { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-ink); }
+`;
