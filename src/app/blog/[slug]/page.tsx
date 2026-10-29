@@ -8,9 +8,9 @@ import { MarkdownBody } from "@/components/markdown-body";
 import { FaArrowLeft } from "react-icons/fa";
 
 const Wrap = styled.article`
-  max-width: none;
-  margin: 0;
-  padding: 0;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 100px 24px 80px;
 `;
 
 const Back = styled(Link)`
@@ -43,9 +43,9 @@ const Cover = styled.div`
 `;
 
 const H1 = styled.h1`
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: clamp(1.6rem, 4vw, 2.25rem);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 12px;
   line-height: 1.2;

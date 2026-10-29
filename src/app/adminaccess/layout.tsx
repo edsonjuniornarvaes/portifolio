@@ -5,7 +5,7 @@ export default function AdminLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <StyledComponentsRegistry>
-      <div className="admin-root">{children}</div>
+      {children}
     </StyledComponentsRegistry>
   );
 }

@@ -6,19 +6,17 @@ import { usePathname } from "next/navigation";
 /** Luz suave que acompanha o mouse (só em telas com ponteiro fino). */
 export default function Spotlight() {
   const ref = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
-  const hidden = pathname.startsWith("/adminaccess");
+  const hidden = usePathname().startsWith("/adminaccess");
 
   useEffect(() => {
-    if (hidden) return;
-    if (window.matchMedia("(pointer: coarse)").matches) return;
+    if (hidden || window.matchMedia("(pointer: coarse)").matches) return;
     const el = ref.current;
     if (!el) return;
     let raf = 0;
     const move = (e: MouseEvent) => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        el.style.background = `radial-gradient(420px circle at ${e.clientX}px ${e.clientY}px, var(--glow), transparent 70%)`;
+        el.style.background = `radial-gradient(460px circle at ${e.clientX}px ${e.clientY}px, rgba(46, 235, 170, 0.07), transparent 70%)`;
       });
     };
     window.addEventListener("mousemove", move, { passive: true });
