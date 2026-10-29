@@ -91,14 +91,14 @@ export default function GithubActivity({ users, weeks = 53 }: { users: string[];
         <span className="dots" aria-hidden>
           <i /><i /><i />
         </span>
-        <span className="path">git log · {users.length} contas unificadas</span>
+        <span className="path">github · atividade</span>
       </div>
       <div className="body">
         {days ? (
           <>
             <div className="sum">
               <strong>{total.toLocaleString("pt-BR")}</strong>
-              <span>contribuições no último ano, somando {accounts.filter((a) => a.ok).length} contas</span>
+              <span>contribuições no último ano</span>
             </div>
             <div className="grid" role="img" aria-label="Mapa de contribuições do GitHub das duas contas somadas">
               {view.map((d, i) => (
@@ -112,10 +112,9 @@ export default function GithubActivity({ users, weeks = 53 }: { users: string[];
             </div>
             <div className="foot">
               <div className="accounts">
-                {accounts.map((a) => (
+                {accounts.map((a, i) => (
                   <a key={a.user} href={`https://github.com/${a.user}`} target="_blank" rel="noopener noreferrer">
-                    @{a.user}
-                    {a.ok && <b>{a.total}</b>}
+                    {i === 0 ? "GitHub pessoal" : "GitHub Superlógica"}
                   </a>
                 ))}
               </div>
