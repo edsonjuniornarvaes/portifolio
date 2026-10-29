@@ -17,8 +17,9 @@ export default function CountUp({ to, suffix = "" }: { to: number; suffix?: stri
       if (!e.isIntersecting) return;
       io.disconnect();
       const start = performance.now();
+      const dur = 1100;
       const tick = (t: number) => {
-        const p = Math.min((t - start) / 1100, 1);
+        const p = Math.min((t - start) / dur, 1);
         setN(Math.round(to * (1 - Math.pow(1 - p, 3))));
         if (p < 1) raf = requestAnimationFrame(tick);
       };

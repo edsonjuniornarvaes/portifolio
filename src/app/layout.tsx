@@ -5,22 +5,21 @@ import Navbar from "./components/navbar";
 import Footer from "@/components/footer";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
-import { ShootingStars } from "@/components/orbit-bg";
 import Spotlight from "@/components/ui/spotlight";
 
-const outfit = Outfit({ 
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({ 
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portifolio-wheat-omega-16.vercel.app";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -29,12 +28,12 @@ export const metadata: Metadata = {
     template: "%s | Edson Junior",
   },
   description:
-    "Desenvolvedor Mobile Sênior especializado em React Native, iOS e Android. Aplicativos de alta performance com experiência de usuário excepcional.",
-  keywords: ["React Native", "Mobile Developer", "iOS", "Android", "TypeScript", "Redux", "Next.js", "Expo"],
+    "Desenvolvedor Mobile Sênior com React Native e TypeScript. Apps financeiros, superapps e e-commerce em produção — de PJBank a produtos próprios.",
+  keywords: ["React Native", "Desenvolvedor Mobile", "iOS", "Android", "TypeScript", "Redux", "Next.js", "Expo"],
   authors: [{ name: "Edson Junior" }],
   openGraph: {
     title: "Edson Junior | Desenvolvedor Mobile Sênior",
-    description: "Especializado em React Native, iOS e Android.",
+    description: "React Native, TypeScript e produtos digitais de ponta a ponta.",
     type: "website",
     locale: "pt_BR",
     url: siteUrl,
@@ -58,24 +57,30 @@ const personJsonLd = {
   knowsAbout: ["React Native", "TypeScript", "iOS", "Android", "Next.js"],
 };
 
+const themeScript = `try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${outfit.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`${outfit.variable} ${jetbrains.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <StyledComponentsRegistry>
-          <ShootingStars />
-          <Spotlight />
           <AnalyticsTracker />
+          <Spotlight />
           <Navbar />
-          <main style={{ position: 'relative', zIndex: 1 }}>
-            {children}
-          </main>
+          <main>{children}</main>
           <Footer />
         </StyledComponentsRegistry>
       </body>

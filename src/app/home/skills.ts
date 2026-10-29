@@ -1,0 +1,8 @@
+export const skillGroups = [
+  { title: "Mobile", items: ["React Native", "Expo", "iOS", "Android", "OneSignal", "App Store / Play Store"] },
+  { title: "Linguagens & Web", items: ["TypeScript", "JavaScript", "React.js", "Next.js", "PHP", "Laravel"] },
+  { title: "Estado & Dados", items: ["Redux", "Redux Saga", "MongoDB", "Supabase", "Firebase", "REST APIs"] },
+  { title: "Qualidade & Observabilidade", items: ["Jest", "Sentry", "Datadog", "Mixpanel", "Kibana"] },
+  { title: "CI/CD & Processo", items: ["Bitrise", "Harness", "Git", "Scrum", "Metodologias Ágeis"] },
+  { title: "Produto & Design", items: ["Figma", "UX/UI", "MVVM", "Auth0", "Pix / Pagamentos"] },
+];

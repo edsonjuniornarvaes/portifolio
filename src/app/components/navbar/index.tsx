@@ -1,85 +1,101 @@
 "use client";
 
-import * as S from "./styles";
-import { useState, useEffect } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import styled from "styled-components";
+import ThemeToggle from "@/components/ui/theme-toggle";
 
-const navLinks = [
-  { href: "/home", label: "Home" },
-  { href: "/about", label: "Sobre" },
+const links = [
   { href: "/projects", label: "Projetos" },
-  { href: "/blog", label: "Artigos" },
+  { href: "/about", label: "Sobre" },
+  { href: "/blog", label: "Blog" },
   { href: "/home#contato", label: "Contato" },
 ];
 
-const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+const Wrap = styled.header`
+  position: sticky;
+  top: 14px;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding: 0 12px;
+  pointer-events: none;
+`;
+
+const Pill = styled.div`
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 6px 6px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper) 72%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  max-width: 100%;
+`;
+
+const Brand = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 10px;
+  margin-right: 4px;
+  border-right: 1px solid var(--line);
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+  .mark {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent-ink);
+  }
+  .mark::before { content: '<'; color: var(--muted); }
+  .mark::after { content: ' />'; color: var(--muted); }
+  @media (max-width: 520px) { .last { display: none; } }
+  @media (max-width: 440px) { .name { display: none; } padding-right: 8px; }
+`;
+
+const NavLink = styled(Link)<{ $active: boolean }>`
+  font-size: 0.84rem;
+  color: ${(p) => (p.$active ? "var(--on-accent)" : "var(--muted)")};
+  background: ${(p) => (p.$active ? "var(--accent)" : "transparent")};
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-weight: ${(p) => (p.$active ? 600 : 400)};
+  transition: color 0.2s ease, background 0.2s ease;
+  &:hover { color: ${(p) => (p.$active ? "var(--on-accent)" : "var(--ink)")}; background: ${(p) => (p.$active ? "var(--accent)" : "var(--paper-2)")}; }
+  @media (max-width: 520px) { padding: 7px 9px; font-size: 0.8rem; }
+`;
+
+export default function Navbar() {
   const pathname = usePathname();
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [menuOpen]);
+  if (pathname.startsWith("/adminaccess")) return null;
 
   return (
-    <>
-      <S.NavBar>
-        <S.Logo href="/home">
-          <S.LogoMark>ej</S.LogoMark>
-        </S.Logo>
-        
-        <S.NavbarContent>
-          {navLinks.map((link) => (
-            <S.NavbarLink 
-              key={link.href} 
-              href={link.href}
-              $isActive={pathname === link.href}
-            >
-              {link.label}
-            </S.NavbarLink>
-          ))}
-        </S.NavbarContent>
-        
-        <S.HamburgerButton onClick={toggleMenu} aria-label="Menu">
-          {menuOpen ? (
-            <FaTimes size={20} />
-          ) : (
-            <FaBars size={20} />
-          )}
-        </S.HamburgerButton>
-      </S.NavBar>
-      
-      <S.MobileMenuOverlay $isOpen={menuOpen} onClick={() => setMenuOpen(false)} />
-      
-      <S.MobileMenu $isOpen={menuOpen}>
-        {navLinks.map((link, index) => (
-          <S.MobileNavLink 
-            key={link.href} 
-            href={link.href}
-            $isActive={pathname === link.href}
-            style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
+    <Wrap>
+      <Pill as="nav" aria-label="Principal">
+        <Brand href="/home" aria-label="Edson Junior, página inicial">
+          <span className="mark">ej</span>
+          <span className="name">
+            Edson<span className="last"> Junior</span>
+          </span>
+        </Brand>
+        {links.map((l) => (
+          <NavLink
+            key={l.href}
+            href={l.href}
+            $active={l.href !== "/home#contato" && pathname.startsWith(l.href)}
           >
-            {link.label}
-          </S.MobileNavLink>
+            {l.label}
+          </NavLink>
         ))}
-      </S.MobileMenu>
-    </>
+        <ThemeToggle />
+      </Pill>
+    </Wrap>
   );
-};
-
-export default Navbar;
+}
