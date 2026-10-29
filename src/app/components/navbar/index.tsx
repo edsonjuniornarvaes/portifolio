@@ -6,70 +6,92 @@ import styled from "styled-components";
 import ThemeToggle from "@/components/ui/theme-toggle";
 
 const links = [
+  { href: "/home", label: "Home" },
   { href: "/projects", label: "Projetos" },
   { href: "/about", label: "Sobre" },
   { href: "/blog", label: "Blog" },
-  { href: "/home#contato", label: "Contato" },
 ];
 
-const Wrap = styled.header`
+const Bar = styled.header`
   position: sticky;
-  top: 14px;
+  top: 0;
   z-index: 50;
-  display: flex;
-  justify-content: center;
-  padding: 0 12px;
-  pointer-events: none;
+  background: color-mix(in srgb, var(--paper) 72%, transparent);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--line);
 `;
 
-const Pill = styled.div`
-  pointer-events: auto;
-  display: flex;
+const Inner = styled.div`
+  max-width: 1160px;
+  margin: 0 auto;
+  height: 68px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 6px;
-  padding: 6px 6px 6px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: color-mix(in srgb, var(--paper) 72%, transparent);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-  max-width: 100%;
+  gap: 16px;
+  @media (max-width: 760px) { grid-template-columns: 1fr auto; height: 60px; padding: 0 16px; }
 `;
 
 const Brand = styled(Link)`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-right: 10px;
-  margin-right: 4px;
-  border-right: 1px solid var(--line);
-  font-weight: 600;
-  font-size: 0.88rem;
-  letter-spacing: -0.015em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-weight: 650;
+  font-size: 1.02rem;
+  letter-spacing: -0.02em;
   white-space: nowrap;
-  .mark {
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--accent-ink);
+  .mark { font-family: var(--font-mono); font-size: 0.84rem; font-weight: 700; color: var(--accent-ink); }
+  .mark::before { content: "<"; color: var(--muted); }
+  .mark::after { content: " />"; color: var(--muted); }
+`;
+
+const Center = styled.nav`
+  display: flex;
+  gap: 4px;
+  @media (max-width: 760px) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: 0 -16px;
+    padding: 0 16px 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
   }
-  .mark::before { content: '<'; color: var(--muted); }
-  .mark::after { content: ' />'; color: var(--muted); }
-  @media (max-width: 520px) { .last { display: none; } }
-  @media (max-width: 440px) { .name { display: none; } padding-right: 8px; }
 `;
 
 const NavLink = styled(Link)<{ $active: boolean }>`
-  font-size: 0.84rem;
-  color: ${(p) => (p.$active ? "var(--on-accent)" : "var(--muted)")};
-  background: ${(p) => (p.$active ? "var(--accent)" : "transparent")};
-  padding: 7px 12px;
+  font-size: 0.9rem;
+  padding: 7px 14px;
   border-radius: 999px;
-  font-weight: ${(p) => (p.$active ? 600 : 400)};
+  color: ${(p) => (p.$active ? "var(--ink)" : "var(--muted)")};
+  background: ${(p) => (p.$active ? "color-mix(in srgb, var(--accent) 16%, transparent)" : "transparent")};
   transition: color 0.2s ease, background 0.2s ease;
-  &:hover { color: ${(p) => (p.$active ? "var(--on-accent)" : "var(--ink)")}; background: ${(p) => (p.$active ? "var(--accent)" : "var(--paper-2)")}; }
-  @media (max-width: 520px) { padding: 7px 9px; font-size: 0.8rem; }
+  white-space: nowrap;
+  &:hover { color: var(--ink); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+`;
+
+const Right = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+`;
+
+const Cta = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--on-accent);
+  background: var(--brand-gradient);
+  box-shadow: 0 6px 24px var(--glow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover { transform: translateY(-2px); box-shadow: 0 10px 32px var(--glow); }
 `;
 
 export default function Navbar() {
@@ -77,25 +99,24 @@ export default function Navbar() {
   if (pathname.startsWith("/adminaccess")) return null;
 
   return (
-    <Wrap>
-      <Pill as="nav" aria-label="Principal">
+    <Bar>
+      <Inner>
         <Brand href="/home" aria-label="Edson Junior, página inicial">
           <span className="mark">ej</span>
-          <span className="name">
-            Edson<span className="last"> Junior</span>
-          </span>
+          <span>Edson Junior</span>
         </Brand>
-        {links.map((l) => (
-          <NavLink
-            key={l.href}
-            href={l.href}
-            $active={l.href !== "/home#contato" && pathname.startsWith(l.href)}
-          >
-            {l.label}
-          </NavLink>
-        ))}
-        <ThemeToggle />
-      </Pill>
-    </Wrap>
+        <Center aria-label="Principal">
+          {links.map((l) => (
+            <NavLink key={l.href} href={l.href} $active={pathname === l.href || (l.href !== "/home" && pathname.startsWith(l.href))}>
+              {l.label}
+            </NavLink>
+          ))}
+        </Center>
+        <Right>
+          <ThemeToggle />
+          <Cta href="/home#contato">Contato</Cta>
+        </Right>
+      </Inner>
+    </Bar>
   );
 }
