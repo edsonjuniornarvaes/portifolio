@@ -5,7 +5,7 @@ import * as S from "../home/styles";
 import Reveal from "@/components/ui/reveal";
 import { ExperienceData, EducationData } from "./helper";
 import { skillGroups } from "../home/skills";
-import { contact, journey, yearsStudying, STUDY_SINCE } from "@/data/profile";
+import { contact, journey, yearsStudying, STUDY_SINCE, CAREER_SINCE } from "@/data/profile";
 
 const Intro = styled.div`
   display: grid;
@@ -30,10 +30,10 @@ export default function About() {
             que avisa quando algo quebra antes de o usuário perceber.
           </S.Lead>
           <S.Lead>
-            Comecei a estudar tecnologia em {STUDY_SINCE}. Foram {yearsStudying} anos entre
-            faculdade, pós-graduação, primeiro emprego com PHP, a virada para o mobile e a liderança
-            de um time como Scrum Master. Hoje faço parte do time do PJBank e, nas horas vagas,
-            construo produtos meus.
+            Estou na área há {yearsStudying} anos, entre estudo e prática, desde {STUDY_SINCE}. Minha
+            carreira profissional começou em {CAREER_SINCE}, no primeiro emprego com PHP, e passou
+            pela virada para o mobile e pela liderança de um time como Scrum Master. Hoje faço parte
+            do time do PJBank e, nas horas vagas, construo produtos meus.
           </S.Lead>
           <S.Lead>
             Contato: <a href={`mailto:${contact.email}`}>{contact.email}</a>.

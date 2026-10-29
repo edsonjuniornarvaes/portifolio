@@ -3,20 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { FaEnvelope } from "react-icons/fa";
+import { FaEnvelope, FaGithub, FaLinkedinIn, FaDev } from "react-icons/fa";
 import * as S from "./styles";
 import Reveal from "@/components/ui/reveal";
 import CountUp from "@/components/ui/count-up";
 import LocalTime from "@/components/ui/local-time";
 import CopyButton from "@/components/ui/copy-button";
 import GithubActivity from "@/components/ui/github-activity";
-import GitHubIcon from "@/assets/icons/social/github";
-import LinkedInIcon from "@/assets/icons/social/linkedin";
-import DevtoIcon from "@/assets/icons/social/devto";
 import { ExperienceData } from "../about/helper";
 import { getProjectById, type Project } from "../projects/helper";
 import { skillGroups } from "./skills";
-import { contact, githubUsers, yearsCareer, yearsMobile, yearsStudying, STUDY_SINCE } from "@/data/profile";
+import { contact, githubUsers, yearsCareer, yearsMobile, yearsStudying, STUDY_SINCE, CAREER_SINCE } from "@/data/profile";
 
 const FEATURED = [
   "clube-da-joia-marketplace",
@@ -153,6 +150,9 @@ export default function Home() {
               <span className="dot" />
               disponível para projetos
             </span>
+            <span>
+              Brasil · <LocalTime />
+            </span>
           </S.Caption>
           <S.Name>Edson Junior</S.Name>
           <S.RoleLine>Desenvolvedor Mobile Sênior</S.RoleLine>
@@ -168,13 +168,13 @@ export default function Home() {
               <FaEnvelope size={14} /> Contato
             </S.BtnLine>
             <S.IconLink href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <GitHubIcon width={18} height={18} color="currentColor" />
+              <FaGithub size={18} />
             </S.IconLink>
             <S.IconLink href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <LinkedInIcon width={18} height={18} color="currentColor" />
+              <FaLinkedinIn size={18} />
             </S.IconLink>
             <S.IconLink href={contact.devto} target="_blank" rel="noopener noreferrer" aria-label="Dev.to">
-              <DevtoIcon width={18} height={18} color="currentColor" />
+              <FaDev size={20} />
             </S.IconLink>
           </S.Actions>
 
@@ -183,7 +183,7 @@ export default function Home() {
               <dt>
                 <CountUp to={yearsCareer} suffix="+" />
               </dt>
-              <dd>anos de carreira</dd>
+              <dd>anos de carreira profissional, desde {CAREER_SINCE}</dd>
             </div>
             <div>
               <dt>
@@ -195,9 +195,7 @@ export default function Home() {
               <dt>
                 <CountUp to={yearsStudying} />
               </dt>
-              <dd>
-                anos desde {STUDY_SINCE} · <LocalTime />
-              </dd>
+              <dd>na área, entre estudo e prática, desde {STUDY_SINCE}</dd>
             </div>
           </S.Shortlog>
         </motion.div>
@@ -223,42 +221,37 @@ export default function Home() {
           </div>
           <S.TextLink href="/projects">Ver todos →</S.TextLink>
         </S.Head2>
-        <S.Repos>
-          {projects.map((p, i) => (
-            <Reveal key={p.id} delay={(i % 2) * 70}>
-              <S.Repo href={`/projects/${p.id}`} $wide={i === 0} style={{ height: "100%" }}>
-                <div className="info">
-                  <div className="path">
-                    <span>
-                      edson/<b>{p.id}</b>
-                    </span>
-                    <S.StatusTag $tone={TONE[p.status]}>{STATUS[p.status]}</S.StatusTag>
-                  </div>
-                  <h3>{p.title}</h3>
-                  <p>{p.description}</p>
-                  <div className="langs">
-                    {p.tags.slice(0, 5).map((t) => (
-                      <span key={t} style={{ ["--c" as string]: LANG_COLOR[t] }}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                {i === 0 && p.galleryImages?.[0] && (
-                  <div className="shot">
-                    <div className="chrome">
-                      <i />
-                      <i />
-                      <i />
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} />
-                    </div>
-                  </div>
+        <S.ProjList>
+          {projects.map((p) => (
+            <S.ProjRow key={p.id} href={`/projects/${p.id}`}>
+              <div className="lead">
+                {p.galleryImages?.[0] ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} />
+                ) : (
+                  <span style={{ background: p.iconColor }}>{p.iconLetter ?? p.title[0]}</span>
                 )}
-              </S.Repo>
-            </Reveal>
+              </div>
+              <div className="main">
+                <h3>{p.title}</h3>
+                <p>{p.tagline}</p>
+              </div>
+              <div className="side">
+                <S.StatusTag $tone={TONE[p.status]}>{STATUS[p.status]}</S.StatusTag>
+                <div className="langs">
+                  {p.tags.slice(0, 3).map((t) => (
+                    <span key={t} style={{ ["--c" as string]: LANG_COLOR[t] }}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <span className="go" aria-hidden>
+                →
+              </span>
+            </S.ProjRow>
           ))}
-        </S.Repos>
+        </S.ProjList>
       </S.Block>
 
       {/* EXPERIÊNCIA */}
