@@ -23,6 +23,8 @@ const Tv = styled.div`
     background: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.5) 1px, transparent 1.4px) 0 0 / 4px 4px;
     mix-blend-mode: multiply;
   }
+  .screen.flat::after { background: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.22) 1px, transparent 1.4px) 0 0 / 4px 4px; }
+  .screen.flat img { object-position: center top; filter: none; }
   .screen::before {
     content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
     background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.04) 0 1px, transparent 1px 3px);
@@ -41,11 +43,11 @@ const Tv = styled.div`
 `;
 
 /** Retrato numa TV antiga, com trama de pontos (halftone). */
-export default function TvPortrait({ src, alt }: { src: string; alt: string }) {
+export default function TvPortrait({ src, alt, flat }: { src: string; alt: string; flat?: boolean }) {
   return (
     <Tv>
       <div className="shell">
-        <div className="screen">
+        <div className={`screen${flat ? " flat" : ""}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={src} alt={alt} />
         </div>

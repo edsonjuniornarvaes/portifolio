@@ -166,7 +166,7 @@ export default function Home() {
                 </R.Stats>
               </div>
               <div className="tv">
-                <TvPortrait src="/images/edson.webp" alt="Retrato de Edson Junior" />
+                <TvPortrait src="/avatars/avatar-cartoon-tv.png" alt="Avatar de Edson Junior" flat />
               </div>
               </div>
             </WindowFrame>
