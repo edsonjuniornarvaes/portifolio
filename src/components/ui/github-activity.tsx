@@ -20,7 +20,7 @@ const Wrap = styled.div`
   .sum { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 16px; }
   .sum strong { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; background: var(--brand-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
   .sum span { font-size: 0.86rem; color: var(--muted); }
-  .grid { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 1fr); gap: 3px; }
+  .grid { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); grid-template-rows: repeat(7, auto); gap: 3px; }
   .cell { aspect-ratio: 1; border-radius: 2px; background: color-mix(in srgb, var(--ink) 7%, transparent); min-width: 0; opacity: 0; animation: pop 0.5s ease forwards; }
   .l1 { background: color-mix(in srgb, var(--accent) 30%, transparent); }
   .l2 { background: color-mix(in srgb, var(--accent) 52%, transparent); }

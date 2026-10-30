@@ -3,37 +3,40 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { FaEnvelope, FaGithub, FaLinkedinIn, FaDev } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaCheckCircle } from "react-icons/fa";
+import { SiReact } from "react-icons/si";
 import * as S from "./styles";
+import * as R from "./retro";
 import Reveal from "@/components/ui/reveal";
 import CountUp from "@/components/ui/count-up";
-import LocalTime from "@/components/ui/local-time";
 import CopyButton from "@/components/ui/copy-button";
 import GithubActivity from "@/components/ui/github-activity";
 import StackGroups from "@/components/ui/stack-groups";
+import WindowFrame from "@/components/retro/window-frame";
+import Wave from "@/components/retro/wave";
+import TvPortrait from "@/components/retro/tv-portrait";
+import Shapes from "@/components/retro/shapes";
 import { ExperienceData } from "../about/helper";
-import { personalProjects, professionalProjects, webProjects, type Project } from "../projects/helper";
-import { contact, githubUsers, location, yearsCareer, yearsMobile, yearsStudying } from "@/data/profile";
+import { personalProjects, professionalProjects, webProjects, getProjectById, type Project } from "../projects/helper";
+import { contact, githubUsers, yearsCareer, yearsMobile, yearsStudying } from "@/data/profile";
 
 const GROUPS = [
-  { id: "all", label: "Todos" },
-  { id: "own", label: "Produtos próprios" },
-  { id: "mobile", label: "Apps" },
-  { id: "web", label: "Web" },
+  { id: "all", label: "todos" },
+  { id: "own", label: "produtos próprios" },
+  { id: "mobile", label: "apps" },
+  { id: "web", label: "web" },
 ] as const;
-
 type GroupId = (typeof GROUPS)[number]["id"];
 
-const STATUS = { production: "No ar", development: "Em desenvolvimento", paused: "Entregue" } as const;
+const STATUS = { production: "no ar", development: "em desenvolvimento", paused: "entregue" } as const;
 const DOT = { production: "#4ade80", development: "#fbbf24", paused: "var(--muted)" } as const;
 
-type BlogPostPreview = { id: string; slug: string; title: string; excerpt: string | null; created_at?: string };
+type PostPreview = { id: string; slug: string; title: string; excerpt: string | null; created_at?: string };
 
 function Experience() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 55%"] });
   const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.4 });
-
   return (
     <S.Commits ref={ref}>
       <div className="rail">
@@ -62,244 +65,283 @@ function Experience() {
   );
 }
 
-function Tiles() {
+function Projects() {
   const [group, setGroup] = useState<GroupId>("all");
+  const all = [...personalProjects, ...professionalProjects, ...webProjects];
   const list: Project[] =
-    group === "own"
-      ? personalProjects
-      : group === "mobile"
-        ? professionalProjects
-        : group === "web"
-          ? webProjects
-          : [...personalProjects, ...professionalProjects, ...webProjects];
+    group === "own" ? personalProjects : group === "mobile" ? professionalProjects : group === "web" ? webProjects : all;
+  const count = (g: GroupId) => (g === "own" ? personalProjects : g === "mobile" ? professionalProjects : g === "web" ? webProjects : all).length;
 
   return (
     <>
-      <S.TileTabs role="group" aria-label="Filtrar projetos">
+      <R.Filters role="group" aria-label="Filtrar projetos">
+        <span className="lead">Filtrar por:</span>
         {GROUPS.map((g) => (
           <button key={g.id} aria-pressed={group === g.id} onClick={() => setGroup(g.id)}>
             {g.label}
+            <sup>{String(count(g.id)).padStart(2, "0")}</sup>
           </button>
         ))}
-      </S.TileTabs>
-      <S.TileGrid>
-        {list.map((p) => (
-          <S.Tile key={p.id} href={`/projects/${p.id}`} $color={p.iconColor}>
-            <div className="cover">
-              {p.galleryImages?.[0] ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} loading="lazy" />
-              ) : (
-                <span className="letter">{p.iconLetter ?? p.title[0]}</span>
-              )}
-              <div className="over">
-                <p>{p.tagline}</p>
-              </div>
-            </div>
-            <div className="foot">
-              <strong>{p.title}</strong>
-              <span className="st" style={{ ["--c" as string]: DOT[p.status] }} title={STATUS[p.status]} />
-            </div>
-          </S.Tile>
+      </R.Filters>
+      <R.WinGrid>
+        {list.map((p, i) => (
+          <Reveal key={p.id} delay={(i % 3) * 60}>
+            <WindowFrame tilt={i % 3 === 1 ? 1.2 : i % 3 === 2 ? -1.2 : 0} hue={p.type === "personal" ? "mint" : i % 2 ? "violet" : "warm"}>
+              <R.WinCard href={`/projects/${p.id}`} $color={p.iconColor} style={{ ["--st" as string]: DOT[p.status] }}>
+                <div className="cover">
+                  {p.galleryImages?.[0] ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} loading="lazy" />
+                  ) : (
+                    <span className="letter">{p.iconLetter ?? p.title[0]}</span>
+                  )}
+                </div>
+                <div className="cap" style={{ padding: "12px 14px 14px" }}>
+                  <strong>{p.title}</strong>
+                  <span>{p.tagline}</span>
+                  <em>● {STATUS[p.status]}</em>
+                </div>
+              </R.WinCard>
+            </WindowFrame>
+          </Reveal>
         ))}
-      </S.TileGrid>
+      </R.WinGrid>
     </>
   );
 }
 
 export default function Home() {
-  const [posts, setPosts] = useState<BlogPostPreview[]>([]);
+  const [posts, setPosts] = useState<PostPreview[]>([]);
 
   useEffect(() => {
     fetch("/api/posts")
       .then((r) => r.json())
-      .then((d) => setPosts((d.posts || []).slice(0, 3)))
+      .then((d) => setPosts((d.posts || []).slice(0, 4)))
       .catch(() => setPosts([]));
   }, []);
 
-  
+  const feat = getProjectById("clube-da-joia-marketplace");
+
   return (
-    <S.Page>
-      {/* HERO */}
-      <S.HeroWrap>
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}
-        >
-          <S.Avatar>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/edson.webp" alt="Edson Junior" />
-            <span className="live" aria-label="Disponível" />
-          </S.Avatar>
-          <S.Caption>
-            <span className="hi">{"// olá, eu sou"}</span>
-            <span className="status">
-              <span className="dot" />
-              disponível para projetos
-            </span>
-            <span>
-              {location} · <LocalTime />
-            </span>
-          </S.Caption>
-          <S.Name>Edson Junior</S.Name>
-          <S.RoleLine>Desenvolvedor Mobile Sênior</S.RoleLine>
-          <S.Desc>
-            Especializado em <b>React Native</b>, construindo aplicativos com alta performance,
-            arquitetura escalável e experiência do usuário de excelência para <b>iOS</b> e{" "}
-            <b>Android</b>. Atualmente no <b>PJBank / Superlógica</b>.
-          </S.Desc>
+    <S.Page id="top">
+      {/* 01 — HOME */}
+      <R.Hero>
+        <Shapes />
+        <R.HeroStage>
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}>
+            <WindowFrame>
+              <div className="inner">
+              <div className="main">
+                <R.Kick>Olá, eu sou</R.Kick>
+                <R.BigName>
+                  <span className="l1">Edson</span>
+                  <span className="l2">Junior</span>
+                </R.BigName>
+                <R.Script>
+                  Mobile <span>×</span> React Native <span>×</span> Fintech
+                </R.Script>
+                <R.Intro>
+                  <b>Desenvolvedor Mobile Sênior</b> especializado em React Native, construindo aplicativos com alta
+                  performance, arquitetura escalável e experiência do usuário de excelência para iOS e Android.
+                </R.Intro>
+                <S.Actions style={{ marginTop: 26 }}>
+                  <R.Cta href="/home#projetos">Ver projetos →</R.Cta>
+                  <S.BtnLine href={`mailto:${contact.email}`} style={{ borderRadius: 0, borderWidth: 2 }}>
+                    <FaEnvelope size={14} /> Contato
+                  </S.BtnLine>
+                </S.Actions>
+                <R.Stats>
+                  <div>
+                    <dt><CountUp to={yearsCareer} suffix="+" /></dt>
+                    <dd>anos como desenvolvedor profissional</dd>
+                  </div>
+                  <div>
+                    <dt><CountUp to={yearsMobile} suffix="+" /></dt>
+                    <dd>anos em desenvolvimento mobile</dd>
+                  </div>
+                  <div>
+                    <dt><CountUp to={yearsStudying} suffix="+" /></dt>
+                    <dd>anos de experiência em tecnologia</dd>
+                  </div>
+                </R.Stats>
+              </div>
+              <div className="tv">
+                <TvPortrait src="/images/edson.webp" alt="Retrato de Edson Junior" />
+              </div>
+              </div>
+            </WindowFrame>
+          </motion.div>
+        </R.HeroStage>
+        <R.ScrollCue aria-hidden>
+          <span />
+          <svg viewBox="0 0 24 24"><path d="M12 22 3 11h6V2h6v9h6z" /></svg>
+        </R.ScrollCue>
+      </R.Hero>
 
-          <S.Actions style={{ marginTop: 28 }}>
-            <S.BtnMint href="/projects">Ver projetos →</S.BtnMint>
-            <S.BtnLine href={`mailto:${contact.email}`}>
-              <FaEnvelope size={14} /> Contato
-            </S.BtnLine>
-            <S.IconLink href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <FaGithub size={18} />
-            </S.IconLink>
-            <S.IconLink href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <FaLinkedinIn size={18} />
-            </S.IconLink>
-            <S.IconLink href={contact.devto} target="_blank" rel="noopener noreferrer" aria-label="Dev.to">
-              <FaDev size={20} />
-            </S.IconLink>
-          </S.Actions>
-
-          <S.Shortlog>
-            <div>
-              <dt>
-                <CountUp to={yearsCareer} suffix="+" />
-              </dt>
-              <dd>anos como desenvolvedor profissional</dd>
-            </div>
-            <div>
-              <dt>
-                <CountUp to={yearsMobile} suffix="+" />
-              </dt>
-              <dd>anos em desenvolvimento mobile</dd>
-            </div>
-            <div>
-              <dt>
-                <CountUp to={yearsStudying} suffix="+" />
-              </dt>
-              <dd>anos de experiência em tecnologia</dd>
-            </div>
-          </S.Shortlog>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: [0.2, 0.7, 0.2, 1] }}
-        >
-
-          <S.Window>
+      {/* Intro em faixa */}
+      <R.Band id="sobre" style={{ marginTop: 80 }}>
+        <div className="edge-top"><Wave id="top" flip /></div>
+        <div className="grid">
+          <div>
+            <h2>Prazer, Edson!</h2>
+            <p>
+              Sou <b>desenvolvedor mobile sênior</b>, com foco em <b>React Native</b> e <b>TypeScript</b>. Já levei para
+              produção apps financeiros com Pix, um superapp de condomínios e apps de investimentos e telecom.
+            </p>
+            <p>
+              Atuo em todo o ciclo: da arquitetura e implementação a testes, observabilidade, CI/CD e releases. Também já
+              fui Scrum Master, e gosto de problemas complexos e de entregar soluções confiáveis que escalam.
+            </p>
+            <p style={{ marginTop: 18 }}>
+              <Link href="/about" style={{ fontFamily: "var(--font-mono)", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: 5 }}>
+                Minha história desde 2015 →
+              </Link>
+            </p>
+          </div>
+          <WindowFrame hue="violet" tilt={-1.5}>
             <GithubActivity users={githubUsers} />
-          </S.Window>
-        </motion.div>
-      </S.HeroWrap>
+          </WindowFrame>
+        </div>
+        <div className="edge-bot"><Wave id="bot" /></div>
+      </R.Band>
 
-      {/* POSICIONAMENTO */}
-      <S.Block id="manifesto" style={{ marginTop: 72 }}>
-        <Reveal>
-          <S.Statement>
-            Gosto de <b>problemas complexos</b>, de entender bases de código existentes e de entregar soluções{" "}
-            <em>confiáveis que escalam</em>.
-          </S.Statement>
-        </Reveal>
-      </S.Block>
-
-      {/* PROJETOS */}
-      <S.Block id="projetos">
-        <S.Head2>
+      {/* 02 — EXPERTISE */}
+      <R.Section id="expertise" style={{ marginTop: 150 }}>
+        <R.Heading>
+          <span className="tag">02 expertise</span>
+          <h2>O que eu faço</h2>
+        </R.Heading>
+        <R.Cards3>
           <div>
-            <span className="tag">projetos</span>
-            <h2>Projetos</h2>
-            <p>Produtos que construí do zero e apps e sistemas em que atuei.</p>
-          </div>
-          <S.TextLink href="/projects">Ver detalhes →</S.TextLink>
-        </S.Head2>
-        <Tiles />
-      </S.Block>
-
-      {/* STACK */}
-      <S.Block id="stack">
-        <S.Head2>
-          <div>
-            <span className="tag">stack</span>
-            <h2>Minha stack</h2>
-            <p>O que uso no dia a dia, do app à entrega em produção.</p>
-          </div>
-        </S.Head2>
-        <StackGroups />
-      </S.Block>
-
-      {/* EXPERIÊNCIA */}
-      <S.Block id="experiencia">
-        <S.Head2>
-          <div>
-            <span className="tag">experiência</span>
-            <h2>Experiência</h2>
-            <p>Da web ao mobile: onde trabalhei e o que entreguei.</p>
-          </div>
-        </S.Head2>
-        <Experience />
-      </S.Block>
-
-      {/* BLOG */}
-      {posts.length > 0 && (
-        <S.Block id="blog">
-          <S.BlogPanel>
-            <div className="left">
-              <span className="tag" style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "var(--accent-ink)" }}>
-                ## blog
-              </span>
-              <h2 style={{ marginTop: 8 }}>Conteúdo sobre mobile, código e carreira</h2>
-              <p>Artigos práticos sobre React Native, TypeScript e o que aprendo no dia a dia.</p>
-              <S.Actions>
-                <S.BtnMint href="/blog">Ler blog ↗</S.BtnMint>
-              </S.Actions>
+            <div className="card" style={{ ["--c" as string]: "#c4a1ff" }}>
+              <div className="top">
+                <SiReact />
+                <h3><u>Desenvolvimento</u><br />Mobile</h3>
+              </div>
+              <div className="code">
+                <span className="tg">{"<p>"}</span>
+                <span className="in">Apps iOS e Android com React Native, Expo e TypeScript. MVVM, integrações nativas e publicação nas lojas.</span>
+                <span className="tg">{"</p>"}</span>
+              </div>
             </div>
-            <div className="right">
-              {posts.map((p) => (
-                <Link key={p.id} className="post" href={`/blog/${p.slug}`}>
-                  <small>
-                    {p.created_at
-                      ? new Date(p.created_at).toLocaleDateString("pt-BR", { month: "short", year: "numeric" })
-                      : "artigo"}
-                  </small>
-                  <strong>{p.title}</strong>
+          </div>
+          <div>
+            <div className="card" style={{ ["--c" as string]: "#ff7eb6" }}>
+              <div className="top">
+                <FaLock />
+                <h3><u>Fintech</u><br />e pagamentos</h3>
+              </div>
+              <div className="code">
+                <span className="tg">{"<p>"}</span>
+                <span className="in">Pix, Pix Automático, cobrança e autenticação segura com Auth0. Integrações via BFF.</span>
+                <span className="tg">{"</p>"}</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="card" style={{ ["--c" as string]: "#2eebaa" }}>
+              <div className="top">
+                <FaCheckCircle />
+                <h3><u>Qualidade</u><br />e entrega</h3>
+              </div>
+              <div className="code">
+                <span className="tg">{"<p>"}</span>
+                <span className="in">Testes com Jest, monitoramento com Sentry, Datadog e Mixpanel, CI/CD com Bitrise e Harness.</span>
+                <span className="tg">{"</p>"}</span>
+              </div>
+            </div>
+          </div>
+        </R.Cards3>
+        <div style={{ marginTop: 40 }}>
+          <StackGroups />
+        </div>
+      </R.Section>
+
+      {/* 03 — PROJETOS */}
+      <R.Section id="projetos">
+        <R.Work>
+          <div className="txt">
+            <R.Heading style={{ marginBottom: 20 }}>
+              <span className="tag">03 projetos</span>
+              <h2>Meus<br />projetos</h2>
+            </R.Heading>
+            <p>
+              Produtos que construí do zero, como o Clube da Joia, e apps e sistemas em que atuei, de fintech a telecom e
+              e-commerce.
+            </p>
+          </div>
+          {feat && (
+            <div className="feat">
+              <WindowFrame tilt={2}>
+                <Link href={`/projects/${feat.id}`} className="shot">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={feat.galleryImages?.[0]} alt={`Tela de ${feat.title}`} />
                 </Link>
-              ))}
+              </WindowFrame>
+              <small>Projeto em destaque</small>
+              <h3>{feat.title}</h3>
+              <R.Cta href={`/projects/${feat.id}`}>Ver projeto →</R.Cta>
             </div>
-          </S.BlogPanel>
-        </S.Block>
-      )}
+          )}
+        </R.Work>
+        <Projects />
+      </R.Section>
 
-      {/* CONTATO */}
-      <S.Block id="contato">
-        <S.ContactBox>
-          <p className="prompt">
-            <b>$</b> contato
-          </p>
-          <a className="mail" href={`mailto:${contact.email}`}>
-            {contact.email}
-          </a>
-          <div className="row">
-            <CopyButton text={contact.email} />
-            <S.BtnLine href={contact.linkedin} target="_blank" rel="noopener noreferrer" style={{ height: 40 }}>
-              LinkedIn
-            </S.BtnLine>
-            <S.BtnLine href={contact.github} target="_blank" rel="noopener noreferrer" style={{ height: 40 }}>
-              GitHub
-            </S.BtnLine>
-            <S.BtnLine href={contact.devto} target="_blank" rel="noopener noreferrer" style={{ height: 40 }}>
-              Dev.to
-            </S.BtnLine>
+      {/* 04 — EXPERIÊNCIA */}
+      <R.Section id="experiencia">
+        <R.Heading>
+          <span className="tag">04 experiência</span>
+          <h2>Experiência</h2>
+          <p>Da web ao mobile: onde trabalhei e o que entreguei.</p>
+        </R.Heading>
+        <Experience />
+      </R.Section>
+
+      {/* 05 — BLOG */}
+      <R.Section id="escrita">
+        <R.Heading style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 12 }}>
+          <div>
+            <span className="tag">05 blog</span>
+            <h2>Escrita</h2>
           </div>
-        </S.ContactBox>
-      </S.Block>
+          <R.Writing><Link className="all" href="/blog">Todos os artigos</Link></R.Writing>
+        </R.Heading>
+        <R.Writing>
+          {posts.length ? (
+            <ul>
+              {posts.map((p) => (
+                <li key={p.id}>
+                  <Link className="post" href={`/blog/${p.slug}`}>
+                    <h3>{p.title}</h3>
+                    <time>
+                      {p.created_at ? new Date(p.created_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" }) : ""}
+                    </time>
+                    {p.excerpt && <p>{p.excerpt}</p>}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="empty">Em breve, textos sobre mobile, arquitetura e carreira.</p>
+          )}
+        </R.Writing>
+      </R.Section>
+
+      {/* 06 — CONTATO */}
+      <R.Section id="contato">
+        <WindowFrame hue="mint">
+          <R.ContactWin>
+            <p className="prompt">Fale comigo</p>
+            <a className="mail" href={`mailto:${contact.email}`}>{contact.email}</a>
+            <div className="row">
+              <CopyButton text={contact.email} />
+              <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">linkedin</a>
+              <a href={contact.github} target="_blank" rel="noopener noreferrer">github</a>
+              <a href={contact.devto} target="_blank" rel="noopener noreferrer">dev.to</a>
+            </div>
+          </R.ContactWin>
+        </WindowFrame>
+      </R.Section>
     </S.Page>
   );
 }

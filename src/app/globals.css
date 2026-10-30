@@ -15,6 +15,7 @@
 
   --font-sans: var(--font-outfit), system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-script: var(--font-script-next), 'Caveat', cursive;
   --font-serif: var(--font-sans);
   --font-display: var(--font-sans);
 
