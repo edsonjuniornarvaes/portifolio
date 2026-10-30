@@ -6,6 +6,8 @@ import { verifyAdminToken } from "@/lib/verify-admin";
 const ALLOWED = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 const MAX_BYTES = 5 * 1024 * 1024;
 
+/** Envia imagens (capa ou imagens dentro do artigo) para o bucket público `blog-covers`. */
+
 export async function POST(request: NextRequest) {
   if (!verifyAdminToken(request)) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });

@@ -112,9 +112,9 @@ export default function GithubActivity({ users, weeks = 53 }: { users: string[];
             </div>
             <div className="foot">
               <div className="accounts">
-                {accounts.map((a, i) => (
+                {accounts.map((a) => (
                   <a key={a.user} href={`https://github.com/${a.user}`} target="_blank" rel="noopener noreferrer">
-                    {i === 0 ? "GitHub pessoal" : "GitHub Superlógica"}
+                    @{a.user}
                   </a>
                 ))}
               </div>

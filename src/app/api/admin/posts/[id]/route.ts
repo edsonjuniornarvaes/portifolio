@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase';
 import { verifyAdminToken } from '@/lib/verify-admin';
+import { safeImageUrl, slugify } from '@/lib/post-utils';
 
 type Ctx = { params: { id: string } };
 
@@ -35,10 +36,18 @@ export async function PATCH(request: NextRequest, context: Ctx) {
       updated_at: new Date().toISOString(),
     };
 
-    if (body.title !== undefined) patch.title = String(body.title).trim();
-    if (body.slug !== undefined) patch.slug = String(body.slug).trim().toLowerCase();
-    if (body.excerpt !== undefined) patch.excerpt = body.excerpt;
-    if (body.cover_image_url !== undefined) patch.cover_image_url = body.cover_image_url;
+    if (body.title !== undefined) {
+      const t = String(body.title).trim();
+      if (!t) return NextResponse.json({ error: 'Título obrigatório' }, { status: 400 });
+      patch.title = t.slice(0, 200);
+    }
+    if (body.slug !== undefined) {
+      const sl = slugify(String(body.slug));
+      if (!sl) return NextResponse.json({ error: 'Slug inválido' }, { status: 400 });
+      patch.slug = sl;
+    }
+    if (body.excerpt !== undefined) patch.excerpt = body.excerpt ? String(body.excerpt).slice(0, 400) : null;
+    if (body.cover_image_url !== undefined) patch.cover_image_url = safeImageUrl(body.cover_image_url);
     if (body.body_markdown !== undefined) patch.body_markdown = String(body.body_markdown);
     if (body.published !== undefined) patch.published = Boolean(body.published);
 

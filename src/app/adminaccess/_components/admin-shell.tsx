@@ -125,6 +125,9 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           <NavLink href="/adminaccess/projects" $active={navActive(pathname, "/adminaccess/projects")}>
             Projetos
           </NavLink>
+          <NavLink href="/home" target="_blank" rel="noreferrer">
+            Ver site ↗
+          </NavLink>
           <LogoutButton type="button" onClick={logout}>
             Sair
           </LogoutButton>

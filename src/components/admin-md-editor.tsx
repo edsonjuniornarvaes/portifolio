@@ -1,25 +1,28 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import "@uiw/react-md-editor/markdown-editor.css";
 
-const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
+const Inner = dynamic(() => import("./admin/md-editor-inner"), { ssr: false });
 
 type Props = {
   value: string;
   onChange: (value: string) => void;
   height?: number;
+  mode?: "edit" | "live";
+  getAuthHeader: () => string;
+  onError?: (msg: string) => void;
 };
 
-export function AdminMdEditor({ value, onChange, height = 400 }: Props) {
+export function AdminMdEditor({ value, onChange, height = 480, mode = "edit", getAuthHeader, onError }: Props) {
   return (
     <div data-color-mode="dark" className="admin-md-editor-wrap">
-      <MDEditor
+      <Inner
         value={value}
-        onChange={(v) => onChange(v ?? "")}
+        onChange={onChange}
         height={height}
-        preview="edit"
-        visibleDragbar={false}
+        preview={mode}
+        getAuthHeader={getAuthHeader}
+        onError={onError ?? (() => {})}
       />
     </div>
   );
