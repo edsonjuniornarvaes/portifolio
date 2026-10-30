@@ -3,6 +3,7 @@
 import styled from "styled-components";
 import { usePathname } from "next/navigation";
 import Wave from "@/components/retro/wave";
+import Badge from "@/components/retro/badge";
 import LocalTime from "@/components/ui/local-time";
 import { contact, location } from "@/data/profile";
 
@@ -46,6 +47,7 @@ export default function Footer() {
         <p className="copy">
           © {new Date().getFullYear()} Edson Junior · {location} · <LocalTime />
         </p>
+        <Badge />
       </div>
     </Foot>
   );
