@@ -135,6 +135,15 @@ export const Work = styled.div`
   .feat h3 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.03em; margin: 4px 0 14px; }
   .shot { aspect-ratio: 16 / 10; overflow: hidden; display: block; }
   .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .shot .mock {
+    width: 100%; height: 100%; display: grid; place-content: center; justify-items: center; gap: 10px; text-align: center;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(0,0,0,0.25) 1px, transparent 1.4px) 0 0 / 5px 5px,
+      radial-gradient(ellipse 90% 90% at 25% 0%, color-mix(in srgb, var(--c, #2eebaa) 80%, transparent), transparent 75%),
+      var(--paper-2);
+  }
+  .shot .mock b { font-family: var(--font-condensed); font-weight: 400; font-size: 4.5rem; line-height: 1; color: #fff; text-shadow: 0 6px 26px rgba(0,0,0,0.4); }
+  .shot .mock i { font-style: normal; font-family: var(--font-mono); font-size: 0.78rem; color: #fff; opacity: 0.85; }
 `;
 
 export const Cta = styled(Link)`

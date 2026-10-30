@@ -18,7 +18,7 @@ import TvPortrait from "@/components/retro/tv-portrait";
 import Shapes from "@/components/retro/shapes";
 import { ExperienceData } from "../about/helper";
 import { personalProjects, professionalProjects, webProjects, getProjectById, type Project } from "../projects/helper";
-import { contact, githubUsers, yearsCareer, yearsMobile, yearsStudying } from "@/data/profile";
+import { contact, githubUsers, yearsCareer, yearsMobile, yearsStudying, SHOW_PROJECT_IMAGES } from "@/data/profile";
 
 const GROUPS = [
   { id: "all", label: "todos" },
@@ -89,7 +89,7 @@ function Projects() {
             <WindowFrame tilt={i % 3 === 1 ? 1.2 : i % 3 === 2 ? -1.2 : 0} hue={p.type === "personal" ? "mint" : i % 2 ? "violet" : "warm"}>
               <R.WinCard href={`/projects/${p.id}`} $color={p.iconColor} style={{ ["--st" as string]: DOT[p.status] }}>
                 <div className="cover">
-                  {p.galleryImages?.[0] ? (
+                  {SHOW_PROJECT_IMAGES && p.galleryImages?.[0] ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} loading="lazy" />
                   ) : (
@@ -274,8 +274,15 @@ export default function Home() {
             <div className="feat">
               <WindowFrame tilt={2}>
                 <Link href={`/projects/${feat.id}`} className="shot">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={feat.galleryImages?.[0]} alt={`Tela de ${feat.title}`} />
+                  {SHOW_PROJECT_IMAGES && feat.galleryImages?.[0] ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={feat.galleryImages[0]} alt={`Tela de ${feat.title}`} />
+                  ) : (
+                    <span className="mock" style={{ ["--c" as string]: feat.iconColor }}>
+                      <b>{feat.iconLetter ?? feat.title[0]}</b>
+                      <i>{feat.tags.slice(0, 3).join(" · ")}</i>
+                    </span>
+                  )}
                 </Link>
               </WindowFrame>
               <small>Projeto em destaque</small>

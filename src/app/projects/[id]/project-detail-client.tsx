@@ -4,7 +4,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { type Project } from "../helper";
 import { MarkdownBody } from "@/components/markdown-body";
-import { cases } from "@/data/profile";
+import { cases, SHOW_PROJECT_IMAGES } from "@/data/profile";
 import * as S from "../../home/styles";
 
 const STATUS: Record<Project["status"], string> = {
@@ -67,7 +67,7 @@ function ProjectDetailClient({ project }: { project: Project }) {
   const shots = [
     ...(project.showPreview !== false && project.showMockupApple !== false ? [project.mockupAppleUrl] : []),
     ...(project.showPreview !== false && project.showMockupPlay !== false ? [project.mockupPlayUrl] : []),
-    ...(project.showGallery !== false ? project.galleryImages || [] : []),
+    ...(SHOW_PROJECT_IMAGES && project.showGallery !== false ? project.galleryImages || [] : []),
   ]
     .map((u) => (u || "").trim())
     .filter(Boolean);
