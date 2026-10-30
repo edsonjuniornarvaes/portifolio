@@ -24,6 +24,7 @@ export const contact = {
   linkedin: "https://linkedin.com/in/edsonjuniornarvaes",
   github: "https://github.com/edsonjuniornarvaes",
   devto: "https://dev.to/edsonjuniornarvaes",
+  instagram: "https://www.instagram.com/edsonjunior.dev",
 };
 
 export const heroWords = [

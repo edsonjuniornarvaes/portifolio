@@ -67,6 +67,7 @@ const personJsonLd = {
     "https://www.linkedin.com/in/edsonjuniornarvaes/",
     "https://github.com/edsonjuniornarvaes",
     "https://dev.to/edsonjuniornarvaes",
+    "https://www.instagram.com/edsonjunior.dev",
   ],
   knowsAbout: ["React Native", "TypeScript", "iOS", "Android", "Next.js"],
 };

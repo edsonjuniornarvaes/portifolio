@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { FaGithub, FaLinkedinIn, FaDev, FaEnvelope } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn, FaDev, FaEnvelope, FaInstagram } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import Wave from "@/components/retro/wave";
 import LocalTime from "@/components/ui/local-time";
@@ -56,6 +56,7 @@ export default function Footer() {
           <a href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub size={22} /></a>
           <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn size={22} /></a>
           <a href={contact.devto} target="_blank" rel="noopener noreferrer" aria-label="Dev.to"><FaDev size={26} /></a>
+          <a href={contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram size={22} /></a>
           <a href={`mailto:${contact.email}`} aria-label="E-mail"><FaEnvelope size={22} /></a>
         </nav>
         <p className="copy">
