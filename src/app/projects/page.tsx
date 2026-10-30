@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 import * as S from "../home/styles";
+import { SHOW_PROJECT_IMAGES } from "@/data/profile";
 import GlowCard from "@/components/ui/glow-card";
 import { personalProjects, professionalProjects, webProjects, type Project } from "./helper";
 
@@ -82,7 +83,7 @@ export default function Projects() {
           <GlowCard key={p.id}>
             <S.Card href={`/projects/${p.id}`} $color={p.iconColor}>
             <div className="thumb">
-              {p.galleryImages?.[0] ? (
+              {SHOW_PROJECT_IMAGES && p.galleryImages?.[0] ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} />
               ) : (

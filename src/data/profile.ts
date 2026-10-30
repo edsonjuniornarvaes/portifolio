@@ -14,6 +14,9 @@ export const yearsMobile = NOW - MOBILE_SINCE;
 /** Contas do GitHub somadas no mapa de atividade (pessoal + trabalho). */
 export const location = "Umuarama, PR";
 
+/** Liga/desliga as capturas de tela dos projetos no site. Os arquivos continuam em public/images. */
+export const SHOW_PROJECT_IMAGES = false;
+
 export const githubUsers = ["edsonjuniornarvaes", "edsonjuniorsuperlogica"];
 
 export const contact = {
