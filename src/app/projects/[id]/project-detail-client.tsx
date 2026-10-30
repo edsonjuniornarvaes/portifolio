@@ -50,10 +50,11 @@ const Facts = styled.dl`
 `;
 
 const Shots = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  img { width: 100%; border: 1px solid var(--line); border-radius: 6px; display: block; }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+  img { display: block; width: auto; max-width: 100%; max-height: 520px; border: 1px solid var(--line); border-radius: 10px; }
 `;
 
 function ProjectDetailClient({ project }: { project: Project }) {
