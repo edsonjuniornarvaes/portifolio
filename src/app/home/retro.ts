@@ -162,12 +162,13 @@ export const Filters = styled.div`
 `;
 
 export const WinGrid = styled.div`
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 26px;
-  @media (max-width: 900px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  @media (max-width: 520px) { grid-template-columns: 1fr; }
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 30px 22px;
+  @media (max-width: 1000px) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 720px) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 14px; }
 `;
 
 export const WinCard = styled(Link)<{ $color?: string }>`
+  position: relative;
   display: block;
   .cover {
     position: relative; aspect-ratio: 16 / 11; display: grid; place-items: center; overflow: hidden;
@@ -178,11 +179,21 @@ export const WinCard = styled(Link)<{ $color?: string }>`
   }
   .cover img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.5s ease; }
   &:hover .cover img { transform: scale(1.05); }
-  .letter { font-family: var(--font-condensed); font-size: 3rem; color: #fff; text-shadow: 0 6px 26px rgba(0,0,0,0.4); }
-  .cap { padding: 14px 4px 0; }
-  .cap strong { display: block; font-size: 1.02rem; font-weight: 650; letter-spacing: -0.015em; }
-  .cap span { display: block; margin-top: 3px; font-size: 0.82rem; color: var(--muted); }
-  .cap em { font-style: normal; font-family: var(--font-mono); font-size: 0.66rem; color: var(--st, var(--muted)); }
+  .letter { font-family: var(--font-condensed); font-size: 2.3rem; color: #fff; text-shadow: 0 6px 26px rgba(0,0,0,0.4); }
+
+  /* efeito: no hover o quadro inclina e ganha a borda em degradê */
+  &:hover .rv { transform: rotate(-3deg) translateY(-6px); box-shadow: 0 20px 44px var(--glow); }
+  &:hover .rv::before { opacity: 1; }
+
+  /* moldura de canto, sobreposta ao título */
+  .bracket { position: absolute; left: -10px; top: calc(100% * 0.42); width: 30px; height: 42px; stroke: var(--accent-2); opacity: 0.75; pointer-events: none; transition: transform 0.3s ease; }
+  &:hover .bracket { transform: translate(-3px, 3px); opacity: 1; }
+  @media (max-width: 720px) { .bracket { display: none; } }
+
+  .cap { padding: 12px 2px 0; position: relative; }
+  .cap strong { display: block; font-size: 0.94rem; font-weight: 650; letter-spacing: -0.015em; line-height: 1.25; }
+  .cap span { display: block; margin-top: 3px; font-size: 0.76rem; line-height: 1.4; color: var(--muted); }
+  .cap em { font-style: normal; font-family: var(--font-mono); font-size: 0.64rem; color: var(--st, var(--muted)); display: inline-block; margin-top: 4px; }
 `;
 
 /* ---- Escrita (lista no estilo Tania) ---- */

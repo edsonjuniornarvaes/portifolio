@@ -85,9 +85,9 @@ function Projects() {
       </R.Filters>
       <R.WinGrid>
         {list.map((p, i) => (
-          <Reveal key={p.id} delay={(i % 3) * 60}>
-            <WindowFrame tilt={i % 3 === 1 ? 1.2 : i % 3 === 2 ? -1.2 : 0} hue={p.type === "personal" ? "mint" : i % 2 ? "violet" : "warm"}>
-              <R.WinCard href={`/projects/${p.id}`} $color={p.iconColor} style={{ ["--st" as string]: DOT[p.status] }}>
+          <Reveal key={p.id} delay={(i % 4) * 50}>
+            <R.WinCard href={`/projects/${p.id}`} $color={p.iconColor} style={{ ["--st" as string]: DOT[p.status] }}>
+              <WindowFrame className="rv" reveal hue={p.type === "personal" ? "mint" : i % 2 ? "violet" : "warm"}>
                 <div className="cover">
                   {SHOW_PROJECT_IMAGES && p.galleryImages?.[0] ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -96,13 +96,16 @@ function Projects() {
                     <span className="letter">{p.iconLetter ?? p.title[0]}</span>
                   )}
                 </div>
-                <div className="cap" style={{ padding: "12px 14px 14px" }}>
-                  <strong>{p.title}</strong>
-                  <span>{p.tagline}</span>
-                  <em>● {STATUS[p.status]}</em>
-                </div>
-              </R.WinCard>
-            </WindowFrame>
+              </WindowFrame>
+              <svg className="bracket" viewBox="0 0 44 60" aria-hidden>
+                <path d="M1 1 H28 L43 15 V59 H1 Z" fill="none" strokeWidth="2" />
+              </svg>
+              <div className="cap">
+                <strong>{p.title}</strong>
+                <span>{p.tagline}</span>
+                <em>● {STATUS[p.status]}</em>
+              </div>
+            </R.WinCard>
           </Reveal>
         ))}
       </R.WinGrid>
