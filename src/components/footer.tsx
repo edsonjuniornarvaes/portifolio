@@ -3,7 +3,6 @@
 import styled from "styled-components";
 import { usePathname } from "next/navigation";
 import Wave from "@/components/retro/wave";
-import Badge from "@/components/retro/badge";
 import LocalTime from "@/components/ui/local-time";
 import { contact, location } from "@/data/profile";
 
@@ -23,6 +22,11 @@ const Foot = styled.footer`
   .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 26px; font-family: var(--font-mono); font-size: 0.95rem; }
   .links a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; }
   .links a:hover { color: var(--ink); }
+  .stamp {
+    display: inline-block; margin-top: 22px; padding: 6px 14px; border: 2px solid var(--ink); font-family: var(--font-condensed);
+    text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.82rem; line-height: 1.25; color: var(--ink); transform: rotate(-2deg);
+  }
+  .stamp b { display: block; font-weight: 400; letter-spacing: 0.3em; font-size: 1.15rem; color: var(--accent-ink); }
   .copy { margin-top: 20px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
 `;
 
@@ -47,7 +51,11 @@ export default function Footer() {
         <p className="copy">
           © {new Date().getFullYear()} Edson Junior · {location} · <LocalTime />
         </p>
-        <Badge />
+        <div className="stamp">
+          Feito em
+          <b>UMUARAMA</b>
+          com muito café
+        </div>
       </div>
     </Foot>
   );
