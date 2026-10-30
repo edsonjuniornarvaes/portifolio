@@ -13,7 +13,7 @@ import GithubActivity from "@/components/ui/github-activity";
 import StackGroups from "@/components/ui/stack-groups";
 import { ExperienceData } from "../about/helper";
 import { personalProjects, professionalProjects, webProjects, type Project } from "../projects/helper";
-import { contact, githubUsers, location, yearsCareer, yearsMobile } from "@/data/profile";
+import { contact, githubUsers, location, yearsCareer, yearsMobile, yearsStudying } from "@/data/profile";
 
 const GROUPS = [
   { id: "all", label: "Todos" },
@@ -171,7 +171,7 @@ export default function Home() {
               <dt>
                 <CountUp to={yearsCareer} suffix="+" />
               </dt>
-              <dd>anos como desenvolvedor</dd>
+              <dd>anos como desenvolvedor profissional</dd>
             </div>
             <div>
               <dt>
@@ -180,8 +180,10 @@ export default function Home() {
               <dd>anos em desenvolvimento mobile</dd>
             </div>
             <div>
-              <dt>Milhões</dt>
-              <dd>de usuários no Gruvi, superapp em que atuei</dd>
+              <dt>
+                <CountUp to={yearsStudying} suffix="+" />
+              </dt>
+              <dd>anos de experiência em tecnologia</dd>
             </div>
           </S.Shortlog>
         </motion.div>

@@ -20,31 +20,23 @@ const GROUPS: { title: string; items: [IconType, string][] }[] = [
 
 const Wrap = styled.div`
   display: grid;
-  .row {
-    display: grid;
-    grid-template-columns: 220px minmax(0, 1fr);
-    gap: 14px 24px;
-    align-items: center;
-    padding: 22px 0;
-    border-top: 1px solid var(--line);
-  }
-  .row:last-child { border-bottom: 1px solid var(--line); }
-  @media (max-width: 720px) { .row { grid-template-columns: 1fr; padding: 18px 0; } }
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  @media (max-width: 720px) { grid-template-columns: 1fr; gap: 10px; }
+  .group { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px 16px; background: var(--card); }
   h3 {
-    font-family: var(--font-condensed);
-    font-weight: 400;
-    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    line-height: 1;
-    color: var(--muted);
-    transition: color 0.25s ease;
+    font-family: var(--font-mono); font-weight: 500; font-size: 0.7rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
   }
-  .row:hover h3 { color: var(--ink); }
-  .items { display: flex; flex-wrap: wrap; gap: 12px 26px; }
-  .item { display: inline-flex; align-items: center; gap: 10px; font-size: 1.02rem; color: var(--ink); transition: transform 0.2s ease, color 0.2s ease; }
-  .item svg { font-size: 1.35rem; color: var(--accent-ink); }
-  .item:hover { transform: translateY(-2px); color: var(--accent-ink); }
+  .items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .item {
+    display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px;
+    font-size: 0.8rem; color: var(--ink); border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--ink) 3%, transparent);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .item svg { font-size: 0.9rem; color: var(--accent-ink); flex-shrink: 0; }
+  .item:hover { border-color: var(--accent-ink); }
 `;
 
 /** Tecnologias agrupadas por categoria, com ícones. */
@@ -52,7 +44,7 @@ export default function StackGroups() {
   return (
     <Wrap>
       {GROUPS.map((g) => (
-        <div className="row" key={g.title}>
+        <div className="group" key={g.title}>
           <h3>{g.title}</h3>
           <div className="items">
             {g.items.map(([Icon, label]) => (
