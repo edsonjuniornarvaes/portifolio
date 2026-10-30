@@ -26,7 +26,7 @@ const Foot = styled.footer`
     display: inline-block; margin-top: 22px; padding: 6px 14px; border: 2px solid var(--ink); font-family: var(--font-condensed);
     text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.82rem; line-height: 1.25; color: var(--ink); transform: rotate(-2deg);
   }
-  .stamp b { display: block; font-weight: 400; letter-spacing: 0.3em; font-size: 1.15rem; color: var(--accent-ink); }
+  .stamp b { display: block; font-weight: 400; letter-spacing: 0.22em; font-size: 1.15rem; color: var(--accent-ink); }
   .copy { margin-top: 20px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
 `;
 
@@ -52,9 +52,8 @@ export default function Footer() {
           © {new Date().getFullYear()} Edson Junior · {location} · <LocalTime />
         </p>
         <div className="stamp">
-          Feito em
-          <b>UMUARAMA</b>
-          com muito café
+          Feito
+          <b>À BASE DE CAFÉ</b>
         </div>
       </div>
     </Foot>
