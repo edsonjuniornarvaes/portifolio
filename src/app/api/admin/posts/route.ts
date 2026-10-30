@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase';
 import { verifyAdminToken } from '@/lib/verify-admin';
-
-function slugify(text: string) {
-  return text
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
-}
+import { safeImageUrl, slugify } from '@/lib/post-utils';
 
 export async function GET(request: NextRequest) {
   if (!verifyAdminToken(request)) {
@@ -39,11 +31,16 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const title = String(body.title || '').trim();
-    let slug = String(body.slug || '').trim().toLowerCase();
     if (!title) {
       return NextResponse.json({ error: 'Título obrigatório' }, { status: 400 });
     }
-    if (!slug) slug = slugify(title);
+    if (title.length > 200) {
+      return NextResponse.json({ error: 'Título muito longo (máx. 200 caracteres)' }, { status: 400 });
+    }
+    const slug = slugify(String(body.slug || '') || title);
+    if (!slug) {
+      return NextResponse.json({ error: 'Slug inválido' }, { status: 400 });
+    }
 
     let supabase;
     try {
@@ -59,8 +56,8 @@ export async function POST(request: NextRequest) {
     const row = {
       slug,
       title,
-      excerpt: body.excerpt ?? null,
-      cover_image_url: body.cover_image_url ?? null,
+      excerpt: body.excerpt ? String(body.excerpt).slice(0, 400) : null,
+      cover_image_url: safeImageUrl(body.cover_image_url),
       body_markdown: String(body.body_markdown || ''),
       published: Boolean(body.published),
       updated_at: new Date().toISOString(),

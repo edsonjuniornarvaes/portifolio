@@ -166,7 +166,7 @@ export function AdminCoverField({ value, onChange, getAuthHeader }: Props) {
         onChange={(e) => onChange(e.target.value)}
         placeholder="https://… ou /images/…"
       />
-      <Hint>JPEG, PNG, WebP ou GIF · até 5 MB no upload. Bucket público `blog-covers` no Supabase.</Hint>
+      <Hint>JPEG, PNG, WebP ou GIF · até 5 MB no upload. Usa o bucket público `blog-covers` do Supabase.</Hint>
     </Row>
   );
 }

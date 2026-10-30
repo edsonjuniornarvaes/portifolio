@@ -491,7 +491,7 @@ export const StatusTag = styled.span<{ $tone: "live" | "dev" | "done" }>`
   border: 1px solid ${(p) => (p.$tone === "live" ? "rgba(74,222,128,0.35)" : p.$tone === "dev" ? "rgba(251,191,36,0.35)" : "var(--line)")};
 `;
 
-/* ----- histórico de commits (experiência) ----- */
+/* ----- experiência (linha do tempo) ----- */
 export const Commits = styled.div`
   position: relative; padding-left: 34px;
   .rail { position: absolute; left: 7px; top: 10px; bottom: 10px; width: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
@@ -506,10 +506,7 @@ export const CommitCard = styled.div`
   transition: border-color 0.25s ease;
   &:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
   .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); margin-bottom: 10px; }
-  .hash { color: var(--accent-ink); }
-  .ref { padding: 2px 8px; border-radius: 6px; border: 1px solid var(--line); }
-  .ref.head { color: var(--on-accent); background: var(--accent); border-color: var(--accent); font-weight: 600; }
-  .when { margin-left: auto; }
+  .when { margin-left: auto; color: var(--accent-ink); }
   h3 { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.015em; }
   .company { font-size: 0.86rem; color: var(--muted); margin-top: 2px; }
   p { margin-top: 12px; font-size: 0.92rem; line-height: 1.65; color: var(--muted); }
@@ -588,4 +585,57 @@ export const Statement = styled.p`
   b { font-weight: 500; color: var(--ink); }
   em { font-style: normal; color: var(--accent-ink); font-weight: 500; }
   max-width: 28ch;
+`;
+
+export const Avatar = styled.div`
+  position: relative;
+  width: 92px; height: 92px; margin-bottom: 22px;
+  border-radius: 50%;
+  padding: 3px;
+  background: var(--brand-gradient);
+  box-shadow: 0 0 40px var(--glow);
+  img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center 20%; border: 3px solid var(--paper); }
+  .live { position: absolute; right: 4px; bottom: 4px; width: 16px; height: 16px; border-radius: 50%; background: #4ade80; border: 3px solid var(--paper); }
+`;
+
+export const TileTabs = styled.div`
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
+  button {
+    font: inherit; font-size: 0.82rem; height: 32px; padding: 0 14px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--line); background: transparent; color: var(--muted); transition: all 0.2s ease;
+  }
+  button:hover { color: var(--ink); border-color: var(--muted); }
+  button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 600; }
+`;
+
+export const TileGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
+  gap: 12px;
+  @media (max-width: 480px) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+`;
+
+export const Tile = styled(Link)<{ $color?: string }>`
+  display: block; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--card);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  &:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); box-shadow: 0 14px 36px var(--glow); }
+  .cover {
+    position: relative; aspect-ratio: 16 / 11; overflow: hidden; display: grid; place-items: center;
+    background:
+      radial-gradient(ellipse 90% 90% at 25% 0%, color-mix(in srgb, ${(p) => p.$color ?? "#2eebaa"} 75%, transparent), transparent 75%),
+      var(--paper-2);
+  }
+  .cover img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.5s ease; }
+  &:hover .cover img { transform: scale(1.06); }
+  .letter { font-size: 1.7rem; font-weight: 750; color: #fff; letter-spacing: -0.03em; text-shadow: 0 4px 20px rgba(0,0,0,0.35); }
+  .over {
+    position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 10px 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.82), transparent 70%); opacity: 0; transition: opacity 0.25s ease;
+  }
+  .over p { font-size: 0.74rem; line-height: 1.35; color: #fff; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  &:hover .over { opacity: 1; }
+  @media (hover: none) { .over { display: none; } }
+  .foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; }
+  .foot strong { font-size: 0.86rem; font-weight: 600; letter-spacing: -0.01em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .st { width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex-shrink: 0; }
 `;

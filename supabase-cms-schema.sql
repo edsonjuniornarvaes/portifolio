@@ -33,14 +33,8 @@ CREATE TABLE IF NOT EXISTS password_reset_tokens (
 
 CREATE INDEX IF NOT EXISTS idx_password_reset_token ON password_reset_tokens(token);
 
--- Hash inicial = mesmo bcrypt do login (!Edsandrade@030adm)
-INSERT INTO admin_credentials (id, email, password_hash)
-VALUES (
-  1,
-  'edsonjunior.narvaes@gmail.com',
-  '$2b$10$v72K7Iq8d1kquoEK.orSXuk/kdGZ1cvMzLmwC1obUSRr3WIcJuJ/u'
-)
-ON CONFLICT (id) DO NOTHING;
+-- A senha do admin vem de ADMIN_PASSWORD_HASH (variável de ambiente) ou da tabela acima,
+-- preenchida pelo fluxo "Esqueci minha senha". Não grave senhas ou hashes neste arquivo.
 
 ALTER TABLE blog_posts ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Public read published posts" ON blog_posts;

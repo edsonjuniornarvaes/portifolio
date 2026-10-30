@@ -10,31 +10,26 @@ import CountUp from "@/components/ui/count-up";
 import LocalTime from "@/components/ui/local-time";
 import CopyButton from "@/components/ui/copy-button";
 import GithubActivity from "@/components/ui/github-activity";
-import ProjectCarousel from "@/components/ui/project-carousel";
 import StackGroups from "@/components/ui/stack-groups";
 import { ExperienceData } from "../about/helper";
-import { getProjectById, type Project } from "../projects/helper";
-import { contact, githubUsers, location, yearsCareer, yearsMobile, STUDY_SINCE } from "@/data/profile";
+import { personalProjects, professionalProjects, webProjects, type Project } from "../projects/helper";
+import { contact, githubUsers, location, yearsCareer, yearsMobile } from "@/data/profile";
 
-const FEATURED = [
-  "clube-da-joia-marketplace",
-  "clube-da-joia-app",
-  "pjbank",
-  "gruvi",
-  "mont-b2b",
-  "minha-navex",
-];
+const GROUPS = [
+  { id: "all", label: "Todos" },
+  { id: "own", label: "Produtos próprios" },
+  { id: "mobile", label: "Apps" },
+  { id: "web", label: "Web" },
+] as const;
+
+type GroupId = (typeof GROUPS)[number]["id"];
+
+const STATUS = { production: "No ar", development: "Em desenvolvimento", paused: "Entregue" } as const;
+const DOT = { production: "#4ade80", development: "#fbbf24", paused: "var(--muted)" } as const;
 
 type BlogPostPreview = { id: string; slug: string; title: string; excerpt: string | null; created_at?: string };
 
-/** Hash curto e estável, só decorativo (estilo de commit). */
-function shortHash(seed: string) {
-  let h = 5381;
-  for (let i = 0; i < seed.length; i++) h = (h * 33) ^ seed.charCodeAt(i);
-  return (h >>> 0).toString(16).padStart(8, "0").slice(0, 7);
-}
-
-function History() {
+function Experience() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 55%"] });
   const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.4 });
@@ -48,8 +43,6 @@ function History() {
         <Reveal key={`${job.company}-${job.period}`} className={`commit${i === 0 ? " head" : ""}`}>
           <S.CommitCard>
             <div className="meta">
-              <span className="hash">{shortHash(job.company + job.period)}</span>
-              {i === 0 ? <span className="ref head">HEAD → main</span> : <span className="ref">merged</span>}
               <span className="when">{job.period}</span>
             </div>
             <h3>{job.role}</h3>
@@ -69,6 +62,51 @@ function History() {
   );
 }
 
+function Tiles() {
+  const [group, setGroup] = useState<GroupId>("all");
+  const list: Project[] =
+    group === "own"
+      ? personalProjects
+      : group === "mobile"
+        ? professionalProjects
+        : group === "web"
+          ? webProjects
+          : [...personalProjects, ...professionalProjects, ...webProjects];
+
+  return (
+    <>
+      <S.TileTabs role="group" aria-label="Filtrar projetos">
+        {GROUPS.map((g) => (
+          <button key={g.id} aria-pressed={group === g.id} onClick={() => setGroup(g.id)}>
+            {g.label}
+          </button>
+        ))}
+      </S.TileTabs>
+      <S.TileGrid>
+        {list.map((p) => (
+          <S.Tile key={p.id} href={`/projects/${p.id}`} $color={p.iconColor}>
+            <div className="cover">
+              {p.galleryImages?.[0] ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} loading="lazy" />
+              ) : (
+                <span className="letter">{p.iconLetter ?? p.title[0]}</span>
+              )}
+              <div className="over">
+                <p>{p.tagline}</p>
+              </div>
+            </div>
+            <div className="foot">
+              <strong>{p.title}</strong>
+              <span className="st" style={{ ["--c" as string]: DOT[p.status] }} title={STATUS[p.status]} />
+            </div>
+          </S.Tile>
+        ))}
+      </S.TileGrid>
+    </>
+  );
+}
+
 export default function Home() {
   const [posts, setPosts] = useState<BlogPostPreview[]>([]);
 
@@ -79,8 +117,7 @@ export default function Home() {
       .catch(() => setPosts([]));
   }, []);
 
-  const projects = FEATURED.map((id) => getProjectById(id)).filter(Boolean) as Project[];
-
+  
   return (
     <S.Page>
       {/* HERO */}
@@ -90,6 +127,11 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}
         >
+          <S.Avatar>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/edson.webp" alt="Edson Junior" />
+            <span className="live" aria-label="Disponível" />
+          </S.Avatar>
           <S.Caption>
             <span className="hi">{"// olá, eu sou"}</span>
             <span className="status">
@@ -138,8 +180,8 @@ export default function Home() {
               <dd>anos em desenvolvimento mobile</dd>
             </div>
             <div>
-              <dt>{STUDY_SINCE}</dt>
-              <dd>ano em que comecei a estudar tecnologia</dd>
+              <dt>Milhões</dt>
+              <dd>de usuários no Gruvi, superapp em que atuei</dd>
             </div>
           </S.Shortlog>
         </motion.div>
@@ -149,15 +191,8 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.2, 0.7, 0.2, 1] }}
         >
-          <S.PhotoCard>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/edson.webp" alt="Retrato de Edson Junior" />
-            <div className="cap">
-              <strong>Edson Junior</strong>
-              <span>{location}</span>
-            </div>
-          </S.PhotoCard>
-          <S.Window style={{ marginTop: 14 }}>
+
+          <S.Window>
             <GithubActivity users={githubUsers} />
           </S.Window>
         </motion.div>
@@ -178,12 +213,12 @@ export default function Home() {
         <S.Head2>
           <div>
             <span className="tag">projetos</span>
-            <h2>Projetos em destaque</h2>
-            <p>Produtos que construí do zero e apps em que atuei.</p>
+            <h2>Projetos</h2>
+            <p>Produtos que construí do zero e apps e sistemas em que atuei.</p>
           </div>
-          <S.TextLink href="/projects">Ver todos →</S.TextLink>
+          <S.TextLink href="/projects">Ver detalhes →</S.TextLink>
         </S.Head2>
-        <ProjectCarousel projects={projects} />
+        <Tiles />
       </S.Block>
 
       {/* STACK */}
@@ -203,11 +238,11 @@ export default function Home() {
         <S.Head2>
           <div>
             <span className="tag">experiência</span>
-            <h2>Histórico de commits</h2>
+            <h2>Experiência</h2>
             <p>Da web ao mobile: onde trabalhei e o que entreguei.</p>
           </div>
         </S.Head2>
-        <History />
+        <Experience />
       </S.Block>
 
       {/* BLOG */}
