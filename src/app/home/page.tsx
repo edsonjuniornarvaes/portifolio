@@ -348,6 +348,7 @@ export default function Home() {
               <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">linkedin</a>
               <a href={contact.github} target="_blank" rel="noopener noreferrer">github</a>
               <a href={contact.devto} target="_blank" rel="noopener noreferrer">dev.to</a>
+              <a href={contact.instagram} target="_blank" rel="noopener noreferrer">instagram</a>
             </div>
           </R.ContactWin>
         </WindowFrame>
