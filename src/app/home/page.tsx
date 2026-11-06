@@ -12,6 +12,8 @@ import LocalTime from "@/components/ui/local-time";
 import CopyChip from "@/components/ui/copy-chip";
 import Ticker, { type TickerItem } from "@/components/ui/ticker";
 import GithubActivity from "@/components/ui/github-activity";
+import PhoneShowcase, { type Screen } from "@/components/ui/phone-showcase";
+import TechIcon from "@/components/ui/tech-icon";
 import WindowFrame from "@/components/retro/window-frame";
 import { ExperienceData } from "../about/helper";
 import { personalProjects, professionalProjects, webProjects, type Project } from "../projects/helper";
@@ -38,6 +40,14 @@ const STATUS = { production: "no ar", development: "em desenvolvimento", paused:
 const DOT = { production: "#4ade80", development: "#fbbf24", paused: "var(--muted)" } as const;
 
 type PostPreview = { id: string; slug: string; title: string; excerpt: string | null; created_at?: string };
+
+const SCREENS: Screen[] = [
+  { src: "/images/projects/mont-b2c-login-teclado.webp", app: "Mont B2C", note: "login" },
+  { src: "/images/projects/navex-home.webp", app: "Minha Navex", note: "início" },
+  { src: "/images/projects/mont-b2b-login.webp", app: "Mont B2B", note: "acesso do parceiro" },
+  { src: "/images/projects/navex-chamados.webp", app: "Minha Navex", note: "chamados" },
+  { src: "/images/projects/mont-b2c-login.webp", app: "Mont B2C", note: "abrir conta" },
+];
 
 const TICKER: TickerItem[] = [
   { label: `${yearsCareer}+ anos`, value: "como dev", tone: "live" },
@@ -70,7 +80,10 @@ function Experience() {
             <p>{job.description}</p>
             <S.Chips style={{ marginTop: 14 }}>
               {job.skills.slice(0, 5).map((t) => (
-                <span key={t}>{t}</span>
+                <span key={t} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                  <TechIcon name={t} size={13} />
+                  {t}
+                </span>
               ))}
             </S.Chips>
           </S.CommitCard>
@@ -104,9 +117,9 @@ function Projects() {
             <R.WinCard href={`/projects/${p.id}`} $color={p.iconColor} style={{ ["--st" as string]: DOT[p.status] }}>
               <WindowFrame className="rv" reveal hue={p.type === "personal" ? "mint" : i % 2 ? "violet" : "warm"}>
                 <div className="cover">
-                  {SHOW_PROJECT_IMAGES && p.galleryImages?.[0] ? (
+                  {(p.coverImage || (SHOW_PROJECT_IMAGES && p.galleryImages?.[0])) ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} loading="lazy" />
+                    <img src={p.coverImage ?? p.galleryImages?.[0]} alt={`Tela de ${p.title}`} loading="lazy" />
                   ) : (
                     <span className="letter">{p.iconLetter ?? p.title[0]}</span>
                   )}
@@ -181,12 +194,7 @@ export default function Home() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.12 }}>
-            <WindowFrame hue="violet" tilt={-1}>
-              <GithubActivity users={githubUsers} />
-            </WindowFrame>
-            <p style={{ marginTop: 12, fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--muted)", textAlign: "right" }}>
-              {location} · <LocalTime />
-            </p>
+            <PhoneShowcase screens={SCREENS} />
           </motion.div>
         </R.HeroGrid>
       </R.Hero>
@@ -202,6 +210,15 @@ export default function Home() {
         </R.Heading>
         <Projects />
       </R.Section>
+
+      <div style={{ marginTop: 56 }}>
+        <WindowFrame hue="violet" tilt={-0.6}>
+          <GithubActivity users={githubUsers} />
+        </WindowFrame>
+        <p style={{ marginTop: 10, fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--muted)", textAlign: "right" }}>
+          {location} · <LocalTime />
+        </p>
+      </div>
 
       {/* 03 — EXPERIÊNCIA */}
       <R.Section id="experiencia">

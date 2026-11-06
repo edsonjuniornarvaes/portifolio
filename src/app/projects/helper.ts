@@ -36,6 +36,10 @@ export interface Project {
   showGallery?: boolean;
   /** URLs do carrossel (uma por slide) */
   galleryImages?: string[];
+  /** Imagem de capa do card (tela do app, logo ou arte do projeto) */
+  coverImage?: string;
+  /** Telas exibidas na página do projeto, independente do SHOW_PROJECT_IMAGES */
+  screens?: string[];
   /** Texto do botão do link principal (ex.: Confira) */
   liveCtaLabel?: string;
 }
@@ -153,6 +157,8 @@ export const professionalProjects: Project[] = [
   },
   {
     id: "gruvi",
+    coverImage: "/images/projects/gruvi-cover.webp",
+    screens: ["/images/projects/gruvi-cover.webp"],
     title: "Gruvi",
     tagline: "Superapp para condomínios, com milhões de usuários",
     description:
@@ -173,6 +179,8 @@ export const professionalProjects: Project[] = [
   },
   {
     id: "mont-b2b",
+    coverImage: "/images/projects/mont-b2b-cover.webp",
+    screens: ["/images/projects/mont-b2b-login.webp"],
     title: "Mont B2B",
     tagline: "Gestão de Investimentos",
     description:
@@ -191,6 +199,8 @@ export const professionalProjects: Project[] = [
   },
   {
     id: "mont-b2c",
+    coverImage: "/images/projects/mont-b2c-cover.webp",
+    screens: ["/images/projects/mont-b2c-login.webp", "/images/projects/mont-b2c-login-teclado.webp"],
     title: "Mont B2C",
     tagline: "Investimentos para Pessoa Física",
     description:
@@ -206,6 +216,8 @@ export const professionalProjects: Project[] = [
   },
   {
     id: "minha-navex",
+    coverImage: "/images/projects/navex-home.webp",
+    screens: ["/images/projects/navex-home.webp", "/images/projects/navex-chamados.webp", "/images/projects/navex-board.webp"],
     title: "Minha Navex",
     tagline: "App de Telecom",
     description:
@@ -269,6 +281,8 @@ export const webProjects: Project[] = [
   },
   {
     id: "lojas-manao",
+    coverImage: "/images/projects/lojas-manao.webp",
+    screens: ["/images/projects/lojas-manao.webp"],
     title: "Lojas do Manão",
     tagline: "B2B & B2C",
     description:

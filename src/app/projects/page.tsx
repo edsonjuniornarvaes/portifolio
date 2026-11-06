@@ -83,9 +83,9 @@ export default function Projects() {
           <GlowCard key={p.id}>
             <S.Card href={`/projects/${p.id}`} $color={p.iconColor}>
             <div className="thumb">
-              {SHOW_PROJECT_IMAGES && p.galleryImages?.[0] ? (
+              {(p.coverImage || (SHOW_PROJECT_IMAGES && p.galleryImages?.[0])) ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={p.galleryImages[0]} alt={`Tela de ${p.title}`} />
+                <img src={p.coverImage ?? p.galleryImages?.[0]} alt={`Tela de ${p.title}`} />
               ) : (
                 p.iconLetter ?? p.title[0]
               )}

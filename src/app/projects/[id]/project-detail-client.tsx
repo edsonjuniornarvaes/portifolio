@@ -1,5 +1,6 @@
 "use client";
 
+import TechIcon from "@/components/ui/tech-icon";
 import Link from "next/link";
 import styled from "styled-components";
 import { type Project } from "../helper";
@@ -67,7 +68,7 @@ function ProjectDetailClient({ project }: { project: Project }) {
   const shots = [
     ...(project.showPreview !== false && project.showMockupApple !== false ? [project.mockupAppleUrl] : []),
     ...(project.showPreview !== false && project.showMockupPlay !== false ? [project.mockupPlayUrl] : []),
-    ...(SHOW_PROJECT_IMAGES && project.showGallery !== false ? project.galleryImages || [] : []),
+    ...(project.screens ?? (SHOW_PROJECT_IMAGES && project.showGallery !== false ? project.galleryImages || [] : [])),
   ]
     .map((u) => (u || "").trim())
     .filter(Boolean);
@@ -136,7 +137,14 @@ function ProjectDetailClient({ project }: { project: Project }) {
       {!study && project.tags.length > 0 && (
         <S.Section>
           <S.Label>Ferramentas</S.Label>
-          <S.Plain>{project.tags.join(", ")}</S.Plain>
+          <S.Plain style={{ display: "flex", flexWrap: "wrap", gap: "8px 20px" }}>
+            {project.tags.map((t) => (
+              <span key={t} style={{ display: "inline-flex", alignItems: "center", gap: 7 }}>
+                <TechIcon name={t} size={15} />
+                {t}
+              </span>
+            ))}
+          </S.Plain>
         </S.Section>
       )}
 
