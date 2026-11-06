@@ -13,7 +13,7 @@ import CopyChip from "@/components/ui/copy-chip";
 import Ticker, { type TickerItem } from "@/components/ui/ticker";
 import GithubActivity from "@/components/ui/github-activity";
 import PhoneRow, { type Screen } from "@/components/ui/phone-row";
-import TvPortrait from "@/components/retro/tv-portrait";
+import TabletPortrait from "@/components/retro/tablet-portrait";
 import TechIcon from "@/components/ui/tech-icon";
 import WindowFrame from "@/components/retro/window-frame";
 import { ExperienceData } from "../about/helper";
@@ -45,8 +45,9 @@ type PostPreview = { id: string; slug: string; title: string; excerpt: string | 
 const SCREENS: Screen[] = [
   { src: "/images/projects/pjbank-home.webp", app: "PJBank", note: "conta digital" },
   { src: "/images/projects/gruvi-minha-casa.webp", app: "Gruvi", note: "minha casa" },
-  { src: "/images/projects/mont-b2c-carteira.webp", app: "Mont B2C", note: "carteira" },
   { src: "/images/projects/mont-b2b-home.webp", app: "Mont B2B", note: "início do parceiro" },
+  { src: "/images/projects/mont-b2c-carteira.webp", app: "Mont B2C", note: "carteira" },
+  { src: "/images/projects/consorcio-gazin-simulador.webp", app: "Consórcio Gazin", note: "simulador" },
   { src: "/images/projects/navex-fatura.webp", app: "Minha Navex", note: "fatura" },
 ];
 
@@ -198,7 +199,7 @@ export default function Home() {
             </R.Stats>
                 </div>
                 <div className="tv">
-                  <TvPortrait src="/images/edson.webp" alt="Retrato de Edson Junior" />
+                  <TabletPortrait src="/images/edson.webp" alt="Retrato de Edson Junior" />
                 </div>
               </div>
             </WindowFrame>
