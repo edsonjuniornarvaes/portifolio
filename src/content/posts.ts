@@ -16,183 +16,242 @@ export const STATIC_POSTS: StaticPost[] = [
   {
     id: "static-mvvm-na-pratica-react-native",
     slug: "mvvm-na-pratica-react-native",
-    title: "MVVM na prática em React Native",
-    excerpt: "Como separar tela, estado e regras de negócio num app React Native para que ele continue fácil de mudar e de testar.",
+    title: "MVVM explicado: o que é, quando usar e como aplicar em React Native",
+    excerpt: "Model, View e ViewModel: a responsabilidade de cada camada, por que separar a interface da lógica de negócio e quando o padrão não vale a pena.",
     cover_image_url: null,
     created_at: "2026-02-10T12:00:00.000Z",
-    body_markdown: `Quando um app React Native cresce, o primeiro sintoma quase sempre é o mesmo: componentes com **200 linhas** que misturam layout, chamadas de API, estado, formatação e regra de negócio. Mudar uma coisa quebra três. Testar vira um sacrifício.
+    body_markdown: `**MVVM** (Model-View-ViewModel) é um padrão que separa a interface da lógica de negócio.
 
-O **MVVM** (Model, View, ViewModel) é uma forma simples de colocar cada coisa no seu lugar.
+## O desafio da organização
 
-## As três camadas
+Quando código de UI e regras de negócio ficam misturados, aparecem os mesmos problemas:
 
-- **View**: só desenha. Recebe dados prontos e dispara ações. Não sabe de onde os dados vêm.
-- **ViewModel**: guarda o estado da tela, reage às ações e conversa com serviços. No React, costuma ser um *hook*.
-- **Model**: tipos, constantes e regras puras (sem React).
+- Dificuldade para testar e manter
+- Acoplamento entre tela e lógica
+- Retrabalho ao mudar a interface
+- Duplicação de código entre telas
 
-## Estrutura de pastas
+## Os três componentes
+
+Cada um com uma responsabilidade clara:
+
+| Camada | Responsabilidade |
+|---|---|
+| **View** | Exibe dados e captura interações do usuário |
+| **ViewModel** | Prepara dados e comandos para a tela |
+| **Model** | Dados e regras de negócio do domínio |
+
+O fluxo é View ↔ ViewModel ↔ Model. O Model não conhece a View.
+
+### Model
+
+A camada de dados e regras de negócio.
+
+- Estruturas de dados e entidades do domínio
+- Validações, cálculos e regras de negócio
+- Não conhece View nem ViewModel
+
+### View
+
+A interface do usuário: o que ele vê e toca.
+
+- Telas e componentes (React Native, Flutter, Swift/Kotlin etc.)
+- Exibe dados expostos pelo ViewModel
+- Sem lógica de negócio, só apresentação e eventos
+
+### ViewModel
+
+A ponte entre View e Model: estado e lógica da tela.
+
+- Transforma dados do Model para a View
+- Expõe propriedades e comandos (*binding*)
+- Lógica de apresentação, sem depender da UI
+
+## Como fica em React Native
+
+Cada tela vira uma pasta pequena, com um arquivo para cada papel:
 
 \`\`\`text
-features/
-  extrato/
-    index.tsx        # View
-    viewModel.ts     # estado e ações
-    models.ts        # tipos e constantes
-    styles.ts        # estilos
+features/cart/
+  index.tsx        // View: só renderiza
+  viewModel.ts     // ViewModel: estado e handlers
+  models.ts        // Model: tipos e regras
 \`\`\`
 
-Cada tela tem a mesma forma. Quem chega no projeto sabe onde procurar.
+\`\`\`ts
+// models.ts
+export type CartItem = { id: string; name: string; price: number; qty: number }
 
-## Um exemplo
-
-O ViewModel fica com o estado e as regras:
+export const cartTotal = (items: CartItem[]) =>
+  items.reduce((sum, i) => sum + i.price * i.qty, 0)
+\`\`\`
 
 \`\`\`ts
 // viewModel.ts
-export function useExtratoViewModel() {
-  const [periodo, setPeriodo] = useState<Periodo>("30d");
-  const { data, isLoading, error } = useExtrato(periodo);
+import { useState } from 'react'
+import { cartTotal, type CartItem } from './models'
 
-  const total = useMemo(
-    () => (data ?? []).reduce((soma, item) => soma + item.valor, 0),
-    [data],
-  );
+export function useCartViewModel(initial: CartItem[]) {
+  const [items, setItems] = useState(initial)
 
-  return { periodo, setPeriodo, itens: data ?? [], total, isLoading, error };
+  const remove = (id: string) => setItems((prev) => prev.filter((i) => i.id !== id))
+
+  return { items, total: cartTotal(items), remove }
 }
 \`\`\`
-
-E a View só consome:
 
 \`\`\`tsx
 // index.tsx
-export default function Extrato() {
-  const vm = useExtratoViewModel();
-
-  if (vm.isLoading) return <Carregando />;
-  if (vm.error) return <Erro onRetry={() => vm.setPeriodo(vm.periodo)} />;
-
-  return (
-    <Tela>
-      <Filtro valor={vm.periodo} onChange={vm.setPeriodo} />
-      <Lista itens={vm.itens} />
-      <Total valor={vm.total} />
-    </Tela>
-  );
+export default function CartScreen() {
+  const { items, total, remove } = useCartViewModel(initialItems)
+  return <CartList items={items} total={total} onRemove={remove} />
 }
 \`\`\`
 
-## O que se ganha
+A View não sabe como o total é calculado. O ViewModel pode ser testado sem renderizar nada.
 
-1. **Testes mais baratos.** O ViewModel é só um hook: dá para testar a regra sem renderizar tela nenhuma.
-2. **Telas mais leves.** A View vira praticamente um template.
-3. **Padrão do time.** Todo mundo organiza do mesmo jeito, e a revisão de código fica mais rápida.
-4. **Troca de UI sem medo.** Dá para redesenhar a tela sem mexer na regra.
+## Por que usar MVVM
 
-## Cuidados
+- Testar a lógica de tela sem depender da interface
+- Redesenhar a UI sem quebrar regras de negócio
+- Design e backend evoluem em paralelo
+- Código mais reutilizável e manutenção mais simples
 
-- Não faça do ViewModel um "depósito de tudo". Se uma regra é pura, ela pertence ao Model.
-- Evite que a View chame serviços direto. O caminho é View → ViewModel → serviço.
-- Não exagere em telas pequenas: um componente simples não precisa de ViewModel.
+## Onde usar
 
-## Em resumo
+O padrão serve para mobile, web com estado complexo e desktop:
 
-MVVM não é sobre seguir um diagrama; é sobre **ter um lugar certo para cada coisa**. Em apps financeiros, onde uma regra errada custa caro, essa separação paga a conta rápido.`,
+- **Mobile:** Swift, Kotlin, React Native, Flutter
+- **Web:** Vue, React, Angular
+- **Desktop:** WPF, .NET MAUI, SwiftUI
+
+## Meu projeto precisa?
+
+Considere MVVM quando:
+
+- Várias telas compartilham lógica e estado
+- Você quer testar lógica sem depender da UI
+- Design e backend evoluem em ritmos diferentes
+- O app tende a crescer, e a equipe também
+
+Telas simples e estáticas podem dispensar o padrão.
+
+## Resumo
+
+**Model** = dados e regras. **View** = o que o usuário vê. **ViewModel** = ponte e estado da tela. Separação clara, testes e manutenção mais fáceis.`,
   },
   {
     id: "static-auth0-em-apps-sso-mfa-tokens",
     slug: "auth0-em-apps-sso-mfa-tokens",
-    title: "Auth0 em apps: SSO, MFA, login social e o caminho dos tokens",
-    excerpt: "Um mapa do fluxo de autenticação em apps móveis: Authorization Code com PKCE, tipos de token e onde guardá-los.",
+    title: "Auth0 explicado: autenticação moderna sem montar tudo do zero",
+    excerpt: "O que é o Auth0, como o fluxo de login funciona, os três tokens essenciais e quando vale a pena usar uma plataforma de identidade.",
     cover_image_url: null,
     created_at: "2026-01-20T12:00:00.000Z",
-    body_markdown: `Autenticação é uma daquelas partes que **ninguém quer escrever do zero** e que todo mundo erra quando escreve. Usar um provedor como o Auth0 tira muito peso, mas ainda é preciso entender o fluxo para não montar algo inseguro por cima.
+    body_markdown: `Autenticação moderna, simplificada. Este é um resumo do que o Auth0 resolve e de quando faz sentido usá-lo.
 
-## O fluxo recomendado para apps
+## O desafio da autenticação
 
-Em apps móveis, o padrão é o **Authorization Code Flow com PKCE**:
+Implementar login seguro do zero é complexo:
 
-1. O app abre o navegador do sistema na tela de login (Universal Login).
-2. A pessoa se autentica (senha, login social, MFA...).
-3. O Auth0 devolve um **código** de uso único para o app.
-4. O app troca o código por tokens, provando que é quem iniciou o fluxo (o PKCE).
+- Armazenar senhas com segurança (*hashing*, *salting*)
+- Gerenciar tokens e sessões
+- Implementar OAuth 2.0 / OIDC
+- Lidar com MFA e recuperação de conta
+- Manter compliance com LGPD/GDPR
 
-Nunca coloque o formulário de login dentro do app: o navegador do sistema permite SSO, gerenciadores de senha e reduz o risco de captura de credenciais.
+## Auth0: Identity as a Service
 
-## Os três tipos de token
+É uma plataforma completa de identidade que cuida da complexidade da autenticação para você:
 
-| Token | Para quê | Vida |
-|---|---|---|
-| **ID token** | Dizer *quem* é a pessoa (perfil) | curta |
-| **Access token** | Chamar a sua API | curta |
-| **Refresh token** | Pedir novos access tokens | longa |
+- **Autenticação:** login pronto para usar com diversos providers
+- **Autorização:** controle granular de permissões e *roles*
+- **APIs robustas:** REST APIs completas e documentadas
+- **SDKs:** bibliotecas para todas as plataformas
 
-O access token é o que viaja a cada requisição. Por isso ele vive pouco: se vazar, o estrago é limitado.
+## Principais features
 
-## Onde guardar
+| Feature | Benefício |
+|---|---|
+| **Universal Login** | Tela de login pronta e customizável |
+| **Social Login** | Google, Apple e Facebook em 1 clique |
+| **MFA** | Autenticação em 2 fatores nativa |
+| **SSO** | Single Sign-On entre aplicações |
+| **JWT Tokens** | Access + ID tokens seguros |
 
-- Use o armazenamento seguro do sistema: **Keychain** (iOS) e **Keystore** (Android).
-- Nunca guarde tokens em \`AsyncStorage\` ou em logs.
-- Ative a **rotação de refresh tokens**: cada uso gera um novo e invalida o anterior.
+## Como funciona
 
-## SSO, MFA e login social
+1. O usuário clica em "Entrar" no seu app.
+2. O app redireciona para o Auth0.
+3. O usuário faz login (e-mail, social etc.).
+4. O Auth0 valida e retorna os tokens.
+5. O app recebe os tokens e autentica o usuário.
 
-- **SSO**: com o Universal Login, quem já está logado no navegador entra sem digitar de novo.
-- **MFA**: configurado no provedor, sem mudar o código do app. Dá para exigir só em ações sensíveis (step-up).
-- **Login social**: Google, Apple e outros entram como conexões. O app continua falando só com o Auth0.
+## Os 3 tokens essenciais
 
-## Validação no backend
+- **Access Token:** autorização para acessar APIs protegidas. Curta duração.
+- **ID Token:** informações do usuário em formato JWT (nome, e-mail etc.).
+- **Refresh Token:** permite renovar tokens expirados sem novo login.
 
-O backend **sempre** valida o access token: assinatura, emissor, público (\`audience\`) e validade. O app nunca decide sozinho o que alguém pode fazer.
+> No servidor, valide sempre a assinatura, o \`issuer\` e o \`audience\` do token antes de confiar nele.
 
-\`\`\`ts
-// exemplo conceitual de verificação
-const payload = await verificarJwt(token, {
-  issuer: "https://SEU-TENANT.auth0.com/",
-  audience: "https://api.seuapp.com",
-});
-\`\`\`
+## SDKs para qualquer plataforma
 
-## Checklist rápido
+React Native, React / Next.js, Swift (iOS), Kotlin (Android), Node.js, Python, Java / Spring, Ruby, Go e Rust.
 
-- [x] Authorization Code + PKCE
-- [x] Tokens em Keychain/Keystore
-- [x] Refresh token com rotação
-- [x] Validação de \`audience\` e \`issuer\` no servidor
-- [x] Logout que também encerra a sessão no provedor
+## Quando usar o Auth0
 
-Autenticação bem feita é invisível para o usuário e chata para o atacante. É exatamente o que se quer.`,
+Ele é ideal para:
+
+- Apps que precisam de login seguro rapidamente
+- Startups que querem focar no produto, não em infra
+- Times sem especialista em segurança
+- Projetos que precisam escalar
+- Apps com múltiplos providers de login
+
+O plano gratuito cobre até 7.000 usuários (conforme o post original; confira os limites atuais no site) e o setup leva minutos. Para começar: **auth0.com**.`,
   },
   {
     id: "static-atualizacoes-ota-sem-passar-pela-loja",
     slug: "atualizacoes-ota-sem-passar-pela-loja",
-    title: "Atualizações OTA em React Native com o Stallion: da correção ao usuário em minutos",
-    excerpt: "Por que corrigir um app leva dias, o que mudou com o fim do CodePush e como o Stallion entrega patches, rollout gradual e rollback automático.",
+    title: "React Native Stallion: atualize seu app sem passar pela App Store ou Play Store",
+    excerpt: "O que é OTA, o que dá (e o que não dá) para atualizar, por que o fim do CodePush abriu espaço e como o Stallion entrega patches, rollout gradual e rollback automático.",
     cover_image_url: null,
     created_at: "2026-07-14T12:00:00.000Z",
-    body_markdown: `Publicar uma correção demora **dias**. Em app React Native, boa parte do problema é de processo, não de código.
+    body_markdown: `O **React Native Stallion** é uma alternativa moderna ao CodePush para atualizar apps React Native sem passar pela revisão das lojas.
 
 ## O problema
 
-- **Revisão da loja.** Apple e Google levam de 1 a 3 dias para aprovar qualquer atualização.
-- **CodePush encerrado.** A Microsoft descontinuou o serviço em março de 2025; quem ainda usa está sem suporte.
+Publicar uma correção demora **dias**:
+
+- **Revisão da store.** Apple e Google levam de 1 a 3 dias para aprovar qualquer atualização.
+- **CodePush encerrado.** A Microsoft descontinuou o serviço em março de 2025; quem usa está sem suporte.
 - **Bundle pesado.** O OTA tradicional reenvia o arquivo inteiro a cada atualização.
+
+## O que é OTA
+
+OTA (*over-the-air*) atualiza o código **JavaScript** do seu app.
+
+**O que pode ser atualizado:** telas, lógica de negócio, textos, estilos, navegação, APIs.
+
+**O que não pode:** código nativo (Java/Kotlin/Swift), permissões, ícone do app, dependências com *bridge* nativa.
+
+> Se precisa de \`pod install\` ou Gradle sync, precisa de novo build na store.
 
 ## O que é o Stallion
 
-O **Stallion** é uma plataforma de OTA (*over-the-air*) para React Native. Em vez de esperar a loja, o app recebe um novo bundle JavaScript em background. Os recursos que mais pesam na decisão:
+Uma plataforma de OTA para React Native.
 
 | Recurso | O que faz |
 |---|---|
 | **Patch diff** | Envia só o que mudou, até 98% menor que o bundle completo |
-| **Auto rollback** | Detecta crash nativo e volta sozinho ao bundle anterior |
-| **Rollout faseado** | Libera para 5%, 50% e 100% dos usuários, gradualmente |
+| **Auto rollback** | Detecta crash nativo e reverte automaticamente para o bundle anterior |
+| **Rollout faseado** | Libera para 5%, 50% e 100% dos usuários gradualmente |
 | **Analytics** | Acompanha adoção, downloads e rollbacks em tempo real |
 
-## Do código ao usuário
+## Como funciona: do código ao usuário em minutos
 
 1. Instale o SDK no projeto React Native.
-2. Publique o bundle pela CLI:
+2. Publique o bundle via CLI:
 
 \`\`\`bash
 npx stallion publish-bundle
@@ -200,82 +259,138 @@ npx stallion publish-bundle
 
 3. Teste internamente com o modal do SDK antes de liberar.
 4. Promova para produção no console, com rollout gradual.
-5. O usuário recebe a atualização em background, sem passar pela loja.
+5. O usuário recebe a atualização em background, sem passar pela store.
+
+## Stallion vs CodePush
+
+O CodePush foi encerrado. E agora?
+
+| | CodePush | Stallion |
+|---|---|---|
+| Status | Encerrado | Ativo |
+| Update | Bundle completo | Patch diff |
+| Tamanho | 100% | até −98% |
+| Rollback | Manual | Automático |
+| Analytics | Limitado | Completo |
+| Free tier | Encerrado | Grátis até 10 mil usuários/mês |
+
+A API é compatível com a do CodePush e a migração está documentada.
 
 ## Vale para você?
 
 Faz sentido se o seu time precisa de agilidade:
 
-- **Hotfixes urgentes.** Correção de JS em produção sem esperar a revisão da loja.
-- **Migração do CodePush.** A API é compatível e a migração está documentada no site deles.
-- **Segurança de rollout.** Rollback automático em caso de crash, mais liberação gradual por porcentagem.
+- **Hotfixes urgentes.** Correção de JS em produção sem esperar a revisão da store.
+- **Migração do CodePush.** API compatível, migração documentada no site deles.
+- **Segurança de rollout.** Rollback automático em caso de crash, mais rollout gradual por porcentagem.
 
-O plano é gratuito até 10 mil usuários ativos por mês (veja os detalhes em stalliontech.io).
-
-## O limite que continua valendo
-
-OTA troca **JavaScript e assets**. Código nativo novo, novas permissões e bibliotecas com parte nativa ainda exigem uma versão na loja. E amarre cada bundle à versão do binário que sabe executá-lo.
+Grátis até 10 mil usuários ativos por mês. Mais em **stalliontech.io**.
 
 ## Em resumo
 
-OTA é uma ferramenta de **resposta rápida**. Com patches pequenos, rollout gradual e rollback automático, "esperar a loja" vira "corrigir em minutos".`,
+OTA é uma ferramenta de **resposta rápida**: com patches pequenos, rollout gradual e rollback automático, "esperar a loja" vira "corrigir em minutos". O limite continua sendo o código nativo, que ainda exige uma versão nova na loja.`,
   },
   {
     id: "static-cobrancas-em-apps-com-stripe",
     slug: "cobrancas-em-apps-com-stripe",
-    title: "Cobranças em apps com Stripe: o que o app faz e o que o servidor faz",
-    excerpt: "A divisão de responsabilidades que mantém pagamentos seguros: o app coleta, o servidor decide, o webhook confirma.",
+    title: "Stripe explicado: o que é, quando usar e como integrar",
+    excerpt: "Um guia prático para entender se o Stripe faz sentido no seu projeto: o fluxo com Checkout Session e webhook, quando usar e as alternativas no Brasil.",
     cover_image_url: null,
     created_at: "2026-04-08T12:00:00.000Z",
-    body_markdown: `Receber dentro de um app parece simples até a primeira cobrança duplicada. O segredo é **dividir bem as responsabilidades**.
+    body_markdown: `Um guia prático para você entender se o Stripe faz sentido para o seu projeto. Sem enrolação.
 
-## Antes: a regra das lojas
+## O que é
 
-Para **bens e serviços digitais** consumidos dentro do app, Apple e Google exigem a compra pelo sistema deles (In-App Purchase). Já para **produtos físicos, serviços do mundo real e pagamentos entre pessoas**, dá para usar um processador como o Stripe. Confira sempre a política vigente antes de decidir.
+O Stripe é uma **API de pagamentos**. Você não precisa montar um sistema de cobrança do zero. Ele cuida de:
 
-## Quem faz o quê
+- **Processar pagamentos:** cartão, boleto, Pix
+- **Gerenciar assinaturas:** cobranças recorrentes, upgrades, cancelamentos
+- **Detectar fraude:** com machine learning, automático
+- **Cuidar do compliance:** PCI, 3D Secure, tudo por baixo dos panos
 
-| Quem | Responsabilidade |
-|---|---|
-| **App** | Coletar o meio de pagamento com segurança e mostrar o resultado |
-| **Servidor** | Definir **valor, moeda e cliente**, e criar a cobrança |
-| **Stripe** | Processar, autenticar (3D Secure) e guardar os dados do cartão |
-| **Webhook** | Confirmar o resultado de forma confiável |
+Resumindo: você foca no seu produto, o Stripe foca no dinheiro entrar.
 
-A regra de ouro: **o valor nunca vem do app**. Quem calcula o preço é o servidor, a partir do banco de dados.
+## Como funciona
 
-## O fluxo
+O fluxo é simples:
 
-1. O app pede ao seu servidor para iniciar um pagamento.
-2. O servidor cria um \`PaymentIntent\` com o valor correto e devolve o \`client_secret\`.
-3. O app apresenta a *Payment Sheet* do Stripe e confirma o pagamento.
-4. O Stripe avisa o servidor por **webhook**.
-5. O servidor marca o pedido como pago.
+1. **Você cria uma Checkout Session.** Uma chamada na API com o que vai cobrar e o valor.
+2. **O cliente é redirecionado** para o formulário do Stripe. Seguro, pronto, responsivo.
+3. **Ele paga.** Cartão, Pix, boleto. O Stripe aceita e processa.
+4. **Você recebe um webhook.** O Stripe avisa no seu backend que o pagamento foi confirmado.
+
+Sem armazenar cartão. Sem lidar com PCI. Sem inventar roda.
+
+## Na prática: criar uma cobrança
 
 \`\`\`ts
-// servidor: criando a cobrança
-const intent = await stripe.paymentIntents.create(
-  {
-    amount: totalEmCentavos(pedido), // calculado no servidor
-    currency: "brl",
-    customer: clienteId,
-    metadata: { pedidoId: pedido.id },
-  },
-  { idempotencyKey: \`pedido-\${pedido.id}\` },
-);
+const session = await stripe.checkout.sessions.create({
+  line_items: [{
+    price: 'price_abc123',
+    quantity: 1,
+  }],
+  mode: 'payment',
+  success_url: 'https://seuapp.com/ok',
+  cancel_url: 'https://seuapp.com/cancelou',
+})
+
+// redireciona o cliente pra session.url
 \`\`\`
 
-## Detalhes que evitam dor de cabeça
+O \`price\` você cria no dashboard do Stripe ou via API. Pode ser valor fixo ou recorrente.
 
-- **Idempotência**: a mesma chave de idempotência impede cobrança em dobro se a requisição for repetida.
-- **Webhook como fonte da verdade**: a tela do app pode fechar no meio; o webhook não.
-- **Verifique a assinatura** de cada webhook antes de confiar nele.
-- **Trate estados intermediários**: pagamento pendente, em análise e recusado precisam de mensagens diferentes.
-- **Valores em centavos**, sempre inteiros.
+## Webhooks: como saber que o pagamento caiu
 
-## Em resumo
+O Stripe manda um evento para o seu servidor. Você só precisa ouvir:
 
-O app **pede e mostra**; o servidor **decide**; o webhook **confirma**. Quando cada parte faz só o seu papel, pagamentos ficam previsíveis.`,
+\`\`\`ts
+app.post('/webhook', (req, res) => {
+  const event = stripe.webhooks
+    .constructEvent(req.body, sig, secret)
+
+  if (event.type === 'checkout.session.completed') {
+    // libera acesso, envia email, etc
+    fulfillOrder(event.data.object)
+  }
+
+  res.json({ received: true })
+})
+\`\`\`
+
+Nada de polling ou cron job. Pagou? O evento chega. Você trata.
+
+> Dois cuidados: a verificação da assinatura (\`constructEvent\`) precisa do **corpo bruto** da requisição, não do JSON já interpretado; e o preço deve ser definido no servidor, nunca vir do app.
+
+## Quando usar
+
+Faz sentido quando você precisa de:
+
+- Assinaturas com planos, trial, upgrade e downgrade
+- Checkout pronto, sem montar formulário de cartão
+- Marketplace onde você repassa pagamento para terceiros
+- API robusta que escala junto com seu produto
+- Dashboard para acompanhar receita, churn e métricas
+
+Se o seu app cobra alguém de forma recorrente, o Stripe provavelmente é uma boa escolha.
+
+## Quando não usar
+
+Talvez você não precise do Stripe se:
+
+- **Só precisa de Pix e boleto.** Mercado Pago ou Asaas resolvem com menos setup.
+- **Vende infoproduto.** Hotmart, Kiwify e similares já entregam tudo pronto.
+- **Não tem cobrança recorrente.** Para venda pontual e simples, o Stripe pode ser *over-engineering*.
+
+## Alternativas no Brasil
+
+| Opção | Destaque |
+|---|---|
+| **Mercado Pago** | Pix, boleto e cartão. SDK simples, forte no Brasil |
+| **Asaas** | Cobranças recorrentes + nota fiscal automática |
+| **Pagarme** | Gateway completo com bom suporte local |
+| **Abacatepay** | Focado em Pix, leve e feito para dev |
+
+Não é sobre qual é melhor. É sobre qual resolve o seu problema com menos atrito. Cada projeto tem um contexto: escolha o que encaixa no seu.`,
   },
   {
     id: "static-gastar-menos-tokens-com-agentes-de-ia",
