@@ -256,3 +256,12 @@ export const ProjRow = styled(Link)<{ $color?: string }>`
   &:hover h3 { color: var(--accent-ink); }
   &:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 4px; }
 `;
+
+export const HeroStage = styled.div`
+  position: relative;
+  z-index: 1;
+  .inner { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 28px; align-items: center; padding: 40px 44px 44px; }
+  .tv { display: grid; justify-items: center; padding-right: 6px; }
+  @media (max-width: 1000px) { .inner { grid-template-columns: 1fr; padding: 28px 22px 36px; gap: 36px; } .tv { order: -1; } }
+  @media (max-width: 600px) { .inner { padding: 22px 16px 28px; } }
+`;
