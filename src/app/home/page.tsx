@@ -12,7 +12,7 @@ import LocalTime from "@/components/ui/local-time";
 import CopyChip from "@/components/ui/copy-chip";
 import Ticker, { type TickerItem } from "@/components/ui/ticker";
 import GithubActivity from "@/components/ui/github-activity";
-import PhoneShowcase, { type Screen } from "@/components/ui/phone-showcase";
+import PhoneRow, { type Screen } from "@/components/ui/phone-row";
 import TvPortrait from "@/components/retro/tv-portrait";
 import TechIcon from "@/components/ui/tech-icon";
 import WindowFrame from "@/components/retro/window-frame";
@@ -159,9 +159,12 @@ export default function Home() {
     <S.Page id="top">
       {/* 01 — HOME */}
       <R.Hero>
-        <R.HeroGrid>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.2, 0.7, 0.2, 1] }}>
-                        <R.Kick>Olá, eu sou</R.Kick>
+        <R.HeroStage>
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}>
+            <WindowFrame>
+              <div className="inner">
+                <div className="main">
+                  <R.Kick>Olá, eu sou</R.Kick>
             <R.BigName>
               <span className="l1">Edson</span>
               <span className="l2">Junior</span>
@@ -193,22 +196,21 @@ export default function Home() {
                 <dd>anos de experiência em tecnologia</dd>
               </div>
             </R.Stats>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.12 }}>
-            <R.HeroDuo>
-              <div className="tv">
-                <TvPortrait src="/images/edson.webp" alt="Retrato de Edson Junior" />
+                </div>
+                <div className="tv">
+                  <TvPortrait src="/images/edson.webp" alt="Retrato de Edson Junior" />
+                </div>
               </div>
-              <div className="phone">
-                <PhoneShowcase screens={SCREENS} single />
-              </div>
-            </R.HeroDuo>
+            </WindowFrame>
           </motion.div>
-        </R.HeroGrid>
+        </R.HeroStage>
       </R.Hero>
 
-      <Ticker items={TICKER} />
+      <PhoneRow screens={SCREENS} />
+
+      <div style={{ marginTop: 20 }}>
+        <Ticker items={TICKER} />
+      </div>
 
       {/* 02 — PROJETOS */}
       <R.Section id="projetos">
