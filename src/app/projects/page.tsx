@@ -5,22 +5,13 @@ import styled from "styled-components";
 import * as S from "../home/styles";
 import { SHOW_PROJECT_IMAGES } from "@/data/profile";
 import GlowCard from "@/components/ui/glow-card";
+import { useLang } from "@/i18n/provider";
+import { localizeProject } from "@/i18n/content";
 import { personalProjects, professionalProjects, webProjects, type Project } from "./helper";
 
 type Filter = "all" | "personal" | "mobile" | "web";
 
-const FILTERS: { id: Filter; label: string }[] = [
-  { id: "all", label: "Todos" },
-  { id: "personal", label: "Produtos próprios" },
-  { id: "mobile", label: "Apps profissionais" },
-  { id: "web", label: "Web" },
-];
-
-const STATUS: Record<Project["status"], string> = {
-  production: "No ar",
-  development: "Em desenvolvimento",
-  paused: "Entregue",
-};
+const FILTER_IDS: Filter[] = ["all", "personal", "mobile", "web"];
 
 const Tabs = styled.div`
   display: flex;
@@ -53,6 +44,7 @@ const Cols = styled(S.Grid)`
 `;
 
 export default function Projects() {
+  const { lang, t } = useLang();
   const [filter, setFilter] = useState<Filter>("all");
 
   const list = useMemo(() => {
@@ -64,16 +56,15 @@ export default function Projects() {
 
   return (
     <S.Page>
-      <S.Display>Projetos</S.Display>
+      <S.Display>{t.projectsPage.title}</S.Display>
       <S.Lead>
-        Apps financeiros, superapps, e-commerce e sistemas web: o que construí no trabalho e o que
-        criei por conta própria.
+        {t.projectsPage.lead}
       </S.Lead>
 
-      <Tabs role="group" aria-label="Filtrar projetos">
-        {FILTERS.map((f) => (
-          <button key={f.id} aria-pressed={filter === f.id} onClick={() => setFilter(f.id)}>
-            {f.label}
+      <Tabs role="group" aria-label={t.home.filterAria}>
+        {FILTER_IDS.map((f) => (
+          <button key={f} aria-pressed={filter === f} onClick={() => setFilter(f)}>
+            {t.projectsPage[f]}
           </button>
         ))}
       </Tabs>
@@ -85,7 +76,7 @@ export default function Projects() {
             <div className="thumb">
               {(p.coverImage || (SHOW_PROJECT_IMAGES && p.galleryImages?.[0])) ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={p.coverImage ?? p.galleryImages?.[0]} alt={`Tela de ${p.title}`} />
+                <img src={p.coverImage ?? p.galleryImages?.[0]} alt={`${t.project.screenOf} ${p.title}`} />
               ) : (
                 p.iconLetter ?? p.title[0]
               )}
@@ -94,7 +85,7 @@ export default function Projects() {
               <div className="top">
                 <h3>{p.title}</h3>
               </div>
-              <span className="status">{STATUS[p.status]}</span>
+              <span className="status">{t.statusCap[p.status]}</span>
               <p>{p.tagline}</p>
               <S.Chips>
                 {p.tags.slice(0, 2).map((t) => (

@@ -13,7 +13,7 @@ const ProjectDetailClient = dynamic(() => import("./project-detail-client"), {
         color: "var(--text-secondary)",
       }}
     >
-      Carregando…
+      …
     </div>
   ),
 });

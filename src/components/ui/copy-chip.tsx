@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styled from "styled-components";
+import { useLang } from "@/i18n/provider";
 import { FaEnvelope, FaRegCopy, FaCheck } from "react-icons/fa";
 
 const Chip = styled.span`
@@ -22,6 +23,7 @@ const Chip = styled.span`
 /** E-mail como as outras redes: mesmo formato, com um botão de copiar embutido. */
 export default function CopyChip({ email }: { email: string }) {
   const [done, setDone] = useState(false);
+  const { t } = useLang();
   return (
     <Chip>
       <a href={`mailto:${email}`}>
@@ -29,8 +31,8 @@ export default function CopyChip({ email }: { email: string }) {
       </a>
       <button
         type="button"
-        aria-label="Copiar e-mail"
-        title="Copiar e-mail"
+        aria-label={t.contact.copy}
+        title={t.contact.copy}
         data-done={done}
         onClick={async () => {
           try {

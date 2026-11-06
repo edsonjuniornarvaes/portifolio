@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import * as R from "../home/retro";
+import { useLang } from "@/i18n/provider";
+import { LOCALE } from "@/i18n/config";
 
 type Post = { id: string; slug: string; title: string; excerpt: string | null; cover_image_url: string | null; created_at: string };
 
@@ -30,15 +32,16 @@ const Wrap = styled.div`
 `;
 
 export default function BlogPage() {
+  const { lang, t } = useLang();
   const [posts, setPosts] = useState<Post[] | null>(null);
   const [q, setQ] = useState("");
 
   useEffect(() => {
-    fetch("/api/posts")
+    fetch(`/api/posts?lang=${lang}`)
       .then((r) => r.json())
       .then((d) => setPosts(d.posts || []))
       .catch(() => setPosts([]));
-  }, []);
+  }, [lang]);
 
   const groups = useMemo(() => {
     const term = q.trim().toLowerCase();
@@ -55,19 +58,19 @@ export default function BlogPage() {
     <R.Section as="div" style={{ marginTop: 0 }}>
       <Wrap>
         <R.Heading style={{ marginBottom: 0 }}>
-          <span className="tag">05 blog</span>
+          <span className="tag">{t.home.blogTag}</span>
         </R.Heading>
-        <h1>Escrita</h1>
-        <p className="lead">Artigos sobre mobile, arquitetura, autenticação, pagamentos e o que aprendo no dia a dia.</p>
+        <h1>{t.blogPage.title}</h1>
+        <p className="lead">{t.blogPage.lead}</p>
 
         {posts === null ? (
-          <p className="empty">Carregando…</p>
+          <p className="empty">{t.blogPage.loading}</p>
         ) : posts.length === 0 ? (
-          <p className="empty">Em breve, os primeiros textos por aqui.</p>
+          <p className="empty">{t.blogPage.empty}</p>
         ) : (
           <>
-            <input className="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="buscar artigos…" aria-label="Buscar artigos" />
-            {groups.length === 0 && <p className="empty">Nada encontrado.</p>}
+            <input className="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t.blogPage.search} aria-label={t.blogPage.searchAria} />
+            {groups.length === 0 && <p className="empty">{t.blogPage.none}</p>}
             {groups.map(([year, items]) => (
               <section key={year}>
                 <p className="year">{year}</p>
@@ -83,7 +86,7 @@ export default function BlogPage() {
                           <h2>{p.title}</h2>
                           {p.excerpt && <p className="ex">{p.excerpt}</p>}
                         </div>
-                        <time>{new Date(p.created_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" })}</time>
+                        <time>{new Date(p.created_at).toLocaleDateString(LOCALE[lang], { day: "2-digit", month: "short" })}</time>
                       </Link>
                     </li>
                   ))}

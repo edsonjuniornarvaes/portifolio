@@ -4,14 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styled from "styled-components";
 import ThemeToggle from "@/components/ui/theme-toggle";
+import LangSwitch from "@/components/ui/lang-switch";
+import { useLang } from "@/i18n/provider";
 
-const links = [
-  { href: "/home", label: "home" },
-  { href: "/home#projetos", label: "projetos" },
-  { href: "/home#experiencia", label: "experiência" },
-  { href: "/blog", label: "blog" },
-  { href: "/home#contato", label: "contato" },
-];
+const LINKS = [
+  { href: "/home", key: "home" },
+  { href: "/home#projetos", key: "projects" },
+  { href: "/home#experiencia", key: "experience" },
+  { href: "/blog", key: "blog" },
+  { href: "/home#contato", key: "contact" },
+] as const;
 
 const Bar = styled.header`
   position: sticky;
@@ -77,27 +79,29 @@ const Right = styled.div`
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { t } = useLang();
   if (pathname.startsWith("/adminaccess")) return null;
 
   return (
     <Bar>
       <Inner>
-        <Brand href="/home" aria-label="Edson Junior, página inicial">
+        <Brand href="/home" aria-label={t.nav.homeAria}>
           EdsonJunior.<em>_</em>
         </Brand>
-        <Nav aria-label="Principal">
-          {links.map((l, i) => (
+        <Nav aria-label={t.nav.aria}>
+          {LINKS.map((l, i) => (
             <NavLink
               key={l.href}
               href={l.href}
               $active={l.href === "/home" ? pathname === "/home" : l.href === "/blog" ? pathname.startsWith("/blog") : false}
             >
               <small>{String(i + 1).padStart(2, "0")}</small>
-              {l.label}
+              {t.nav[l.key]}
             </NavLink>
           ))}
         </Nav>
         <Right>
+          <LangSwitch />
           <ThemeToggle />
         </Right>
       </Inner>

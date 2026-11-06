@@ -2,6 +2,7 @@
 
 import styled from "styled-components";
 import TechIcon from "./tech-icon";
+import { useLang } from "@/i18n/provider";
 
 export type TickerItem = { label: string; value?: string; tone?: "live" | "info" };
 
@@ -30,12 +31,13 @@ const Bar = styled.div`
 `;
 
 /** Faixa estilo placar esportivo, com itens passando devagar (pausa no hover). */
-export default function Ticker({ items, label = "Stack" }: { items: TickerItem[]; label?: string }) {
+export default function Ticker({ items, label }: { items: TickerItem[]; label?: string }) {
+  const { t } = useLang();
   const list = [...items, ...items];
   return (
-    <Bar role="region" aria-label="Tecnologias e números">
+    <Bar role="region" aria-label={t.ticker.aria}>
       <span className="tag">
-        <i /> {label}
+        <i /> {label ?? t.ticker.label}
       </span>
       <div className="view">
         <div className="track">

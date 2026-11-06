@@ -1,5 +1,7 @@
 "use client";
 
+import { useLang } from "@/i18n/provider";
+import { LOCALE } from "@/i18n/config";
 import Link from "next/link";
 import styled from "styled-components";
 import { MarkdownBody } from "@/components/markdown-body";
@@ -66,7 +68,8 @@ export type Post = {
 };
 
 export default function BlogPostClient({ post }: { post: Post }) {
-  const date = new Date(post.created_at).toLocaleDateString("pt-BR", {
+  const { lang, t } = useLang();
+  const date = new Date(post.created_at).toLocaleDateString(LOCALE[lang], {
     day: "2-digit",
     month: "long",
     year: "numeric",
@@ -75,7 +78,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
   return (
     <Wrap>
       <Back href="/blog">
-        <FaArrowLeft /> Artigos
+        <FaArrowLeft /> {t.post.back}
       </Back>
       {post.cover_image_url && (
         <Cover>
@@ -84,7 +87,7 @@ export default function BlogPostClient({ post }: { post: Post }) {
         </Cover>
       )}
       <H1>{post.title}</H1>
-      <Meta>{date} · {readingMinutes(post.body_markdown).minutes} min de leitura</Meta>
+      <Meta>{date} · {readingMinutes(post.body_markdown).minutes} {t.post.read}</Meta>
       <MarkdownBody markdown={post.body_markdown} />
     </Wrap>
   );

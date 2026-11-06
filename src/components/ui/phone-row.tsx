@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { useLang } from "@/i18n/provider";
 
 export type Screen = { src: string; app: string; note: string };
 
@@ -32,11 +33,12 @@ const Row = styled.section`
 
 /** Telas reais dos apps que desenvolvi, em tamanho de celular. */
 export default function PhoneRow({ screens }: { screens: Screen[] }) {
+  const { t } = useLang();
   return (
-    <Row aria-label="Apps em produção">
+    <Row aria-label={t.phones.section}>
       <div className="head">
         <span>
-          <b>{"//"}</b> apps que desenvolvi
+          <b>{"//"}</b> {t.phones.head}
         </span>
       </div>
       <div className="rail">
