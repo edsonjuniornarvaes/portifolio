@@ -136,6 +136,8 @@ export const personalProjects: Project[] = [clubeDaJoiaMarketplaceProject, clube
 export const professionalProjects: Project[] = [
   {
     id: "pjbank",
+    coverImage: "/images/projects/pjbank-cover.webp",
+    screens: ["/images/projects/pjbank-cover.webp"],
     title: "PJBank",
     tagline: "Conta Digital para Empresas",
     description:
@@ -235,6 +237,8 @@ export const professionalProjects: Project[] = [
   },
   {
     id: "consorcio-gazin",
+    coverImage: "/images/projects/consorcio-gazin-cover.webp",
+    screens: ["/images/projects/consorcio-gazin-cover.webp"],
     title: "Consórcio Gazin",
     tagline: "Gestão de Consórcios",
     description:
