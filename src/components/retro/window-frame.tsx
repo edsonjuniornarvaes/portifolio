@@ -28,8 +28,7 @@ const Frame = styled.div<{ $tilt?: number; $hue?: "mint" | "violet" | "warm"; $r
   .bar, .body { position: relative; }
   `
       : `&:hover { transform: rotate(0deg) translateY(-4px); }`}
-  .bar { display: flex; gap: 5px; padding: 6px 10px; }
-  .bar i { width: 11px; height: 11px; border: 2px solid var(--paper); display: block; }
+  .bar { height: 5px; }
   .body { background: var(--paper); border-radius: 0 0 4px 4px; overflow: hidden; }
 `;
 
@@ -43,11 +42,7 @@ export default function WindowFrame({
 }: { children: ReactNode; tilt?: number; hue?: "mint" | "violet" | "warm"; reveal?: boolean } & HTMLAttributes<HTMLDivElement>) {
   return (
     <Frame $tilt={tilt} $hue={hue} $reveal={reveal} {...rest}>
-      <div className="bar" aria-hidden>
-        <i />
-        <i />
-        <i />
-      </div>
+      <div className="bar" aria-hidden />
       <div className="body">{children}</div>
     </Frame>
   );

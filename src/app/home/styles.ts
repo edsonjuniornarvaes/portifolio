@@ -589,7 +589,7 @@ export const Statement = styled.p`
 
 export const Avatar = styled.div`
   position: relative;
-  width: 92px; height: 92px; margin-bottom: 22px;
+  width: 72px; height: 72px; margin-bottom: 16px;
   border-radius: 50%;
   padding: 3px;
   background: var(--brand-gradient);
