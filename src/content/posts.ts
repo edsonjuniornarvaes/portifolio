@@ -166,50 +166,59 @@ Autenticação bem feita é invisível para o usuário e chata para o atacante. 
   {
     id: "static-atualizacoes-ota-sem-passar-pela-loja",
     slug: "atualizacoes-ota-sem-passar-pela-loja",
-    title: "Atualizações OTA: corrigir o app sem passar pela loja",
-    excerpt: "O que são atualizações over-the-air em React Native, o que elas podem e não podem mudar, e como usá-las com segurança.",
+    title: "Atualizações OTA em React Native com o Stallion: da correção ao usuário em minutos",
+    excerpt: "Por que corrigir um app leva dias, o que mudou com o fim do CodePush e como o Stallion entrega patches, rollout gradual e rollback automático.",
     cover_image_url: null,
     created_at: "2026-07-14T12:00:00.000Z",
-    body_markdown: `Publicar uma correção na App Store ou no Google Play pode levar de horas a dias. Quando o bug está em produção, isso é uma eternidade. As atualizações **OTA** (*over-the-air*) permitem entregar mudanças direto ao app instalado, sem uma nova versão na loja.
+    body_markdown: `Publicar uma correção demora **dias**. Em app React Native, boa parte do problema é de processo, não de código.
 
-## Como funciona
+## O problema
 
-Um app React Native é, em grande parte, um **bundle de JavaScript** rodando dentro de um binário nativo. A atualização OTA troca só esse bundle (e os assets), deixando o binário como está.
+- **Revisão da loja.** Apple e Google levam de 1 a 3 dias para aprovar qualquer atualização.
+- **CodePush encerrado.** A Microsoft descontinuou o serviço em março de 2025; quem ainda usa está sem suporte.
+- **Bundle pesado.** O OTA tradicional reenvia o arquivo inteiro a cada atualização.
 
-Ferramentas como o **React Native Stallion** e o EAS Update cuidam de empacotar, distribuir e aplicar o novo bundle.
+## O que é o Stallion
 
-## O que dá para atualizar
+O **Stallion** é uma plataforma de OTA (*over-the-air*) para React Native. Em vez de esperar a loja, o app recebe um novo bundle JavaScript em background. Os recursos que mais pesam na decisão:
 
-- Telas, textos e estilos
-- Lógica em JavaScript/TypeScript
-- Correção de bugs de regra de negócio
-- Imagens e outros assets
+| Recurso | O que faz |
+|---|---|
+| **Patch diff** | Envia só o que mudou, até 98% menor que o bundle completo |
+| **Auto rollback** | Detecta crash nativo e volta sozinho ao bundle anterior |
+| **Rollout faseado** | Libera para 5%, 50% e 100% dos usuários, gradualmente |
+| **Analytics** | Acompanha adoção, downloads e rollbacks em tempo real |
 
-## O que **não** dá
+## Do código ao usuário
 
-- Qualquer código **nativo** novo (Swift, Kotlin, módulos nativos)
-- Novas permissões
-- Atualização de bibliotecas que têm parte nativa
+1. Instale o SDK no projeto React Native.
+2. Publique o bundle pela CLI:
 
-Mudou algo nativo? Aí é versão nova na loja.
+\`\`\`bash
+npx stallion publish-bundle
+\`\`\`
 
-## Boas práticas
+3. Teste internamente com o modal do SDK antes de liberar.
+4. Promova para produção no console, com rollout gradual.
+5. O usuário recebe a atualização em background, sem passar pela loja.
 
-1. **Compatibilidade de runtime.** Um bundle só pode ser entregue a binários que sabem executá-lo. Amarre cada atualização à versão do app.
-2. **Rollout gradual.** Envie para 5%, depois 25%, depois todos, acompanhando erros.
-3. **Rollback pronto.** Se o novo bundle falhar, o app precisa voltar sozinho ao anterior.
-4. **Observabilidade.** Registre qual versão do bundle cada pessoa está rodando; sem isso, não dá para investigar bugs.
-5. **Respeite as regras das lojas.** OTA é para corrigir e ajustar; não para mudar o propósito do app depois da revisão.
+## Vale para você?
 
-## Onde costuma dar errado
+Faz sentido se o seu time precisa de agilidade:
 
-- Mudar um tipo de dado que o backend ainda não aceita.
-- Esquecer de testar o bundle no binário mais antigo ainda em uso.
-- Tratar OTA como desculpa para pular testes.
+- **Hotfixes urgentes.** Correção de JS em produção sem esperar a revisão da loja.
+- **Migração do CodePush.** A API é compatível e a migração está documentada no site deles.
+- **Segurança de rollout.** Rollback automático em caso de crash, mais liberação gradual por porcentagem.
+
+O plano é gratuito até 10 mil usuários ativos por mês (veja os detalhes em stalliontech.io).
+
+## O limite que continua valendo
+
+OTA troca **JavaScript e assets**. Código nativo novo, novas permissões e bibliotecas com parte nativa ainda exigem uma versão na loja. E amarre cada bundle à versão do binário que sabe executá-lo.
 
 ## Em resumo
 
-OTA é uma ferramenta de **resposta rápida**, não um atalho para tudo. Usada com rollout gradual e rollback, ela transforma "esperar a loja" em "corrigir em minutos".`,
+OTA é uma ferramenta de **resposta rápida**. Com patches pequenos, rollout gradual e rollback automático, "esperar a loja" vira "corrigir em minutos".`,
   },
   {
     id: "static-cobrancas-em-apps-com-stripe",
@@ -271,47 +280,65 @@ O app **pede e mostra**; o servidor **decide**; o webhook **confirma**. Quando c
   {
     id: "static-gastar-menos-tokens-com-agentes-de-ia",
     slug: "gastar-menos-tokens-com-agentes-de-ia",
-    title: "Como gastar menos tokens com agentes de IA no dia a dia",
-    excerpt: "Hábitos simples para reduzir custo e ruído ao usar Claude Code e outros agentes: contexto enxuto, tarefas focadas e a ferramenta certa.",
+    title: "Corte o custo do seu agente de IA: 5 táticas para parar de queimar tokens",
+    excerpt: "Filtrar a saída do terminal com o RTK, cuidar do cache de 5 minutos, usar /compact e /clear, adotar o Pony Tail e escolher o modelo certo.",
     cover_image_url: null,
     created_at: "2026-09-12T12:00:00.000Z",
-    body_markdown: `Agentes de IA cobram (em tokens e em atenção) por tudo que entra no contexto. A boa notícia: a maior parte do desperdício vem de **hábitos**, não de limitação da ferramenta.
+    body_markdown: `Você usa IA para programar todos os dias, mas sabe o que realmente está pagando? Estas são cinco táticas para parar de queimar tokens.
 
-## 1. Contexto é custo
+## O problema: o modelo lê tudo, e você paga
 
-Cada mensagem, arquivo lido e saída de comando fica no contexto e é reprocessado a cada passo. Contexto grande custa mais e, pior, **distrai o modelo**.
+Um comando como \`git diff\` ou \`npm test\` cospe milhares de linhas de log. O agente processa esse lixo e cobra por cada caractere:
 
-- Comece uma conversa nova quando mudar de assunto.
-- Peça respostas curtas quando não precisar de explicação.
-- Evite colar arquivos inteiros quando um trecho resolve.
+\`\`\`text
+Output do terminal bruto (ex.: 5.000 tokens)
+> error: undefined method 'map'...
+> at line 42... (2000 linhas de stacktrace omitidas)
+\`\`\`
 
-## 2. Instruções fixas, enxutas
+## 1. RTK: o filtro cirúrgico
 
-Arquivos como \`CLAUDE.md\` são lidos em toda sessão. Mantenha só o que realmente muda o comportamento: comandos do projeto, convenções e armadilhas conhecidas. Texto longo ali é custo fixo.
+O **Rust Token Killer** intercepta seus comandos e limpa a saída antes de o texto chegar ao agente.
 
-## 3. Tarefas pequenas e bem definidas
+\`\`\`bash
+# Sem RTK (padrão): ~4.200 tokens enviados ao modelo
+git diff
 
-"Refatore tudo" gasta muito e entrega pouco. "Extraia a regra X do arquivo Y para uma função pura e adicione testes" é barato e verificável.
+# Com RTK: ~450 tokens enviados ao modelo
+rtk git diff
+\`\`\`
 
-## 4. Deixe o repositório trabalhar por você
+## 2. Cuidado com a pausa para o café
 
-- Mensagens de erro e testes que falham dão ao agente um alvo claro.
-- Scripts de lint, tipos e testes valem mais do que explicar o que está errado.
+O cache do Claude expira após **5 minutos** de inatividade. Se você demorar para responder, a próxima mensagem força o modelo a reescrever **todo o histórico** da conversa.
 
-## 5. Escolha o modelo pela tarefa
+> Sessão longa + pausa de 5 minutos gera um \`cache_write\` massivo de tudo que estava acumulado. O custo explode na volta.
 
-Tarefas mecânicas (renomear, formatar, gerar boilerplate) não precisam do modelo mais capaz. Reserve-o para decisões de arquitetura e bugs difíceis.
+## 3. Comprima antes de pausar
 
-## 6. Delegue a busca
+No Claude Code, não deixe a sessão expirar com o cache cheio:
 
-Buscas amplas no código geram muita saída. Delegar para um sub-agente devolve só a conclusão, mantendo o seu contexto limpo.
+- **Vai pausar?** Rode \`/compact\`. Ele comprime o histórico e reduz o volume de tokens que será regravado quando você voltar.
+- **Mudou de tarefa?** Rode \`/clear\`. Sessões curtas e focadas sempre custam menos do que uma sessão longa e fragmentada.
 
-## 7. Meça
+## 4. Preguiça produtiva: Pony Tail
 
-Se você não sabe onde o custo está indo, não dá para reduzi-lo. Acompanhe o consumo por sessão e observe quais tarefas são as mais caras.
+Um plugin que ensina o agente a ter "preguiça produtiva": força o modelo a pensar antes de sair cuspindo código novo.
+
+1. **Reaproveita o que já existe.** Evita recriar funções que já estão no projeto.
+2. **Prioriza recursos nativos.** Usa a stdlib antes de instalar novas dependências.
+
+**Atenção:** use os modos *lite* ou *full*. O modo *ultra* pode comprimir demais e remover tratamentos de erro essenciais.
+
+## 5. Escolha o modelo certo
+
+Arquitetura inteligente bate força bruta. Modelos menores custam frações de centavos e resolvem a maior parte das tarefas diárias.
+
+- **Modelos rápidos** (como Haiku ou 4o-mini): extrair dados, validar JSON, formatar logs.
+- **Modelos pesados** (como a linha Sonnet): apenas para refatorações e arquitetura complexa.
 
 ## Em resumo
 
-Menos contexto, instruções curtas, tarefas focadas e o modelo certo para cada trabalho. Quase sempre dá para gastar bem menos **sem perder qualidade**, só com disciplina.`,
+Filtre o que entra no contexto, não deixe o cache expirar cheio, comprima ou limpe a sessão, faça o agente reaproveitar o que existe e use o modelo certo para cada tarefa.`,
   },
 ];
