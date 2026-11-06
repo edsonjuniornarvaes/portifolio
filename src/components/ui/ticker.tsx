@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import TechIcon from "./tech-icon";
 
 export type TickerItem = { label: string; value?: string; tone?: "live" | "info" };
 
@@ -41,6 +42,7 @@ export default function Ticker({ items, label = "Stack" }: { items: TickerItem[]
           {list.map((it, i) => (
             <span className="item" key={i} aria-hidden={i >= items.length}>
               {it.tone === "live" && <span className="dot" />}
+              {it.tone !== "live" && <TechIcon name={it.label} size={15} />}
               <b>{it.label}</b>
               {it.value && <em>{it.value}</em>}
             </span>
