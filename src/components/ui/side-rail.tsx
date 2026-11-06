@@ -3,23 +3,6 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import styled from "styled-components";
-import { contact } from "@/data/profile";
-
-const Mail = styled.a`
-  position: fixed;
-  left: 18px;
-  bottom: 40px;
-  z-index: 5;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  transition: color 0.2s ease;
-  &:hover { color: var(--accent-ink); }
-  @media (max-width: 1320px) { display: none; }
-`;
 
 const Track = styled.div`
   position: fixed;
@@ -36,7 +19,7 @@ const Track = styled.div`
   .fill { position: absolute; inset: 0; background: var(--accent); transform-origin: top; transform: scaleY(0); }
 `;
 
-/** E-mail na vertical (lado esquerdo) e barra de progresso da rolagem (lado direito). */
+/** Barra de progresso da rolagem (lado direito). */
 export default function SideRail() {
   const fill = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -61,7 +44,6 @@ export default function SideRail() {
   if (hidden) return null;
   return (
     <>
-      <Mail href={`mailto:${contact.email}`}>{contact.email}</Mail>
       <Track aria-hidden>
         <div className="fill" ref={fill} />
       </Track>

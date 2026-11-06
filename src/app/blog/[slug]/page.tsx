@@ -1,23 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { createServerClient } from "@/lib/supabase";
+import { getPostBySlug } from "@/lib/posts";
 import BlogPostClient, { type Post } from "./post-client";
 
 export const revalidate = 60;
 
 async function getPost(slug: string): Promise<Post | null> {
-  try {
-    const supabase = createServerClient();
-    const { data } = await supabase
-      .from("blog_posts")
-      .select("title, slug, excerpt, cover_image_url, body_markdown, created_at")
-      .eq("slug", slug)
-      .eq("published", true)
-      .maybeSingle();
-    return (data as Post) ?? null;
-  } catch {
-    return null;
-  }
+  const p = await getPostBySlug(slug);
+  return p ? { title: p.title, slug: p.slug, excerpt: p.excerpt, cover_image_url: p.cover_image_url, body_markdown: p.body_markdown, created_at: p.created_at } : null;
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {

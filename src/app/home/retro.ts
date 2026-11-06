@@ -3,20 +3,16 @@ import Link from "next/link";
 
 export const Hero = styled.section`
   position: relative;
-  padding: 56px 0 24px;
-  min-height: calc(100vh - 110px);
-  display: grid;
-  align-items: center;
-  @media (max-width: 900px) { min-height: auto; padding-top: 28px; }
+  padding: 28px 0 32px;
+  @media (max-width: 900px) { padding: 24px 0 28px; }
 `;
 
-export const HeroStage = styled.div`
-  position: relative;
-  z-index: 1;
-  .inner { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 28px; align-items: center; padding: 40px 44px 52px; }
-  .tv { display: grid; justify-items: center; padding-right: 6px; }
-  @media (max-width: 1000px) { .inner { grid-template-columns: 1fr; padding: 28px 22px 40px; gap: 36px; } .tv { order: -1; } }
-  @media (max-width: 600px) { .inner { padding: 22px 16px 32px; } }
+export const HeroGrid = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 48px;
+  align-items: center;
+  @media (max-width: 960px) { grid-template-columns: 1fr; gap: 32px; }
 `;
 
 export const Kick = styled.p`
@@ -31,8 +27,8 @@ export const BigName = styled.h1`
   text-transform: uppercase;
   line-height: 0.92;
   letter-spacing: 0.01em;
-  font-size: clamp(3.4rem, 10.5vw, 7.6rem);
-  margin: 14px 0 6px;
+  font-size: clamp(3rem, 8vw, 5.6rem);
+  margin: 12px 0 6px;
   .l1 { display: block; color: var(--ink); }
   .l2 {
     display: block;
@@ -60,10 +56,10 @@ export const Intro = styled.p`
 `;
 
 export const Stats = styled.dl`
-  display: flex; flex-wrap: wrap; gap: 18px 36px; margin-top: 26px; padding-top: 18px; border-top: 1px dashed var(--line);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px; margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--line);
   dt { font-family: var(--font-condensed); font-size: 2.2rem; line-height: 1; letter-spacing: 0.01em; color: var(--ink); }
   dt span { color: var(--accent-ink); }
-  dd { font-size: 0.78rem; color: var(--muted); margin-top: 4px; max-width: 12rem; }
+  dd { font-size: 0.74rem; color: var(--muted); margin-top: 4px; }
 `;
 
 export const ScrollCue = styled.div`
@@ -97,17 +93,17 @@ export const Band = styled.section`
 
 export const Section = styled.section`
   position: relative;
-  margin-top: 120px;
+  margin-top: 88px;
   scroll-margin-top: 90px;
-  @media (max-width: 700px) { margin-top: 80px; }
+  @media (max-width: 700px) { margin-top: 64px; }
 `;
 
 export const Heading = styled.div`
-  margin-bottom: 36px;
+  margin-bottom: 26px;
   .tag { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-ink); display: block; margin-bottom: 8px; }
   .tag::before { content: "// "; color: var(--muted); }
-  h2 { font-family: var(--font-condensed); font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em; line-height: 0.98; font-size: clamp(2.6rem, 7vw, 5rem); }
-  p { color: var(--muted); max-width: 36rem; margin-top: 12px; }
+  h2 { font-family: var(--font-condensed); font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em; line-height: 0.98; font-size: clamp(2rem, 4.4vw, 3.1rem); }
+  p { color: var(--muted); max-width: 36rem; margin-top: 10px; }
 `;
 
 /* ---- Expertise (cartões com código) ---- */
@@ -185,10 +181,6 @@ export const WinCard = styled(Link)<{ $color?: string }>`
   &:hover .rv { transform: rotate(-3deg) translateY(-6px); box-shadow: 0 20px 44px var(--glow); }
   &:hover .rv::before { opacity: 1; }
 
-  /* moldura de canto, sobreposta ao título */
-  .bracket { position: absolute; left: -10px; top: calc(100% * 0.42); width: 30px; height: 42px; stroke: var(--accent-2); opacity: 0.75; pointer-events: none; transition: transform 0.3s ease; }
-  &:hover .bracket { transform: translate(-3px, 3px); opacity: 1; }
-  @media (max-width: 720px) { .bracket { display: none; } }
 
   .cap { padding: 12px 2px 0; position: relative; }
   .cap strong { display: block; font-size: 0.94rem; font-weight: 650; letter-spacing: -0.015em; line-height: 1.25; }
@@ -219,4 +211,14 @@ export const ContactWin = styled.div`
   .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
   .row a { height: 40px; padding: 0 18px; display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 0.82rem; border: 2px solid var(--line); color: var(--ink); transition: all 0.2s ease; }
   .row a:hover { border-color: var(--accent-ink); color: var(--accent-ink); transform: translate(-2px, -2px); box-shadow: 4px 4px 0 color-mix(in srgb, var(--accent-2) 60%, transparent); }
+`;
+
+export const ContactRow = styled.div`
+  display: flex; flex-wrap: wrap; gap: 10px;
+  a.chip {
+    display: inline-flex; align-items: center; gap: 9px; height: 44px; padding: 0 16px;
+    border: 2px solid var(--line); font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink);
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  a.chip:hover { border-color: var(--accent-ink); color: var(--accent-ink); transform: translateY(-2px); }
 `;

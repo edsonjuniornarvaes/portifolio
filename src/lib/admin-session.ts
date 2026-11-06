@@ -3,7 +3,14 @@ import { createHmac, timingSafeEqual } from 'crypto';
 const TTL_MS = 1000 * 60 * 60 * 12; // 12 horas
 
 function secret(): string {
-  return process.env.ADMIN_SESSION_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+  // Ordem de preferência. O hash da senha também é segredo só do servidor, então serve de reserva
+  // para o login não quebrar se ADMIN_SESSION_SECRET ainda não existir.
+  return (
+    process.env.ADMIN_SESSION_SECRET ||
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.ADMIN_PASSWORD_HASH ||
+    ''
+  );
 }
 
 const b64 = (s: string) => Buffer.from(s, 'utf-8').toString('base64url');
@@ -13,7 +20,7 @@ const sign = (data: string, key: string) => createHmac('sha256', key).update(dat
 export function createAdminToken(email: string): string {
   const key = secret();
   if (!key) {
-    throw new Error('Defina ADMIN_SESSION_SECRET (ou SUPABASE_SERVICE_ROLE_KEY) para assinar a sessão do admin.');
+    throw new Error('Defina ADMIN_SESSION_SECRET (ou SUPABASE_SERVICE_ROLE_KEY / ADMIN_PASSWORD_HASH) para assinar a sessão do admin.');
   }
   const payload = b64(JSON.stringify({ e: email, exp: Date.now() + TTL_MS }));
   return `${payload}.${sign(payload, key)}`;
