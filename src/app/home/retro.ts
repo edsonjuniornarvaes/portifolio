@@ -222,3 +222,37 @@ export const ContactRow = styled.div`
   }
   a.chip:hover { border-color: var(--accent-ink); color: var(--accent-ink); transform: translateY(-2px); }
 `;
+
+export const HeroDuo = styled.div`
+  position: relative;
+  min-height: 560px;
+  .tv { position: absolute; left: 0; top: 4px; width: min(300px, 58%); }
+  .phone { position: absolute; right: 0; bottom: 0; width: 300px; }
+  @media (max-width: 960px) { min-height: 540px; max-width: 460px; margin: 0 auto; width: 100%; }
+  @media (max-width: 520px) { min-height: 470px; .tv { width: 58%; } .phone { transform: scale(0.7); transform-origin: bottom right; } }
+`;
+
+export const ProjList = styled.ul`
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px;
+  @media (max-width: 860px) { grid-template-columns: 1fr; }
+`;
+
+export const ProjRow = styled(Link)<{ $color?: string }>`
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: start;
+  padding: 18px 0; border-bottom: 1px solid var(--line); color: inherit;
+  .mark {
+    width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center;
+    background: ${(p) => p.$color || "var(--accent)"}; color: #fff; font-family: var(--font-condensed); font-size: 1.05rem; letter-spacing: 0.02em;
+  }
+  .top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; }
+  h3 { font-size: 1rem; font-weight: 650; letter-spacing: -0.015em; transition: color 0.2s ease; }
+  .st { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); }
+  .st::before { content: "● "; color: var(--st, var(--muted)); }
+  .sub { margin-top: 2px; font-size: 0.84rem; color: var(--ink); opacity: 0.85; }
+  .desc { margin-top: 4px; font-size: 0.82rem; color: var(--muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px 14px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
+  .tags span { display: inline-flex; align-items: center; gap: 5px; }
+  &:hover h3 { color: var(--accent-ink); }
+  &:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 4px; }
+`;

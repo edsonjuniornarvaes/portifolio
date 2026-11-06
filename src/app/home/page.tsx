@@ -13,6 +13,7 @@ import CopyChip from "@/components/ui/copy-chip";
 import Ticker, { type TickerItem } from "@/components/ui/ticker";
 import GithubActivity from "@/components/ui/github-activity";
 import PhoneShowcase, { type Screen } from "@/components/ui/phone-showcase";
+import TvPortrait from "@/components/retro/tv-portrait";
 import TechIcon from "@/components/ui/tech-icon";
 import WindowFrame from "@/components/retro/window-frame";
 import { ExperienceData } from "../about/helper";
@@ -42,11 +43,11 @@ const DOT = { production: "#4ade80", development: "#fbbf24", paused: "var(--mute
 type PostPreview = { id: string; slug: string; title: string; excerpt: string | null; created_at?: string };
 
 const SCREENS: Screen[] = [
-  { src: "/images/projects/mont-b2c-login-teclado.webp", app: "Mont B2C", note: "login" },
-  { src: "/images/projects/navex-home.webp", app: "Minha Navex", note: "início" },
-  { src: "/images/projects/mont-b2b-login.webp", app: "Mont B2B", note: "acesso do parceiro" },
-  { src: "/images/projects/navex-chamados.webp", app: "Minha Navex", note: "chamados" },
-  { src: "/images/projects/mont-b2c-login.webp", app: "Mont B2C", note: "abrir conta" },
+  { src: "/images/projects/pjbank-home.webp", app: "PJBank", note: "conta digital" },
+  { src: "/images/projects/gruvi-minha-casa.webp", app: "Gruvi", note: "minha casa" },
+  { src: "/images/projects/mont-b2c-carteira.webp", app: "Mont B2C", note: "carteira" },
+  { src: "/images/projects/mont-b2b-home.webp", app: "Mont B2B", note: "início do parceiro" },
+  { src: "/images/projects/navex-fatura.webp", app: "Minha Navex", note: "fatura" },
 ];
 
 const TICKER: TickerItem[] = [
@@ -111,29 +112,35 @@ function Projects() {
           </button>
         ))}
       </R.Filters>
-      <R.WinGrid>
+      <R.ProjList>
         {list.map((p, i) => (
-          <Reveal key={p.id} delay={(i % 4) * 50}>
-            <R.WinCard href={`/projects/${p.id}`} $color={p.iconColor} style={{ ["--st" as string]: DOT[p.status] }}>
-              <WindowFrame className="rv" reveal hue={p.type === "personal" ? "mint" : i % 2 ? "violet" : "warm"}>
-                <div className="cover">
-                  {(p.coverImage || (SHOW_PROJECT_IMAGES && p.galleryImages?.[0])) ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={p.coverImage ?? p.galleryImages?.[0]} alt={`Tela de ${p.title}`} loading="lazy" />
-                  ) : (
-                    <span className="letter">{p.iconLetter ?? p.title[0]}</span>
-                  )}
-                </div>
-              </WindowFrame>
-              <div className="cap">
-                <strong>{p.title}</strong>
-                <span>{p.tagline}</span>
-                <em>● {STATUS[p.status]}</em>
-              </div>
-            </R.WinCard>
+          <Reveal key={p.id} delay={(i % 2) * 50}>
+            <li>
+              <R.ProjRow href={`/projects/${p.id}`} $color={p.iconColor} style={{ ["--st" as string]: DOT[p.status] }}>
+                <span className="mark" aria-hidden>
+                  {p.iconLetter ?? p.title[0]}
+                </span>
+                <span>
+                  <span className="top">
+                    <h3>{p.title}</h3>
+                    <span className="st">{STATUS[p.status]}</span>
+                  </span>
+                  <p className="sub">{p.tagline}</p>
+                  <p className="desc">{p.description}</p>
+                  <span className="tags">
+                    {p.tags.slice(0, 4).map((t) => (
+                      <span key={t}>
+                        <TechIcon name={t} size={12} />
+                        {t}
+                      </span>
+                    ))}
+                  </span>
+                </span>
+              </R.ProjRow>
+            </li>
           </Reveal>
         ))}
-      </R.WinGrid>
+      </R.ProjList>
     </>
   );
 }
@@ -154,12 +161,7 @@ export default function Home() {
       <R.Hero>
         <R.HeroGrid>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.2, 0.7, 0.2, 1] }}>
-            <S.Avatar>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/edson.webp" alt="Edson Junior" />
-              <span className="live" aria-label="Disponível" />
-            </S.Avatar>
-            <R.Kick>Olá, eu sou</R.Kick>
+                        <R.Kick>Olá, eu sou</R.Kick>
             <R.BigName>
               <span className="l1">Edson</span>
               <span className="l2">Junior</span>
@@ -194,7 +196,14 @@ export default function Home() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.12 }}>
-            <PhoneShowcase screens={SCREENS} />
+            <R.HeroDuo>
+              <div className="tv">
+                <TvPortrait src="/images/edson.webp" alt="Retrato de Edson Junior" />
+              </div>
+              <div className="phone">
+                <PhoneShowcase screens={SCREENS} single />
+              </div>
+            </R.HeroDuo>
           </motion.div>
         </R.HeroGrid>
       </R.Hero>
