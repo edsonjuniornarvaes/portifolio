@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLang } from "@/i18n/provider";
 
 type Theme = "light" | "dark";
 
 /** Alterna escuro/claro; o padrão é sempre o escuro. */
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme | null>(null);
+  const { t } = useLang();
 
   useEffect(() => {
     const attr = document.documentElement.getAttribute("data-theme");
@@ -28,7 +30,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      aria-label={theme === "dark" ? "Ativar tema claro" : "Ativar tema escuro"}
+      aria-label={theme === "dark" ? t.theme.toLight : t.theme.toDark}
       style={{
         font: "inherit",
         color: "var(--muted)",

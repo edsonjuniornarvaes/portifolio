@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import { useLang } from "@/i18n/provider";
+import { LOCALE } from "@/i18n/config";
 
 type Day = { date: string; count: number };
 type Account = { user: string; total: number; ok: boolean };
@@ -47,6 +49,7 @@ function levelOf(count: number, max: number) {
 
 /** Soma as contribuições de várias contas do GitHub, dia a dia, como se fossem uma só. */
 export default function GithubActivity({ users, weeks = 53 }: { users: string[]; weeks?: number }) {
+  const { lang, t } = useLang();
   const [days, setDays] = useState<Day[] | null>(null);
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [failed, setFailed] = useState(false);
@@ -91,22 +94,22 @@ export default function GithubActivity({ users, weeks = 53 }: { users: string[];
         <span className="dots" aria-hidden>
           <i /><i /><i />
         </span>
-        <span className="path">github · atividade</span>
+        <span className="path">{t.github.path}</span>
       </div>
       <div className="body">
         {days ? (
           <>
             <div className="sum">
-              <strong>{total.toLocaleString("pt-BR")}</strong>
-              <span>contribuições no último ano</span>
+              <strong>{total.toLocaleString(LOCALE[lang])}</strong>
+              <span>{t.github.summary}</span>
             </div>
-            <div className="grid" role="img" aria-label="Mapa de contribuições do GitHub das duas contas somadas">
+            <div className="grid" role="img" aria-label={t.github.gridAria}>
               {view.map((d, i) => (
                 <span
                   key={d.date}
                   className={`cell l${levelOf(d.count, max)}`}
                   style={{ animationDelay: `${Math.min(i * 3, 900)}ms` }}
-                  title={`${d.count} em ${d.date}`}
+                  title={`${d.count} ${t.github.cellTitle} ${d.date}`}
                 />
               ))}
             </div>
@@ -119,8 +122,8 @@ export default function GithubActivity({ users, weeks = 53 }: { users: string[];
                 ))}
               </div>
               <div className="legend" aria-hidden>
-                menos <span className="cell" /> <span className="cell l1" /> <span className="cell l2" />
-                <span className="cell l3" /> <span className="cell l4" /> mais
+                {t.github.less} <span className="cell" /> <span className="cell l1" /> <span className="cell l2" />
+                <span className="cell l3" /> <span className="cell l4" /> {t.github.more}
               </div>
             </div>
           </>
@@ -128,7 +131,7 @@ export default function GithubActivity({ users, weeks = 53 }: { users: string[];
           <p className="empty">
             {failed ? (
               <>
-                Veja a atividade no GitHub:{" "}
+                {t.github.seeActivity}{" "}
                 {users.map((u, i) => (
                   <span key={u}>
                     {i > 0 && " · "}
@@ -139,7 +142,7 @@ export default function GithubActivity({ users, weeks = 53 }: { users: string[];
                 ))}
               </>
             ) : (
-              "Carregando atividade…"
+              t.github.loading
             )}
           </p>
         )}

@@ -6,6 +6,9 @@ import Footer from "@/components/footer";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
 import SideRail from "@/components/ui/side-rail";
+import { LangProvider } from "@/i18n/provider";
+import { getLang } from "@/i18n/server";
+import { ui } from "@/i18n/dict";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portifolio-wheat-omega-16.vercel.app";
 
@@ -35,32 +38,31 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: "Edson Junior | Desenvolvedor Mobile Sênior · React Native",
-    template: "%s | Edson Junior",
-  },
-  description:
-    "Desenvolvedor Mobile Sênior com React Native e TypeScript. Apps financeiros, superapps e e-commerce em produção — de PJBank a produtos próprios.",
-  keywords: ["React Native", "Desenvolvedor Mobile", "iOS", "Android", "TypeScript", "Redux", "Next.js", "Expo"],
-  authors: [{ name: "Edson Junior" }],
-  openGraph: {
-    title: "Edson Junior | Desenvolvedor Mobile Sênior",
-    description: "React Native, TypeScript e produtos digitais de ponta a ponta.",
-    type: "website",
-    locale: "pt_BR",
-    url: siteUrl,
-    images: [{ url: "/images/edson.webp", width: 800, height: 800, alt: "Edson Junior" }],
-  },
-  twitter: { card: "summary", title: "Edson Junior | Desenvolvedor Mobile Sênior", images: ["/images/edson.webp"] },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const m = ui[await getLang()].meta;
+  return {
+    metadataBase: new URL(siteUrl),
+    title: { default: m.title, template: "%s | Edson Junior" },
+    description: m.description,
+    keywords: ["React Native", "Mobile Developer", "Desenvolvedor Mobile", "iOS", "Android", "TypeScript", "Redux", "Next.js", "Expo"],
+    authors: [{ name: "Edson Junior" }],
+    openGraph: {
+      title: m.ogTitle,
+      description: m.ogDescription,
+      type: "website",
+      locale: m.ogLocale,
+      url: siteUrl,
+      images: [{ url: "/images/edson.webp", width: 800, height: 800, alt: "Edson Junior" }],
+    },
+    twitter: { card: "summary", title: m.ogTitle, images: ["/images/edson.webp"] },
+  };
+}
 
-const personJsonLd = {
+const personJsonLd = (jobTitle: string) => ({
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Edson Junior Narvaes",
-  jobTitle: "Desenvolvedor Mobile Sênior",
+  jobTitle,
   url: siteUrl,
   image: `${siteUrl}/images/edson.webp`,
   sameAs: [
@@ -70,16 +72,17 @@ const personJsonLd = {
     "https://www.instagram.com/edsonjunior.dev",
   ],
   knowsAbout: ["React Native", "TypeScript", "iOS", "Android", "Next.js"],
-};
+});
 
 const themeScript = `try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}`;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const lang = await getLang();
   return (
     <html
-      lang="pt-BR"
+      lang={lang === "pt" ? "pt-BR" : "en"}
       className={`${outfit.variable} ${jetbrains.variable} ${anton.variable} ${caveat.variable}`}
       suppressHydrationWarning
     >
@@ -89,15 +92,17 @@ export default function RootLayout({
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(ui[lang].meta.jobTitle)) }}
         />
-        <StyledComponentsRegistry>
-          <AnalyticsTracker />
-          <SideRail />
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </StyledComponentsRegistry>
+        <LangProvider initial={lang}>
+          <StyledComponentsRegistry>
+            <AnalyticsTracker />
+            <SideRail />
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </StyledComponentsRegistry>
+        </LangProvider>
       </body>
     </html>
   );

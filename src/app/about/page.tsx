@@ -5,6 +5,8 @@ import * as S from "../home/styles";
 import Reveal from "@/components/ui/reveal";
 import PackageJson from "@/components/ui/package-json";
 import { ExperienceData, EducationData } from "./helper";
+import { useLang } from "@/i18n/provider";
+import { localizeJourney, localizeExperience, localizeEducation } from "@/i18n/content";
 import { contact, journey, location, STUDY_SINCE, CAREER_SINCE } from "@/data/profile";
 
 const Intro = styled.div`
@@ -24,48 +26,37 @@ const Topics = styled.ul`
   li b { color: var(--ink); font-weight: 500; }
 `;
 
-const TOPICS = [
-  { t: "MVVM na prática", d: "como organizar um app React Native para crescer" },
-  { t: "Auth0", d: "SSO, MFA, login social, fluxos e tokens" },
-  { t: "Atualizações OTA", d: "enviar updates sem passar pela loja (React Native Stallion)" },
-  { t: "Cobranças em apps", d: "Stripe e pagamentos dentro do app" },
-  { t: "IA no dia a dia", d: "economia de tokens ao usar Claude Code e agentes" },
-];
-
 export default function About() {
+  const { lang, t } = useLang();
+  const a = t.about;
+  const journeyL = localizeJourney(journey, lang);
+  const jobs = localizeExperience(ExperienceData, lang);
+  const edu = localizeEducation(EducationData, lang);
   return (
     <S.Page>
       <Intro>
         <div>
-          <S.Kicker>Sobre</S.Kicker>
+          <S.Kicker>{a.kicker}</S.Kicker>
           <S.Display>
-            Oi, eu sou o <em>Edson</em>.
+            {a.hi}<em>Edson</em>.
           </S.Display>
+          <S.Lead>{a.p1}</S.Lead>
+          <S.Lead>{a.p2}</S.Lead>
+          <S.Lead>{a.p3}</S.Lead>
           <S.Lead>
-            Sou desenvolvedor mobile sênior, especializado em <b>React Native</b> e{" "}
-            <b>TypeScript</b>, com experiência em produtos de fintech, banco digital, telecom,
-            e-commerce e superapps.
-          </S.Lead>
-          <S.Lead>
-            Atuo em todo o ciclo de desenvolvimento: da arquitetura e implementação a testes,
-            observabilidade, CI/CD e releases em produção. Tenho experiência com arquiteturas MVVM
-            escaláveis, integrações com BFF, fluxos financeiros críticos como Pix, pagamentos e
-            cobrança, autenticação segura com Auth0 e integrações nativas em iOS e Android.
-          </S.Lead>
-          <S.Lead>
-            Também já atuei como Scrum Master, conectando decisões técnicas, metas de produto e o
-            trabalho do time. Gosto de problemas complexos, de entender bases de código existentes
-            e de entregar soluções confiáveis que escalam.
-          </S.Lead>
-          <S.Lead>
-            Estudo tecnologia desde {STUDY_SINCE} e trabalho como desenvolvedor desde {CAREER_SINCE}.
-            Moro em {location} e falo português e inglês. Contato:{" "}
+            {a.p4a}
+            {STUDY_SINCE}
+            {a.p4b}
+            {CAREER_SINCE}
+            {a.p4c}
+            {location}
+            {a.p4d}
             <a href={`mailto:${contact.email}`}>{contact.email}</a>.
           </S.Lead>
         </div>
         <S.Photo>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/edson.webp" alt="Retrato de Edson Junior" />
+          <img src="/images/edson.webp" alt={a.portraitAlt} />
           <figcaption>
             Edson Junior · {location}
           </figcaption>
@@ -76,39 +67,44 @@ export default function About() {
         <S.Section id="agora">
           <S.AboutGrid>
             <div>
-              <S.Label>Agora</S.Label>
+              <S.Label>{a.now}</S.Label>
               <div className="text">
                 <div className="now" style={{ marginTop: 0 }}>
                   <ul>
                     <li>
-                      <b>PJBank</b> na Superlógica: arquitetura, autenticação e fluxos como o Pix
-                      Automático
+                      <b>PJBank</b>
+                      {a.now1At}
+                      {a.now1}
                     </li>
                     <li>
-                      <b>Clube da Joia</b>: site, painel e app com pagamentos, em um backend só
+                      <b>Clube da Joia</b>: {a.now2}
                     </li>
                     <li>
-                      Próximos passos: <b>notificações push</b>, <b>Mixpanel</b> e frete real
+                      {a.now3a}
+                      <b>{a.now3b}</b>
+                      {a.now3c}
+                      <b>Mixpanel</b>
+                      {a.now3d}
                     </li>
                   </ul>
                 </div>
               </div>
               <div style={{ marginTop: 32 }}>
-                <S.Label>Sobre o que escrevo no LinkedIn</S.Label>
+                <S.Label>{a.writeAbout}</S.Label>
                 <Topics>
-                  {TOPICS.map((x) => (
+                  {a.topics.map((x) => (
                     <li key={x.t}>
                       <b>{x.t}</b>: {x.d}
                     </li>
                   ))}
                 </Topics>
                 <div style={{ marginTop: 18 }}>
-                  <S.TextLink href={contact.linkedin}>Ver no LinkedIn →</S.TextLink>
+                  <S.TextLink href={contact.linkedin}>{a.seeLinkedin}</S.TextLink>
                 </div>
               </div>
             </div>
             <div>
-              <S.Label>Tecnologias</S.Label>
+              <S.Label>{a.stack}</S.Label>
               <S.Window>
                 <PackageJson />
               </S.Window>
@@ -119,9 +115,9 @@ export default function About() {
 
       <Reveal>
         <S.Section id="jornada">
-          <S.Label>Jornada, {STUDY_SINCE} até hoje</S.Label>
+          <S.Label>{a.journey} {STUDY_SINCE} {a.untilNow}</S.Label>
           <S.List>
-            {journey.map((j) => (
+            {journeyL.map((j) => (
               <S.Row key={j.year + j.title}>
                 <S.RowStatic>
                   <span className="year">{j.year}</span>
@@ -139,9 +135,9 @@ export default function About() {
 
       <Reveal>
         <S.Section id="experiencia">
-          <S.Label>Experiência</S.Label>
+          <S.Label>{a.experience}</S.Label>
           <S.List>
-            {ExperienceData.map((job) => (
+            {jobs.map((job) => (
               <S.Row key={`${job.company}-${job.period}`}>
                 <S.RowStatic>
                   <span className="year">{job.period}</span>
@@ -162,9 +158,9 @@ export default function About() {
 
       <Reveal>
         <S.Section id="formacao">
-          <S.Label>Formação</S.Label>
+          <S.Label>{a.education}</S.Label>
           <S.List>
-            {EducationData.map((e) => (
+            {edu.map((e) => (
               <S.Row key={e.course}>
                 <S.RowStatic>
                   <span className="year">{e.period}</span>

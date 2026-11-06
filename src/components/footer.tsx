@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { usePathname } from "next/navigation";
 import LocalTime from "@/components/ui/local-time";
 import { location } from "@/data/profile";
+import { useLang } from "@/i18n/provider";
 
 const Foot = styled.footer`
   margin-top: 88px;
@@ -25,6 +26,7 @@ const Foot = styled.footer`
 
 export default function Footer() {
   const pathname = usePathname();
+  const { t } = useLang();
   if (pathname.startsWith("/adminaccess")) return null;
 
   return (
@@ -33,9 +35,9 @@ export default function Footer() {
         <p className="copy">
           © {new Date().getFullYear()} Edson Junior · {location} · <LocalTime />
         </p>
-        <div className="stamp" role="img" aria-label="Feito à base de café">
-          <span className="top">FEITO À BASE DE</span>
-          <b>CAFÉ</b>
+        <div className="stamp" role="img" aria-label={t.footer.stampAria}>
+          <span className="top">{t.footer.stampTop}</span>
+          <b>{t.footer.stampMain}</b>
           <span className="bot">EDSON JUNIOR · 2026</span>
         </div>
       </div>

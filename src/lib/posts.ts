@@ -1,5 +1,7 @@
 import { createServerClient } from '@/lib/supabase';
 import { STATIC_POSTS, type StaticPost } from '@/content/posts';
+import { STATIC_POSTS_EN } from '@/content/posts-en';
+import type { Lang } from '@/i18n/config';
 
 export type PostRow = {
   id: string;
@@ -11,7 +13,10 @@ export type PostRow = {
   created_at: string;
 };
 
-const fromStatic = (p: StaticPost): PostRow => ({ ...p });
+const fromStatic = (p: StaticPost, lang: Lang): PostRow => {
+  const en = lang === 'en' ? STATIC_POSTS_EN[p.slug] : undefined;
+  return en ? { ...p, ...en } : { ...p };
+};
 
 async function dbPosts(): Promise<PostRow[]> {
   try {
@@ -28,15 +33,16 @@ async function dbPosts(): Promise<PostRow[]> {
   }
 }
 
-/** Artigos publicados: os do painel (Supabase) + os do código. Mesmo slug: o do painel vence. */
-export async function getAllPosts(): Promise<PostRow[]> {
+/** Artigos publicados: os do painel (Supabase) + os do código. Mesmo slug: o do painel vence.
+ * Em inglês, os artigos do código usam a tradução; os do painel ficam como foram escritos. */
+export async function getAllPosts(lang: Lang = 'pt'): Promise<PostRow[]> {
   const fromDb = await dbPosts();
   const slugs = new Set(fromDb.map((p) => p.slug));
-  const merged = [...fromDb, ...STATIC_POSTS.filter((p) => !slugs.has(p.slug)).map(fromStatic)];
+  const merged = [...fromDb, ...STATIC_POSTS.filter((p) => !slugs.has(p.slug)).map((p) => fromStatic(p, lang))];
   return merged.sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
 }
 
-export async function getPostBySlug(slug: string): Promise<PostRow | null> {
-  const all = await getAllPosts();
+export async function getPostBySlug(slug: string, lang: Lang = 'pt'): Promise<PostRow | null> {
+  const all = await getAllPosts(lang);
   return all.find((p) => p.slug === slug) ?? null;
 }

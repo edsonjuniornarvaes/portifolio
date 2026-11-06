@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { useLang } from "@/i18n/provider";
 
 const Tab = styled.div`
   position: relative;
@@ -32,6 +33,7 @@ const Tab = styled.div`
 
 /** Retrato na tela de um tablet. */
 export default function TabletPortrait({ src, alt }: { src: string; alt: string }) {
+  const { t } = useLang();
   return (
     <Tab>
       <div className="glow" aria-hidden />
@@ -44,7 +46,7 @@ export default function TabletPortrait({ src, alt }: { src: string; alt: string 
         <span className="bar" aria-hidden />
       </div>
       <div className="label">
-        <span /> disponível para projetos
+        <span /> {t.hero.available}
       </div>
     </Tab>
   );

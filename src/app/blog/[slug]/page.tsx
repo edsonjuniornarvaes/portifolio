@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/lib/posts";
 import BlogPostClient, { type Post } from "./post-client";
-
-export const revalidate = 60;
+import { getLang } from "@/i18n/server";
+import { ui } from "@/i18n/dict";
 
 async function getPost(slug: string): Promise<Post | null> {
-  const p = await getPostBySlug(slug);
+  const p = await getPostBySlug(slug, await getLang());
   return p ? { title: p.title, slug: p.slug, excerpt: p.excerpt, cover_image_url: p.cover_image_url, body_markdown: p.body_markdown, created_at: p.created_at } : null;
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getPost(params.slug);
-  if (!post) return { title: "Artigo não encontrado" };
+  if (!post) return { title: ui[await getLang()].post.notFound };
   const description = post.excerpt || post.body_markdown.replace(/[#>*_`\[\]()!-]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 155);
   return {
     title: post.title,
