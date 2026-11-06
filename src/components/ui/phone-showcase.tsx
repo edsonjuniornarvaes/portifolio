@@ -35,7 +35,7 @@ const Wrap = styled.div`
 `;
 
 /** Celular com telas reais dos apps que desenvolvi, trocando devagar. */
-export default function PhoneShowcase({ screens, interval = 3400 }: { screens: Screen[]; interval?: number }) {
+export default function PhoneShowcase({ screens, interval = 3400, single = false }: { screens: Screen[]; interval?: number; single?: boolean }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -53,6 +53,7 @@ export default function PhoneShowcase({ screens, interval = 3400 }: { screens: S
     <Wrap onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="stage" aria-hidden={false}>
         <div className="glow" />
+        {!single && (
         <div className="phone back" aria-hidden>
           <div className="screens">
             {screens.map((s, k) => (
@@ -61,6 +62,7 @@ export default function PhoneShowcase({ screens, interval = 3400 }: { screens: S
             ))}
           </div>
         </div>
+        )}
         <div className="phone main">
           <span className="notch" />
           <div className="screens">
