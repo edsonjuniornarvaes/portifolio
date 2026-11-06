@@ -238,7 +238,7 @@ export const professionalProjects: Project[] = [
   {
     id: "consorcio-gazin",
     coverImage: "/images/projects/consorcio-gazin-cover.webp",
-    screens: ["/images/projects/consorcio-gazin-cover.webp"],
+    screens: ["/images/projects/consorcio-gazin-simulador.webp", "/images/projects/consorcio-gazin-cover.webp"],
     title: "Consórcio Gazin",
     tagline: "Gestão de Consórcios",
     description:
