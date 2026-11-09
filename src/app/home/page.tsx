@@ -1,66 +1,25 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, useScroll, useSpring } from "framer-motion";
 import * as S from "./styles";
 import * as R from "./retro";
 import Reveal from "@/components/ui/reveal";
 import LocalTime from "@/components/ui/local-time";
 import Ticker, { type TickerItem } from "@/components/ui/ticker";
 import GithubActivity from "@/components/ui/github-activity";
-import TechIcon from "@/components/ui/tech-icon";
 import WindowFrame from "@/components/retro/window-frame";
 import Hero from "@/components/home/hero";
 import Work from "@/components/home/work";
-import Trajectory from "@/components/home/trajectory";
+import Experience from "@/components/home/experience";
 import Education from "@/components/home/education";
 import ContactCta from "@/components/home/contact-cta";
-import { ExperienceData } from "../about/helper";
 import { useLang } from "@/i18n/provider";
 import { LOCALE } from "@/i18n/config";
-import { localizeExperience } from "@/i18n/content";
 import { skillGroups } from "./skills";
 import { githubUsers, location, yearsCareer, yearsMobile, yearsStudying } from "@/data/profile";
 
 type PostPreview = { id: string; slug: string; title: string; excerpt: string | null; created_at?: string };
-
-function Experience() {
-  const { lang } = useLang();
-  const jobs = localizeExperience(ExperienceData, lang);
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 55%"] });
-  const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.4 });
-  return (
-    <S.Commits ref={ref}>
-      <div className="rail">
-        <motion.div className="fill" style={{ scaleY }} />
-      </div>
-      {jobs.map((job, i) => (
-        <Reveal key={`${job.company}-${job.period}`} className={`commit${i === 0 ? " head" : ""}`}>
-          <S.CommitCard>
-            <div className="meta">
-              <span className="when">{job.period}</span>
-            </div>
-            <h3>{job.role}</h3>
-            <div className="company">
-              {job.company} · {job.location}
-            </div>
-            <p>{job.description}</p>
-            <S.Chips style={{ marginTop: 14 }}>
-              {job.skills.slice(0, 5).map((t) => (
-                <span key={t} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                  <TechIcon name={t} size={13} />
-                  {t}
-                </span>
-              ))}
-            </S.Chips>
-          </S.CommitCard>
-        </Reveal>
-      ))}
-    </S.Commits>
-  );
-}
 
 export default function Home() {
   const { lang, t } = useLang();
@@ -84,7 +43,7 @@ export default function Home() {
   }, [lang]);
 
   return (
-    <S.Page id="top">
+    <S.Page>
       <Hero />
 
       <div style={{ marginTop: 28 }}>
@@ -96,22 +55,11 @@ export default function Home() {
         <R.Heading>
           <span className="tag">{s.workTag}</span>
           <h2>{s.workTitle}</h2>
-          <p>{s.workSub}</p>
         </R.Heading>
         <Work />
       </R.Section>
 
-      {/* 03 — TRAJETÓRIA */}
-      <R.Section id="trajetoria">
-        <R.Heading>
-          <span className="tag">{s.pathTag}</span>
-          <h2>{s.pathTitle}</h2>
-          <p>{s.pathSub}</p>
-        </R.Heading>
-        <Trajectory />
-      </R.Section>
-
-      {/* 04 — EXPERIÊNCIA */}
+      {/* 03 — EXPERIÊNCIA */}
       <R.Section id="experiencia">
         <R.Heading>
           <span className="tag">{s.expTag}</span>

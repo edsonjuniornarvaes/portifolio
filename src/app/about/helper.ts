@@ -73,7 +73,7 @@ export const ExperienceData = [
   },
   {
     company: "ecode",
-    role: "Desenvolvedor Web (Júnior a Pleno)",
+    role: "Desenvolvedor Web Júnior",
     period: "Nov 2019 - Abr 2020",
     location: "Umuarama, PR · Presencial",
     description: `Primeiros projetos profissionais: sistemas de faturamento e gestão, e-commerce e APIs REST com Laravel, integrando front-end e back-end.`,

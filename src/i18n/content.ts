@@ -292,7 +292,7 @@ const EXPERIENCE_EN: Pick<Exp, "role" | "location" | "description" | "highlights
     ],
   },
   {
-    role: "Web Developer (Junior to Mid-level)",
+    role: "Junior Web Developer",
     location: "Umuarama, PR · On-site",
     description: "First professional projects: billing and management systems, e-commerce and REST APIs with Laravel, integrating front end and back end.",
     highlights: [

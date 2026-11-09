@@ -5,12 +5,13 @@ import styled from "styled-components";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { FaGlobe, FaMobileAlt } from "react-icons/fa";
 import { useLang } from "@/i18n/provider";
-import { localizeJourney } from "@/i18n/content";
-import { journey } from "@/data/profile";
+import { localizeExperience } from "@/i18n/content";
+import { ExperienceData } from "@/app/about/helper";
+import TechIcon from "@/components/ui/tech-icon";
 
 type Track = "web" | "mobile" | "both";
-/** Mesma ordem de `journey`: onde cada marco se encaixa. */
-const TRACKS: Track[] = ["both", "both", "web", "web", "mobile", "mobile", "mobile", "mobile", "both"];
+/** Mesma ordem de `ExperienceData` (mais recente primeiro): onde cada cargo se encaixa. */
+const TRACKS: Track[] = ["mobile", "mobile", "mobile", "mobile", "web", "web"];
 
 const Wrap = styled.div`
   position: relative;
@@ -35,6 +36,11 @@ const Wrap = styled.div`
   .row.both .card { grid-column: 1 / -1; grid-row: 1; margin-inline: 8%; margin-top: 12px; padding-top: 24px; text-align: center; border-color: transparent; background: linear-gradient(var(--card), var(--card)) padding-box, var(--brand-gradient) border-box; border: 1px solid transparent; }
   .year { font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent-ink); }
   .row.web .year { color: var(--accent-2); }
+  .co { margin-top: 2px; font-size: 0.8rem; color: var(--muted); }
+  .chips { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px 12px; font-family: var(--font-mono); font-size: 0.64rem; color: var(--muted); }
+  .row.web .chips { justify-content: flex-end; }
+  .chips span { display: inline-flex; align-items: center; gap: 5px; }
+  .row.both .chips { justify-content: center; }
   h3 { margin-top: 4px; font-size: 1rem; font-weight: 650; letter-spacing: -0.015em; }
   p { margin-top: 6px; font-size: 0.86rem; color: var(--muted); line-height: 1.55; }
   .tag { display: none; }
@@ -47,15 +53,16 @@ const Wrap = styled.div`
     .row.both .node { grid-column: 1; left: 3px; top: 16px; transform: none; margin: 0; }
     .row.both .card { margin-top: 0; padding-top: 16px; }
     .row.web .card, .row.mobile .card, .row.both .card { grid-column: 2; text-align: left; margin-inline: 0; }
+    .row.web .chips { justify-content: flex-start; }
     .tag { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 6px; padding: 2px 9px; border-radius: 999px; font-family: var(--font-mono); font-size: 0.62rem; border: 1px solid var(--line); color: var(--muted); }
     .row.web .tag { color: var(--accent-2); }
     .row.mobile .tag { color: var(--accent); }
   }
 `;
 
-export default function Trajectory() {
+export default function Experience() {
   const { lang, t } = useLang();
-  const items = localizeJourney(journey, lang);
+  const jobs = localizeExperience(ExperienceData, lang);
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 55%"] });
   const scaleY = useSpring(scrollYProgress, { stiffness: 110, damping: 26, mass: 0.4 });
@@ -79,11 +86,27 @@ export default function Trajectory() {
         <div className="axis" aria-hidden>
           <motion.div className="fill" style={{ scaleY }} />
         </div>
-        {items.map((j, i) => {
-          const track = TRACKS[i] ?? "both";
+        <motion.div
+          className="row both"
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.55, ease: [0.2, 0.7, 0.2, 1] }}
+        >
+          <span className="node" aria-hidden />
+          <div className="card">
+            <span className="tag">{label.both}</span>
+            <div className="year">{s.ownPeriod}</div>
+            <h3>{s.ownRole}</h3>
+            <div className="co">{s.ownTitle}</div>
+            <p>{s.ownText}</p>
+          </div>
+        </motion.div>
+        {jobs.map((j, i) => {
+          const track = TRACKS[i] ?? "mobile";
           return (
             <motion.div
-              key={j.year + j.title}
+              key={`${j.company}-${j.period}`}
               className={`row ${track}`}
               initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -93,9 +116,18 @@ export default function Trajectory() {
               <span className="node" aria-hidden />
               <div className="card">
                 <span className="tag">{label[track]}</span>
-                <div className="year">{j.year}</div>
-                <h3>{j.title}</h3>
-                <p>{j.text}</p>
+                <div className="year">{j.period}</div>
+                <h3>{j.role}</h3>
+                <div className="co">{j.company} · {j.location}</div>
+                <p>{j.description}</p>
+                <div className="chips">
+                  {j.skills.slice(0, 4).map((k) => (
+                    <span key={k}>
+                      <TechIcon name={k} size={11} />
+                      {k}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           );
