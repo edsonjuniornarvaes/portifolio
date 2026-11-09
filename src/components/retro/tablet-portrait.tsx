@@ -1,14 +1,16 @@
 "use client";
 
+import { useRef } from "react";
 import styled from "styled-components";
 import { useLang } from "@/i18n/provider";
 
 const Tab = styled.div`
   position: relative;
   width: min(100%, 330px);
-  transform: rotate(2.5deg);
-  transition: transform 0.4s ease;
-  &:hover { transform: rotate(0deg) scale(1.02); }
+  transform: perspective(900px) rotate(2.5deg) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease-out;
+  will-change: transform;
+  &[data-tilt="on"] { transform: perspective(900px) rotate(0deg) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.02); }
   .glow { position: absolute; inset: 6% -8% -4%; background: radial-gradient(60% 60% at 50% 50%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 72%); filter: blur(26px); }
   .body {
     position: relative; padding: 14px; border-radius: 32px;
@@ -34,8 +36,26 @@ const Tab = styled.div`
 /** Retrato na tela de um tablet. */
 export default function TabletPortrait({ src, alt }: { src: string; alt: string }) {
   const { t } = useLang();
+  const ref = useRef<HTMLDivElement>(null);
+  const move = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = ref.current;
+    if (!el || e.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    el.style.setProperty("--ry", `${(px * 10).toFixed(2)}deg`);
+    el.style.setProperty("--rx", `${(-py * 8).toFixed(2)}deg`);
+    el.dataset.tilt = "on";
+  };
+  const leave = () => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.setProperty("--ry", "0deg");
+    el.style.setProperty("--rx", "0deg");
+    delete el.dataset.tilt;
+  };
   return (
-    <Tab>
+    <Tab ref={ref} onPointerMove={move} onPointerLeave={leave}>
       <div className="glow" aria-hidden />
       <div className="body">
         <span className="cam" aria-hidden />

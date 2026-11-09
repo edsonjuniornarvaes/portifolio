@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import LangSwitch from "@/components/ui/lang-switch";
@@ -78,9 +79,33 @@ const Right = styled.div`
   @media (max-width: 860px) { order: 2; }
 `;
 
+const SECTIONS = ["projetos", "experiencia", "formacao", "escrita", "contato"];
+
 export default function Navbar() {
   const pathname = usePathname();
   const { t } = useLang();
+  const [spy, setSpy] = useState("");
+
+  // destaca no menu a seção que está na tela (só na home)
+  useEffect(() => {
+    if (pathname !== "/home") return;
+    const els = SECTIONS.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    if (!els.length) return;
+    const update = () => {
+      const y = window.scrollY + window.innerHeight * 0.35;
+      let cur = "";
+      for (const el of els) if (el.offsetTop <= y) cur = el.id;
+      setSpy(cur);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [pathname]);
+
   if (pathname.startsWith("/adminaccess")) return null;
 
   return (
@@ -94,7 +119,13 @@ export default function Navbar() {
             <NavLink
               key={l.href}
               href={l.href}
-              $active={l.href === "/home" ? pathname === "/home" : l.href === "/blog" ? pathname.startsWith("/blog") : false}
+              $active={
+                l.href === "/home"
+                  ? pathname === "/home" && spy === ""
+                  : l.href === "/blog"
+                    ? pathname.startsWith("/blog") || (pathname === "/home" && spy === "escrita")
+                    : pathname === "/home" && l.href.endsWith(`#${spy}`)
+              }
             >
               <small>{String(i + 1).padStart(2, "0")}</small>
               {t.nav[l.key]}

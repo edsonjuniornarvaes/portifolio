@@ -103,6 +103,9 @@ export const Heading = styled.div`
   .tag { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-ink); display: block; margin-bottom: 8px; }
   .tag::before { content: "// "; color: var(--muted); }
   h2 { font-family: var(--font-condensed); font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em; line-height: 0.98; font-size: clamp(2rem, 4.4vw, 3.1rem); }
+  h2::after { content: ""; display: block; width: 56px; height: 3px; margin-top: 14px; border-radius: 3px; background: var(--brand-gradient); transform-origin: left; }
+  @supports (animation-timeline: view()) { h2::after { animation: grow linear both; animation-timeline: view(); animation-range: entry 10% cover 30%; } }
+  @keyframes grow { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
   p { color: var(--muted); max-width: 36rem; margin-top: 10px; }
 `;
 
@@ -250,7 +253,6 @@ export const ProjRow = styled(Link)<{ $color?: string }>`
   .st { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); }
   .st::before { content: "● "; color: var(--st, var(--muted)); }
   .sub { margin-top: 2px; font-size: 0.84rem; color: var(--ink); opacity: 0.85; }
-  .desc { margin-top: 4px; font-size: 0.82rem; color: var(--muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px 14px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
   .tags span { display: inline-flex; align-items: center; gap: 5px; }
   &:hover h3 { color: var(--accent-ink); }
