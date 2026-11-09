@@ -69,6 +69,8 @@ export interface Feature {
 
 export const clubeDaJoiaMarketplaceProject: Project = {
   id: "clube-da-joia-marketplace",
+  coverImage: "/images/projects/marketplace-web.webp",
+  screens: ["/images/projects/marketplace-web.webp", "/images/marketplace-loja.jpg"],
   title: "Clube da Joia — Marketplace",
   tagline: "Loja online de prata 925 e moissanite, com painel administrativo e checkout",
   description:
@@ -101,6 +103,8 @@ export const clubeDaJoiaMarketplaceProject: Project = {
 
 export const clubeDaJoiaAppProject: Project = {
   id: "clube-da-joia-app",
+  coverImage: "/images/projects/clube-app-cover.webp",
+  screens: ["/images/projects/clube-app-home.webp"],
   title: "Clube da Joia — App",
   tagline: "App iOS e Android da loja, no mesmo backend do site",
   description:
