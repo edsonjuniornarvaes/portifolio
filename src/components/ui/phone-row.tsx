@@ -1,9 +1,10 @@
 "use client";
 
 import styled from "styled-components";
+import Link from "next/link";
 import { useLang } from "@/i18n/provider";
 
-export type Screen = { src: string; app: string; note: string };
+export type Screen = { src: string; id?: string; app: string; note: string };
 
 const Row = styled.section`
   margin-top: 28px;
@@ -19,6 +20,9 @@ const Row = styled.section`
   @media (max-width: 760px) { figure { flex: 0 0 176px; } }
   figure:nth-child(even) { margin-top: 26px; }
   figure:hover { transform: translateY(-8px); }
+  figure a { display: block; color: inherit; }
+  figure a:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 6px; border-radius: 30px; }
+  figure:hover .phone { border-color: color-mix(in srgb, var(--accent) 60%, transparent); box-shadow: 0 30px 56px -22px color-mix(in srgb, var(--accent) 40%, #000); }
   .phone {
     border-radius: 30px; padding: 6px; background: #0b0c0e;
     border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
@@ -44,16 +48,18 @@ export default function PhoneRow({ screens }: { screens: Screen[] }) {
       <div className="rail">
         {screens.map((s) => (
           <figure key={s.src}>
-            <div className="phone">
-              <div className="screen">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={s.src} alt={`${s.app}: ${s.note}`} loading="lazy" />
+            <Link href={s.id ? `/projects/${s.id}` : "/projects"} aria-label={`${s.app}: ${s.note}`}>
+              <div className="phone">
+                <div className="screen">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={s.src} alt={`${s.app}: ${s.note}`} loading="lazy" />
+                </div>
               </div>
-            </div>
-            <figcaption>
-              <b>{s.app}</b>
-              {s.note}
-            </figcaption>
+              <figcaption>
+                <b>{s.app}</b>
+                {s.note}
+              </figcaption>
+            </Link>
           </figure>
         ))}
       </div>

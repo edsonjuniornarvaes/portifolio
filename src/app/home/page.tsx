@@ -8,7 +8,6 @@ import * as S from "./styles";
 import * as R from "./retro";
 import Reveal from "@/components/ui/reveal";
 import CountUp from "@/components/ui/count-up";
-import LocalTime from "@/components/ui/local-time";
 import CopyChip from "@/components/ui/copy-chip";
 import Ticker, { type TickerItem } from "@/components/ui/ticker";
 import GithubActivity from "@/components/ui/github-activity";
@@ -26,11 +25,9 @@ import { skillGroups } from "./skills";
 import {
   contact,
   githubUsers,
-  location,
   yearsCareer,
   yearsMobile,
   yearsStudying,
-  SHOW_PROJECT_IMAGES,
 } from "@/data/profile";
 
 type GroupId = "all" | "own" | "mobile" | "web";
@@ -39,6 +36,11 @@ const GROUP_IDS: GroupId[] = ["all", "own", "mobile", "web"];
 const DOT = { production: "#4ade80", development: "#fbbf24", paused: "var(--muted)" } as const;
 
 type PostPreview = { id: string; slug: string; title: string; excerpt: string | null; created_at?: string };
+
+const TECH = [
+  "React Native", "TypeScript", "Next.js", "React.js", "Expo", "iOS", "Android", "JavaScript", "Node.js", "Redux",
+  "Supabase", "MongoDB", "Auth0", "Jest", "Sentry", "Datadog", "Mixpanel", "Bitrise", "GitHub Actions", "Docker", "Git", "Figma",
+];
 
 const GROUP_KEY = { all: "all", own: "own", mobile: "apps", web: "web" } as const;
 
@@ -113,7 +115,6 @@ function Projects() {
                     <span className="st">{t.status[p.status]}</span>
                   </span>
                   <p className="sub">{p.tagline}</p>
-                  <p className="desc">{p.description}</p>
                   <span className="tags">
                     {p.tags.slice(0, 4).map((tag) => (
                       <span key={tag}>
@@ -137,23 +138,16 @@ export default function Home() {
   const [posts, setPosts] = useState<PostPreview[]>([]);
 
   const screens: Screen[] = [
-    { src: "/images/projects/clube-app-home.webp", app: "Clube da Joia", note: t.phones.clube },
-    { src: "/images/projects/pjbank-home.webp", app: "PJBank", note: t.phones.pjbank },
-    { src: "/images/projects/gruvi-minha-casa.webp", app: "Gruvi", note: t.phones.gruvi },
-    { src: "/images/projects/mont-b2b-home.webp", app: "Mont B2B", note: t.phones.montB2b },
-    { src: "/images/projects/mont-b2c-carteira.webp", app: "Mont B2C", note: t.phones.montB2c },
-    { src: "/images/projects/consorcio-gazin-simulador.webp", app: "Consórcio Gazin", note: t.phones.gazin },
-    { src: "/images/projects/navex-fatura.webp", app: "Minha Navex", note: t.phones.navex },
+    { src: "/images/projects/clube-app-home.webp", id: "clube-da-joia-app", app: "Clube da Joia", note: t.phones.clube },
+    { src: "/images/projects/pjbank-home.webp", id: "pjbank", app: "PJBank", note: t.phones.pjbank },
+    { src: "/images/projects/gruvi-minha-casa.webp", id: "gruvi", app: "Gruvi", note: t.phones.gruvi },
+    { src: "/images/projects/mont-b2b-home.webp", id: "mont-b2b", app: "Mont B2B", note: t.phones.montB2b },
+    { src: "/images/projects/mont-b2c-carteira.webp", id: "mont-b2c", app: "Mont B2C", note: t.phones.montB2c },
+    { src: "/images/projects/consorcio-gazin-simulador.webp", id: "consorcio-gazin", app: "Consórcio Gazin", note: t.phones.gazin },
+    { src: "/images/projects/navex-fatura.webp", id: "minha-navex", app: "Minha Navex", note: t.phones.navex },
   ];
 
-  const ticker: TickerItem[] = [
-    { label: `${yearsCareer}+ ${t.ticker.years}`, value: t.ticker.asDev, tone: "live" },
-    ...skillGroups.flatMap((g) => g.items.slice(0, 4)).map((x) => ({ label: x })),
-    { label: `${yearsMobile}+ ${t.ticker.years}`, value: t.ticker.inMobile, tone: "live" },
-    { label: "PJBank", value: t.ticker.live, tone: "live" },
-    { label: "Gruvi", value: t.ticker.live, tone: "live" },
-    { label: `${yearsStudying}+ ${t.ticker.years}`, value: t.ticker.inTech, tone: "live" },
-  ];
+  const ticker: TickerItem[] = TECH.map((label) => ({ label }));
 
   useEffect(() => {
     fetch(`/api/posts?lang=${lang}`)
@@ -177,7 +171,7 @@ export default function Home() {
               <span className="l2">Junior</span>
             </R.BigName>
             <R.Script>
-              Mobile <span>×</span> React Native <span>×</span> Fintech
+              Web <span>×</span> Mobile <span>×</span> Fintech
             </R.Script>
             <R.Intro>
               <b>{t.hero.role}</b>
@@ -229,15 +223,6 @@ export default function Home() {
         <Projects />
       </R.Section>
 
-      <div style={{ marginTop: 56 }}>
-        <WindowFrame hue="violet" tilt={-0.6}>
-          <GithubActivity users={githubUsers} />
-        </WindowFrame>
-        <p style={{ marginTop: 10, fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--muted)", textAlign: "right" }}>
-          {location} · <LocalTime />
-        </p>
-      </div>
-
       {/* 03 — EXPERIÊNCIA */}
       <R.Section id="experiencia">
         <R.Heading>
@@ -288,7 +273,13 @@ export default function Home() {
         </R.Writing>
       </R.Section>
 
-      {/* 05 — CONTATO */}
+      <div style={{ marginTop: 72 }}>
+        <WindowFrame hue="violet" tilt={-0.6}>
+          <GithubActivity users={githubUsers} />
+        </WindowFrame>
+      </div>
+
+      {/* 06 — CONTATO */}
       <R.Section id="contato">
         <R.Heading style={{ marginBottom: 18 }}>
           <span className="tag">{t.site.contactTag}</span>

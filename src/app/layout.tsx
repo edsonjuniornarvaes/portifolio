@@ -47,6 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: m.description,
     keywords: ["React Native", "Mobile Developer", "Desenvolvedor Mobile", "iOS", "Android", "TypeScript", "Redux", "Next.js", "Expo"],
     authors: [{ name: "Edson Junior" }],
+    icons: { icon: [{ url: "/icon.svg", type: "image/svg+xml" }] },
     openGraph: {
       title: m.ogTitle,
       description: m.ogDescription,
