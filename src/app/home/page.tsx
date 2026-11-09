@@ -162,7 +162,7 @@ export default function Home() {
   const screens: Screen[] = [
     { src: "/images/projects/clube-app-home.webp", id: "clube-da-joia-app", app: "Clube da Joia", note: t.phones.clube },
     { src: "/images/projects/pjbank-home.webp", id: "pjbank", app: "PJBank", note: t.phones.pjbank },
-    { src: "/images/projects/gruvi-minha-casa.webp", id: "gruvi", app: "Gruvi", note: t.phones.gruvi },
+    { src: "/images/projects/gruvi-home.webp", id: "gruvi", app: "Gruvi", note: t.phones.gruviHome },
     { src: "/images/projects/mont-b2b-home.webp", id: "mont-b2b", app: "Mont B2B", note: t.phones.montB2b },
     { src: "/images/projects/mont-b2c-carteira.webp", id: "mont-b2c", app: "Mont B2C", note: t.phones.montB2c },
     { src: "/images/projects/consorcio-gazin-simulador.webp", id: "consorcio-gazin", app: "Consórcio Gazin", note: t.phones.gazin },
