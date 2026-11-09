@@ -164,7 +164,7 @@ export const professionalProjects: Project[] = [
   {
     id: "gruvi",
     coverImage: "/images/projects/gruvi-cover.webp",
-    screens: ["/images/projects/gruvi-minha-casa.webp", "/images/projects/gruvi-cover.webp"],
+    screens: ["/images/projects/gruvi-home.webp", "/images/projects/gruvi-minha-casa.webp", "/images/projects/gruvi-cover.webp"],
     title: "Gruvi",
     tagline: "Superapp para condomínios, com milhões de usuários",
     description:
