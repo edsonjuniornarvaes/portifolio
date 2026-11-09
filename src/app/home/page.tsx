@@ -16,6 +16,7 @@ import TabletPortrait from "@/components/retro/tablet-portrait";
 import TechIcon from "@/components/ui/tech-icon";
 import WindowFrame from "@/components/retro/window-frame";
 import Education from "@/components/home/education";
+import Featured, { FEATURED_IDS } from "@/components/home/featured";
 import ContactCta from "@/components/home/contact-cta";
 import { Letters, Rotating } from "@/components/ui/hero-text";
 import { ExperienceData } from "../about/helper";
@@ -33,7 +34,7 @@ import {
 } from "@/data/profile";
 
 type GroupId = "all" | "own" | "mobile" | "web";
-const GROUP_IDS: GroupId[] = ["all", "own", "mobile", "web"];
+const GROUP_IDS: GroupId[] = ["all", "mobile", "web"];
 
 const DOT = { production: "#4ade80", development: "#fbbf24", paused: "var(--muted)" } as const;
 
@@ -86,11 +87,14 @@ function Experience() {
 function Projects() {
   const { lang, t } = useLang();
   const [group, setGroup] = useState<GroupId>("all");
-  const all = [...personalProjects, ...professionalProjects, ...webProjects];
-  const raw: Project[] =
-    group === "own" ? personalProjects : group === "mobile" ? professionalProjects : group === "web" ? webProjects : all;
+  const rest = (l: Project[]) => l.filter((p) => !(FEATURED_IDS as readonly string[]).includes(p.id));
+  const all = rest([...personalProjects, ...professionalProjects, ...webProjects]);
+  const own = rest(personalProjects);
+  const mobile = rest(professionalProjects);
+  const web = rest(webProjects);
+  const raw: Project[] = group === "own" ? own : group === "mobile" ? mobile : group === "web" ? web : all;
   const list = raw.map((p) => localizeProject(p, lang));
-  const count = (g: GroupId) => (g === "own" ? personalProjects : g === "mobile" ? professionalProjects : g === "web" ? webProjects : all).length;
+  const count = (g: GroupId) => (g === "own" ? own : g === "mobile" ? mobile : g === "web" ? web : all).length;
 
   return (
     <>
@@ -168,7 +172,7 @@ export default function Home() {
   }, [lang]);
 
   return (
-    <S.Page id="top">
+    <S.Page id="top" style={{ paddingTop: 24 }}>
       {/* 01 — HOME */}
       <R.Hero>
         <R.HeroStage>
@@ -182,6 +186,7 @@ export default function Home() {
               <span className="l2"><Letters text="Junior" delay={0.4} gradient /></span>
             </R.BigName>
             <R.Script>
+              <span className="pre">{t.hero.lead}</span>
               <Rotating words={t.hero.words} />
             </R.Script>
             <R.Intro>
@@ -229,8 +234,12 @@ export default function Home() {
         <R.Heading>
           <span className="tag">{t.home.projectsTag}</span>
           <h2>{t.home.projectsTitle}</h2>
-          <p>{t.home.projectsSub}</p>
         </R.Heading>
+        <Featured />
+        <p style={{ margin: "40px 0 16px", fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "var(--accent-ink)" }}>
+          <span style={{ color: "var(--muted)" }}>{"// "}</span>
+          {t.site.more}
+        </p>
         <Projects />
       </R.Section>
 

@@ -6,7 +6,7 @@ import { useLang } from "@/i18n/provider";
 
 const Tab = styled.div`
   position: relative;
-  width: min(100%, 330px);
+  width: min(100%, 270px);
   transform: perspective(900px) rotate(2.5deg) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition: transform 0.25s ease-out;
   will-change: transform;
