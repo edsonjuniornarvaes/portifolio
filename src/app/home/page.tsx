@@ -9,13 +9,12 @@ import * as R from "./retro";
 import Reveal from "@/components/ui/reveal";
 import CountUp from "@/components/ui/count-up";
 import CopyChip from "@/components/ui/copy-chip";
-import Ticker, { type TickerItem } from "@/components/ui/ticker";
+import Showcase from "@/components/home/showcase";
 import GithubActivity from "@/components/ui/github-activity";
 import Story from "@/components/home/story";
 import TabletPortrait from "@/components/retro/tablet-portrait";
 import TechIcon from "@/components/ui/tech-icon";
 import WindowFrame from "@/components/retro/window-frame";
-import Education from "@/components/home/education";
 import Featured, { FEATURED_IDS } from "@/components/home/featured";
 import ContactCta from "@/components/home/contact-cta";
 import { Letters, Rotating } from "@/components/ui/hero-text";
@@ -28,9 +27,6 @@ import { skillGroups } from "./skills";
 import {
   contact,
   githubUsers,
-  yearsCareer,
-  yearsMobile,
-  yearsStudying,
 } from "@/data/profile";
 
 type GroupId = "all" | "own" | "mobile" | "web";
@@ -39,11 +35,6 @@ const GROUP_IDS: GroupId[] = ["all", "own", "mobile", "web"];
 const DOT = { production: "#4ade80", development: "#fbbf24", paused: "var(--muted)" } as const;
 
 type PostPreview = { id: string; slug: string; title: string; excerpt: string | null; created_at?: string };
-
-const TECH = [
-  "React Native", "TypeScript", "Next.js", "React.js", "Expo", "iOS", "Android", "JavaScript", "Node.js", "Redux",
-  "Supabase", "MongoDB", "Auth0", "Jest", "Sentry", "Datadog", "Mixpanel", "Bitrise", "GitHub Actions", "Docker", "Git", "Figma",
-];
 
 const GROUP_KEY = { all: "all", own: "own", mobile: "apps", web: "web" } as const;
 
@@ -122,7 +113,12 @@ export default function Home() {
   const { lang, t } = useLang();
   const [posts, setPosts] = useState<PostPreview[]>([]);
 
-  const ticker: TickerItem[] = TECH.map((label) => ({ label }));
+  const everything = [...personalProjects, ...professionalProjects, ...webProjects];
+  const stats = [
+    { n: everything.length, label: t.hero.statCareer },
+    { n: everything.filter((p) => !isWeb(p)).length, label: t.hero.statMobile },
+    { n: everything.filter(isWeb).length, label: t.hero.statTech },
+  ];
 
   useEffect(() => {
     fetch(`/api/posts?lang=${lang}`)
@@ -155,23 +151,17 @@ export default function Home() {
             </R.Intro>
             <S.Actions style={{ marginTop: 24 }}>
               <R.Cta href="/home#projetos">{t.hero.cta}</R.Cta>
-              <S.BtnLine as={Link} href="/about" style={{ borderRadius: 0, borderWidth: 2 }}>
+              <S.BtnLine as={Link} href="/home#contato" style={{ borderRadius: 0, borderWidth: 2 }}>
                 {t.hero.story}
               </S.BtnLine>
             </S.Actions>
             <R.Stats>
-              <div>
-                <dt><CountUp to={yearsCareer} suffix="+" /></dt>
-                <dd>{t.hero.statCareer}</dd>
-              </div>
-              <div>
-                <dt><CountUp to={yearsMobile} suffix="+" /></dt>
-                <dd>{t.hero.statMobile}</dd>
-              </div>
-              <div>
-                <dt><CountUp to={yearsStudying} suffix="+" /></dt>
-                <dd>{t.hero.statTech}</dd>
-              </div>
+              {stats.map((x) => (
+                <div key={x.label}>
+                  <dt><CountUp to={x.n} /></dt>
+                  <dd>{x.label}</dd>
+                </div>
+              ))}
             </R.Stats>
                 </div>
                 <div className="tv">
@@ -183,9 +173,7 @@ export default function Home() {
         </R.HeroStage>
       </R.Hero>
 
-      <div style={{ marginTop: 20 }}>
-        <Ticker items={ticker} />
-      </div>
+      <Showcase />
 
       {/* 02 — PROJETOS */}
       <R.Section id="projetos">
@@ -196,7 +184,7 @@ export default function Home() {
         <Projects />
       </R.Section>
 
-      {/* 03 — EXPERIÊNCIA */}
+      {/* 03 — TRAJETÓRIA */}
       <R.Section id="experiencia">
         <R.Heading>
           <span className="tag">{t.home.expTag}</span>
@@ -205,16 +193,7 @@ export default function Home() {
         <Story />
       </R.Section>
 
-      {/* 04 — FORMAÇÃO */}
-      <R.Section id="formacao">
-        <R.Heading>
-          <span className="tag">{t.site.eduTag}</span>
-          <h2>{t.site.eduTitle}</h2>
-        </R.Heading>
-        <Education />
-      </R.Section>
-
-      {/* 05 — BLOG */}
+      {/* 04 — ESCRITA */}
       <R.Section id="escrita">
         <R.Heading style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 12 }}>
           <div>
@@ -252,7 +231,7 @@ export default function Home() {
         </WindowFrame>
       </div>
 
-      {/* 06 — CONTATO */}
+      {/* 05 — CONTATO */}
       <R.Section id="contato">
         <R.Heading style={{ marginBottom: 18 }}>
           <span className="tag">{t.site.contactTag}</span>
