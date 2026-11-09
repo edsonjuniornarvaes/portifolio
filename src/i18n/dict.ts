@@ -13,7 +13,7 @@ const pt = {
   nav: {
     aria: "Principal",
     home: "home",
-    projects: "trabalhos",
+    projects: "projetos",
     education: "formação",
     experience: "experiência",
     blog: "escrita",
@@ -24,9 +24,9 @@ const pt = {
   langSwitch: { label: "Idioma", pt: "Português", en: "English" },
   hero: {
     hello: "Olá, eu sou",
-    role: "Desenvolvedor Mobile Sênior",
+    role: "Desenvolvedor Web e Mobile",
     intro:
-      " especializado em React Native, construindo aplicativos com alta performance, arquitetura escalável e experiência do usuário de excelência para iOS e Android.",
+      " com foco em React Native, TypeScript e Next.js, construindo aplicativos e sistemas com alta performance e arquitetura escalável, do design à loja, para iOS, Android e web.",
     cta: "Ver projetos →",
     story: "Minha história",
     statCareer: "anos como desenvolvedor profissional",
@@ -38,6 +38,7 @@ const pt = {
   phones: {
     section: "Apps em produção",
     head: "apps que desenvolvi",
+    clube: "início",
     pjbank: "conta digital",
     gruvi: "minha casa",
     montB2b: "início do parceiro",
@@ -212,7 +213,7 @@ const en: Dict = {
   nav: {
     aria: "Main",
     home: "home",
-    projects: "work",
+    projects: "projects",
     education: "education",
     experience: "experience",
     blog: "writing",
@@ -223,9 +224,9 @@ const en: Dict = {
   langSwitch: { label: "Language", pt: "Português", en: "English" },
   hero: {
     hello: "Hi, I'm",
-    role: "Senior Mobile Developer",
+    role: "Web & Mobile Developer",
     intro:
-      " specialized in React Native, building high-performance apps with scalable architecture and an excellent user experience for iOS and Android.",
+      " focused on React Native, TypeScript and Next.js, building apps and systems with high performance and scalable architecture, from design to the store, for iOS, Android and web.",
     cta: "View projects →",
     story: "My story",
     statCareer: "years as a professional developer",
@@ -237,6 +238,7 @@ const en: Dict = {
   phones: {
     section: "Apps in production",
     head: "apps I built",
+    clube: "home",
     pjbank: "digital account",
     gruvi: "my home",
     montB2b: "partner home",

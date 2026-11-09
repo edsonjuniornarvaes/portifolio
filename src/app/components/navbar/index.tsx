@@ -9,7 +9,7 @@ import { useLang } from "@/i18n/provider";
 
 const LINKS = [
   { href: "/home", key: "home" },
-  { href: "/home#trabalhos", key: "projects" },
+  { href: "/home#projetos", key: "projects" },
   { href: "/home#experiencia", key: "experience" },
   { href: "/home#formacao", key: "education" },
   { href: "/blog", key: "blog" },
