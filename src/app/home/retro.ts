@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export const Hero = styled.section`
   position: relative;
-  padding: 28px 0 32px;
-  @media (max-width: 900px) { padding: 24px 0 28px; }
+  padding: 0 0 24px;
+  @media (max-width: 900px) { padding: 0 0 20px; }
 `;
 
 export const HeroGrid = styled.div`
@@ -27,8 +27,8 @@ export const BigName = styled.h1`
   text-transform: uppercase;
   line-height: 0.92;
   letter-spacing: 0.01em;
-  font-size: clamp(3rem, 8vw, 5.6rem);
-  margin: 12px 0 6px;
+  font-size: clamp(2.6rem, 6.2vw, 4.3rem);
+  margin: 8px 0 4px;
   .l1 { display: block; color: var(--ink); }
   .l2 {
     display: block;
@@ -45,7 +45,8 @@ export const Script = styled.p`
   color: #f4e9c8;
   transform: rotate(-2deg);
   transform-origin: left;
-  margin: 4px 0 16px;
+  margin: 4px 0 12px;
+  .pre { display: block; margin-bottom: 2px; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); transform: rotate(2deg); transform-origin: left; }
   .rot { position: relative; display: block; min-height: 1.2em; }
   .rot span { color: inherit; }
   @media (max-width: 600px) { .rot { min-height: 2.4em; } }
@@ -266,8 +267,8 @@ export const ProjRow = styled(Link)<{ $color?: string }>`
 export const HeroStage = styled.div`
   position: relative;
   z-index: 1;
-  .inner { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 28px; align-items: center; padding: 40px 44px 44px; }
+  .inner { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; align-items: center; padding: 26px 36px 30px; }
   .tv { display: grid; justify-items: center; padding-right: 6px; }
-  @media (max-width: 1000px) { .inner { grid-template-columns: 1fr; padding: 28px 22px 36px; gap: 36px; } .tv { order: -1; } }
+  @media (max-width: 1000px) { .inner { grid-template-columns: 1fr; padding: 22px 20px 28px; gap: 24px; } .tv { order: -1; } }
   @media (max-width: 600px) { .inner { padding: 22px 16px 28px; } }
 `;
