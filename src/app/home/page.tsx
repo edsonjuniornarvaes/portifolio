@@ -34,7 +34,7 @@ import {
 } from "@/data/profile";
 
 type GroupId = "all" | "own" | "mobile" | "web";
-const GROUP_IDS: GroupId[] = ["all", "mobile", "web"];
+const GROUP_IDS: GroupId[] = ["all", "own", "mobile", "web"];
 
 const DOT = { production: "#4ade80", development: "#fbbf24", paused: "var(--muted)" } as const;
 
@@ -84,17 +84,23 @@ function Experience() {
   );
 }
 
+const WEB_IDS = new Set<string>([...webProjects.map((p) => p.id), "clube-da-joia-marketplace"]);
+const isWeb = (p: Project) => WEB_IDS.has(p.id);
+const inGroup = (p: Project, g: GroupId) =>
+  g === "all" ? true : g === "own" ? p.type === "personal" : g === "web" ? isWeb(p) : !isWeb(p);
+
+/** Todos os projetos juntos: os destaques (estudos de caso) primeiro e, logo abaixo, os demais; um filtro só vale para os dois. */
 function Projects() {
   const { lang, t } = useLang();
   const [group, setGroup] = useState<GroupId>("all");
-  const rest = (l: Project[]) => l.filter((p) => !(FEATURED_IDS as readonly string[]).includes(p.id));
-  const all = rest([...personalProjects, ...professionalProjects, ...webProjects]);
-  const own = rest(personalProjects);
-  const mobile = rest(professionalProjects);
-  const web = rest(webProjects);
-  const raw: Project[] = group === "own" ? own : group === "mobile" ? mobile : group === "web" ? web : all;
-  const list = raw.map((p) => localizeProject(p, lang));
-  const count = (g: GroupId) => (g === "own" ? own : g === "mobile" ? mobile : g === "web" ? web : all).length;
+  const all = [...personalProjects, ...professionalProjects, ...webProjects];
+  const featured = (FEATURED_IDS as readonly string[]).filter((id) => {
+    const p = all.find((x) => x.id === id);
+    return p && inGroup(p, group);
+  });
+  const rest = all.filter((p) => !(FEATURED_IDS as readonly string[]).includes(p.id) && inGroup(p, group));
+  const list = rest.map((p) => localizeProject(p, lang));
+  const count = (g: GroupId) => all.filter((p) => inGroup(p, g)).length;
 
   return (
     <>
@@ -107,6 +113,7 @@ function Projects() {
           </button>
         ))}
       </R.Filters>
+      <Featured ids={featured} />
       <R.ProjList>
         <AnimatePresence mode="popLayout">
         {list.map((p) => (
@@ -235,11 +242,6 @@ export default function Home() {
           <span className="tag">{t.home.projectsTag}</span>
           <h2>{t.home.projectsTitle}</h2>
         </R.Heading>
-        <Featured />
-        <p style={{ margin: "40px 0 16px", fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "var(--accent-ink)" }}>
-          <span style={{ color: "var(--muted)" }}>{"// "}</span>
-          {t.site.more}
-        </p>
         <Projects />
       </R.Section>
 
