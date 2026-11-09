@@ -103,6 +103,8 @@ export const clubeDaJoiaMarketplaceProject: Project = {
 
 export const clubeDaJoiaAppProject: Project = {
   id: "clube-da-joia-app",
+  coverImage: "/images/projects/clube-app-cover.webp",
+  screens: ["/images/projects/clube-app-home.webp"],
   title: "Clube da Joia — App",
   tagline: "App iOS e Android da loja, no mesmo backend do site",
   description:

@@ -103,6 +103,7 @@ const Stage = styled(motion.div)`
 `;
 
 const PHONE_SCREENS = [
+  "/images/projects/clube-app-home.webp",
   "/images/projects/pjbank-home.webp",
   "/images/projects/mont-b2b-home.webp",
   "/images/projects/gruvi-minha-casa.webp",
