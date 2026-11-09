@@ -155,6 +155,11 @@ const pt = {
     ],
   },
   site: {
+    ownRole: "Produtos próprios",
+    ownPeriod: "2026 – Atual",
+    ownTitle: "Clube da Joia",
+    ownText: "Site em Next.js e app em React Native, no mesmo backend (Supabase), com pagamentos reais.",
+    stageAria: "Projetos desta fase",
     eduTag: "04 formação",
     eduTitle: "Formação",
     writeTag: "05 escrita",
@@ -324,6 +329,11 @@ const en: Dict = {
     ],
   },
   site: {
+    ownRole: "Own products",
+    ownPeriod: "2026 – Present",
+    ownTitle: "Clube da Joia",
+    ownText: "Next.js site and React Native app on the same backend (Supabase), with real payments.",
+    stageAria: "Projects from this phase",
     eduTag: "04 education",
     eduTitle: "Education",
     writeTag: "05 writing",

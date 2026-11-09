@@ -11,7 +11,7 @@ import CountUp from "@/components/ui/count-up";
 import CopyChip from "@/components/ui/copy-chip";
 import Ticker, { type TickerItem } from "@/components/ui/ticker";
 import GithubActivity from "@/components/ui/github-activity";
-import PhoneRow, { type Screen } from "@/components/ui/phone-row";
+import Story from "@/components/home/story";
 import TabletPortrait from "@/components/retro/tablet-portrait";
 import TechIcon from "@/components/ui/tech-icon";
 import WindowFrame from "@/components/retro/window-frame";
@@ -46,43 +46,6 @@ const TECH = [
 ];
 
 const GROUP_KEY = { all: "all", own: "own", mobile: "apps", web: "web" } as const;
-
-function Experience() {
-  const { lang } = useLang();
-  const jobs = localizeExperience(ExperienceData, lang);
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 55%"] });
-  const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.4 });
-  return (
-    <S.Commits ref={ref}>
-      <div className="rail">
-        <motion.div className="fill" style={{ scaleY }} />
-      </div>
-      {jobs.map((job, i) => (
-        <Reveal key={`${job.company}-${job.period}`} className={`commit${i === 0 ? " head" : ""}`}>
-          <S.CommitCard data-spot>
-            <div className="meta">
-              <span className="when">{job.period}</span>
-            </div>
-            <h3>{job.role}</h3>
-            <div className="company">
-              {job.company} · {job.location}
-            </div>
-            <p>{job.description}</p>
-            <S.Chips style={{ marginTop: 14 }}>
-              {job.skills.slice(0, 5).map((t) => (
-                <span key={t} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                  <TechIcon name={t} size={13} />
-                  {t}
-                </span>
-              ))}
-            </S.Chips>
-          </S.CommitCard>
-        </Reveal>
-      ))}
-    </S.Commits>
-  );
-}
 
 const WEB_IDS = new Set<string>([...webProjects.map((p) => p.id), "clube-da-joia-marketplace"]);
 const isWeb = (p: Project) => WEB_IDS.has(p.id);
@@ -159,16 +122,6 @@ export default function Home() {
   const { lang, t } = useLang();
   const [posts, setPosts] = useState<PostPreview[]>([]);
 
-  const screens: Screen[] = [
-    { src: "/images/projects/clube-app-home.webp", id: "clube-da-joia-app", app: "Clube da Joia", note: t.phones.clube },
-    { src: "/images/projects/pjbank-home.webp", id: "pjbank", app: "PJBank", note: t.phones.pjbank },
-    { src: "/images/projects/gruvi-home.webp", id: "gruvi", app: "Gruvi", note: t.phones.gruviHome },
-    { src: "/images/projects/mont-b2b-home.webp", id: "mont-b2b", app: "Mont B2B", note: t.phones.montB2b },
-    { src: "/images/projects/mont-b2c-carteira.webp", id: "mont-b2c", app: "Mont B2C", note: t.phones.montB2c },
-    { src: "/images/projects/consorcio-gazin-simulador.webp", id: "consorcio-gazin", app: "Consórcio Gazin", note: t.phones.gazin },
-    { src: "/images/projects/navex-fatura.webp", id: "minha-navex", app: "Minha Navex", note: t.phones.navex },
-  ];
-
   const ticker: TickerItem[] = TECH.map((label) => ({ label }));
 
   useEffect(() => {
@@ -230,8 +183,6 @@ export default function Home() {
         </R.HeroStage>
       </R.Hero>
 
-      <PhoneRow screens={screens} />
-
       <div style={{ marginTop: 20 }}>
         <Ticker items={ticker} />
       </div>
@@ -251,7 +202,7 @@ export default function Home() {
           <span className="tag">{t.home.expTag}</span>
           <h2>{t.home.expTitle}</h2>
         </R.Heading>
-        <Experience />
+        <Story />
       </R.Section>
 
       {/* 04 — FORMAÇÃO */}
