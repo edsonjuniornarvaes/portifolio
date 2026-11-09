@@ -9,7 +9,7 @@ const Frame = styled.div<{ $tilt?: number; $hue?: "mint" | "violet" | "warm"; $r
       ? "linear-gradient(90deg, #7c5cff, #c4a1ff)"
       : p.$hue === "warm"
         ? "linear-gradient(90deg, #ffb86b, #ff7eb6)"
-        : "linear-gradient(90deg, #2eebaa, #06b6d4 55%, #a5f3fc)"};
+        : "linear-gradient(90deg, #2eebaa, #06b6d4, #a5f3fc, #06b6d4, #2eebaa)"};
   position: relative;
   transform: rotate(${(p) => p.$tilt ?? 0}deg);
   transition: transform 0.35s ease, filter 0.35s ease;
@@ -17,6 +17,8 @@ const Frame = styled.div<{ $tilt?: number; $hue?: "mint" | "violet" | "warm"; $r
   background: var(--paper);
   padding: 2px;
   background-image: var(--edge);
+  background-size: 200% 100%;
+  animation: edgeMove 9s linear infinite;
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
   ${(p) =>
     p.$reveal
@@ -29,6 +31,8 @@ const Frame = styled.div<{ $tilt?: number; $hue?: "mint" | "violet" | "warm"; $r
   `
       : `&:hover { transform: rotate(0deg) translateY(-4px); }`}
   .bar { height: 5px; }
+  @keyframes edgeMove { to { background-position: -200% 0; } }
+  @media (prefers-reduced-motion: reduce) { animation: none; }
   .body { background: var(--paper); border-radius: 0 0 4px 4px; overflow: hidden; }
 `;
 

@@ -7,6 +7,8 @@ import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
 import SideRail from "@/components/ui/side-rail";
 import Comets from "@/components/ui/comets";
+import Backdrop from "@/components/ui/backdrop";
+import Spotlight from "@/components/ui/spotlight";
 import { LangProvider } from "@/i18n/provider";
 import { getLang } from "@/i18n/server";
 import { ui } from "@/i18n/dict";
@@ -99,6 +101,8 @@ export default async function RootLayout({
         <LangProvider initial={lang}>
           <StyledComponentsRegistry>
             <AnalyticsTracker />
+            <Backdrop />
+            <Spotlight />
             <Comets />
             <SideRail />
             <Navbar />

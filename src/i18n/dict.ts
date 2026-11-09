@@ -32,6 +32,7 @@ const pt = {
     statCareer: "anos como desenvolvedor profissional",
     statMobile: "anos em desenvolvimento mobile",
     statTech: "anos de experiência em tecnologia",
+    words: ["apps React Native de alta performance", "sites e sistemas com Next.js", "fluxos financeiros críticos", "produtos do design à loja"],
     portraitAlt: "Retrato de Edson Junior",
     available: "disponível para projetos",
   },
@@ -156,6 +157,8 @@ const pt = {
     eduTitle: "Formação",
     writeTag: "05 escrita",
     contactTag: "06 contato",
+    ctaTitle: "Vamos conversar sobre o seu projeto?",
+    ctaText: "Disponível para novos projetos, web ou mobile. Me chame por e-mail ou pelo Instagram de dev.",
   },
   notFound: { title: "Página não encontrada", back: "Voltar ao início" },
 };
@@ -194,6 +197,7 @@ const en: Dict = {
     statCareer: "years as a professional developer",
     statMobile: "years in mobile development",
     statTech: "years of experience in tech",
+    words: ["high-performance React Native apps", "websites and systems with Next.js", "critical financial flows", "products from design to the store"],
     portraitAlt: "Portrait of Edson Junior",
     available: "available for projects",
   },
@@ -318,6 +322,8 @@ const en: Dict = {
     eduTitle: "Education",
     writeTag: "05 writing",
     contactTag: "06 contact",
+    ctaTitle: "Let's talk about your project?",
+    ctaText: "Available for new projects, web or mobile. Reach me by email or on my dev Instagram.",
   },
   notFound: { title: "Page not found", back: "Back to home" },
 };
