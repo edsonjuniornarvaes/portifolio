@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { FaGithub, FaLinkedinIn, FaDev, FaInstagram } from "react-icons/fa";
 import * as S from "./styles";
 import * as R from "./retro";
@@ -16,6 +16,8 @@ import TabletPortrait from "@/components/retro/tablet-portrait";
 import TechIcon from "@/components/ui/tech-icon";
 import WindowFrame from "@/components/retro/window-frame";
 import Education from "@/components/home/education";
+import ContactCta from "@/components/home/contact-cta";
+import { Letters, Rotating } from "@/components/ui/hero-text";
 import { ExperienceData } from "../about/helper";
 import { useLang } from "@/i18n/provider";
 import { LOCALE } from "@/i18n/config";
@@ -57,7 +59,7 @@ function Experience() {
       </div>
       {jobs.map((job, i) => (
         <Reveal key={`${job.company}-${job.period}`} className={`commit${i === 0 ? " head" : ""}`}>
-          <S.CommitCard>
+          <S.CommitCard data-spot>
             <div className="meta">
               <span className="when">{job.period}</span>
             </div>
@@ -102,10 +104,18 @@ function Projects() {
         ))}
       </R.Filters>
       <R.ProjList>
-        {list.map((p, i) => (
-          <Reveal key={p.id} delay={(i % 2) * 50}>
-            <li>
-              <R.ProjRow href={`/projects/${p.id}`} $color={p.iconColor} style={{ ["--st" as string]: DOT[p.status] }}>
+        <AnimatePresence mode="popLayout">
+        {list.map((p) => (
+          <motion.li
+            key={p.id}
+            layout
+            initial={{ opacity: 0, y: 14, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.97 }}
+            transition={{ duration: 0.35, ease: [0.2, 0.7, 0.2, 1] }}
+          >
+            <div>
+              <R.ProjRow data-spot href={`/projects/${p.id}`} $color={p.iconColor} style={{ ["--st" as string]: DOT[p.status] }}>
                 <span className="mark" aria-hidden>
                   {p.iconLetter ?? p.title[0]}
                 </span>
@@ -125,9 +135,10 @@ function Projects() {
                   </span>
                 </span>
               </R.ProjRow>
-            </li>
-          </Reveal>
+            </div>
+          </motion.li>
         ))}
+        </AnimatePresence>
       </R.ProjList>
     </>
   );
@@ -167,11 +178,11 @@ export default function Home() {
                 <div className="main">
                   <R.Kick>{t.hero.hello}</R.Kick>
             <R.BigName>
-              <span className="l1">Edson</span>
-              <span className="l2">Junior</span>
+              <span className="l1"><Letters text="Edson" delay={0.15} /></span>
+              <span className="l2"><Letters text="Junior" delay={0.4} gradient /></span>
             </R.BigName>
             <R.Script>
-              Web <span>×</span> Mobile <span>×</span> Fintech
+              <Rotating words={t.hero.words} />
             </R.Script>
             <R.Intro>
               <b>{t.hero.role}</b>
@@ -285,21 +296,7 @@ export default function Home() {
           <span className="tag">{t.site.contactTag}</span>
           <h2>{t.home.contactTitle}</h2>
         </R.Heading>
-        <R.ContactRow>
-          <CopyChip email={contact.email} />
-          <a className="chip" href={contact.linkedin} target="_blank" rel="noopener noreferrer">
-            <FaLinkedinIn size={14} /> LinkedIn
-          </a>
-          <a className="chip" href={contact.github} target="_blank" rel="noopener noreferrer">
-            <FaGithub size={14} /> GitHub
-          </a>
-          <a className="chip" href={contact.instagram} target="_blank" rel="noopener noreferrer">
-            <FaInstagram size={14} /> Instagram
-          </a>
-          <a className="chip" href={contact.devto} target="_blank" rel="noopener noreferrer">
-            <FaDev size={16} /> Dev.to
-          </a>
-        </R.ContactRow>
+        <ContactCta />
       </R.Section>
     </S.Page>
   );

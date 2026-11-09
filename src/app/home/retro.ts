@@ -32,7 +32,7 @@ export const BigName = styled.h1`
   .l1 { display: block; color: var(--ink); }
   .l2 {
     display: block;
-    background: var(--brand-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    color: var(--accent);
     filter: drop-shadow(0 6px 24px var(--glow));
   }
 `;
@@ -40,12 +40,15 @@ export const BigName = styled.h1`
 export const Script = styled.p`
   font-family: var(--font-script);
   font-weight: 700;
-  font-size: clamp(1.7rem, 4vw, 2.6rem);
-  line-height: 1.1;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1.15;
   color: #f4e9c8;
   transform: rotate(-2deg);
   transform-origin: left;
   margin: 4px 0 16px;
+  .rot { position: relative; display: block; min-height: 1.2em; }
+  .rot span { color: inherit; }
+  @media (max-width: 600px) { .rot { min-height: 2.4em; } }
   :root[data-theme="light"] & { color: #8a5a00; }
   span { color: var(--accent-2); }
 `;
@@ -243,7 +246,7 @@ export const ProjList = styled.ul`
 
 export const ProjRow = styled(Link)<{ $color?: string }>`
   display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: start;
-  padding: 18px 0; border-bottom: 1px solid var(--line); color: inherit;
+  padding: 18px 14px; margin: 0 -14px; border-radius: 14px; border-bottom: 1px solid var(--line); color: inherit; transition: background 0.25s ease, transform 0.25s ease;
   .mark {
     width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center;
     background: ${(p) => p.$color || "var(--accent)"}; color: #fff; font-family: var(--font-condensed); font-size: 1.05rem; letter-spacing: 0.02em;
@@ -255,6 +258,7 @@ export const ProjRow = styled(Link)<{ $color?: string }>`
   .sub { margin-top: 2px; font-size: 0.84rem; color: var(--ink); opacity: 0.85; }
   .tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px 14px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
   .tags span { display: inline-flex; align-items: center; gap: 5px; }
+  &:hover { background: color-mix(in srgb, var(--ink) 3.5%, transparent); transform: translateX(3px); }
   &:hover h3 { color: var(--accent-ink); }
   &:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 4px; }
 `;

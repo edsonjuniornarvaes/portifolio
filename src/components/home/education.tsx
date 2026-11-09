@@ -25,7 +25,7 @@ export default function Education() {
     <Grid>
       {list.map((e, i) => (
         <Reveal key={e.course} delay={i * 70}>
-          <div className="card">
+          <div className="card" data-spot>
             <span className="ic"><FaGraduationCap size={18} /></span>
             <div className="period">{e.period}</div>
             <h3>{e.course}</h3>

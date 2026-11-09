@@ -309,3 +309,16 @@ img { max-width: 100%; }
   border: none !important;
 }
 
+
+/* ===== Luz do mouse e destaque em cartões ===== */
+.cursor-glow {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(520px circle at var(--cx, -999px) var(--cy, -999px), color-mix(in srgb, var(--accent) 9%, transparent), transparent 65%);
+}
+[data-spot] { position: relative; isolation: isolate; }
+[data-spot]::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.3s ease;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 15%, transparent), transparent 62%);
+}
+[data-spot]:hover::before { opacity: 1; }
+@media (hover: none) { .cursor-glow { display: none; } }
