@@ -10,12 +10,12 @@ const Row = styled.section`
   .head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
   .head b { color: var(--accent-ink); font-weight: 600; }
   .rail {
-    display: flex; gap: 18px; justify-content: center; align-items: flex-start;
+    display: flex; gap: 16px; justify-content: center; align-items: flex-start;
     overflow-x: auto; padding: 14px 4px 22px; scroll-snap-type: x mandatory; scrollbar-width: none;
   }
   .rail::-webkit-scrollbar { display: none; }
   @media (max-width: 1100px) { .rail { justify-content: flex-start; } }
-  figure { margin: 0; flex: 1 0 150px; max-width: 188px; scroll-snap-align: center; transition: transform 0.35s cubic-bezier(.2,.7,.2,1); }
+  figure { margin: 0; flex: 1 0 138px; max-width: 188px; scroll-snap-align: center; transition: transform 0.35s cubic-bezier(.2,.7,.2,1); }
   @media (max-width: 760px) { figure { flex: 0 0 176px; } }
   figure:nth-child(even) { margin-top: 26px; }
   figure:hover { transform: translateY(-8px); }
