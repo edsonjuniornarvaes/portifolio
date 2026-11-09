@@ -31,33 +31,27 @@ const Tabs = styled.div`
 
 const Grid = styled(motion.ul)`
   list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
   @media (max-width: 960px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   @media (max-width: 600px) { grid-template-columns: 1fr; }
 `;
 
 const Card = styled(motion.li)`
   list-style: none;
-  a { display: flex; flex-direction: column; height: 100%; border-radius: 18px; overflow: hidden; background: var(--card); border: 1px solid var(--line); transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease; color: inherit; }
-  a:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); box-shadow: 0 24px 50px -26px color-mix(in srgb, var(--accent) 45%, #000); transform: translateY(-5px); }
+  a { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 14px 16px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); color: inherit; transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease; }
+  a:hover { border-color: color-mix(in srgb, var(--c) 60%, var(--line)); transform: translateY(-3px); background: color-mix(in srgb, var(--c) 6%, var(--card)); }
   a:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; }
-  .cover { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: color-mix(in srgb, var(--ink) 6%, var(--card)); }
-  .cover img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.6s ease; display: block; }
-  a:hover .cover img { transform: scale(1.05); }
-  .art { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-condensed); font-size: 3.4rem; color: #fff; letter-spacing: 0.03em;
-    background: radial-gradient(circle at 25% 20%, var(--c) 0%, transparent 62%), linear-gradient(140deg, color-mix(in srgb, var(--c) 28%, #0b0f12), #0b0f12 78%); }
-  .art::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.09) 1px, transparent 1.4px) 0 0 / 14px 14px; mask-image: linear-gradient(160deg, #000, transparent 70%); -webkit-mask-image: linear-gradient(160deg, #000, transparent 70%); }
-  .kind { position: absolute; left: 12px; top: 12px; z-index: 2; padding: 4px 10px; border-radius: 999px; font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; background: color-mix(in srgb, #000 55%, transparent); color: #fff; backdrop-filter: blur(6px); }
-  .kind.w { box-shadow: inset 0 0 0 1px var(--accent-2); }
-  .kind.m { box-shadow: inset 0 0 0 1px var(--accent); }
-  .feat { position: absolute; right: 12px; top: 12px; z-index: 2; padding: 4px 10px; border-radius: 999px; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent); color: var(--on-accent); font-weight: 700; }
-  .body { display: flex; flex-direction: column; gap: 8px; padding: 16px 18px 18px; flex: 1; }
-  .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  h3 { font-size: 1.08rem; font-weight: 650; letter-spacing: -0.02em; }
-  .st { font-family: var(--font-mono); font-size: 0.66rem; color: var(--muted); white-space: nowrap; }
+  .head { display: flex; align-items: center; gap: 11px; }
+  .mark { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--c); color: #fff; font-family: var(--font-condensed); font-size: 0.82rem; letter-spacing: 0.02em; }
+  .ttl { min-width: 0; flex: 1; }
+  h3 { font-size: 0.98rem; font-weight: 650; letter-spacing: -0.015em; line-height: 1.25; }
+  .meta { display: flex; align-items: center; gap: 8px; margin-top: 2px; font-family: var(--font-mono); font-size: 0.64rem; color: var(--muted); }
+  .kind { text-transform: uppercase; letter-spacing: 0.08em; }
+  .kind.w { color: var(--accent-2); }
+  .kind.m { color: var(--accent-ink); }
   .st::before { content: "● "; color: var(--d); }
-  p { color: var(--muted); font-size: 0.88rem; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .tags { margin-top: auto; padding-top: 6px; display: flex; flex-wrap: wrap; gap: 6px 14px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); }
+  p { color: var(--muted); font-size: 0.84rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .tags { margin-top: auto; display: flex; flex-wrap: wrap; gap: 4px 12px; font-family: var(--font-mono); font-size: 0.66rem; color: var(--muted); }
   .tags span { display: inline-flex; align-items: center; gap: 5px; }
 `;
 
@@ -87,42 +81,35 @@ export default function Work() {
         <AnimatePresence mode="popLayout">
           {list.map((p) => {
             const kind = kindOf(p);
-            const img = p.coverImage;
             return (
               <Card
                 key={p.id}
                 layout
-                initial={{ opacity: 0, y: 18, scale: 0.97 }}
+                initial={{ opacity: 0, y: 14, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.35, ease: [0.2, 0.7, 0.2, 1] }}
                 style={{ ["--c" as string]: p.iconColor || "#2eebaa", ["--d" as string]: DOT[p.status] }}
               >
                 <Link href={`/projects/${p.id}`} aria-label={`${p.title}: ${p.tagline}`}>
-                  <div className="cover">
-                    {img ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={img} alt="" loading="lazy" />
-                    ) : (
-                      <div className="art" aria-hidden>{p.iconLetter ?? p.title[0]}</div>
-                    )}
-                    <span className={`kind ${kind === "web" ? "w" : "m"}`}>{kind === "web" ? s.kindWeb : s.kindMobile}</span>
-                    {FEATURED.has(p.id) && <span className="feat">{s.featured}</span>}
-                  </div>
-                  <div className="body">
-                    <div className="top">
+                  <div className="head">
+                    <span className="mark" aria-hidden>{p.iconLetter ?? p.title[0]}</span>
+                    <div className="ttl">
                       <h3>{p.title}</h3>
-                      <span className="st">{t.status[p.status]}</span>
+                      <div className="meta">
+                        <span className={`kind ${kind === "web" ? "w" : "m"}`}>{kind === "web" ? s.kindWeb : s.kindMobile}</span>
+                        <span className="st">{t.status[p.status]}</span>
+                      </div>
                     </div>
-                    <p>{p.tagline}</p>
-                    <div className="tags">
-                      {p.tags.slice(0, 4).map((tag) => (
-                        <span key={tag}>
-                          <TechIcon name={tag} size={12} />
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                  </div>
+                  <p>{p.tagline}</p>
+                  <div className="tags">
+                    {p.tags.slice(0, 3).map((tag) => (
+                      <span key={tag}>
+                        <TechIcon name={tag} size={12} />
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </Link>
               </Card>
