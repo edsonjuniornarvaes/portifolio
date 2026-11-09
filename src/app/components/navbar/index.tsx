@@ -12,7 +12,6 @@ const LINKS = [
   { href: "/home", key: "home" },
   { href: "/home#projetos", key: "projects" },
   { href: "/home#experiencia", key: "experience" },
-  { href: "/home#formacao", key: "education" },
   { href: "/blog", key: "blog" },
   { href: "/home#contato", key: "contact" },
 ] as const;
@@ -79,7 +78,7 @@ const Right = styled.div`
   @media (max-width: 860px) { order: 2; }
 `;
 
-const SECTIONS = ["projetos", "experiencia", "formacao", "escrita", "contato"];
+const SECTIONS = ["projetos", "experiencia", "escrita", "contato"];
 
 export default function Navbar() {
   const pathname = usePathname();

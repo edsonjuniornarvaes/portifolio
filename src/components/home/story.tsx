@@ -6,7 +6,8 @@ import styled from "styled-components";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import TechIcon from "@/components/ui/tech-icon";
 import { useLang } from "@/i18n/provider";
-import { localizeExperience } from "@/i18n/content";
+import { localizeExperience, localizeProject } from "@/i18n/content";
+import { getProjectById } from "@/app/projects/helper";
 import { ExperienceData } from "@/app/about/helper";
 import { JOB_STORY, OWN_STORY, type StoryItem } from "@/data/story";
 
@@ -163,9 +164,23 @@ export default function Story() {
   const { lang, t } = useLang();
   const s = t.site;
   const jobs = localizeExperience(ExperienceData, lang);
+  /** Projetos de uma fase, sem repetir: nomes (título do cartão) e uma linha de cada um. */
+  const describe = (items: StoryItem[]) => {
+    const seen = new Set<string>();
+    const projects = items
+      .filter((i) => !seen.has(i.id) && seen.add(i.id))
+      .map((i) => getProjectById(i.id))
+      .filter(Boolean)
+      .map((p) => localizeProject(p!, lang));
+    return { names: projects.map((p) => p.title).join(" · "), lines: projects.map((p) => p.tagline).join(" · ") };
+  };
+  const own = describe(OWN_STORY);
   const steps = [
-    { when: s.ownPeriod, role: s.ownRole, company: s.ownTitle, text: s.ownText, skills: ["Next.js", "React Native", "Supabase"], items: OWN_STORY },
-    ...jobs.map((j, i) => ({ when: j.period, role: j.role, company: `${j.company} · ${j.location}`, text: j.description, skills: j.skills.slice(0, 5), items: JOB_STORY[i] ?? [] })),
+    { when: s.ownPeriod, head: own.names, company: s.ownRole, text: s.ownText, skills: ["Next.js", "React Native", "Supabase"], items: OWN_STORY },
+    ...jobs.map((j, i) => {
+      const d = describe(JOB_STORY[i] ?? []);
+      return { when: j.period, head: d.names || j.role, company: j.company, text: d.lines || j.description, skills: j.skills.slice(0, 5), items: JOB_STORY[i] ?? [] };
+    }),
   ];
   const [active, setActive] = useState(0);
   const refs = useRef<(HTMLDivElement | null)[]>([]);
@@ -196,7 +211,7 @@ export default function Story() {
           <div key={`${st.company}-${st.when}`} className="step" data-i={i} data-on={i === active} ref={(el) => { refs.current[i] = el; }}>
             <div className="card" data-spot>
               <div className="when">{st.when}</div>
-              <h3>{st.role}</h3>
+              <h3>{st.head}</h3>
               <div className="company">{st.company}</div>
               <p>{st.text}</p>
               <div className="chips">
