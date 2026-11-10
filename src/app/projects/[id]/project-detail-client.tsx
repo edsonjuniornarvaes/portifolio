@@ -1,178 +1,129 @@
 "use client";
 
-import { useLang } from "@/i18n/provider";
-import { localizeProject, localizeCase } from "@/i18n/content";
-import TechIcon from "@/components/ui/tech-icon";
 import Link from "next/link";
 import styled from "styled-components";
-import { type Project } from "../helper";
+import { useLang } from "@/i18n/provider";
+import { localizeProject, localizeCase } from "@/i18n/content";
 import { MarkdownBody } from "@/components/markdown-body";
-import { cases, SHOW_PROJECT_IMAGES } from "@/data/profile";
-import * as S from "../../home/styles";
+import { Page, PageTitle, Lead, Wrap } from "@/components/ui/layout";
+import { cases } from "@/data/profile";
+import { isWebId } from "@/data/work";
+import { type Project } from "../helper";
 
 const Back = styled(Link)`
-  display: block;
-  width: fit-content;
-  margin-bottom: 28px;
-  font-size: 0.9rem;
-  color: var(--muted);
-  &:hover { color: var(--ink); }
+  display: inline-block; margin-bottom: 36px; font-size: 0.92rem; color: var(--muted); transition: color 0.2s ease;
+  &:hover { color: var(--accent-ink); }
 `;
 
-const Links = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 28px;
-  margin-top: 20px;
-  a {
-    font-size: 0.88rem;
-    text-decoration: underline;
-    text-decoration-color: var(--line);
-    text-underline-offset: 4px;
-  }
-  a:hover { color: var(--accent); }
+const Meta = styled.dl`
+  display: flex; flex-wrap: wrap; gap: 14px 48px; margin-top: 34px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  dt { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  dd { margin-top: 4px; font-size: 0.98rem; }
+  a { border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
+  a:hover { color: var(--accent-ink); }
 `;
 
-const Facts = styled.dl`
-  display: grid;
-  grid-template-columns: 130px minmax(0, 1fr);
-  gap: 12px 20px;
-  max-width: 44rem;
-  dt { font-size: 0.82rem; color: var(--muted); padding-top: 2px; }
-  dd { line-height: 1.6; font-size: 0.92rem; }
-  ul { list-style: none; display: grid; gap: 10px; }
-  li { position: relative; padding-left: 20px; }
-  li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
-  @media (max-width: 600px) { grid-template-columns: 1fr; gap: 4px; dd { margin-bottom: 18px; } }
+const Block = styled.section`
+  display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 12px 48px; margin-top: 54px;
+  @media (max-width: 760px) { grid-template-columns: 1fr; }
+  h2 { font-family: var(--font-mono); font-weight: 500; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 6px; }
+  ul { list-style: none; display: grid; gap: 12px; }
+  li { position: relative; padding-left: 22px; line-height: 1.6; }
+  li::before { content: "→"; position: absolute; left: 0; color: var(--accent-ink); }
+  .plain { color: var(--muted); line-height: 1.7; }
+  dl.f { display: grid; gap: 16px; }
+  dl.f dt { font-weight: 600; }
+  dl.f dd { color: var(--muted); }
 `;
 
 const Shots = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: flex-start;
-  img { display: block; width: auto; max-width: 100%; max-height: 520px; border: 1px solid var(--line); border-radius: 10px; }
+  display: flex; gap: 20px; overflow-x: auto; padding: 6px 2px 18px; scrollbar-width: thin;
+  img { display: block; height: 460px; width: auto; max-width: none; border-radius: 22px; border: 1px solid var(--line); box-shadow: 0 30px 60px -34px rgba(0,0,0,0.5); }
+  @media (max-width: 700px) { img { height: 380px; } }
 `;
 
 function ProjectDetailClient({ project: base }: { project: Project }) {
   const { lang, t } = useLang();
   const project = localizeProject(base, lang);
   const showGh = !!project.githubUrl && project.showGithub !== false;
-  const showFig =
-    !!project.figmaUrl && project.figmaUrl.startsWith("http") && project.showFigma === true;
-  const md = project.longDescription || project.description;
+  const showFig = !!project.figmaUrl && project.figmaUrl.startsWith("http") && project.showFigma === true;
   const studyBase = cases.find((c) => c.id === project.id);
   const study = studyBase ? localizeCase(studyBase, lang) : undefined;
-
-  const shots = [
-    ...(project.showPreview !== false && project.showMockupApple !== false ? [project.mockupAppleUrl] : []),
-    ...(project.showPreview !== false && project.showMockupPlay !== false ? [project.mockupPlayUrl] : []),
-    ...(project.screens ?? (SHOW_PROJECT_IMAGES && project.showGallery !== false ? project.galleryImages || [] : [])),
-  ]
-    .map((u) => (u || "").trim())
-    .filter(Boolean);
-
-  const features = project.showHighlights !== false ? project.features || [] : [];
-  const liveLabel = (project.liveCtaLabel || t.project.viewOnline).trim() || t.project.viewOnline;
+  const md = project.longDescription || project.description;
   const live = project.liveUrl;
   const external = live?.startsWith("http");
+  const features = project.showHighlights !== false ? project.features || [] : [];
+
+  // Só telas de app: prints de site ficam de fora.
+  const shots = isWebId(project.id)
+    ? []
+    : [project.mockupAppleUrl, project.mockupPlayUrl, ...(project.screens ?? [])].map((u) => (u || "").trim()).filter((u) => u && !/cover|board/.test(u));
 
   return (
-    <S.Page>
-      <Back href="/projects">{t.project.back}</Back>
+    <Wrap>
+      <Page>
+        <Back href="/projects">{t.project.back}</Back>
+        <PageTitle>{project.title}</PageTitle>
+        <Lead>{project.tagline}</Lead>
 
-      <S.Kicker>
-        <span>{t.statusCap[project.status]}</span>
-        {study && <span>{study.period}</span>}
-      </S.Kicker>
-      <S.Display>{project.title}</S.Display>
-      <S.Lead>{project.tagline}</S.Lead>
+        <Meta>
+          <div><dt>Status</dt><dd>{t.project.status[project.status]}</dd></div>
+          {study && <div><dt>{t.project.period}</dt><dd>{study.period}</dd></div>}
+          {live && (
+            <div>
+              <dt>Link</dt>
+              <dd><a href={live} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{(project.liveCtaLabel || t.project.viewOnline).trim()} ↗</a></dd>
+            </div>
+          )}
+          {showGh && <div><dt>GitHub</dt><dd><a href={project.githubUrl} target="_blank" rel="noopener noreferrer">{t.project.github} ↗</a></dd></div>}
+          {showFig && <div><dt>Figma</dt><dd><a href={project.figmaUrl} target="_blank" rel="noopener noreferrer">{t.project.figma} ↗</a></dd></div>}
+        </Meta>
 
-      <Links>
-        {live && (
-          <a href={live} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-            {liveLabel} ↗
-          </a>
+        {shots.length > 0 && (
+          <Block as="div" style={{ display: "block" }}>
+            <Shots>
+              {shots.map((src) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img key={src} src={src} alt={`${t.project.screenOf} ${project.title}`} loading="lazy" />
+              ))}
+            </Shots>
+          </Block>
         )}
-        {showGh && (
-          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-            {t.project.github.replace(" ↗", "")} ↗
-          </a>
+
+        <Block>
+          <h2>{t.project.about}</h2>
+          <div><MarkdownBody markdown={md} /></div>
+        </Block>
+
+        {study && (
+          <Block>
+            <h2>{t.project.didWhat}</h2>
+            <div>
+              <p className="plain" style={{ marginBottom: 18 }}>{study.role}</p>
+              <ul>{study.highlights.map((h) => <li key={h}>{h}</li>)}</ul>
+            </div>
+          </Block>
         )}
-        {showFig && (
-          <a href={project.figmaUrl} target="_blank" rel="noopener noreferrer">
-            {t.project.figma.replace(" ↗", "")} ↗
-          </a>
+
+        {features.length > 0 && (
+          <Block>
+            <h2>{t.project.highlights}</h2>
+            <dl className="f">
+              {features.map((f) => (
+                <div key={f.title}><dt>{f.title}</dt><dd>{f.description}</dd></div>
+              ))}
+            </dl>
+          </Block>
         )}
-      </Links>
 
-      <S.Section>
-        <S.Label>{t.project.about}</S.Label>
-        <S.Prose>
-          <MarkdownBody markdown={md} />
-        </S.Prose>
-      </S.Section>
-
-      {study && (
-        <S.Section>
-          <S.Label>{t.project.myRole}</S.Label>
-          <Facts>
-            <dt>{t.project.role}</dt>
-            <dd>{study.role}</dd>
-            <dt>{t.project.didWhat}</dt>
-            <dd>
-              <ul>
-                {study.highlights.map((h) => (
-                  <li key={h}>{h}</li>
-                ))}
-              </ul>
-            </dd>
-            <dt>{t.project.tools}</dt>
-            <dd>{study.stack.join(", ")}</dd>
-          </Facts>
-        </S.Section>
-      )}
-
-      {!study && project.tags.length > 0 && (
-        <S.Section>
-          <S.Label>{t.project.tools}</S.Label>
-          <S.Plain style={{ display: "flex", flexWrap: "wrap", gap: "8px 20px" }}>
-            {project.tags.map((tag) => (
-              <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 7 }}>
-                <TechIcon name={tag} size={15} />
-                {tag}
-              </span>
-            ))}
-          </S.Plain>
-        </S.Section>
-      )}
-
-      {features.length > 0 && (
-        <S.Section>
-          <S.Label>{t.project.highlights}</S.Label>
-          <Facts>
-            {features.map((f) => (
-              <div key={f.title} style={{ display: "contents" }}>
-                <dt>{f.title}</dt>
-                <dd>{f.description}</dd>
-              </div>
-            ))}
-          </Facts>
-        </S.Section>
-      )}
-
-      {shots.length > 0 && (
-        <S.Section>
-          <S.Label>{t.project.screens}</S.Label>
-          <Shots>
-            {shots.map((src) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img key={src} src={src} alt={`${t.project.screenOf} ${project.title}`} loading="lazy" />
-            ))}
-          </Shots>
-        </S.Section>
-      )}
-    </S.Page>
+        {project.tags.length > 0 && (
+          <Block>
+            <h2>{t.project.tools}</h2>
+            <p className="plain">{(study ? study.stack : project.tags).join(" · ")}</p>
+          </Block>
+        )}
+      </Page>
+    </Wrap>
   );
 }
 

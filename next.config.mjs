@@ -9,6 +9,11 @@ const nextConfig = {
         destination: "/home",
         permanent: true,
       },
+      {
+        source: "/about",
+        destination: "/trajetoria",
+        permanent: true,
+      },
     ];
   },
   webpack(config) {

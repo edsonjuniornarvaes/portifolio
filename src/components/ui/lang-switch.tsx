@@ -12,7 +12,7 @@ const Group = styled.div`
   }
   button:hover { opacity: 0.85; }
   button[aria-pressed="true"] { opacity: 1; filter: none; background: color-mix(in srgb, var(--accent) 16%, transparent); }
-  svg { width: 20px; height: 14px; border-radius: 2px; display: block; box-shadow: 0 0 0 1px rgba(255,255,255,0.12); }
+  svg { width: 20px; height: 14px; border-radius: 2px; display: block; box-shadow: 0 0 0 1px var(--line); }
 `;
 
 function FlagBR() {

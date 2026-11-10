@@ -1,37 +1,27 @@
 import type { Metadata } from "next";
-import { Outfit, JetBrains_Mono, Anton, Caveat } from "next/font/google";
+import { DM_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/navbar";
-import Footer from "@/components/footer";
+import SiteHeader from "@/components/site-header";
+import SiteFooter from "@/components/site-footer";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
-import SideRail from "@/components/ui/side-rail";
-import Comets from "@/components/ui/comets";
-import Backdrop from "@/components/ui/backdrop";
-import Spotlight from "@/components/ui/spotlight";
 import { LangProvider } from "@/i18n/provider";
 import { getLang } from "@/i18n/server";
 import { ui } from "@/i18n/dict";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portifolio-wheat-omega-16.vercel.app";
 
-const outfit = Outfit({
+const body = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-body",
   display: "swap",
 });
 
-const anton = Anton({
+const display = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-condensed",
-  display: "swap",
-});
-
-const caveat = Caveat({
-  subsets: ["latin"],
-  weight: ["500", "700"],
-  variable: "--font-script-next",
+  style: ["normal", "italic"],
+  variable: "--font-display-next",
   display: "swap",
 });
 
@@ -47,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(siteUrl),
     title: { default: m.title, template: "%s | Edson Junior" },
     description: m.description,
-    keywords: ["React Native", "Mobile Developer", "Desenvolvedor Mobile", "iOS", "Android", "TypeScript", "Redux", "Next.js", "Expo"],
+    keywords: ["React Native", "Next.js", "TypeScript", "Desenvolvedor Web", "Desenvolvedor Mobile", "iOS", "Android", "Portfólio"],
     authors: [{ name: "Edson Junior" }],
     icons: { icon: [{ url: "/icon.svg", type: "image/svg+xml" }] },
     openGraph: {
@@ -87,7 +77,7 @@ export default async function RootLayout({
   return (
     <html
       lang={lang === "pt" ? "pt-BR" : "en"}
-      className={`${outfit.variable} ${jetbrains.variable} ${anton.variable} ${caveat.variable}`}
+      className={`${body.variable} ${display.variable} ${jetbrains.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -101,13 +91,9 @@ export default async function RootLayout({
         <LangProvider initial={lang}>
           <StyledComponentsRegistry>
             <AnalyticsTracker />
-            <Backdrop />
-            <Spotlight />
-            <Comets />
-            <SideRail />
-            <Navbar />
+            <SiteHeader />
             <main>{children}</main>
-            <Footer />
+            <SiteFooter />
           </StyledComponentsRegistry>
         </LangProvider>
       </body>

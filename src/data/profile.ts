@@ -1,5 +1,3 @@
-const NOW = new Date().getFullYear();
-
 /** Ano em que começou a estudar programação. */
 export const STUDY_SINCE = 2015;
 /** Primeiro emprego como desenvolvedor (E/Code, nov/2019). */
@@ -7,17 +5,6 @@ export const CAREER_SINCE = 2019;
 /** Início em React Native (jun/2021). */
 export const MOBILE_SINCE = 2021;
 
-export const yearsStudying = NOW - STUDY_SINCE;
-export const yearsCareer = NOW - CAREER_SINCE;
-export const yearsMobile = NOW - MOBILE_SINCE;
-
-/** Contas do GitHub somadas no mapa de atividade (pessoal + trabalho). */
-export const location = "Umuarama, PR";
-
-/** Liga/desliga as capturas de tela dos projetos no site. Os arquivos continuam em public/images. */
-export const SHOW_PROJECT_IMAGES = false;
-
-export const githubUsers = ["edsonjuniornarvaes", "edsonjuniorsuperlogica"];
 
 export const contact = {
   email: "dev.edsonjr@gmail.com",
@@ -26,29 +13,6 @@ export const contact = {
   devto: "https://dev.to/edsonjuniornarvaes",
   instagram: "https://www.instagram.com/edsonjunior.dev",
 };
-
-export const heroWords = [
-  "apps React Native de alta performance",
-  "fluxos financeiros críticos",
-  "arquitetura MVVM escalável",
-  "produtos do design à loja",
-];
-
-export type WorkRow = {
-  year: string;
-  name: string;
-  what: string;
-  stack: string;
-  href: string;
-};
-
-/** Índice de trabalho selecionado na home. */
-export const selectedWork: WorkRow[] = [
-  { year: "2026", name: "Clube da Joia — Marketplace", what: "Loja online com painel admin, checkout Mercado Pago e backend Supabase", stack: "Next.js · Supabase", href: "/projects/clube-da-joia-marketplace" },
-  { year: "2026", name: "Clube da Joia — App", what: "App iOS e Android da loja, no mesmo backend do site", stack: "React Native · Expo", href: "/projects/clube-da-joia-app" },
-  { year: "2025 —", name: "PJBank", what: "Conta digital para empresas: autenticação, autorizações e Pix Automático", stack: "React Native · Auth0", href: "/projects/pjbank" },
-  { year: "2024", name: "Gruvi", what: "Superapp para condomínios: visitantes, reservas e chat", stack: "React Native · Redux Saga", href: "/projects/gruvi" },
-];
 
 export type JourneyItem = {
   year: string;

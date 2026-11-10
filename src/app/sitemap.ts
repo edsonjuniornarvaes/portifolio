@@ -6,7 +6,7 @@ const base = process.env.NEXT_PUBLIC_SITE_URL || "https://portifolio-wheat-omega
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const pages: MetadataRoute.Sitemap = ["/home", "/about", "/projects", "/blog"].map((path) => ({
+  const pages: MetadataRoute.Sitemap = ["/home", "/trajetoria", "/projects", "/blog"].map((path) => ({
     url: `${base}${path}`,
     lastModified: new Date(),
   }));
