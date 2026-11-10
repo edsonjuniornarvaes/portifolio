@@ -11,7 +11,7 @@ import { FaArrowLeft } from "react-icons/fa";
 const Wrap = styled.article`
   max-width: 720px;
   margin: 0 auto;
-  padding: 100px 24px 80px;
+  padding: 72px 24px 40px;
 `;
 
 const Back = styled(Link)`
@@ -44,12 +44,13 @@ const Cover = styled.div`
 `;
 
 const H1 = styled.h1`
-  font-family: var(--font-sans);
-  font-size: clamp(1.6rem, 4vw, 2.25rem);
-  font-weight: 600;
+  font-family: var(--font-serif);
+  font-size: clamp(2.3rem, 6vw, 3.8rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   color: var(--text-primary);
-  margin-bottom: 12px;
-  line-height: 1.2;
+  margin-bottom: 14px;
+  line-height: 1.04;
 `;
 
 const Meta = styled.p`

@@ -1,102 +1,49 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import * as S from "../home/styles";
-import { SHOW_PROJECT_IMAGES } from "@/data/profile";
-import GlowCard from "@/components/ui/glow-card";
+import WorkIndex from "@/components/home/work-index";
+import { Lead, Page, PageTitle, Wrap } from "@/components/ui/layout";
 import { useLang } from "@/i18n/provider";
-import { localizeProject } from "@/i18n/content";
-import { personalProjects, professionalProjects, webProjects, type Project } from "./helper";
+import { SELECTED_IDS, isWebId } from "@/data/work";
+import { personalProjects, professionalProjects, webProjects } from "./helper";
 
-type Filter = "all" | "personal" | "mobile" | "web";
+type Tab = "all" | "mobile" | "web" | "own";
 
-const FILTER_IDS: Filter[] = ["all", "personal", "mobile", "web"];
+const everything = [...personalProjects, ...professionalProjects, ...webProjects];
+const ORDER = [...SELECTED_IDS, ...everything.map((p) => p.id).filter((id) => !(SELECTED_IDS as readonly string[]).includes(id))];
+const OWN = new Set(personalProjects.map((p) => p.id));
+const match = (id: string, tab: Tab) => (tab === "all" ? true : tab === "own" ? OWN.has(id) : tab === "web" ? isWebId(id) : !isWebId(id));
 
 const Tabs = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 24px 0 20px;
-  button {
-    font: inherit;
-    font-size: 0.82rem;
-    height: 30px;
-    padding: 0 12px;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    background: transparent;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-  button:hover { color: var(--ink); border-color: var(--muted); }
-  button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 600; }
-`;
-
-const Cols = styled(S.Grid)`
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: stretch;
-  > div, a { height: 100%; }
-  .thumb:not(:has(img)) { flex: 1; min-height: 72px; }
-  @media (max-width: 800px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  @media (max-width: 520px) { grid-template-columns: 1fr; }
+  display: flex; flex-wrap: wrap; gap: 6px 26px; margin: 44px 0 26px;
+  button { background: none; border: 0; cursor: pointer; padding: 4px 0; color: var(--muted); font-size: 1rem; border-bottom: 2px solid transparent; transition: color 0.2s ease, border-color 0.2s ease; }
+  button:hover { color: var(--ink); }
+  button[aria-pressed="true"] { color: var(--ink); border-color: var(--accent); }
+  sup { margin-left: 4px; font-family: var(--font-mono); font-size: 0.62rem; color: var(--accent-ink); }
 `;
 
 export default function Projects() {
-  const { lang, t } = useLang();
-  const [filter, setFilter] = useState<Filter>("all");
-
-  const list = useMemo(() => {
-    if (filter === "personal") return personalProjects;
-    if (filter === "mobile") return professionalProjects;
-    if (filter === "web") return webProjects;
-    return [...personalProjects, ...professionalProjects, ...webProjects];
-  }, [filter]);
+  const { t } = useLang();
+  const [tab, setTab] = useState<Tab>("all");
+  const ids = ORDER.filter((id) => match(id, tab));
+  const tabs: [Tab, string][] = [["all", t.work.tabAll], ["mobile", t.work.tabMobile], ["web", t.work.tabWeb], ["own", t.work.tabOwn]];
 
   return (
-    <S.Page>
-      <S.Display>{t.projectsPage.title}</S.Display>
-      <S.Lead>
-        {t.projectsPage.lead}
-      </S.Lead>
-
-      <Tabs role="group" aria-label={t.home.filterAria}>
-        {FILTER_IDS.map((f) => (
-          <button key={f} aria-pressed={filter === f} onClick={() => setFilter(f)}>
-            {t.projectsPage[f]}
-          </button>
-        ))}
-      </Tabs>
-
-      <Cols>
-        {list.map((p) => (
-          <GlowCard key={p.id}>
-            <S.Card href={`/projects/${p.id}`} $color={p.iconColor}>
-            <div className="thumb">
-              {(p.coverImage || (SHOW_PROJECT_IMAGES && p.galleryImages?.[0])) ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={p.coverImage ?? p.galleryImages?.[0]} alt={`${t.project.screenOf} ${p.title}`} />
-              ) : (
-                p.iconLetter ?? p.title[0]
-              )}
-            </div>
-            <div className="body">
-              <div className="top">
-                <h3>{p.title}</h3>
-              </div>
-              <span className="status">{t.statusCap[p.status]}</span>
-              <p>{p.tagline}</p>
-              <S.Chips>
-                {p.tags.slice(0, 2).map((t) => (
-                  <span key={t}>{t}</span>
-                ))}
-              </S.Chips>
-            </div>
-            </S.Card>
-          </GlowCard>
-        ))}
-      </Cols>
-    </S.Page>
+    <Wrap>
+      <Page>
+        <PageTitle>{t.work.pageTitle}</PageTitle>
+        <Lead>{t.work.pageLead}</Lead>
+        <Tabs role="group" aria-label={t.work.filterAria}>
+          {tabs.map(([id, label]) => (
+            <button key={id} aria-pressed={tab === id} onClick={() => setTab(id)}>
+              {label}
+              <sup>{ORDER.filter((x) => match(x, id)).length}</sup>
+            </button>
+          ))}
+        </Tabs>
+        <WorkIndex ids={ids} />
+      </Page>
+    </Wrap>
   );
 }

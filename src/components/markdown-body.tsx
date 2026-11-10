@@ -11,13 +11,14 @@ const Wrapper = styled.div`
 
   h1, h2, h3, h4 {
     color: var(--text-primary);
-    font-family: var(--font-display);
-    margin: 1.5em 0 0.6em;
-    font-weight: 600;
+    font-family: var(--font-serif);
+    margin: 1.7em 0 0.6em;
+    font-weight: 400;
+    line-height: 1.15;
   }
-  h1 { font-size: 1.75rem; }
-  h2 { font-size: 1.4rem; }
-  h3 { font-size: 1.15rem; }
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.9rem; }
+  h3 { font-size: 1.45rem; }
 
   p { margin: 0 0 1em; }
 

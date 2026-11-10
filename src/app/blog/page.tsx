@@ -3,32 +3,26 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import * as R from "../home/retro";
+import { Lead, Page, PageTitle, Wrap } from "@/components/ui/layout";
 import { useLang } from "@/i18n/provider";
 import { LOCALE } from "@/i18n/config";
 
 type Post = { id: string; slug: string; title: string; excerpt: string | null; cover_image_url: string | null; created_at: string };
 
-const Wrap = styled.div`
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 56px 0 0;
-  h1 { font-family: var(--font-condensed); font-weight: 400; text-transform: uppercase; font-size: clamp(3rem, 9vw, 6rem); line-height: 0.95; letter-spacing: 0.01em; }
-  .lead { color: var(--muted); margin-top: 12px; max-width: 34rem; line-height: 1.7; }
-  .search { margin: 32px 0 8px; display: block; width: 100%; padding: 12px 14px; border: 2px solid var(--line); border-radius: 0; background: transparent; color: var(--ink); font: inherit; font-family: var(--font-mono); font-size: 0.88rem; }
-  .search:focus { outline: none; border-color: var(--accent-ink); }
-  .year { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent-ink); margin: 34px 0 6px; }
-  .year::before { content: "// "; color: var(--muted); }
-  .thumb { width: 72px; height: 48px; object-fit: cover; border: 1px solid var(--line); }
-  a.row { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; gap: 4px 18px; align-items: center; padding: 16px 0; }
-  a.row.nothumb { grid-template-columns: minmax(0, 1fr) auto; }
-  @media (max-width: 560px) { a.row { grid-template-columns: 56px minmax(0, 1fr); } a.row.nothumb { grid-template-columns: 1fr; } time { grid-column: 2; } }
+const List = styled.div`
+  .search { margin: 40px 0 6px; display: block; width: 100%; max-width: 420px; padding: 12px 2px; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--ink); font: inherit; font-size: 1rem; }
+  .search:focus { outline: none; border-color: var(--accent); }
+  .year { font-family: var(--font-mono); font-size: 0.76rem; color: var(--accent-ink); margin: 40px 0 10px; }
+  ul { list-style: none; border-top: 1px solid var(--line); }
+  li { border-bottom: 1px solid var(--line); }
+  a.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 28px; align-items: baseline; padding: 24px 0; transition: padding 0.3s cubic-bezier(.2,.7,.2,1); }
+  a.row:hover { padding-left: 12px; }
+  @media (max-width: 700px) { a.row:hover { padding-left: 0; } }
+  h2 { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.12; transition: color 0.2s ease; }
   a.row:hover h2 { color: var(--accent-ink); }
-  h2 { font-size: 1.12rem; font-weight: 600; letter-spacing: -0.02em; transition: color 0.2s ease; }
-  .ex { color: var(--muted); font-size: 0.9rem; line-height: 1.5; margin-top: 3px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .ex { grid-column: 1 / -1; max-width: 46rem; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
   time { font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); white-space: nowrap; }
-  li { border-top: 1px solid var(--line); list-style: none; }
-  .empty { margin-top: 32px; padding: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: var(--muted); }
+  .empty { margin-top: 32px; color: var(--muted); }
 `;
 
 export default function BlogPage() {
@@ -55,47 +49,39 @@ export default function BlogPage() {
   }, [posts, q]);
 
   return (
-    <R.Section as="div" style={{ marginTop: 0 }}>
-      <Wrap>
-        <R.Heading style={{ marginBottom: 0 }}>
-          <span className="tag">{t.home.blogTag}</span>
-        </R.Heading>
-        <h1>{t.blogPage.title}</h1>
-        <p className="lead">{t.blogPage.lead}</p>
-
-        {posts === null ? (
-          <p className="empty">{t.blogPage.loading}</p>
-        ) : posts.length === 0 ? (
-          <p className="empty">{t.blogPage.empty}</p>
-        ) : (
-          <>
-            <input className="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t.blogPage.search} aria-label={t.blogPage.searchAria} />
-            {groups.length === 0 && <p className="empty">{t.blogPage.none}</p>}
-            {groups.map(([year, items]) => (
-              <section key={year}>
-                <p className="year">{year}</p>
-                <ul>
-                  {items.map((p) => (
-                    <li key={p.id}>
-                      <Link className={`row${p.cover_image_url ? "" : " nothumb"}`} href={`/blog/${p.slug}`}>
-                        {p.cover_image_url && (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img className="thumb" src={p.cover_image_url} alt="" />
-                        )}
-                        <div>
+    <Wrap>
+      <Page>
+        <PageTitle>{t.blogPage.title}</PageTitle>
+        <Lead>{t.blogPage.lead}</Lead>
+        <List>
+          {posts === null ? (
+            <p className="empty">{t.blogPage.loading}</p>
+          ) : posts.length === 0 ? (
+            <p className="empty">{t.blogPage.empty}</p>
+          ) : (
+            <>
+              <input className="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t.blogPage.search} aria-label={t.blogPage.searchAria} />
+              {groups.length === 0 && <p className="empty">{t.blogPage.none}</p>}
+              {groups.map(([year, items]) => (
+                <section key={year}>
+                  <p className="year">{year}</p>
+                  <ul>
+                    {items.map((p) => (
+                      <li key={p.id}>
+                        <Link className="row" href={`/blog/${p.slug}`}>
                           <h2>{p.title}</h2>
+                          <time>{new Date(p.created_at).toLocaleDateString(LOCALE[lang], { day: "2-digit", month: "short" })}</time>
                           {p.excerpt && <p className="ex">{p.excerpt}</p>}
-                        </div>
-                        <time>{new Date(p.created_at).toLocaleDateString(LOCALE[lang], { day: "2-digit", month: "short" })}</time>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))}
-          </>
-        )}
-      </Wrap>
-    </R.Section>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </>
+          )}
+        </List>
+      </Page>
+    </Wrap>
   );
 }
