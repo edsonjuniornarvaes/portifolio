@@ -14,9 +14,9 @@ const Frame = styled.div`
 `;
 
 /** Celular com uma ou mais telas (a ativa aparece, as outras ficam escondidas). */
-export default function Phone({ screens, active = 0, alt, width = 240 }: { screens: string[]; active?: number; alt: string; width?: number }) {
+export default function Phone({ screens, active = 0, alt, width = 240 }: { screens: string[]; active?: number; alt: string; width?: number | string }) {
   return (
-    <Frame style={{ ["--w" as string]: `${width}px` }}>
+    <Frame style={{ ["--w" as string]: typeof width === "number" ? `${width}px` : width }}>
       <div className="island" />
       <div className="screen">
         {screens.map((src, i) => (

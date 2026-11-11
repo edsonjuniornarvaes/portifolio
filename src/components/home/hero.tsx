@@ -1,71 +1,81 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import styled from "styled-components";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Wrap } from "@/components/ui/layout";
 import Letters from "@/components/ui/letters";
 import Phone from "@/components/ui/phone";
-import WebWire from "@/components/ui/web-wire";
 import { HERO_SCREENS } from "@/data/work";
 import { useLang } from "@/i18n/provider";
 
 const Box = styled.section`
-  position: relative; min-height: calc(100svh - var(--header)); display: flex; align-items: center; padding: 28px 0 56px;
-  --mx: -400px; --my: -400px;
-  .glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(520px circle at var(--mx) var(--my), color-mix(in srgb, var(--accent) 11%, transparent), transparent 62%); }
-  .lit { position: absolute; inset: 0; pointer-events: none;
-    background-image: linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px); background-size: 56px 56px; opacity: 0.5;
-    -webkit-mask-image: radial-gradient(240px circle at var(--mx) var(--my), #000, transparent); mask-image: radial-gradient(240px circle at var(--mx) var(--my), #000, transparent); }
-  .grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); gap: 48px; align-items: center; }
-  @media (max-width: 980px) { .grid { grid-template-columns: 1fr; gap: 44px; } min-height: 0; padding-top: 20px; }
+  position: relative; overflow: hidden; --mx: 50%; --my: 30%;
+  .glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(560px circle at var(--mx) var(--my), color-mix(in srgb, var(--accent) 12%, transparent), transparent 62%); }
+  .lit { position: absolute; inset: 0; pointer-events: none; opacity: 0.55;
+    background-image: linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px); background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(260px circle at var(--mx) var(--my), #000, transparent); mask-image: radial-gradient(260px circle at var(--mx) var(--my), #000, transparent); }
 
-  .who { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 26px; padding: 8px 18px 8px 8px; border: 1px solid var(--line); border-radius: 99px; background: color-mix(in srgb, var(--card) 80%, transparent); }
-  .who img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; object-position: center 20%; box-shadow: 0 0 0 2px var(--accent); }
-  .who b { display: block; font-size: 0.92rem; font-weight: 600; line-height: 1.2; }
-  .who span { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--muted); }
-  .who i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: ping 2.2s ease-out infinite; }
+  .top { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: clamp(40px, 8vh, 84px); }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 99px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: color-mix(in srgb, var(--card) 70%, transparent); }
+  .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: ping 2.2s ease-out infinite; }
   @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); } 80%, 100% { box-shadow: 0 0 0 9px transparent; } }
 
-  h1 { font-size: clamp(2.3rem, 3.7vw, 3.6rem); font-weight: 700; line-height: 1.02; letter-spacing: -0.045em; }
+  h1 { margin-top: 28px; font-size: clamp(2.7rem, 8.2vw, 7.2rem); font-weight: 700; line-height: 0.98; letter-spacing: -0.055em; }
   h1 .l1 { display: block; }
   h1 .l2 { display: block; color: var(--accent); }
-  .lead { max-width: 32rem; margin-top: 26px; font-size: 1.2rem; line-height: 1.6; color: var(--muted); }
-  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin-top: 32px; }
-  .btn { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 26px; border-radius: 99px; font-size: 1rem; font-weight: 500; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease; }
+  h1 .caret { display: inline-block; width: 0.07em; height: 0.82em; margin-left: 0.08em; background: var(--accent); vertical-align: -0.06em; animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .lead { max-width: 41rem; text-wrap: balance; margin-top: 28px; font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.6; color: var(--muted); }
+  .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 14px; margin-top: 34px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 28px; border-radius: 99px; font-size: 1rem; font-weight: 500; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
   .btn.p { background: var(--accent); color: var(--on-accent); font-weight: 600; }
-  .btn.p:hover { transform: translateY(-2px); box-shadow: 0 10px 34px -8px color-mix(in srgb, var(--accent) 70%, transparent); }
+  .btn.p:hover { transform: translateY(-2px); box-shadow: 0 12px 36px -8px color-mix(in srgb, var(--accent) 70%, transparent); }
   .btn.g { border: 1px solid var(--line); }
   .btn.g:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-top: 30px; padding: 0; list-style: none; font-size: 0.9rem; color: var(--muted); }
+  .chips li { display: inline-flex; align-items: center; gap: 9px; }
+  .chips li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--c, var(--accent)); }
 
-  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; padding: 0; list-style: none; }
-  .chips li { display: inline-flex; align-items: center; gap: 9px; padding: 9px 16px; border-radius: 99px; font-size: 0.86rem; font-weight: 500; color: var(--muted); border: 1px solid var(--line); background: color-mix(in srgb, var(--card) 70%, transparent); }
-  .chips li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c, var(--accent)); }
-
-  .scene { position: relative; width: 100%; max-width: 520px; height: 540px; justify-self: center; }
-  .scene::before { content: ""; position: absolute; inset: 6% 0 4%; border-radius: 28px; background: radial-gradient(60% 60% at 50% 50%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%); }
-  .web { position: absolute; left: 0; top: 4%; width: 88%; }
-  .phone { position: absolute; right: 3%; bottom: 0; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.45)); animation: float 7s ease-in-out infinite; }
-  @keyframes float { 50% { transform: translateY(-10px); } }
-  @media (max-width: 980px) { .scene { height: 540px; margin-top: 12px; } }
-  @media (max-width: 520px) { .scene { height: 470px; } .web { width: 90%; top: 2%; } .phone { right: 0; } }
-  @media (prefers-reduced-motion: reduce) { .phone { animation: none; } }
-
+  .stage { position: relative; height: clamp(300px, 40vw, 470px); margin-top: clamp(36px, 6vh, 64px); overflow: hidden;
+    -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+  .row { position: absolute; left: 50%; top: 0; display: flex; align-items: flex-start; gap: clamp(14px, 2vw, 28px); transform: translateX(-50%); }
+  .ph { flex: none; }
+  .ph > div { transition: transform 0.4s cubic-bezier(.2,.7,.2,1); }
+  .ph:hover > div { transform: translateY(-14px); }
+  @media (max-width: 520px) { .kicker { font-size: 0.66rem; letter-spacing: 0.06em; padding: 8px 14px; text-align: left; } }
+  @media (max-width: 700px) { .row { zoom: 0.72; } .ph:nth-child(1), .ph:nth-child(5) { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .kicker i, .caret { animation: none; } }
 `;
 
 const CHIP_COLORS = ["#61dafb", "#a78bfa", "#2eebaa"];
+// largura, deslocamento inicial (mt) e quanto sobe ao rolar
+const ROW = [
+  { w: 176, mt: 76, k: 30 },
+  { w: 212, mt: 36, k: 70 },
+  { w: 248, mt: 0, k: 120 },
+  { w: 212, mt: 36, k: 70 },
+  { w: 176, mt: 76, k: 30 },
+];
+const ORDER = [3, 5, 1, 2, 4];
+
+function Rise({ i, k, mt, children, p }: { i: number; k: number; mt: number; children: React.ReactNode; p: ReturnType<typeof useScroll>["scrollYProgress"] }) {
+  const y = useTransform(p, [0, 1], [0, -k]);
+  return (
+    <motion.div className="ph" style={{ y, marginTop: mt }}>
+      <motion.div initial={{ y: 220, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.9, delay: 0.55 + i * 0.1, ease: [0.2, 0.7, 0.2, 1] }}>
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export default function Hero() {
   const { t } = useLang();
   const h = t.hero;
   const box = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => setActive((v) => (v + 1) % HERO_SCREENS.length), 3200);
-    return () => clearInterval(id);
-  }, []);
+  const { scrollYProgress } = useScroll({ target: box, offset: ["start start", "end start"] });
 
   const move = (e: React.PointerEvent) => {
     const el = box.current;
@@ -79,39 +89,32 @@ export default function Hero() {
     <Box ref={box} onPointerMove={move}>
       <div className="glow" aria-hidden />
       <div className="lit" aria-hidden />
-      <Wrap style={{ width: "100%" }}>
-        <div className="grid">
-          <div>
-            <div className="who">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/edson.webp" alt={h.portraitAlt} />
-              <div>
-                <b>Edson Junior</b>
-                <span><i /> {h.status}</span>
-              </div>
-            </div>
-            <h1>
-              <span className="l1"><Letters text={h.h1a} delay={0.2} /></span>
-              <span className="l2"><Letters text={h.h1b} delay={0.5} /></span>
-            </h1>
-            <p className="lead">{h.lead}</p>
-            <div className="cta">
-              <Link className="btn p" href="/home#trabalhos">{h.ctaWork} <span aria-hidden>↓</span></Link>
-              <Link className="btn g" href="/home#contato">{h.ctaTalk}</Link>
-            </div>
-            <ul className="chips">
-              {h.chips.map((name, i) => (
-                <li key={name} style={{ ["--c" as string]: CHIP_COLORS[i] }}>{name}</li>
-              ))}
-            </ul>
+      <Wrap>
+        <div className="top">
+          <span className="kicker"><i /> {h.based} · {h.status}</span>
+          <h1>
+            <span className="l1"><Letters text={h.h1a} delay={0.15} /></span>
+            <span className="l2"><Letters text={h.h1b} delay={0.45} /><span className="caret" aria-hidden /></span>
+          </h1>
+          <p className="lead">{h.lead}</p>
+          <div className="cta">
+            <Link className="btn p" href="/home#trabalhos">{h.ctaWork} <span aria-hidden>↓</span></Link>
+            <Link className="btn g" href="/home#contato">{h.ctaTalk}</Link>
           </div>
-
-          <div className="scene" aria-hidden>
-            <div className="web"><WebWire color="#2eebaa" url="seusite.com.br" /></div>
-            <div className="phone"><Phone screens={HERO_SCREENS} active={active} alt="App" width={232} /></div>
-          </div>
+          <ul className="chips">
+            {h.chips.map((name, i) => <li key={name} style={{ ["--c" as string]: CHIP_COLORS[i] }}>{name}</li>)}
+          </ul>
         </div>
       </Wrap>
+      <div className="stage" aria-hidden>
+        <div className="row">
+          {ROW.map((r, i) => (
+            <Rise key={i} i={i} k={r.k} mt={r.mt} p={scrollYProgress}>
+              <Phone screens={[HERO_SCREENS[ORDER[i] - 1] ?? HERO_SCREENS[0]]} alt="" width={r.w} />
+            </Rise>
+          ))}
+        </div>
+      </div>
     </Box>
   );
 }
