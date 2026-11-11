@@ -52,6 +52,19 @@ const pt = {
       { title: "Sistemas por trás", text: "Login seguro, pagamentos, relatórios e o acompanhamento de tudo o que acontece depois que está no ar." },
     ],
   },
+  process: {
+    label: "Como eu trabalho",
+    title: "Da ideia ao ar, em quatro passos.",
+    steps: [
+      { title: "Conversa", text: "Entendo o que você precisa, para quem é e o que precisa funcionar no primeiro dia." },
+      { title: "Desenho", text: "Mostro como vai ficar antes de construir, para ajustarmos juntos sem surpresa." },
+      { title: "Construção", text: "Crio o aplicativo ou site, testo em aparelhos de verdade e mostro o andamento." },
+      { title: "No ar e depois", text: "Publico nas lojas ou na internet e continuo acompanhando, corrigindo e melhorando." },
+    ],
+  },
+  numbers: {
+    items: ["anos estudando tecnologia", "anos como desenvolvedor", "anos criando aplicativos", "projetos no portfólio"],
+  },
   writing: { label: "Artigos", all: "Todos os artigos", none: "Em breve, textos sobre aplicativos, tecnologia e carreira." },
   contact: {
     label: "Contato",
@@ -156,6 +169,19 @@ const en: Dict = {
       { title: "Websites and online stores", text: "Sites, stores and admin panels, with Pix and card payments and content you edit yourself." },
       { title: "The systems behind", text: "Secure login, payments, reports and monitoring of everything that happens once it's live." },
     ],
+  },
+  process: {
+    label: "How I work",
+    title: "From idea to launch, in four steps.",
+    steps: [
+      { title: "Talk", text: "I learn what you need, who it is for and what must work on day one." },
+      { title: "Design", text: "I show how it will look before building it, so we adjust together with no surprises." },
+      { title: "Build", text: "I build the app or site, test on real devices and show progress along the way." },
+      { title: "Live and beyond", text: "I publish to the stores or the web and keep watching, fixing and improving." },
+    ],
+  },
+  numbers: {
+    items: ["years studying technology", "years as a developer", "years building apps", "projects in the portfolio"],
   },
   writing: { label: "Articles", all: "All articles", none: "Coming soon: writing about apps, technology and career." },
   contact: {

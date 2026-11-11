@@ -8,12 +8,12 @@ import { contact } from "@/data/profile";
 
 const Box = styled.div`
   position: relative; padding: 8px 0 0;
-  h2 { font-size: clamp(3.4rem, 11vw, 10rem); font-weight: 700; line-height: 0.92; letter-spacing: -0.055em; }
+  h2 { font-size: clamp(3rem, 9vw, 8rem); font-weight: 700; line-height: 0.92; letter-spacing: -0.055em; }
   h2 .a { display: block; }
   h2 .b { display: block; color: var(--accent); }
   p { margin-top: 24px; max-width: 30rem; color: var(--muted); font-size: 1.15rem; }
   .mail { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 38px; }
-  .mail a.addr { font-size: clamp(1.15rem, 3.2vw, 2rem); font-weight: 500; padding: 14px 24px; border: 1px solid var(--line); border-radius: 99px; background: color-mix(in srgb, var(--card) 85%, transparent); word-break: break-all; transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+  .mail a.addr { font-size: clamp(1.1rem, 4.4vw, 2.4rem); font-weight: 600; letter-spacing: -0.02em; padding: 16px 28px; border: 1px solid var(--line); border-radius: 99px; background: color-mix(in srgb, var(--card) 85%, transparent); word-break: break-all; transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease; }
   .mail a.addr:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
   .copy { height: 48px; padding: 0 22px; border-radius: 99px; border: 1px solid var(--line); background: transparent; cursor: pointer; font-size: 0.92rem; transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; }
   .copy:hover { border-color: var(--accent); color: var(--accent); }

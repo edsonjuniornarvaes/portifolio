@@ -1,5 +1,7 @@
 import Hero from "@/components/home/hero";
-import WorkScroller from "@/components/home/work-scroller";
+import Showcase from "@/components/home/showcase";
+import Process from "@/components/home/process";
+import Numbers from "@/components/home/numbers";
 import Services from "@/components/home/services";
 import Writing from "@/components/home/writing";
 import Contact from "@/components/home/contact";
@@ -20,25 +22,32 @@ export default async function Home() {
       <Marquee items={t.sectors} />
 
       <Wrap>
-        <Section id="trabalhos" style={{ marginBottom: 0 }}>
+        <Section id="trabalhos" style={{ marginTop: 110 }}>
           <SectionHead n="01" label={t.work.label} action={{ href: "/projects", label: t.work.seeAll }} />
+          <Showcase />
         </Section>
-      </Wrap>
-      <WorkScroller />
 
-      <Wrap>
         <Section id="faco">
           <SectionHead n="02" label={t.services.label} />
           <Services />
         </Section>
 
+        <Section>
+          <SectionHead n="03" label={t.process.label} />
+          <Process />
+        </Section>
+
+        <Section style={{ marginTop: 110 }}>
+          <Numbers />
+        </Section>
+
         <Section id="escrita">
-          <SectionHead n="03" label={t.writing.label} action={{ href: "/blog", label: t.writing.all }} />
+          <SectionHead n="04" label={t.writing.label} action={{ href: "/blog", label: t.writing.all }} />
           <Writing posts={posts} />
         </Section>
 
         <Section id="contato">
-          <SectionHead n="04" label={t.contact.label} />
+          <SectionHead n="05" label={t.contact.label} />
           <Contact />
         </Section>
       </Wrap>
