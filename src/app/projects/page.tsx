@@ -19,10 +19,10 @@ const match = (id: string, tab: Tab) => (tab === "all" ? true : tab === "own" ? 
 
 const Tabs = styled.div`
   display: flex; flex-wrap: wrap; gap: 8px; margin: 40px 0 30px;
-  button { position: relative; padding: 9px 16px; border: 1px solid var(--line); border-radius: 8px; background: transparent; cursor: pointer; font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); transition: color 0.2s ease, border-color 0.2s ease; }
+  button { position: relative; padding: 10px 20px; border: 1px solid var(--line); border-radius: 99px; background: transparent; cursor: pointer; font-size: 0.95rem; color: var(--muted); transition: color 0.2s ease, border-color 0.2s ease; }
   button:hover { color: var(--ink); border-color: var(--muted); }
   button[aria-pressed="true"] { color: var(--on-accent); border-color: var(--accent); }
-  button .bg { position: absolute; inset: 0; border-radius: 7px; background: var(--accent); }
+  button .bg { position: absolute; inset: 0; border-radius: 99px; background: var(--accent); }
   button span { position: relative; }
   button sup { position: relative; margin-left: 5px; font-size: 0.62rem; opacity: 0.7; }
 `;
