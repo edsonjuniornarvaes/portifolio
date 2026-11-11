@@ -24,13 +24,13 @@ const Card = styled(Link)`
   .letter { position: relative; z-index: 1; align-self: center; font-size: 4rem; font-weight: 700; letter-spacing: -0.05em; color: color-mix(in srgb, var(--pc) 80%, var(--ink)); }
 
   .body { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px 22px; flex: 1; }
-  .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
-  .meta .k { color: var(--pc); }
+  .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.82rem; color: var(--muted); }
+  .meta .k { color: var(--pc); font-weight: 600; }
   .meta .st::before { content: "●"; margin-right: 5px; color: var(--sc); }
   h3 { font-size: 1.45rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.12; }
   p { color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
   .tags { margin-top: auto; padding-top: 6px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .tags span { padding: 3px 9px; border: 1px solid var(--line); border-radius: 5px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); }
+  .tags span { padding: 4px 11px; border: 1px solid var(--line); border-radius: 99px; font-size: 0.76rem; color: var(--muted); }
 `;
 
 const STATUS_COLOR = { production: "#2eebaa", development: "#ffcb6b", paused: "#8c95a3" } as const;
@@ -48,7 +48,7 @@ export default function ProjectCard({ id }: { id: string }) {
     <Card href={`/projects/${id}`} style={{ ["--pc" as string]: color, ["--sc" as string]: STATUS_COLOR[p.status] }}>
       <div className="vis" aria-hidden>
         {web ? (
-          <div className="wire"><WebWire color={color} url={`${id.replace(/-.*/, "")}.com`} /></div>
+          <div className="wire"><WebWire color={color} url={p.title} /></div>
         ) : shot ? (
           <div className="mini">
             {/* eslint-disable-next-line @next/next/no-img-element */}

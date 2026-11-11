@@ -3,15 +3,16 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { useLang } from "@/i18n/provider";
+import { LOCALE } from "@/i18n/config";
 
 export type PostPreview = { id: string; slug: string; title: string; excerpt: string | null; created_at: string };
 
 const List = styled.ul`
   list-style: none; border-top: 1px solid var(--line);
   li { border-bottom: 1px solid var(--line); }
-  a { display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; gap: 6px 28px; align-items: baseline; padding: 24px 0; transition: padding 0.3s cubic-bezier(.2,.7,.2,1); }
+  a { display: grid; grid-template-columns: 140px minmax(0, 1fr) auto; gap: 6px 28px; align-items: baseline; padding: 24px 0; transition: padding 0.3s cubic-bezier(.2,.7,.2,1); }
   a:hover { padding-left: 14px; }
-  time { font-family: var(--font-mono); font-size: 0.78rem; color: var(--syn-c); }
+  time { font-size: 0.88rem; color: var(--muted); }
   h3 { font-size: clamp(1.3rem, 2.6vw, 1.9rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.18; transition: color 0.2s ease; }
   a:hover h3 { color: var(--accent); }
   .go { font-family: var(--font-mono); color: var(--muted); transition: transform 0.3s ease, color 0.2s ease; }
@@ -21,14 +22,14 @@ const List = styled.ul`
 `;
 
 export default function Writing({ posts }: { posts: PostPreview[] }) {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   if (!posts.length) return <p style={{ color: "var(--muted)" }}>{t.writing.none}</p>;
   return (
     <List>
       {posts.map((p) => (
         <li key={p.id}>
           <Link href={`/blog/${p.slug}`}>
-            <time>{p.created_at.slice(0, 10)}</time>
+            <time>{new Date(p.created_at).toLocaleDateString(LOCALE[lang], { day: "2-digit", month: "short", year: "numeric" })}</time>
             <h3>{p.title}</h3>
             <span className="go" aria-hidden>→</span>
             {p.excerpt && <p>{p.excerpt}</p>}

@@ -12,13 +12,13 @@ import { isWebId, projectColor } from "@/data/work";
 import { type Project } from "../helper";
 
 const Back = styled(Link)`
-  display: inline-block; margin-bottom: 36px; font-family: var(--font-mono); font-size: 0.84rem; color: var(--muted); transition: color 0.2s ease;
+  display: inline-block; margin-bottom: 36px; font-size: 0.95rem; color: var(--muted); transition: color 0.2s ease;
   &:hover { color: var(--accent); }
 `;
 
 const Meta = styled.dl`
   display: flex; flex-wrap: wrap; gap: 14px 48px; margin-top: 34px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-  dt { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  dt { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
   dd { margin-top: 4px; font-size: 0.98rem; }
   a { border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
   a:hover { color: var(--accent); }
@@ -27,8 +27,7 @@ const Meta = styled.dl`
 const Block = styled.section`
   display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 12px 48px; margin-top: 54px;
   @media (max-width: 760px) { grid-template-columns: 1fr; }
-  h2 { font-family: var(--font-mono); font-weight: 400; font-size: 0.8rem; color: var(--muted); padding-top: 6px; }
-  h2::before { content: "// "; color: var(--syn-c); }
+  h2 { font-size: 0.95rem; font-weight: 600; color: var(--ink); padding-top: 4px; }
   ul { list-style: none; display: grid; gap: 12px; }
   li { position: relative; padding-left: 22px; line-height: 1.6; }
   li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
@@ -84,7 +83,7 @@ function ProjectDetailClient({ project: base }: { project: Project }) {
 
         {web && (
           <Block as="div" style={{ display: "block" }}>
-            <div style={{ maxWidth: 640 }}><WebWire color={projectColor(project.id)} url={`${project.id.replace(/-.*/, "")}.com`} /></div>
+            <div style={{ maxWidth: 640 }}><WebWire color={projectColor(project.id)} url={project.title} /></div>
           </Block>
         )}
 

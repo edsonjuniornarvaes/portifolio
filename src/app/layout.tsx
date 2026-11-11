@@ -4,7 +4,6 @@ import "./globals.css";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import ScrollProgress from "@/components/ui/scroll-progress";
-import CommandPalette from "@/components/command-palette";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
 import { LangProvider } from "@/i18n/provider";
@@ -86,7 +85,6 @@ export default async function RootLayout({
           <StyledComponentsRegistry>
             <AnalyticsTracker />
             <ScrollProgress />
-            <CommandPalette />
             <SiteHeader />
             <main>{children}</main>
             <SiteFooter />

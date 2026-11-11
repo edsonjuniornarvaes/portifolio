@@ -1,6 +1,6 @@
 import Hero from "@/components/home/hero";
 import WorkScroller from "@/components/home/work-scroller";
-import CodeSection from "@/components/home/code-section";
+import Services from "@/components/home/services";
 import Writing from "@/components/home/writing";
 import Contact from "@/components/home/contact";
 import Marquee from "@/components/ui/marquee";
@@ -8,8 +8,6 @@ import { SectionHead, Section, Wrap } from "@/components/ui/layout";
 import { getAllPosts } from "@/lib/posts";
 import { getLang } from "@/i18n/server";
 import { ui } from "@/i18n/dict";
-
-const TECH = ["React Native", "Next.js", "TypeScript", "Expo", "React", "Node.js", "Supabase", "Redux", "Auth0", "Jest", "Sentry", "Bitrise", "Docker", "Figma", "Git"];
 
 export default async function Home() {
   const lang = await getLang();
@@ -19,7 +17,7 @@ export default async function Home() {
   return (
     <>
       <Hero />
-      <Marquee items={TECH} />
+      <Marquee items={t.sectors} />
 
       <Wrap>
         <Section id="trabalhos" style={{ marginBottom: 0 }}>
@@ -30,8 +28,8 @@ export default async function Home() {
 
       <Wrap>
         <Section id="faco">
-          <SectionHead n="02" label={t.code.label} />
-          <CodeSection />
+          <SectionHead n="02" label={t.services.label} />
+          <Services />
         </Section>
 
         <Section id="escrita">
