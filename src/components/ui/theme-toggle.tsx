@@ -5,15 +5,19 @@ import { useLang } from "@/i18n/provider";
 
 type Theme = "light" | "dark";
 
-/** Alterna claro/escuro; o padrão é o claro. */
+/** Alterna escuro/claro; o padrão é o escuro. */
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme | null>(null);
   const { t } = useLang();
 
   useEffect(() => {
-    const attr = document.documentElement.getAttribute("data-theme");
-    if (attr === "light" || attr === "dark") return setTheme(attr);
-    setTheme("light");
+    const read = () => {
+      const attr = document.documentElement.getAttribute("data-theme");
+      setTheme(attr === "light" ? "light" : "dark");
+    };
+    read();
+    window.addEventListener("themechange", read);
+    return () => window.removeEventListener("themechange", read);
   }, []);
 
   const toggle = () => {

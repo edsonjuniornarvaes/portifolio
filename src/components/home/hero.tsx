@@ -1,69 +1,140 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { Wrap } from "@/components/ui/layout";
+import Letters from "@/components/ui/letters";
+import Terminal from "@/components/ui/terminal";
+import Phone from "@/components/ui/phone";
+import WebWire from "@/components/ui/web-wire";
+import Tilt from "@/components/ui/tilt";
+import { HERO_SCREENS } from "@/data/work";
 import { useLang } from "@/i18n/provider";
 
 const Box = styled.section`
-  padding: 56px 0 0;
-  @media (max-width: 700px) { padding-top: 34px; }
+  position: relative; min-height: calc(100svh - var(--header)); display: flex; align-items: center; padding: 28px 0 56px;
+  --mx: -400px; --my: -400px;
+  .glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(520px circle at var(--mx) var(--my), color-mix(in srgb, var(--accent) 11%, transparent), transparent 62%); }
+  .lit { position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px); background-size: 56px 56px; opacity: 0.5;
+    -webkit-mask-image: radial-gradient(240px circle at var(--mx) var(--my), #000, transparent); mask-image: radial-gradient(240px circle at var(--mx) var(--my), #000, transparent); }
+  .grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 40px; align-items: center; }
+  @media (max-width: 980px) { .grid { grid-template-columns: 1fr; gap: 44px; } min-height: 0; padding-top: 20px; }
 
-  .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.04em; color: var(--muted); }
-  .pill { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); }
-  .pill i { width: 8px; height: 8px; border-radius: 50%; background: #2fb36a; box-shadow: 0 0 0 0 rgba(47,179,106,0.6); animation: ping 2.4s ease-out infinite; }
-  @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(47,179,106,0.55); } 80%, 100% { box-shadow: 0 0 0 9px rgba(47,179,106,0); } }
+  .who { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 26px; padding: 8px 18px 8px 8px; border: 1px solid var(--line); border-radius: 99px; background: color-mix(in srgb, var(--card) 80%, transparent); }
+  .who img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; object-position: center 20%; box-shadow: 0 0 0 2px var(--accent); }
+  .who b { display: block; font-size: 0.92rem; font-weight: 600; line-height: 1.2; }
+  .who span { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+  .who i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: ping 2.2s ease-out infinite; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); } 80%, 100% { box-shadow: 0 0 0 9px transparent; } }
 
-  .grid { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 56px; align-items: end; margin-top: 46px; }
-  @media (max-width: 940px) { .grid { grid-template-columns: 1fr; gap: 36px; margin-top: 32px; } }
+  h1 { margin-top: 22px; font-size: clamp(2.7rem, 5.8vw, 5.6rem); font-weight: 700; line-height: 0.97; letter-spacing: -0.05em; }
+  h1 .l1 { display: block; }
+  h1 .l2 { display: block; color: var(--accent); }
+  .lead { max-width: 33rem; margin-top: 26px; font-size: 1.14rem; line-height: 1.65; color: var(--muted); }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin-top: 32px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px; border-radius: 10px; font-family: var(--font-mono); font-size: 0.88rem; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease; }
+  .btn.p { background: var(--accent); color: var(--on-accent); font-weight: 600; }
+  .btn.p:hover { transform: translateY(-2px); box-shadow: 0 10px 34px -8px color-mix(in srgb, var(--accent) 70%, transparent); }
+  .btn.g { border: 1px solid var(--line); }
+  .btn.g:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .hint { display: inline-flex; align-items: center; gap: 8px; margin-left: 6px; font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); }
+  @media (max-width: 860px) { .hint { display: none; } }
 
-  h1 { font-family: var(--font-serif); font-weight: 400; font-size: clamp(3.3rem, 9vw, 8rem); line-height: 0.96; letter-spacing: -0.025em; }
-  h1 span { display: block; }
-  h1 em { font-style: italic; color: var(--accent-ink); }
-  .lead { max-width: 33rem; margin-top: 30px; font-size: 1.15rem; line-height: 1.65; color: var(--muted); }
-  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 26px; margin-top: 34px; }
-  .btn { display: inline-flex; align-items: center; gap: 10px; height: 50px; padding: 0 26px; border-radius: 999px; background: var(--ink); color: var(--paper); font-weight: 500; transition: background 0.25s ease, transform 0.25s ease; }
-  .btn:hover { background: var(--accent); color: var(--on-accent); transform: translateY(-2px); }
-  .link { font-weight: 500; border-bottom: 1px solid var(--ink); padding-bottom: 2px; transition: color 0.2s ease, border-color 0.2s ease; }
-  .link:hover { color: var(--accent-ink); border-color: var(--accent-ink); }
+  .scene { position: relative; height: 600px; }
+  @media (max-width: 980px) { .scene { height: 520px; max-width: 560px; margin: 36px auto 0; width: 100%; } }
+  @media (max-width: 520px) { .scene { height: 460px; margin-top: 56px; } .c1 { top: -2%; } }
+  .stage { position: absolute; inset: 0; transform-style: preserve-3d; }
+  .rings { position: absolute; inset: 0; display: grid; place-items: center; }
+  .rings i { position: absolute; border-radius: 50%; border: 1px dashed color-mix(in srgb, var(--ink) 16%, transparent); animation: spin 60s linear infinite; }
+  .rings i:nth-child(1) { width: 86%; aspect-ratio: 1; }
+  .rings i:nth-child(2) { width: 62%; aspect-ratio: 1; animation-direction: reverse; border-style: solid; border-color: color-mix(in srgb, var(--ink) 9%, transparent); }
+  .rings i:nth-child(3) { width: 38%; aspect-ratio: 1; border-color: color-mix(in srgb, var(--accent) 35%, transparent); animation-duration: 30s; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .web { position: absolute; left: 0; top: 17%; width: 72%; transform: translateZ(-20px) rotate(-5deg); }
+  .phone { position: absolute; right: 7%; top: 3%; transform: translateZ(70px) rotate(2deg); }
+  @media (max-width: 520px) { .web { width: 76%; top: 24%; } .phone { right: 2%; } }
+  .chip { position: absolute; z-index: 3; transform: translateZ(120px); }
+  .chip span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 13px; border-radius: 99px; font-family: var(--font-mono); font-size: 0.72rem; background: color-mix(in srgb, var(--paper) 78%, transparent); border: 1px solid var(--line); backdrop-filter: blur(8px); animation: bob 6s ease-in-out infinite; box-shadow: 0 18px 40px -18px rgba(0,0,0,0.7); }
+  .chip span::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c, var(--accent)); }
+  @keyframes bob { 50% { transform: translateY(-9px); } }
+  .c1 { left: 2%; top: 4%; } .c2 { left: 36%; bottom: 3%; } .c3 { right: -1%; top: 46%; } .c4 { left: -2%; bottom: 20%; } .c5 { right: 12%; bottom: 0; }
+  .c2 span { animation-delay: -1.5s; } .c3 span { animation-delay: -3s; } .c4 span { animation-delay: -4.5s; } .c5 span { animation-delay: -2.2s; }
+  @media (max-width: 520px) { .c4, .c5 { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .rings i, .chip span { animation: none; } }
 
-  figure { margin: 0; }
-  figure img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 18%; border-radius: 6px; filter: saturate(0.92); }
-  figcaption { margin-top: 10px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--muted); }
-  @media (max-width: 940px) { figure { max-width: 240px; } }
-
-  .rise { opacity: 0; animation: fadeInUp 0.8s cubic-bezier(.2,.7,.2,1) forwards; }
+  .scroll { position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .scroll::after { content: ""; width: 1px; height: 34px; background: linear-gradient(var(--accent), transparent); animation: drop 2s ease-in-out infinite; }
+  @keyframes drop { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+  @media (max-width: 980px) { .scroll { display: none; } }
 `;
+
+const CHIPS: [string, string][] = [
+  ["React Native", "#61dafb"], ["TypeScript", "#3b82f6"], ["Next.js", "#e9edf2"], ["Expo", "#a78bfa"], ["Supabase", "#3ecf8e"],
+];
 
 export default function Hero() {
   const { t } = useLang();
   const h = t.hero;
+  const box = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => setActive((v) => (v + 1) % HERO_SCREENS.length), 3200);
+    return () => clearInterval(id);
+  }, []);
+
+  const move = (e: React.PointerEvent) => {
+    const el = box.current;
+    if (!el || e.pointerType !== "mouse") return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    el.style.setProperty("--my", `${e.clientY - r.top}px`);
+  };
+
   return (
-    <Wrap>
-      <Box>
-        <div className="top rise">
-          <span className="pill"><i /> {h.available}</span>
-          <span>{h.based}</span>
-        </div>
+    <Box ref={box} onPointerMove={move}>
+      <div className="glow" aria-hidden />
+      <div className="lit" aria-hidden />
+      <Wrap style={{ width: "100%" }}>
         <div className="grid">
           <div>
+            <div className="who">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/edson.webp" alt={h.portraitAlt} />
+              <div>
+                <b>Edson Junior</b>
+                <span><i /> {h.status} · {h.based}</span>
+              </div>
+            </div>
+            <Terminal lines={h.term} />
             <h1>
-              <span className="rise" style={{ animationDelay: "0.08s" }}>{h.headA}</span>
-              <span className="rise" style={{ animationDelay: "0.2s" }}><em>{h.headB}</em></span>
+              <span className="l1"><Letters text={h.h1a} delay={0.2} /></span>
+              <span className="l2"><Letters text={h.h1b} delay={0.5} /></span>
             </h1>
-            <p className="lead rise" style={{ animationDelay: "0.34s" }}>{h.lead}</p>
-            <div className="cta rise" style={{ animationDelay: "0.46s" }}>
-              <Link className="btn" href="/projects">{h.ctaWork} <span aria-hidden>→</span></Link>
-              <Link className="link" href="/home#contato">{h.ctaTalk}</Link>
+            <p className="lead">{h.lead}</p>
+            <div className="cta">
+              <Link className="btn p" href="/home#trabalhos">{h.ctaWork} <span aria-hidden>↓</span></Link>
+              <Link className="btn g" href="/home#contato">$ {h.ctaTalk}</Link>
+              <span className="hint">{h.hint} <kbd>⌘</kbd><kbd>K</kbd></span>
             </div>
           </div>
-          <figure className="rise" style={{ animationDelay: "0.4s" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/edson.webp" alt={h.portraitAlt} />
-            <figcaption>Edson Junior · Umuarama, PR</figcaption>
-          </figure>
+
+          <Tilt className="scene" max={7}>
+            <div className="stage">
+              <div className="rings" aria-hidden><i /><i /><i /></div>
+              <div className="web" aria-hidden><WebWire color="#2eebaa" url="edson.dev" /></div>
+              <div className="phone"><Phone screens={HERO_SCREENS} active={active} alt="App" width={236} /></div>
+              {CHIPS.map(([name, color], i) => (
+                <div key={name} className={`chip c${i + 1}`} aria-hidden><span style={{ ["--c" as string]: color }}>{name}</span></div>
+              ))}
+            </div>
+          </Tilt>
         </div>
-      </Box>
-    </Wrap>
+      </Wrap>
+      <div className="scroll" aria-hidden>scroll</div>
+    </Box>
   );
 }

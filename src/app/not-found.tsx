@@ -5,35 +5,17 @@ import { ui } from "@/i18n/dict";
 export default async function NotFound() {
   const t = ui[await getLang()].notFound;
   return (
-    <div style={{ maxWidth: 1160, margin: "0 auto", padding: "120px 24px 40px", minHeight: "60vh" }}>
-      <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.8rem", color: "var(--accent-ink)" }}>{"// 404"}</p>
-      <h1
-        style={{
-          marginTop: 8,
-          fontFamily: "var(--font-condensed)",
-          fontWeight: 400,
-          textTransform: "uppercase",
-          fontSize: "clamp(3rem, 9vw, 6rem)",
-          lineHeight: 0.95,
-        }}
-      >
-        {t.title}
-      </h1>
+    <div style={{ maxWidth: 1240, margin: "0 auto", padding: "110px 24px 40px", minHeight: "62vh" }}>
+      <p style={{ fontFamily: "var(--font-mono)", color: "var(--muted)" }}>
+        <span style={{ color: "var(--accent)" }}>$</span> cd /pagina-que-nao-existe
+      </p>
+      <p style={{ fontFamily: "var(--font-mono)", color: "var(--syn-n)", marginTop: 6 }}>bash: {t.text}</p>
+      <h1 style={{ marginTop: 28, fontSize: "clamp(5rem, 22vw, 16rem)", fontWeight: 700, lineHeight: 0.85, letterSpacing: "-0.06em", color: "var(--accent)" }}>{t.title}</h1>
       <Link
         href="/home"
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          marginTop: 28,
-          height: 46,
-          padding: "0 22px",
-          borderRadius: 999,
-          background: "var(--accent)",
-          color: "var(--on-accent)",
-          fontWeight: 600,
-        }}
+        style={{ display: "inline-flex", alignItems: "center", marginTop: 36, height: 48, padding: "0 22px", borderRadius: 10, background: "var(--accent)", color: "var(--on-accent)", fontFamily: "var(--font-mono)", fontSize: "0.9rem", fontWeight: 600 }}
       >
-        {t.back} →
+        $ {t.back}
       </Link>
     </div>
   );
