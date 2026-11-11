@@ -7,12 +7,13 @@ import { localizeProject, localizeCase } from "@/i18n/content";
 import { MarkdownBody } from "@/components/markdown-body";
 import { Page, PageTitle, Lead, Wrap } from "@/components/ui/layout";
 import { cases } from "@/data/profile";
-import { isWebId } from "@/data/work";
+import WebWire from "@/components/ui/web-wire";
+import { isWebId, projectColor } from "@/data/work";
 import { type Project } from "../helper";
 
 const Back = styled(Link)`
-  display: inline-block; margin-bottom: 36px; font-size: 0.92rem; color: var(--muted); transition: color 0.2s ease;
-  &:hover { color: var(--accent-ink); }
+  display: inline-block; margin-bottom: 36px; font-family: var(--font-mono); font-size: 0.84rem; color: var(--muted); transition: color 0.2s ease;
+  &:hover { color: var(--accent); }
 `;
 
 const Meta = styled.dl`
@@ -20,16 +21,17 @@ const Meta = styled.dl`
   dt { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
   dd { margin-top: 4px; font-size: 0.98rem; }
   a { border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
-  a:hover { color: var(--accent-ink); }
+  a:hover { color: var(--accent); }
 `;
 
 const Block = styled.section`
   display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 12px 48px; margin-top: 54px;
   @media (max-width: 760px) { grid-template-columns: 1fr; }
-  h2 { font-family: var(--font-mono); font-weight: 500; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 6px; }
+  h2 { font-family: var(--font-mono); font-weight: 400; font-size: 0.8rem; color: var(--muted); padding-top: 6px; }
+  h2::before { content: "// "; color: var(--syn-c); }
   ul { list-style: none; display: grid; gap: 12px; }
   li { position: relative; padding-left: 22px; line-height: 1.6; }
-  li::before { content: "→"; position: absolute; left: 0; color: var(--accent-ink); }
+  li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
   .plain { color: var(--muted); line-height: 1.7; }
   dl.f { display: grid; gap: 16px; }
   dl.f dt { font-weight: 600; }
@@ -55,7 +57,8 @@ function ProjectDetailClient({ project: base }: { project: Project }) {
   const features = project.showHighlights !== false ? project.features || [] : [];
 
   // Só telas de app: prints de site ficam de fora.
-  const shots = isWebId(project.id)
+  const web = isWebId(project.id);
+  const shots = web
     ? []
     : [project.mockupAppleUrl, project.mockupPlayUrl, ...(project.screens ?? [])].map((u) => (u || "").trim()).filter((u) => u && !/cover|board/.test(u));
 
@@ -78,6 +81,12 @@ function ProjectDetailClient({ project: base }: { project: Project }) {
           {showGh && <div><dt>GitHub</dt><dd><a href={project.githubUrl} target="_blank" rel="noopener noreferrer">{t.project.github} ↗</a></dd></div>}
           {showFig && <div><dt>Figma</dt><dd><a href={project.figmaUrl} target="_blank" rel="noopener noreferrer">{t.project.figma} ↗</a></dd></div>}
         </Meta>
+
+        {web && (
+          <Block as="div" style={{ display: "block" }}>
+            <div style={{ maxWidth: 640 }}><WebWire color={projectColor(project.id)} url={`${project.id.replace(/-.*/, "")}.com`} /></div>
+          </Block>
+        )}
 
         {shots.length > 0 && (
           <Block as="div" style={{ display: "block" }}>

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { DM_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
+import ScrollProgress from "@/components/ui/scroll-progress";
+import CommandPalette from "@/components/command-palette";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
 import { LangProvider } from "@/i18n/provider";
@@ -11,17 +13,9 @@ import { ui } from "@/i18n/dict";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portifolio-wheat-omega-16.vercel.app";
 
-const body = DM_Sans({
+const body = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-body",
-  display: "swap",
-});
-
-const display = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-display-next",
   display: "swap",
 });
 
@@ -77,7 +71,7 @@ export default async function RootLayout({
   return (
     <html
       lang={lang === "pt" ? "pt-BR" : "en"}
-      className={`${body.variable} ${display.variable} ${jetbrains.variable}`}
+      className={`${body.variable} ${jetbrains.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -91,6 +85,8 @@ export default async function RootLayout({
         <LangProvider initial={lang}>
           <StyledComponentsRegistry>
             <AnalyticsTracker />
+            <ScrollProgress />
+            <CommandPalette />
             <SiteHeader />
             <main>{children}</main>
             <SiteFooter />

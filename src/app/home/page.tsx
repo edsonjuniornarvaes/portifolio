@@ -1,15 +1,15 @@
 import Hero from "@/components/home/hero";
-import WorkIndex from "@/components/home/work-index";
-import Services from "@/components/home/services";
+import WorkScroller from "@/components/home/work-scroller";
+import CodeSection from "@/components/home/code-section";
 import Writing from "@/components/home/writing";
 import Contact from "@/components/home/contact";
+import Marquee from "@/components/ui/marquee";
 import { SectionHead, Section, Wrap } from "@/components/ui/layout";
-import { SELECTED_IDS } from "@/data/work";
 import { getAllPosts } from "@/lib/posts";
 import { getLang } from "@/i18n/server";
 import { ui } from "@/i18n/dict";
 
-export const dynamic = "force-dynamic";
+const TECH = ["React Native", "Next.js", "TypeScript", "Expo", "React", "Node.js", "Supabase", "Redux", "Auth0", "Jest", "Sentry", "Bitrise", "Docker", "Figma", "Git"];
 
 export default async function Home() {
   const lang = await getLang();
@@ -19,19 +19,23 @@ export default async function Home() {
   return (
     <>
       <Hero />
-      <Wrap>
-        <Section id="trabalhos">
-          <SectionHead n="01" label={t.work.selected} action={{ href: "/projects", label: `${t.work.seeAll} →` }} />
-          <WorkIndex ids={SELECTED_IDS} />
-        </Section>
+      <Marquee items={TECH} />
 
+      <Wrap>
+        <Section id="trabalhos" style={{ marginBottom: 0 }}>
+          <SectionHead n="01" label={t.work.label} action={{ href: "/projects", label: t.work.seeAll }} />
+        </Section>
+      </Wrap>
+      <WorkScroller />
+
+      <Wrap>
         <Section id="faco">
-          <SectionHead n="02" label={t.services.label} />
-          <Services />
+          <SectionHead n="02" label={t.code.label} />
+          <CodeSection />
         </Section>
 
         <Section id="escrita">
-          <SectionHead n="03" label={t.writing.label} action={{ href: "/blog", label: `${t.writing.all} →` }} />
+          <SectionHead n="03" label={t.writing.label} action={{ href: "/blog", label: t.writing.all }} />
           <Writing posts={posts} />
         </Section>
 
