@@ -74,8 +74,8 @@ const Gloss = ({ id }: { id: string }) => (
 
 /** iPhone: com a tela de um app (src) ou com papel de parede colorido e relógio. */
 export function IPhoneSticker({ src, tone = "a", id = "ip" }: { src?: string; tone?: "a" | "b"; id?: string }) {
-  const c1 = tone === "a" ? "#ff7a4d" : "#5b7cff";
-  const c2 = tone === "a" ? "#7a3cff" : "#27d3b0";
+  const c1 = tone === "a" ? "#2eebaa" : "#c4a1ff";
+  const c2 = tone === "a" ? "#06b6d4" : "#06b6d4";
   return (
     <svg width="122" height="244" viewBox="0 0 122 244" aria-hidden>
       <defs>
@@ -117,11 +117,11 @@ export function MacBookSticker() {
       <g clipPath="url(#mb-s)">
         <rect x="40" y="19" width="170" height="106" fill="url(#mb-w)" />
         <g fontFamily="var(--font-jetbrains), monospace" fontSize="8">
-          <text x="50" y="40" fill="#c792ea">const</text><text x="82" y="40" fill="#82aaff">app</text><text x="100" y="40" fill="#fff">=</text><text x="110" y="40" fill="#ff8a65">&quot;Edson&quot;</text>
+          <text x="50" y="40" fill="#c792ea">const</text><text x="82" y="40" fill="#82aaff">app</text><text x="100" y="40" fill="#fff">=</text><text x="110" y="40" fill="#2eebaa">&quot;Edson&quot;</text>
           <text x="50" y="56" fill="#c792ea">build</text><text x="78" y="56" fill="#fff">(</text><text x="84" y="56" fill="#ffcb6b">iPhone</text><text x="114" y="56" fill="#fff">,</text><text x="120" y="56" fill="#ffcb6b">Android</text><text x="154" y="56" fill="#fff">)</text>
           <text x="50" y="72" fill="#7fdbca">deploy</text><text x="86" y="72" fill="#fff">()</text>
         </g>
-        <rect x="50" y="86" width="64" height="24" rx="6" fill="#ff6a3d" opacity=".95" /><rect x="120" y="86" width="40" height="24" rx="6" fill="#fff" opacity=".12" />
+        <rect x="50" y="86" width="64" height="24" rx="6" fill="#2eebaa" opacity=".95" /><rect x="120" y="86" width="40" height="24" rx="6" fill="#fff" opacity=".12" />
         <Gloss id="mb-g" />
       </g>
       <circle cx="125" cy="16" r="1.6" fill="#555" />
@@ -141,7 +141,7 @@ export function CoffeeSticker() {
       <path d="M88 58h12c10 0 16 6 16 14s-6 14-16 14H86" fill="none" stroke="#fff" strokeWidth="20" strokeLinecap="round" />
       <path d="M88 60h12c8 0 13 5 13 12s-5 12-13 12H85" fill="none" stroke="#e9d9c8" strokeWidth="7" strokeLinecap="round" />
       <path d="M22 50h66v32c0 20-13 36-33 36S22 102 22 82V50Z" fill="url(#cf-c)" />
-      <path d="M22 70h66v12c0 20-13 36-33 36S22 102 22 82V70Z" fill="#ff6a3d" opacity=".92" />
+      <path d="M22 70h66v12c0 20-13 36-33 36S22 102 22 82V70Z" fill="#2eebaa" opacity=".92" />
       <text x="55" y="97" textAnchor="middle" fontFamily="var(--font-jetbrains), monospace" fontSize="17" fontWeight="700" fill="#fff">{"</>"}</text>
       <ellipse cx="55" cy="50" rx="33" ry="7" fill="#3a2314" /><ellipse cx="55" cy="49" rx="27" ry="4.4" fill="#7b4a2b" />
       <path d="M43 34c-6-6 6-10 0-18M58 34c-6-6 6-10 0-18M73 34c-6-6 6-10 0-18" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" />
@@ -167,7 +167,7 @@ export function KeySticker({ label = "⌘" }: { label?: string }) {
 export function CodeSticker() {
   return (
     <svg width="150" height="86" viewBox="0 0 150 86" aria-hidden>
-      <defs><linearGradient id="cd-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#ff6a3d" /><stop offset="1" stopColor="#ff3d77" /></linearGradient></defs>
+      <defs><linearGradient id="cd-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#2eebaa" /><stop offset="1" stopColor="#06b6d4" /></linearGradient></defs>
       <rect x="6" y="6" width="138" height="74" rx="37" {...W} />
       <rect x="10" y="10" width="130" height="66" rx="33" fill="url(#cd-g)" />
       <rect x="10" y="10" width="130" height="30" rx="15" fill="#fff" opacity=".18" />
@@ -195,7 +195,7 @@ export function SparkSticker() {
   return (
     <div style={{ position: "relative", width: 112, height: 112 }} aria-hidden>
       <div style={{ position: "absolute", inset: 0, background: "#fff", clipPath: star, borderRadius: 8 }} />
-      <div style={{ position: "absolute", inset: 9, clipPath: star, background: "linear-gradient(120deg, #ff6a3d, #ffd36b, #7bd3ff, #c792ea, #ff7bd5, #ff6a3d)", backgroundSize: "320% 320%", backgroundPosition: "var(--hx, 30%) var(--hy, 30%)" }} />
+      <div style={{ position: "absolute", inset: 9, clipPath: star, background: "linear-gradient(120deg, #2eebaa, #ffd36b, #7bd3ff, #c792ea, #ff7bd5, #2eebaa)", backgroundSize: "320% 320%", backgroundPosition: "var(--hx, 30%) var(--hy, 30%)" }} />
     </div>
   );
 }
@@ -203,10 +203,10 @@ export function SparkSticker() {
 export function BubbleSticker({ text }: { text: string }) {
   return (
     <svg width="150" height="104" viewBox="0 0 150 104" aria-hidden>
-      <defs><linearGradient id="bb-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ff8a5c" /><stop offset="1" stopColor="#ff5a2c" /></linearGradient></defs>
+      <defs><linearGradient id="bb-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#5ff5c4" /><stop offset="1" stopColor="#1fcf94" /></linearGradient></defs>
       <path d="M32 8h86c14 0 24 8 24 22v26c0 14-10 22-24 22H78l-26 22 2-22H32C18 78 8 70 8 56V30C8 16 18 8 32 8Z" {...W} />
       <path d="M32 8h86c14 0 24 8 24 22v26c0 14-10 22-24 22H78l-26 22 2-22H32C18 78 8 70 8 56V30C8 16 18 8 32 8Z" fill="url(#bb-g)" />
-      <text x="75" y="55" textAnchor="middle" fontFamily="var(--font-hand), cursive" fontSize="38" fontWeight="700" fill="#1a0802">{text}</text>
+      <text x="75" y="55" textAnchor="middle" fontFamily="var(--font-hand), cursive" fontSize="38" fontWeight="700" fill="#04130d">{text}</text>
     </svg>
   );
 }
@@ -246,5 +246,26 @@ export function GemSticker() {
         <path d="M28 10h68l-18 32H46z" fill="#fff" opacity=".35" />
       </g>
     </svg>
+  );
+}
+
+/** Retrato numa TV antiga com trama de pontos (halftone), no clima retrô do site. */
+export function TvSticker({ src }: { src: string }) {
+  return (
+    <div style={{ position: "relative", width: 176, padding: 7, borderRadius: 30, background: "#fff" }}>
+      <div style={{ position: "relative", padding: "12px 40px 12px 12px", borderRadius: 24, background: "radial-gradient(circle at 1px 1px, rgba(0,0,0,.5) 1.1px, transparent 1.5px) 0 0 / 5px 5px, linear-gradient(135deg, #2eebaa, #06b6d4 60%, #c4a1ff)" }}>
+        <div style={{ position: "relative", aspectRatio: "4 / 5", borderRadius: 14, overflow: "hidden", background: "#0a0f0e", border: "3px solid rgba(0,0,0,.6)" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={src} alt="" draggable={false} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 18%", display: "block", pointerEvents: "none" }} />
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 1px 1px, rgba(0,0,0,.45) 1px, transparent 1.4px) 0 0 / 4px 4px, repeating-linear-gradient(to bottom, rgba(255,255,255,.05) 0 1px, transparent 1px 3px)", mixBlendMode: "multiply", pointerEvents: "none" }} />
+        </div>
+        <div style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", display: "grid", gap: 10 }}>
+          <i style={{ display: "block", width: 18, height: 18, borderRadius: "50%", background: "radial-gradient(circle at 35% 30%, #fff, #0a2a22 70%)", border: "2px solid rgba(0,0,0,.5)" }} />
+          <i style={{ display: "block", width: 18, height: 18, borderRadius: "50%", background: "radial-gradient(circle at 35% 30%, #fff, #0a2a22 70%)", border: "2px solid rgba(0,0,0,.5)" }} />
+          <b style={{ display: "block", width: 18, height: 5, borderRadius: 3, background: "rgba(0,0,0,.55)" }} />
+          <b style={{ display: "block", width: 18, height: 5, borderRadius: 3, background: "rgba(0,0,0,.55)" }} />
+        </div>
+      </div>
+    </div>
   );
 }

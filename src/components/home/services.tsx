@@ -7,10 +7,12 @@ import { useLang } from "@/i18n/provider";
 const Grid = styled.div`
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;
   @media (max-width: 900px) { grid-template-columns: 1fr; }
-  .card { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 30px 28px 32px; border: 1px solid var(--line); border-radius: 20px; background: color-mix(in srgb, var(--card) 80%, transparent); overflow: hidden; transition: transform 0.35s cubic-bezier(.2,.7,.2,1), border-color 0.3s ease; }
+  .card { position: relative; padding-top: 52px !important; border-radius: 6px !important; border-color: color-mix(in srgb, var(--accent) 35%, var(--line)) !important; display: flex; flex-direction: column; gap: 14px; padding: 30px 28px 32px; border: 1px solid var(--line); border-radius: 20px; background: color-mix(in srgb, var(--card) 80%, transparent); overflow: hidden; transition: transform 0.35s cubic-bezier(.2,.7,.2,1), border-color 0.3s ease; }
   .card::before { content: ""; position: absolute; inset: auto -30% -60% -30%; height: 80%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent), transparent 65%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
   .card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
   .card:hover::before { opacity: 1; }
+  .bar { position: absolute; left: 0; right: 0; top: 0; height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 12px; background: linear-gradient(90deg, var(--accent), var(--accent-2) 55%, var(--lilac)); }
+  .bar i { width: 10px; height: 10px; border: 2px solid var(--paper); display: block; }
   .ic { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 16px; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
   .ic svg { width: 26px; height: 26px; }
   h3 { margin-top: 10px; font-size: 1.55rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; }
@@ -41,6 +43,7 @@ export default function Services() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: i * 0.12, ease: [0.2, 0.7, 0.2, 1] }}
           >
+            <div className="bar" aria-hidden><i /><i /><i /></div>
             <span className="ic">{ICONS[i]}</span>
             <h3>{it.title}</h3>
             <p>{it.text}</p>

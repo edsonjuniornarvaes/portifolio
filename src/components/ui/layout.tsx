@@ -21,7 +21,7 @@ const Head = styled.header`
 export function SectionHead({ n, label, action }: { n: string; label: string; action?: { href: string; label: string } }) {
   return (
     <Head>
-      <span className="n">{n}</span>
+      <span className="n">{"// "}{n}</span>
       <h2>{label}</h2>
       <span className="line" />
       {action && <Link href={action.href}>{action.label} →</Link>}

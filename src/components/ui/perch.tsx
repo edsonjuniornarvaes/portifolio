@@ -50,9 +50,9 @@ export default function Perch() {
   return (
     <motion.div aria-hidden style={{ position: "fixed", left: 0, top: 0, x: sx, y: sy, rotate: lean, zIndex: 45, pointerEvents: "none", display: "var(--perch-display, block)" }}>
       <svg width="46" height="40" viewBox="0 0 46 40">
-        <path d="M6 26c0-9 7-16 17-16s17 7 17 16-7 12-17 12S6 35 6 26Z" fill="#ff6a3d" />
-        <path d="M30 28c4-6 9-7 13-6-1 7-6 11-13 10Z" fill="#c9421d" />
-        <circle cx="14" cy="19" r="2.4" fill="#fff" /><circle cx="14.5" cy="19" r="1.1" fill="#1a0802" />
+        <path d="M6 26c0-9 7-16 17-16s17 7 17 16-7 12-17 12S6 35 6 26Z" fill="#2eebaa" />
+        <path d="M30 28c4-6 9-7 13-6-1 7-6 11-13 10Z" fill="#06b6d4" />
+        <circle cx="14" cy="19" r="2.4" fill="#fff" /><circle cx="14.5" cy="19" r="1.1" fill="#04130d" />
         <path d="M5 21 0 24l6 1Z" fill="#ffcb6b" />
         <path d="M20 38v-4M27 38v-4" stroke="#ffcb6b" strokeWidth="2.2" strokeLinecap="round" />
       </svg>
