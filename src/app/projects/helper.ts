@@ -69,8 +69,8 @@ export interface Feature {
 
 export const clubeDaJoiaMarketplaceProject: Project = {
   id: "clube-da-joia-marketplace",
-  coverImage: "/images/projects/marketplace-web.webp",
-  screens: ["/images/projects/marketplace-web.webp", "/images/marketplace-loja.jpg"],
+  coverImage: "/images/projects/clube-site-hero.webp",
+  screens: ["/images/projects/clube-site-hero.webp", "/images/projects/clube-site-home.webp", "/images/projects/clube-site-aneis.webp"],
   title: "Clube da Joia — Marketplace",
   tagline: "Loja online de prata 925 e moissanite, com painel administrativo e checkout",
   description:
@@ -185,8 +185,8 @@ export const professionalProjects: Project[] = [
   },
   {
     id: "mont-b2b",
-    coverImage: "/images/projects/mont-b2b-cover.webp",
-    screens: ["/images/projects/mont-b2b-home.webp", "/images/projects/mont-b2b-login.webp"],
+    coverImage: "/images/projects/mont-home-alt.webp",
+    screens: ["/images/projects/mont-home-alt.webp", "/images/projects/mont-b2b-login.webp"],
     title: "Mont B2B",
     tagline: "Gestão de Investimentos",
     description:
@@ -205,8 +205,8 @@ export const professionalProjects: Project[] = [
   },
   {
     id: "mont-b2c",
-    coverImage: "/images/projects/mont-b2c-cover.webp",
-    screens: ["/images/projects/mont-b2c-carteira.webp", "/images/projects/mont-b2c-login.webp", "/images/projects/mont-b2c-login-teclado.webp"],
+    coverImage: "/images/projects/mont-home-new.webp",
+    screens: ["/images/projects/mont-home-new.webp", "/images/projects/mont-carteira-new.webp", "/images/projects/mont-b2c-login.webp"],
     title: "Mont B2C",
     tagline: "Investimentos para Pessoa Física",
     description:

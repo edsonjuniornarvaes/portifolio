@@ -17,11 +17,11 @@ const PHONES = [
   { id: "gruvi", src: `${P}gruvi-home.webp`, w: 200, mt: 32, k: 60 },
   { id: "pjbank", src: `${P}pjbank-home.webp`, w: 232, mt: 0, k: 100 },
   { id: "clube-da-joia-app", src: `${P}clube-app-home.webp`, w: 200, mt: 32, k: 60 },
-  { id: "mont-b2b", src: `${P}mont-b2b-home.webp`, w: 168, mt: 70, k: 26 },
+  { id: "mont-b2b", src: `${P}mont-home-alt.webp`, w: 168, mt: 70, k: 26 },
 ];
 const LAPTOPS: { id: string; admin?: boolean; img?: string; color: string; url: string; k: number }[] = [
   { id: "gazin-b2b-b2c", admin: true, color: "#4c8dff", url: "gazin.com.br", k: 24 },
-  { id: "clube-da-joia-marketplace", img: `${P}marketplace-web.webp`, color: "#b08d57", url: "clubedajoia.com", k: 56 },
+  { id: "clube-da-joia-marketplace", img: `${P}clube-site-hero.webp`, color: "#b08d57", url: "clubedajoia.com", k: 56 },
   { id: "mont-b2b", admin: true, color: "#47c2d6", url: "montcapital.com.br", k: 40 },
   { id: "lojas-manao", admin: true, color: "#f2c94c", url: "lojasdomanao.com.br", k: 24 },
 ];
