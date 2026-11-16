@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { getLang } from "@/i18n/server";
 import { ui } from "@/i18n/dict";
-import StringGrid from "@/components/ui/string-grid";
 
 export default async function NotFound() {
   const t = ui[await getLang()].notFound;
   return (
     <section style={{ position: "relative", minHeight: "calc(100svh - var(--header))", display: "flex", alignItems: "center" }}>
-      <StringGrid />
       <div style={{ position: "relative", maxWidth: 1240, width: "100%", margin: "0 auto", padding: "60px 24px" }}>
         <h1 style={{ fontSize: "clamp(6rem, 26vw, 19rem)", fontWeight: 700, lineHeight: 0.8, letterSpacing: "-0.07em", color: "var(--accent)" }}>{t.title}</h1>
         <p style={{ marginTop: 30, maxWidth: "26rem", fontSize: "1.35rem", lineHeight: 1.4, textWrap: "balance" }}>{t.text}</p>

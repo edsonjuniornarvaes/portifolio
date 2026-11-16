@@ -50,7 +50,7 @@ export default function SiteHeader() {
         </Link>
         <nav aria-label={t.nav.aria}>
           {LINKS.map((l) => (
-            <Link key={l.href} href={l.href} aria-current={l.match && pathname.startsWith(l.match) ? "page" : undefined}>
+            <Link key={l.href} href={l.href} data-perch aria-current={l.match && pathname.startsWith(l.match) ? "page" : undefined}>
               {t.nav[l.key]}
             </Link>
           ))}
