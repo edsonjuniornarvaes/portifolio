@@ -1,6 +1,7 @@
 import Hero from "@/components/home/hero";
 import Wave from "@/components/ui/wave";
 import WorkList from "@/components/home/work-list";
+import DevicesStrip from "@/components/home/devices-strip";
 import Services from "@/components/home/services";
 import Writing from "@/components/home/writing";
 import Contact from "@/components/home/contact";
@@ -22,6 +23,10 @@ export default async function Home() {
         <Section id="trabalhos" style={{ marginTop: 80 }}>
           <SectionHead n="01" label={t.work.label} action={{ href: "/projects", label: t.work.seeAll }} />
           <WorkList />
+        </Section>
+
+        <Section style={{ marginTop: 90 }}>
+          <DevicesStrip />
         </Section>
 
         <Wave id="b" />

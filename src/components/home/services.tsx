@@ -3,6 +3,7 @@
 import styled from "styled-components";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/i18n/provider";
+import ToolsMarquee from "@/components/home/tools-marquee";
 
 const Grid = styled.div`
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;
@@ -49,10 +50,8 @@ export default function Services() {
             <p>{it.text}</p>
           </motion.div>
         ))}
-        <div className="tools" style={{ gridColumn: "1 / -1" }}>
-          <b>{sv.techLabel}:</b> <span>{sv.tech}</span>
-        </div>
       </Grid>
+      <ToolsMarquee />
     </>
   );
 }

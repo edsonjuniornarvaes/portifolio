@@ -7,7 +7,7 @@ import { useLang } from "@/i18n/provider";
 /** Liga e desliga os sons do site (começa desligado). */
 export default function SoundToggle() {
   const { t } = useLang();
-  const on = useSyncExternalStore(subscribeSound, soundOn, () => false);
+  const on = useSyncExternalStore(subscribeSound, soundOn, () => true);
   useEffect(() => { loadSoundPreference(); }, []);
   return (
     <button
