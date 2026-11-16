@@ -48,6 +48,7 @@ export default function Contact() {
         </li>
         <li><a href={contact.instagram} {...ext}><span className="k">Instagram</span><span className="v">@edsonjunior.dev</span><span className="ar">↗</span></a></li>
         <li><a href={contact.linkedin} {...ext}><span className="k">LinkedIn</span><span className="v">edsonjuniornarvaes</span><span className="ar">↗</span></a></li>
+        <li><a href={contact.twitter} {...ext}><span className="k">X (Twitter)</span><span className="v">@edsonjrandrade</span><span className="ar">↗</span></a></li>
         <li><a href={contact.github} {...ext}><span className="k">GitHub</span><span className="v">edsonjuniornarvaes</span><span className="ar">↗</span></a></li>
       </ul>
     </Box>

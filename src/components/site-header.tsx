@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import styled from "styled-components";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import LangSwitch from "@/components/ui/lang-switch";
+import { MemojiAvatar } from "@/components/ui/memoji-art";
 import SoundToggle from "@/components/ui/sound-toggle";
 import { useLang } from "@/i18n/provider";
 
@@ -44,8 +45,7 @@ export default function SiteHeader() {
     <Bar>
       <div className="in">
         <Link href="/home" className="brand" aria-label={t.nav.homeAria}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/edson.webp" alt="" />
+          <MemojiAvatar size={34} id="mjh" />
           <span>Edson Junior</span>
         </Link>
         <nav aria-label={t.nav.aria}>

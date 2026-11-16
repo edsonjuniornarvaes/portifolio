@@ -84,7 +84,8 @@ export default function SiteFooter() {
                 <li><a href={contact.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></li>
                 <li><a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
                 <li><a href={contact.github} target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                <li><a href={contact.devto} target="_blank" rel="noopener noreferrer">dev.to</a></li>
+                <li><a href={contact.twitter} target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
+              <li><a href={contact.devto} target="_blank" rel="noopener noreferrer">dev.to</a></li>
               </ul>
             </div>
           </div>
