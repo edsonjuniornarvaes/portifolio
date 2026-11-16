@@ -30,7 +30,7 @@ const Box = styled.section`
 
   .board { position: absolute; top: 50%; height: min(600px, 84%); transform: translateY(-50%); right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
   .board::before { content: ""; position: absolute; left: 50%; bottom: 8%; width: 86%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 17%, transparent), transparent 66%); }
-  .mascot { position: absolute; left: 14%; right: 6%; bottom: 0; height: 66%; pointer-events: auto; }
+  .mascot { position: absolute; left: 10%; right: 4%; bottom: 6%; height: 70%; pointer-events: auto; }
   @media (max-width: 760px) {
     .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 420px; margin-top: 30px; }
     .meta { grid-template-columns: 1fr; gap: 8px; margin-top: 40px; }
