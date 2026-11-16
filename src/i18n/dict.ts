@@ -29,7 +29,7 @@ const pt = {
     hint: "Brinque: arraste os adesivos, passe o mouse nas linhas e puxe a corda.",
     now: "Agora em Umuarama",
     index: "Índice",
-    stickers: { phone: "Adesivo de celular", web: "Adesivo de site", coffee: "Adesivo de café", star: "Adesivo de estrela", hello: "Adesivo olá", photo: "Adesivo com a foto do Edson", pix: "Adesivo Pix", gem: "Adesivo de gema" },
+    stickers: { phone: "Adesivo de celular", web: "Adesivo de site", coffee: "Adesivo de café", star: "Adesivo de estrela", hello: "Adesivo olá", photo: "Adesivo com a foto do Edson", pix: "Adesivo Pix", gem: "Adesivo de gema", laptop: "Adesivo de notebook", key: "Adesivo de tecla Command", code: "Adesivo de código", wifi: "Adesivo de Wi-Fi" },
   },
   sectors: ["Banco digital", "Condomínios", "Investimentos", "Telecom", "Loja online", "Consórcios", "Painéis de controle", "Pagamentos"],
   work: {
@@ -157,7 +157,7 @@ const en: Dict = {
     hint: "Play: drag the stickers, hover the lines and pull the cord.",
     now: "Now in Umuarama",
     index: "Index",
-    stickers: { phone: "Phone sticker", web: "Website sticker", coffee: "Coffee sticker", star: "Star sticker", hello: "Hello sticker", photo: "Sticker with Edson's photo", pix: "Pix sticker", gem: "Gem sticker" },
+    stickers: { phone: "Phone sticker", web: "Website sticker", coffee: "Coffee sticker", star: "Star sticker", hello: "Hello sticker", photo: "Sticker with Edson's photo", pix: "Pix sticker", gem: "Gem sticker", laptop: "Laptop sticker", key: "Command key sticker", code: "Code sticker", wifi: "Wi-Fi sticker" },
   },
   sectors: ["Digital banking", "Condominiums", "Investments", "Telecom", "Online store", "Consortiums", "Dashboards", "Payments"],
   work: {

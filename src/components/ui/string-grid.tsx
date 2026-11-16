@@ -70,7 +70,7 @@ export default function StringGrid() {
             const y = vertical ? along : s.pos + s.off[i];
             if (i === 0) c.moveTo(x, y); else c.lineTo(x, y);
           }
-          if (max > 1.5) { c.strokeStyle = colHot; c.globalAlpha = Math.min(1, 0.25 + max / 22); c.lineWidth = 1.4; }
+          if (max > 1.5) { c.strokeStyle = colHot; c.globalAlpha = Math.min(0.5, 0.1 + max / 70); c.lineWidth = 1.2; }
           else { c.strokeStyle = colLine; c.globalAlpha = 1; c.lineWidth = 1; }
           c.stroke();
         }

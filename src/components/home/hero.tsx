@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { Wrap } from "@/components/ui/layout";
 import Letters from "@/components/ui/letters";
 import StringGrid from "@/components/ui/string-grid";
-import Sticker, { GemSticker, BrowserSticker, BubbleSticker, CoffeeSticker, PhoneSticker, PhotoSticker, PixSticker, SparkSticker } from "@/components/ui/sticker";
+import Sticker, { BubbleSticker, CodeSticker, CoffeeSticker, GemSticker, IPhoneSticker, KeySticker, MacBookSticker, PhotoSticker, PixSticker, SparkSticker, WifiSticker } from "@/components/ui/sticker";
 import { play } from "@/lib/sound";
 import { useLang } from "@/i18n/provider";
 
@@ -90,14 +90,18 @@ export default function Hero() {
       </Wrap>
 
       <div className="board" ref={board}>
-        <Sticker at={["60%", "8%"]} mobile={["4%", "4%"]} rot={-8} label={h.stickers.photo} constraints={board}><PhotoSticker src="/images/edson.webp" /></Sticker>
-        <Sticker at={["76%", "14%"]} mobile={["58%", "6%"]} rot={8} label={h.stickers.phone} constraints={board}><PhoneSticker src="/images/projects/clube-app-home.webp" /></Sticker>
-        <Sticker at={["52%", "46%"]} mobile={["2%", "40%"]} rot={-5} label={h.stickers.web} constraints={board}><BrowserSticker /></Sticker>
-        <Sticker at={["71%", "62%"]} mobile={["56%", "56%"]} rot={9} label={h.stickers.coffee} constraints={board}><CoffeeSticker /></Sticker>
-        <Sticker at={["88%", "4%"]} mobile={["38%", "2%"]} rot={14} holo label={h.stickers.star} constraints={board}><SparkSticker /></Sticker>
-        <Sticker at={["46%", "20%"]} mobile={["30%", "30%"]} rot={-6} label={h.stickers.hello} constraints={board}><BubbleSticker text={h.hello} /></Sticker>
-        <Sticker at={["60%", "76%"]} mobile={["72%", "34%"]} rot={6} holo label={h.stickers.gem} constraints={board}><GemSticker /></Sticker>
-        <Sticker at={["87%", "56%"]} mobile={["40%", "72%"]} rot={-12} label={h.stickers.pix} constraints={board}><PixSticker /></Sticker>
+        <Sticker at={["58%", "7%"]} mobile={["4%", "3%"]} rot={-7} label={h.stickers.photo} constraints={board}><PhotoSticker src="/images/edson.webp" /></Sticker>
+        <Sticker at={["45%", "24%"]} mobile={["32%", "30%"]} rot={-6} label={h.stickers.hello} constraints={board}><BubbleSticker text={h.hello} /></Sticker>
+        <Sticker at={["73%", "6%"]} mobile={["56%", "4%"]} rot={9} label={h.stickers.phone} constraints={board}><IPhoneSticker src="/images/projects/clube-app-home.webp" id="ipa" /></Sticker>
+        <Sticker at={["86%", "26%"]} mobile={["76%", "40%"]} rot={-10} label={h.stickers.phone} constraints={board}><IPhoneSticker tone="b" id="ipb" /></Sticker>
+        <Sticker at={["50%", "50%"]} mobile={["2%", "44%"]} rot={-5} label={h.stickers.laptop} constraints={board}><MacBookSticker /></Sticker>
+        <Sticker at={["72%", "62%"]} mobile={["52%", "62%"]} rot={8} label={h.stickers.coffee} constraints={board}><CoffeeSticker /></Sticker>
+        <Sticker at={["90%", "4%"]} mobile={["40%", "2%"]} rot={14} label={h.stickers.star} constraints={board}><SparkSticker /></Sticker>
+        <Sticker at={["60%", "78%"]} mobile={["30%", "78%"]} rot={6} label={h.stickers.gem} constraints={board}><GemSticker /></Sticker>
+        <Sticker at={["87%", "60%"]} mobile={["74%", "76%"]} rot={-12} label={h.stickers.pix} constraints={board}><PixSticker /></Sticker>
+        <Sticker at={["52%", "84%"]} mobile={null} rot={-9} label={h.stickers.key} constraints={board}><KeySticker /></Sticker>
+        <Sticker at={["80%", "80%"]} mobile={null} rot={7} label={h.stickers.code} constraints={board}><CodeSticker /></Sticker>
+        <Sticker at={["64%", "40%"]} mobile={null} rot={-4} label={h.stickers.wifi} constraints={board}><WifiSticker /></Sticker>
       </div>
     </Box>
   );
