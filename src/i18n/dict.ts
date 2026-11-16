@@ -65,6 +65,7 @@ const pt = {
     ],
   },
   sound: { on: "Ligar sons", off: "Desligar sons" },
+  instagram: { label: "Instagram", text: "Bastidores, projetos e o dia a dia de quem faz aplicativos.", follow: "Seguir @edsonjunior.dev", openPost: "Abrir post no Instagram" },
   music: { play: "lofi", close: "fechar" },
   cord: "Corda: puxe e solte para trocar a cor do site",
   lab: {
@@ -215,6 +216,7 @@ const en: Dict = {
     ],
   },
   sound: { on: "Turn sound on", off: "Turn sound off" },
+  instagram: { label: "Instagram", text: "Behind the scenes, projects and the daily life of someone who builds apps.", follow: "Follow @edsonjunior.dev", openPost: "Open post on Instagram" },
   music: { play: "lofi", close: "close" },
   cord: "Cord: pull and release to change the site color",
   lab: {

@@ -110,34 +110,34 @@ const W = { fill: "#fff", stroke: "#fff", strokeWidth: 10, strokeLinejoin: "roun
 
 export function LaptopSticker() {
   return (
-    <svg width="200" height="136" viewBox="0 0 220 150" aria-hidden style={{ display: "block" }}>
+    <svg width="210" height="124" viewBox="0 0 240 142" aria-hidden style={{ display: "block" }}>
       <defs>
-        <clipPath id="lt-scr"><rect x="36" y="16" width="148" height="92" rx="5" /></clipPath>
+        <clipPath id="lt-scr"><rect x="46" y="12" width="148" height="92" rx="3" /></clipPath>
         <linearGradient id="lt-wall" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#0d2f2a" /><stop offset=".55" stopColor="#103e3a" /><stop offset="1" stopColor="#2b1b52" /></linearGradient>
-        <linearGradient id="lt-base" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#eceff3" /><stop offset="1" stopColor="#b7bdc7" /></linearGradient>
-        <linearGradient id="lt-gloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff" stopOpacity=".28" /><stop offset=".4" stopColor="#fff" stopOpacity="0" /></linearGradient>
+        <linearGradient id="lt-base" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f0f2f5" /><stop offset="1" stopColor="#b9bfc9" /></linearGradient>
+        <linearGradient id="lt-gloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff" stopOpacity=".26" /><stop offset=".4" stopColor="#fff" stopOpacity="0" /></linearGradient>
       </defs>
-      <path d="M28 10h164a10 10 0 0 1 10 10v94H18V20a10 10 0 0 1 10-10Z M6 118h208l-6 20a10 10 0 0 1-9.6 7.4H21.6A10 10 0 0 1 12 138L6 118Z" {...W} />
-      <path d="M28 10h164a10 10 0 0 1 10 10v94H18V20a10 10 0 0 1 10-10Z" fill="#17181b" />
+      <path d="M38 6h164a8 8 0 0 1 8 8v96H30V14a8 8 0 0 1 8-8Z M6 110h228l-1 3c-1 5-6 9-12 9H19c-6 0-11-4-12-9l-1-3Z" {...W} />
+      <path d="M38 6h164a8 8 0 0 1 8 8v96H30V14a8 8 0 0 1 8-8Z" fill="#17181b" />
       <g clipPath="url(#lt-scr)">
-        <rect x="36" y="16" width="148" height="92" fill="url(#lt-wall)" />
-        <circle cx="160" cy="34" r="38" fill="var(--accent)" opacity=".18" />
-        <rect x="36" y="16" width="148" height="7" fill="#fff" opacity=".1" />
-        <rect x="50" y="34" width="86" height="54" rx="6" fill="#0a0b0d" opacity=".82" />
-        <circle cx="58" cy="42" r="2" fill="#ff5f57" /><circle cx="65" cy="42" r="2" fill="#febc2e" /><circle cx="72" cy="42" r="2" fill="#28c840" />
+        <rect x="46" y="12" width="148" height="92" fill="url(#lt-wall)" />
+        <circle cx="168" cy="30" r="38" fill="var(--accent)" opacity=".2" />
+        <rect x="46" y="12" width="148" height="6" fill="#fff" opacity=".1" />
+        <rect x="58" y="28" width="88" height="56" rx="5" fill="#0a0b0d" opacity=".85" />
+        <circle cx="66" cy="36" r="2" fill="#ff5f57" /><circle cx="73" cy="36" r="2" fill="#febc2e" /><circle cx="80" cy="36" r="2" fill="#28c840" />
         <g fontFamily="var(--font-jetbrains), monospace" fontSize="6.4">
-          <text x="57" y="56" fill="#c792ea">const</text><text x="80" y="56" fill="#82aaff">app</text><text x="93" y="56" fill="#e8eef2">=</text>
-          <text x="57" y="66" fill="var(--accent)">build</text><text x="79" y="66" fill="#ffcb6b">(ios, web)</text>
-          <text x="57" y="76" fill="#7fdbca">ship</text><text x="75" y="76" fill="#e8eef2">()</text>
+          <text x="65" y="52" fill="#c792ea">const</text><text x="88" y="52" fill="#82aaff">app</text><text x="101" y="52" fill="#e8eef2">=</text>
+          <text x="65" y="62" fill="var(--accent)">build</text><text x="87" y="62" fill="#ffcb6b">(ios, web)</text>
+          <text x="65" y="72" fill="#7fdbca">ship</text><text x="83" y="72" fill="#e8eef2">()</text>
         </g>
-        <rect x="132" y="48" width="42" height="32" rx="6" fill="#fff" opacity=".12" />
-        <rect x="76" y="94" width="68" height="10" rx="5" fill="#fff" opacity=".16" />
-        <circle cx="86" cy="99" r="2.8" fill="var(--accent)" /><circle cx="97" cy="99" r="2.8" fill="#82aaff" /><circle cx="108" cy="99" r="2.8" fill="#c792ea" /><circle cx="119" cy="99" r="2.8" fill="#ffcb6b" /><circle cx="130" cy="99" r="2.8" fill="#ff8a65" />
-        <rect x="36" y="16" width="148" height="92" fill="url(#lt-gloss)" />
+        <rect x="152" y="40" width="34" height="44" rx="5" fill="#fff" opacity=".12" />
+        <rect x="84" y="92" width="72" height="9" rx="4.5" fill="#fff" opacity=".16" />
+        <circle cx="94" cy="96.5" r="2.5" fill="var(--accent)" /><circle cx="104" cy="96.5" r="2.5" fill="#82aaff" /><circle cx="114" cy="96.5" r="2.5" fill="#c792ea" /><circle cx="124" cy="96.5" r="2.5" fill="#ffcb6b" /><circle cx="134" cy="96.5" r="2.5" fill="#ff8a65" />
+        <rect x="46" y="12" width="148" height="92" fill="url(#lt-gloss)" />
       </g>
-      <rect x="98" y="12" width="24" height="4.4" rx="2.2" fill="#0a0a0c" />
-      <path d="M6 118h208l-6 20a10 10 0 0 1-9.6 7.4H21.6A10 10 0 0 1 12 138L6 118Z" fill="url(#lt-base)" />
-      <rect x="88" y="118" width="44" height="5" rx="2.5" fill="#9aa0aa" />
+      <rect x="108" y="7.4" width="24" height="3.4" rx="1.7" fill="#0a0a0c" />
+      <path d="M6 110h228l-1 3c-1 5-6 9-12 9H19c-6 0-11-4-12-9l-1-3Z" fill="url(#lt-base)" />
+      <path d="M100 110h40c0 3.4-3 5.4-6 5.4h-28c-3 0-6-2-6-5.4Z" fill="#9aa0aa" />
     </svg>
   );
 }
@@ -168,24 +168,28 @@ export function MugSticker() {
 }
 
 
-/** Cuia de tereré com bomba, no mesmo estilo dos outros adesivos (a faixa muda com a cor do site). */
+/** Guampa de tereré (copo de chifre) com bomba de metal; a faixa muda com a cor do site. */
 export function MateSticker() {
   return (
-    <svg width="104" height="128" viewBox="0 0 130 160" aria-hidden style={{ display: "block", overflow: "visible" }}>
+    <svg width="104" height="132" viewBox="0 0 130 166" aria-hidden style={{ display: "block", overflow: "visible" }}>
       <defs>
-        <linearGradient id="mt-body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#b98355" /><stop offset=".55" stopColor="#8a5a34" /><stop offset="1" stopColor="#5d3a1e" /></linearGradient>
-        <linearGradient id="mt-metal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#eef1f4" /><stop offset="1" stopColor="#a8afb8" /></linearGradient>
-        <radialGradient id="mt-herb" cx="45%" cy="40%" r="70%"><stop offset="0" stopColor="#7fb04a" /><stop offset="1" stopColor="#3e6a22" /></radialGradient>
+        <linearGradient id="mt-horn" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#d9b98c" /><stop offset=".5" stopColor="#b88a58" /><stop offset="1" stopColor="#7e5632" /></linearGradient>
+        <linearGradient id="mt-metal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#f4f6f8" /><stop offset="1" stopColor="#a4abb5" /></linearGradient>
+        <radialGradient id="mt-herb" cx="45%" cy="40%" r="70%"><stop offset="0" stopColor="#8cc152" /><stop offset="1" stopColor="#3f7024" /></radialGradient>
       </defs>
-      <path d="M22 62h86c4 38-8 78-43 78S18 100 22 62Z" {...W} />
-      <path d="M86 6l8 8-26 58-8-4Z" {...W} strokeWidth="14" />
-      <path d="M22 62h86c4 38-8 78-43 78S18 100 22 62Z" fill="url(#mt-body)" />
-      <path d="M26 82h78c0 6-1 14-3 20H29c-2-6-3-14-3-20Z" fill="var(--accent)" opacity=".92" />
-      <ellipse cx="65" cy="62" rx="44" ry="11" fill="#e8d8bf" /><ellipse cx="65" cy="62" rx="39" ry="8" fill="url(#mt-herb)" />
-      <path d="M44 62c6-4 12-4 18 0 6-4 14-4 20 0-6 4-14 5-20 2-6 3-12 2-18-2Z" fill="#a7cf6d" opacity=".7" />
-      <path d="M34 72c-1 14 0 26 6 36" stroke="#fff" strokeOpacity=".4" strokeWidth="4" strokeLinecap="round" fill="none" />
-      <path d="M70 66L94 14" stroke="url(#mt-metal)" strokeWidth="6" strokeLinecap="round" />
-      <ellipse cx="96" cy="11" rx="9" ry="5" transform="rotate(-24 96 11)" fill="url(#mt-metal)" />
+      {/* contorno branco (silhueta única) */}
+      <path d="M92 8L68 72" stroke="#fff" strokeWidth="18" strokeLinecap="round" fill="none" />
+      <path d="M24 58h82l-10 78c-1 9-8 16-17 16H51c-9 0-16-7-17-16Z" fill="#fff" stroke="#fff" strokeWidth="12" strokeLinejoin="round" />
+      {/* copo */}
+      <path d="M24 58h82l-10 78c-1 9-8 16-17 16H51c-9 0-16-7-17-16Z" fill="url(#mt-horn)" />
+      <path d="M31 96h68l-2 14H33Z" fill="var(--accent)" opacity=".95" />
+      <path d="M24 58h82l-1.6 12H25.6Z" fill="url(#mt-metal)" />
+      <ellipse cx="65" cy="58" rx="41" ry="9" fill="#e9dcc6" /><ellipse cx="65" cy="58" rx="36" ry="6.4" fill="url(#mt-herb)" />
+      <path d="M46 58c6-3 12-3 18 0 6-3 14-3 20 0-6 3-14 4-20 1-6 2-12 2-18-1Z" fill="#b6dc7c" opacity=".7" />
+      <path d="M38 76c-1 14 1 30 6 44" stroke="#fff" strokeOpacity=".45" strokeWidth="4" strokeLinecap="round" fill="none" />
+      {/* bomba */}
+      <path d="M92 8L68 70" stroke="url(#mt-metal)" strokeWidth="6" strokeLinecap="round" fill="none" />
+      <ellipse cx="94" cy="7" rx="8.5" ry="5" transform="rotate(-22 94 7)" fill="url(#mt-metal)" />
     </svg>
   );
 }

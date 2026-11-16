@@ -15,7 +15,7 @@ export const SHOWCASE: Showcase[] = [
   { id: "clube-da-joia-app", year: "2026", screen: `${P}clube-app-home.webp` },
   { id: "mont-b2b", year: "2021–24", screen: `${P}mont-b2b-home.webp` },
   { id: "consorcio-gazin", year: "2023", screen: `${P}consorcio-gazin-simulador.webp` },
-  { id: "minha-navex", year: "2021–23", screen: `${P}navex-home.webp` },
+  { id: "minha-navex", year: "2021–23", screen: `${P}navex-home-new.webp` },
 ];
 
 /** Telas que se revezam no celular do início. */
@@ -25,7 +25,7 @@ export const HERO_SCREENS = [
   `${P}gruvi-home.webp`,
   `${P}mont-b2b-home.webp`,
   `${P}consorcio-gazin-simulador.webp`,
-  `${P}navex-home.webp`,
+  `${P}navex-home-new.webp`,
 ];
 
 /** Anos mostrados nas listas (ids fora daqui mostram o status). */
