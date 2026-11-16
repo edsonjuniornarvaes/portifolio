@@ -13,7 +13,7 @@ export const SHOWCASE: Showcase[] = [
   { id: "gruvi", year: "2024", screen: `${P}gruvi-home.webp` },
   { id: "clube-da-joia-marketplace", year: "2026" },
   { id: "clube-da-joia-app", year: "2026", screen: `${P}clube-app-home.webp` },
-  { id: "mont-b2b", year: "2021–24", screen: `${P}mont-b2b-home.webp` },
+  { id: "mont-b2b", year: "2021–24", screen: `${P}mont-home-alt.webp` },
   { id: "consorcio-gazin", year: "2023", screen: `${P}consorcio-gazin-simulador.webp` },
   { id: "minha-navex", year: "2021–23", screen: `${P}navex-home-new.webp` },
 ];
@@ -23,7 +23,7 @@ export const HERO_SCREENS = [
   `${P}clube-app-home.webp`,
   `${P}pjbank-home.webp`,
   `${P}gruvi-home.webp`,
-  `${P}mont-b2b-home.webp`,
+  `${P}mont-home-alt.webp`,
   `${P}consorcio-gazin-simulador.webp`,
   `${P}navex-home-new.webp`,
 ];

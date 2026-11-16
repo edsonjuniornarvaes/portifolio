@@ -21,7 +21,10 @@ export default function AdminShot({ brand }: { brand: AdminBrand }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="bg" src="/images/projects/painel-admin.webp" alt="" loading="lazy" />
       <div className="logo">
-        {brand.logo ? (
+        {brand.wide ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={brand.wide} alt={brand.name} style={{ height: "62%", width: "auto", maxWidth: "88%", display: "block" }} />
+        ) : brand.logo ? (
           <span className="chip">{/* eslint-disable-next-line @next/next/no-img-element */}<img src={brand.logo} alt="" /></span>
         ) : (
           <span className="g" aria-hidden>
@@ -32,7 +35,7 @@ export default function AdminShot({ brand }: { brand: AdminBrand }) {
             )}
           </span>
         )}
-        {!brand.logo && <b>{brand.name}</b>}
+        {!brand.logo && !brand.wide && <b>{brand.name}</b>}
       </div>
     </Box>
   );
