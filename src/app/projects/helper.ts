@@ -222,8 +222,8 @@ export const professionalProjects: Project[] = [
   },
   {
     id: "minha-navex",
-    coverImage: "/images/projects/navex-home.webp",
-    screens: ["/images/projects/navex-fatura.webp", "/images/projects/navex-home.webp", "/images/projects/navex-chamados.webp", "/images/projects/navex-board.webp"],
+    coverImage: "/images/projects/navex-home-new.webp",
+    screens: ["/images/projects/navex-home-new.webp", "/images/projects/navex-fatura-new.webp", "/images/projects/navex-chamados.webp", "/images/projects/navex-board.webp"],
     title: "Minha Navex",
     tagline: "App de Telecom",
     description:

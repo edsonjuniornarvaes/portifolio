@@ -5,14 +5,18 @@ import DevicesStrip from "@/components/home/devices-strip";
 import Services from "@/components/home/services";
 import Writing from "@/components/home/writing";
 import Contact from "@/components/home/contact";
+import InstagramGrid from "@/components/home/instagram";
+import { getInstagramPosts } from "@/lib/instagram";
 import { SectionHead, Section, Wrap } from "@/components/ui/layout";
 import { getAllPosts } from "@/lib/posts";
 import { getLang } from "@/i18n/server";
 import { ui } from "@/i18n/dict";
+import { contact } from "@/data/profile";
 
 export default async function Home() {
   const lang = await getLang();
   const t = ui[lang];
+  const igPosts = await getInstagramPosts(6);
   const posts = (await getAllPosts(lang)).slice(0, 3).map(({ id, slug, title, excerpt, created_at }) => ({ id, slug, title, excerpt, created_at }));
 
   return (
@@ -41,8 +45,13 @@ export default async function Home() {
           <Writing posts={posts} />
         </Section>
 
+        <Section id="instagram">
+          <SectionHead n="04" label={t.instagram.label} action={{ href: contact.instagram, label: "@edsonjunior.dev" }} />
+          <InstagramGrid posts={igPosts} />
+        </Section>
+
         <Section id="contato">
-          <SectionHead n="04" label={t.contact.label} />
+          <SectionHead n="05" label={t.contact.label} />
           <Contact />
         </Section>
       </Wrap>

@@ -11,7 +11,7 @@ import { play } from "@/lib/sound";
 
 const P = "/images/projects/";
 const PHONES = [
-  { id: "minha-navex", src: `${P}navex-home.webp`, w: 168, mt: 70, k: 26 },
+  { id: "minha-navex", src: `${P}navex-home-new.webp`, w: 168, mt: 70, k: 26 },
   { id: "gruvi", src: `${P}gruvi-home.webp`, w: 200, mt: 32, k: 60 },
   { id: "pjbank", src: `${P}pjbank-home.webp`, w: 232, mt: 0, k: 100 },
   { id: "clube-da-joia-app", src: `${P}clube-app-home.webp`, w: 200, mt: 32, k: 60 },

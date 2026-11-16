@@ -75,10 +75,10 @@ export default function Hero() {
       </Wrap>
 
       <div className="board">
-        <PeelSticker h={136} rot={-7} style={{ left: "4%", top: "10%" }} label={h.stickers.laptop}><LaptopSticker /></PeelSticker>
+        <PeelSticker h={124} rot={-7} style={{ left: "4%", top: "10%" }} label={h.stickers.laptop}><LaptopSticker /></PeelSticker>
         <PeelSticker h={140} rot={3} style={{ left: "36%", top: "42%" }} label={h.stickers.photo}><AvatarSticker size={140} /></PeelSticker>
         <PeelSticker h={124} rot={9} style={{ right: "6%", top: "30%" }} label={h.stickers.coffee}><MugSticker /></PeelSticker>
-        <PeelSticker h={128} rot={-6} style={{ left: "10%", top: "60%" }} label={h.stickers.mate}><MateSticker /></PeelSticker>
+        <PeelSticker h={132} rot={-6} style={{ left: "10%", top: "60%" }} label={h.stickers.mate}><MateSticker /></PeelSticker>
         <Floater style={{ right: "6%", top: "6%" }} delay={1} amp={5}><DigitalClock /></Floater>
       </div>
     </Box>
