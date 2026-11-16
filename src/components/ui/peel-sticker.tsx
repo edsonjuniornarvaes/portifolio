@@ -4,7 +4,7 @@ import { useRef, useState, type ReactNode } from "react";
 import styled from "styled-components";
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { play } from "@/lib/sound";
-import { MemojiAvatar } from "@/components/ui/memoji-art";
+import { MemojiAvatar } from "@/components/ui/avatar";
 
 const Box = styled(motion.div)`
   position: absolute; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; pointer-events: auto;
@@ -106,71 +106,27 @@ export default function PeelSticker({ children, h, style, rot = 0, label }: { ch
   );
 }
 
-const W = { fill: "#fff", stroke: "#fff", strokeWidth: 10, strokeLinejoin: "round" as const };
-
-export function LaptopSticker() {
+/** Emoji em tamanho grande com borda branca de adesivo (no Mac e no iPhone aparece o emoji da Apple). */
+export function EmojiSticker({ emoji, size = 96 }: { emoji: string; size?: number }) {
+  const o = Math.max(3, Math.round(size / 24));
   return (
-    <svg width="200" height="136" viewBox="0 0 220 150" aria-hidden style={{ display: "block" }}>
-      <defs>
-        <clipPath id="lt-scr"><rect x="36" y="16" width="148" height="92" rx="5" /></clipPath>
-        <linearGradient id="lt-wall" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#0d2f2a" /><stop offset=".55" stopColor="#103e3a" /><stop offset="1" stopColor="#2b1b52" /></linearGradient>
-        <linearGradient id="lt-base" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#eceff3" /><stop offset="1" stopColor="#b7bdc7" /></linearGradient>
-        <linearGradient id="lt-gloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff" stopOpacity=".28" /><stop offset=".4" stopColor="#fff" stopOpacity="0" /></linearGradient>
-      </defs>
-      <path d="M28 10h164a10 10 0 0 1 10 10v94H18V20a10 10 0 0 1 10-10Z M6 118h208l-6 20a10 10 0 0 1-9.6 7.4H21.6A10 10 0 0 1 12 138L6 118Z" {...W} />
-      <path d="M28 10h164a10 10 0 0 1 10 10v94H18V20a10 10 0 0 1 10-10Z" fill="#17181b" />
-      <g clipPath="url(#lt-scr)">
-        <rect x="36" y="16" width="148" height="92" fill="url(#lt-wall)" />
-        <circle cx="160" cy="34" r="38" fill="var(--accent)" opacity=".18" />
-        <rect x="36" y="16" width="148" height="7" fill="#fff" opacity=".1" />
-        <rect x="50" y="34" width="86" height="54" rx="6" fill="#0a0b0d" opacity=".82" />
-        <circle cx="58" cy="42" r="2" fill="#ff5f57" /><circle cx="65" cy="42" r="2" fill="#febc2e" /><circle cx="72" cy="42" r="2" fill="#28c840" />
-        <g fontFamily="var(--font-jetbrains), monospace" fontSize="6.4">
-          <text x="57" y="56" fill="#c792ea">const</text><text x="80" y="56" fill="#82aaff">app</text><text x="93" y="56" fill="#e8eef2">=</text>
-          <text x="57" y="66" fill="var(--accent)">build</text><text x="79" y="66" fill="#ffcb6b">(ios, web)</text>
-          <text x="57" y="76" fill="#7fdbca">ship</text><text x="75" y="76" fill="#e8eef2">()</text>
-        </g>
-        <rect x="132" y="48" width="42" height="32" rx="6" fill="#fff" opacity=".12" />
-        <rect x="76" y="94" width="68" height="10" rx="5" fill="#fff" opacity=".16" />
-        <circle cx="86" cy="99" r="2.8" fill="var(--accent)" /><circle cx="97" cy="99" r="2.8" fill="#82aaff" /><circle cx="108" cy="99" r="2.8" fill="#c792ea" /><circle cx="119" cy="99" r="2.8" fill="#ffcb6b" /><circle cx="130" cy="99" r="2.8" fill="#ff8a65" />
-        <rect x="36" y="16" width="148" height="92" fill="url(#lt-gloss)" />
-      </g>
-      <rect x="98" y="12" width="24" height="4.4" rx="2.2" fill="#0a0a0c" />
-      <path d="M6 118h208l-6 20a10 10 0 0 1-9.6 7.4H21.6A10 10 0 0 1 12 138L6 118Z" fill="url(#lt-base)" />
-      <rect x="88" y="118" width="44" height="5" rx="2.5" fill="#9aa0aa" />
-    </svg>
-  );
-}
-
-export function MugSticker() {
-  return (
-    <svg width="112" height="124" viewBox="0 0 140 154" aria-hidden style={{ display: "block", overflow: "visible" }}>
-      <defs>
-        <linearGradient id="mg-body" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#ffffff" /><stop offset=".55" stopColor="#f1ece4" /><stop offset="1" stopColor="#d4ccc0" /></linearGradient>
-        <radialGradient id="mg-coffee" cx="40%" cy="40%" r="70%"><stop offset="0" stopColor="#a8693a" /><stop offset="1" stopColor="#4b2812" /></radialGradient>
-        <style>{`.mg-s{stroke-dasharray:14 44;animation:mgs 3.4s ease-in-out infinite}.mg-s.b{animation-delay:-1.2s}.mg-s.c{animation-delay:-2.2s}@keyframes mgs{0%{stroke-dashoffset:44;opacity:0}30%{opacity:.9}100%{stroke-dashoffset:-8;opacity:0}}@media (prefers-reduced-motion:reduce){.mg-s{animation:none;opacity:.6}}`}</style>
-      </defs>
-      <path d="M24 56h72v44c0 22-16 36-36 36s-36-14-36-36V56Z" {...W} />
-      <path d="M96 66h10c13 0 20 7 20 17s-7 17-20 17H92" fill="none" stroke="#fff" strokeWidth="24" strokeLinecap="round" />
-      <path d="M96 68h10c10 0 16 5 16 15s-6 15-16 15H93" fill="none" stroke="#e4ddd1" strokeWidth="8" strokeLinecap="round" />
-      <path d="M24 56h72v44c0 22-16 36-36 36s-36-14-36-36V56Z" fill="url(#mg-body)" />
-      <path d="M24 84h72v16c0 22-16 36-36 36s-36-14-36-36V84Z" fill="var(--accent)" opacity=".92" />
-      <path d="M24 84h72" stroke="#fff" strokeOpacity=".35" strokeWidth="2" />
-      <text x="60" y="119" textAnchor="middle" fontFamily="var(--font-jetbrains), monospace" fontSize="20" fontWeight="700" fill="#04130d">{"</>"}</text>
-      <ellipse cx="60" cy="56" rx="36" ry="9" fill="#e9e3d9" /><ellipse cx="60" cy="56" rx="31" ry="6.4" fill="url(#mg-coffee)" />
-      <path d="M48 56c4-4 8-4 12 0 4-4 8-4 12 0-4 4-8 5-12 2-4 3-8 2-12-2Z" fill="#d9a56a" opacity=".85" />
-      <path d="M32 66v26" stroke="#fff" strokeOpacity=".7" strokeWidth="4" strokeLinecap="round" />
-      <g fill="none" stroke="#f3f6f9" strokeWidth="3.4" strokeLinecap="round">
-        <path className="mg-s" d="M46 44c-6-7 6-10 0-20" /><path className="mg-s b" d="M60 44c-6-7 6-10 0-20" /><path className="mg-s c" d="M74 44c-6-7 6-10 0-20" />
-      </g>
-    </svg>
+    <span
+      aria-hidden
+      style={{
+        display: "block", fontSize: size, lineHeight: 1, width: size * 1.1, height: size * 1.1, textAlign: "center", paddingTop: size * 0.06,
+        fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
+        filter: `drop-shadow(${o}px 0 0 #fff) drop-shadow(-${o}px 0 0 #fff) drop-shadow(0 ${o}px 0 #fff) drop-shadow(0 -${o}px 0 #fff) drop-shadow(${o}px ${o}px 0 #fff) drop-shadow(-${o}px -${o}px 0 #fff) drop-shadow(${o}px -${o}px 0 #fff) drop-shadow(-${o}px ${o}px 0 #fff)`,
+      }}
+    >
+      {emoji}
+    </span>
   );
 }
 
 export function AvatarSticker({ size = 140 }: { size?: number }) {
   return (
     <div style={{ width: size, height: size, borderRadius: "50%", background: "#fff", padding: Math.round(size * 0.05) }}>
-      <MemojiAvatar size={size - Math.round(size * 0.1)} id="mjs" />
+      <MemojiAvatar size={size - Math.round(size * 0.1)} />
     </div>
   );
 }
