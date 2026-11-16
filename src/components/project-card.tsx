@@ -19,7 +19,7 @@ const Card = styled(Link)`
   .vis { position: relative; height: 290px; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; gap: 14px; padding: 0 20px;
     background: radial-gradient(70% 80% at 50% 105%, color-mix(in srgb, var(--pc) 38%, transparent), transparent 70%), color-mix(in srgb, var(--paper-2) 92%, var(--pc)); }
   .vis::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(color-mix(in srgb, var(--ink) 16%, transparent) 1px, transparent 1.2px); background-size: 18px 18px; -webkit-mask-image: linear-gradient(#000, transparent 80%); mask-image: linear-gradient(#000, transparent 80%); pointer-events: none; }
-  .brand { position: absolute; left: 16px; top: 16px; z-index: 3; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; background: var(--pc); color: #fff; font-size: 0.86rem; font-weight: 700; box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--pc) 70%, #000); }
+  .brand { position: absolute; left: 16px; top: 16px; z-index: 3; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; background: var(--pc); color: var(--on-accent); font-size: 0.86rem; font-weight: 700; box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--pc) 70%, #000); }
   .ph { position: relative; z-index: 1; flex: none; transform-style: preserve-3d; transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 0.45s cubic-bezier(.2,.7,.2,1); }
   .ph.a { margin-bottom: -70px; }
   .ph.b { margin-bottom: -120px; opacity: 0.96; }
