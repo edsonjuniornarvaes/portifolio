@@ -9,7 +9,8 @@ import { useLang } from "@/i18n/provider";
 import { localizeProject } from "@/i18n/content";
 import { getProjectById } from "@/app/projects/helper";
 import { YEARS, appScreen, isWebId, projectColor } from "@/data/work";
-import { BRAND_ICON } from "@/data/brands";
+import { BRAND_ICON, ADMIN_BRAND } from "@/data/brands";
+import AdminShot from "@/components/ui/admin-shot";
 
 const Card = styled(Link)`
   position: relative; display: flex; flex-direction: column; height: 100%; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--card);
@@ -99,7 +100,7 @@ export default function ProjectCard({ id }: { id: string }) {
           <div className="lap">
             <div className="lid">
               <div className="scr">
-                {first ? <ShotImg src={first} /> : <div className="w"><WebWire color={color} url={p.title} /></div>}
+                {ADMIN_BRAND[id] ? <AdminShot brand={ADMIN_BRAND[id]} /> : first ? <ShotImg src={first} /> : <div className="w"><WebWire color={color} url={p.title} /></div>}
               </div>
             </div>
             <div className="base" />
