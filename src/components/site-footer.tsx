@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
 import styled from "styled-components";
 import { usePathname } from "next/navigation";
 import { useLang } from "@/i18n/provider";
@@ -44,17 +44,9 @@ const Foot = styled.footer`
 export default function SiteFooter() {
   const pathname = usePathname();
   const { t } = useLang();
-  const [vp, setVp] = useState("");
   const [email, setEmail] = useState("");
-  useEffect(() => {
-    const f = () => setVp(`${window.innerWidth}×${window.innerHeight}`);
-    f();
-    window.addEventListener("resize", f);
-    return () => window.removeEventListener("resize", f);
-  }, []);
   if (pathname.startsWith("/adminaccess")) return null;
   const f = t.footer;
-  const rev = (process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA || "local").slice(0, 7);
   const send = (e: React.FormEvent) => {
     e.preventDefault();
     const body = `${f.bodyPre} ${email}`;
@@ -98,7 +90,6 @@ export default function SiteFooter() {
           </div>
           <div className="base">
           <span>© {new Date().getFullYear()} Edson Junior</span>
-            <span className="meta"><span>rev {rev}</span><span>viewport {vp || "—"}</span></span>
             <button className="top" type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>{f.top} ↑</button>
           </div>
         </div>

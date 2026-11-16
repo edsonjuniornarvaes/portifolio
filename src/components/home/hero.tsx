@@ -4,8 +4,8 @@ import Link from "next/link";
 import styled from "styled-components";
 import { Wrap } from "@/components/ui/layout";
 import Letters from "@/components/ui/letters";
-import { Coffee, DigitalClock, Floater, Laptop } from "@/components/ui/floaters";
-import Mascot from "@/components/ui/mascot";
+import { DigitalClock, Floater } from "@/components/ui/floaters";
+import PeelSticker, { AvatarSticker, CoffeeSticker, MacBookSticker } from "@/components/ui/peel-sticker";
 import { useLang } from "@/i18n/provider";
 
 const Box = styled.section`
@@ -28,7 +28,6 @@ const Box = styled.section`
 
   .board { position: absolute; top: 50%; height: min(600px, 84%); transform: translateY(-50%); right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
   .board::before { content: ""; position: absolute; left: 50%; bottom: 8%; width: 86%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 17%, transparent), transparent 66%); }
-  .mascot { position: absolute; left: 22%; right: 22%; bottom: 8%; height: 56%; pointer-events: auto; }
   @media (max-width: 760px) {
     .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 420px; margin-top: 30px; }
     .meta { grid-template-columns: 1fr; gap: 8px; margin-top: 40px; }
@@ -61,9 +60,9 @@ export default function Hero() {
       </Wrap>
 
       <div className="board">
-        <div className="mascot"><Mascot hello={h.hello} label={h.mascot} /></div>
-        <Floater style={{ left: "6%", top: "10%" }} delay={0} amp={9}><Laptop w={132} /></Floater>
-        <Floater style={{ right: "4%", top: "46%" }} delay={2} amp={7}><Coffee w={78} /></Floater>
+        <PeelSticker h={129} rot={-6} style={{ left: "4%", top: "12%" }} label={h.stickers.laptop}><MacBookSticker /></PeelSticker>
+        <PeelSticker h={150} rot={4} style={{ left: "36%", top: "46%" }} label={h.stickers.photo}><AvatarSticker size={150} /></PeelSticker>
+        <PeelSticker h={106} rot={9} style={{ right: "6%", top: "30%" }} label={h.stickers.coffee}><CoffeeSticker /></PeelSticker>
         <Floater style={{ right: "6%", top: "6%" }} delay={1} amp={5}><DigitalClock /></Floater>
       </div>
     </Box>

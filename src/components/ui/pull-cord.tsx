@@ -10,7 +10,7 @@ const SEG = 20; // tamanho de cada pedaço
 const W = 70, H = N * SEG + 60;
 
 /**
- * Corda pendurada no topo: puxe a argola para baixo e solte para trocar entre tema claro e escuro.
+ * Corda pendurada no topo: puxe a argola para baixo e solte para trocar a cor de destaque do site (menta, roxo, azul, coral, âmbar).
  * Física simples (Verlet): a corda balança e para sozinha. Só aparece em telas largas.
  */
 export default function PullCord() {
@@ -66,11 +66,12 @@ export default function PullCord() {
     const wake = () => { if (!running && !reduce) { running = true; still = 0; raf = requestAnimationFrame(tick); } };
 
     const toggle = () => {
-      const cur = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
-      const next = cur === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", next);
-      try { localStorage.setItem("theme", next); } catch { /* ignore */ }
-      window.dispatchEvent(new Event("themechange"));
+      const order = ["mint", "violet", "blue", "coral", "amber"];
+      const cur = document.documentElement.getAttribute("data-accent") || "mint";
+      const next = order[(order.indexOf(cur) + 1) % order.length];
+      if (next === "mint") document.documentElement.removeAttribute("data-accent");
+      else document.documentElement.setAttribute("data-accent", next);
+      try { localStorage.setItem("accent", next); } catch { /* ignore */ }
       play("click");
     };
 
@@ -118,7 +119,7 @@ export default function PullCord() {
 
   if (hidden) return null;
   return (
-    <svg className="pull-cord" width={W} height={H} viewBox={`0 0 ${W} ${H}`} style={{ position: "fixed", top: 0, right: "clamp(150px, 14vw, 240px)", zIndex: 70, overflow: "visible", pointerEvents: "none" }}>
+    <svg className="pull-cord" width={W} height={H} viewBox={`0 0 ${W} ${H}`} style={{ position: "fixed", top: 0, right: 18, zIndex: 70, overflow: "visible", pointerEvents: "none" }}>
       <path ref={path} d={`M ${W / 2} 0 L ${W / 2} ${(N - 1) * SEG}`} stroke="var(--muted)" strokeWidth="2" strokeLinecap="round" fill="none" />
       <g ref={ring} transform={`translate(${W / 2} ${(N - 1) * SEG})`} role="button" tabIndex={0} aria-label={t.cord} style={{ pointerEvents: "auto", cursor: "grab", touchAction: "none" }}>
         <circle r="17" fill="transparent" />

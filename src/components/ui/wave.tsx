@@ -14,7 +14,7 @@ export default function Wave({ id = "w" }: { id?: string }) {
       <svg viewBox="0 0 1440 64" preserveAspectRatio="none">
         <defs>
           <linearGradient id={`wv-${id}`} x1="0" x2="1">
-            <stop offset="0" stopColor="#c4a1ff" /><stop offset="0.35" stopColor="#2eebaa" /><stop offset="0.7" stopColor="#06b6d4" /><stop offset="1" stopColor="#c4a1ff" />
+            <stop offset="0" style={{ stopColor: "var(--lilac)" }} /><stop offset="0.35" style={{ stopColor: "var(--accent)" }} /><stop offset="0.7" style={{ stopColor: "var(--accent-2)" }} /><stop offset="1" style={{ stopColor: "var(--lilac)" }} />
           </linearGradient>
         </defs>
         <path d="M0 40 C 120 8, 240 8, 360 32 S 600 62, 720 36 S 960 6, 1080 30 S 1320 58, 1440 28" fill="none" stroke={`url(#wv-${id})`} strokeWidth="3" vectorEffect="non-scaling-stroke" />
