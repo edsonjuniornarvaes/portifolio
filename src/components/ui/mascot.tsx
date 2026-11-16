@@ -46,7 +46,7 @@ export default function Mascot({ hello, label }: { hello: string; label: string 
         aria-label={label}
         onPointerEnter={greet}
         onPointerDown={greet}
-        style={{ rotateX: sx, rotateY: sy, width: "min(100%, 300px)", aspectRatio: "1", cursor: "pointer", transformStyle: "preserve-3d", filter: "drop-shadow(0 18px 24px rgba(0,0,0,0.45))" }}
+        style={{ rotateX: sx, rotateY: sy, width: "min(100%, 210px)", aspectRatio: "1", cursor: "pointer", transformStyle: "preserve-3d", filter: "drop-shadow(0 18px 24px rgba(0,0,0,0.45))" }}
         animate={{ y: hi ? [0, -14, 0, -6, 0] : 0, scale: hi ? 1.04 : 1 }}
         transition={{ duration: 0.7 }}
       >

@@ -4,18 +4,15 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { usePathname } from "next/navigation";
-import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { useLang } from "@/i18n/provider";
 import { contact } from "@/data/profile";
-import Mascot from "@/components/ui/mascot";
-import SoundToggle from "@/components/ui/sound-toggle";
-import ThemeToggle from "@/components/ui/theme-toggle";
+import Memoji from "@/components/ui/memoji";
 
 const Foot = styled.footer`
   position: relative; margin-top: 140px; color: var(--ink);
   .land { position: relative; height: 150px; }
   .land svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 1; pointer-events: none; }
-  .peek { position: absolute; left: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter) + 8px)); top: -72px; width: 150px; pointer-events: auto; z-index: 0; }
+  .peek { position: absolute; left: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter) + 8px)); top: -64px; width: 140px; pointer-events: auto; z-index: 0; }
   .body { position: relative; background: linear-gradient(180deg, var(--land-2) 0%, var(--land-3) 100%); padding-bottom: 28px; }
   .in { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
   .grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px 56px; padding-top: 8px; }
@@ -66,7 +63,7 @@ export default function SiteFooter() {
   return (
     <Foot>
       <div className="land">
-        <div className="peek"><Mascot hello="👋" label="Bonequinho acenando" /></div>
+        <div className="peek"><Memoji label="Edson, avatar em estilo Memoji" /></div>
         <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
           <path d="M0 150V70C120 20 240 10 380 48S640 100 800 60 1100 -6 1240 34 1380 80 1440 56V150Z" fill="var(--land-1)" />
           <path d="M0 150V104C160 70 300 70 440 96S760 132 960 96 1280 60 1440 100V150Z" fill="var(--land-2)" />
@@ -76,13 +73,8 @@ export default function SiteFooter() {
         <div className="in">
           <div className="grid">
             <div className="talk">
-              <div className="brand">{f.talk}</div>
-              <p>{f.talkText}</p>
-              <p style={{ marginTop: 22 }}>{f.ask}</p>
-              <form onSubmit={send}>
-                <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder={f.emailPh} aria-label={f.emailPh} />
-                <button type="submit" aria-label={f.send}>→</button>
-              </form>
+              <h4>{"// "}{f.mailLabel}</h4>
+              <ul><li><a href={`mailto:${contact.email}`}>{contact.email}</a></li></ul>
             </div>
             <nav aria-label={f.explore}>
               <h4>{"// "}{f.explore}</h4>
@@ -104,16 +96,8 @@ export default function SiteFooter() {
               </ul>
             </div>
           </div>
-          <div className="icons">
-            <SoundToggle />
-            <ThemeToggle />
-            <a href={contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
-            <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
-            <a href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub /></a>
-          </div>
-          <p className="tip">{f.sound}</p>
           <div className="base">
-            <span>© {new Date().getFullYear()} Edson Junior · {f.coffee} ☕ · {f.made}</span>
+          <span>© {new Date().getFullYear()} Edson Junior</span>
             <span className="meta"><span>rev {rev}</span><span>viewport {vp || "—"}</span></span>
             <button className="top" type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>{f.top} ↑</button>
           </div>

@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import Phone from "@/components/ui/phone";
+import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 import WebWire from "@/components/ui/web-wire";
 import { play } from "@/lib/sound";
 import { useLang } from "@/i18n/provider";
@@ -39,34 +38,55 @@ const Group = styled.div`
 
 const Float = styled(motion.div)`
   position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; will-change: transform;
-  .card { position: absolute; left: 110px; top: -120px; width: var(--pw, 150px); filter: drop-shadow(0 30px 40px rgba(0,0,0,0.5)); }
+  .card { position: absolute; left: 26px; top: -64px; width: 196px; padding: 10px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--card) 94%, transparent); backdrop-filter: blur(10px); box-shadow: 0 24px 40px -18px rgba(0,0,0,0.6); }
+  .top { display: flex; align-items: center; gap: 9px; margin-bottom: 9px; }
+  .brand { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 9px; overflow: hidden; background: var(--c); color: #fff; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; }
+  .brand img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .top b { display: block; font-size: 0.86rem; font-weight: 600; line-height: 1.2; }
+  .top small { display: block; font-size: 0.7rem; color: var(--muted); }
+  .shot { position: relative; height: 112px; border-radius: 8px; overflow: hidden; background: color-mix(in srgb, var(--c) 14%, var(--paper-2)); }
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .shot .wire { position: absolute; left: 8%; right: 8%; top: 14px; }
   @media (hover: none) { display: none; }
 `;
 
-const OWN = new Set(['clube-da-joia-marketplace', 'clube-da-joia-app']);
+const OWN = new Set(["clube-da-joia-marketplace"]);
 
 export default function WorkList() {
   const { lang, t } = useLang();
   const [hot, setHot] = useState<string | null>(null);
   const mx = useMotionValue(0), my = useMotionValue(0);
-  const x = useSpring(mx, { stiffness: 260, damping: 26 });
-  const y = useSpring(my, { stiffness: 260, damping: 26 });
-  const tilt = useTransform(x, (v) => Math.max(-14, Math.min(14, (v - mx.get()) * -0.6)));
+  const x = useSpring(mx, { stiffness: 320, damping: 30 });
+  const y = useSpring(my, { stiffness: 320, damping: 30 });
 
-  const items = [...SHOWCASE].sort((a, b) => Number(OWN.has(b.id)) - Number(OWN.has(a.id))).map((s) => {
-    const base = getProjectById(s.id);
-    return base ? { s, p: localizeProject(base, lang), web: isWebId(s.id) || !s.screen, color: projectColor(s.id) } : null;
-  }).filter((v): v is NonNullable<typeof v> => !!v);
+  const items = [...SHOWCASE]
+    .filter((s) => s.id !== "clube-da-joia-app")
+    .sort((a, b) => Number(OWN.has(b.id)) - Number(OWN.has(a.id)))
+    .map((s) => {
+      const base = getProjectById(s.id);
+      if (!base) return null;
+      const own = s.id === "clube-da-joia-marketplace";
+      const p = localizeProject(base, lang);
+      return {
+        s,
+        p: own ? { ...p, title: "Clube da Joia" } : p,
+        kind: own ? t.work.clubeKind : isWebId(s.id) || !s.screen ? t.work.web : t.work.app,
+        shot: own ? "/images/projects/clube-app-home.webp" : s.screen,
+        letter: base.iconLetter || base.title.slice(0, 2).toUpperCase(),
+        color: projectColor(s.id),
+      };
+    })
+    .filter((v): v is NonNullable<typeof v> => !!v);
   const cur = items.find((it) => it.s.id === hot);
 
   return (
     <div onPointerMove={(e) => { mx.set(e.clientX); my.set(e.clientY); }} onPointerLeave={() => setHot(null)}>
       {[
-        { key: "own", title: t.work.own, note: t.work.ownNote, list: items.filter((it) => OWN.has(it.s.id)) },
-        { key: "job", title: t.work.job, note: t.work.jobNote, list: items.filter((it) => !OWN.has(it.s.id)) },
+        { key: "own", title: t.work.own, list: items.filter((it) => OWN.has(it.s.id)) },
+        { key: "job", title: t.work.job, list: items.filter((it) => !OWN.has(it.s.id)) },
       ].map((g) => (
         <Group key={g.key}>
-          <div className="gh"><b>{"// "}{g.title}</b><span>{g.note}</span></div>
+          <div className="gh"><b>{"// "}{g.title}</b></div>
           <List>
             {g.list.map((it) => {
               const i = items.indexOf(it);
@@ -81,7 +101,7 @@ export default function WorkList() {
                   >
                     <span className="i">{String(i + 1).padStart(2, "0")}</span>
                     <span className="n">{it.p.title}</span>
-                    <span className="m">{it.web ? t.work.web : t.work.app} · {it.s.year}</span>
+                    <span className="m">{it.kind} · {it.s.year}</span>
                     <span className="ar" aria-hidden>↗</span>
                   </Link>
                 </li>
@@ -97,13 +117,22 @@ export default function WorkList() {
             <motion.div
               key={cur.s.id}
               className="card"
-              style={{ ["--pw" as string]: cur.web ? "280px" : "150px", rotate: tilt }}
-              initial={{ opacity: 0, scale: 0.8, y: 16 }}
+              style={{ ["--c" as string]: cur.color }}
+              initial={{ opacity: 0, scale: 0.9, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.85 }}
-              transition={{ duration: 0.22, ease: [0.2, 0.7, 0.2, 1] }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.16, ease: [0.2, 0.7, 0.2, 1] }}
             >
-              {cur.web ? <WebWire color={cur.color} url={cur.p.title} /> : <Phone screens={[cur.s.screen!]} alt="" width={150} />}
+              <div className="top">
+                <span className="brand">
+                  {cur.letter}
+                </span>
+                <div><b>{cur.p.title}</b><small>{cur.kind}</small></div>
+              </div>
+              <div className="shot">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {cur.shot ? <img src={cur.shot} alt="" /> : <div className="wire"><WebWire color={cur.color} url={cur.p.title} /></div>}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

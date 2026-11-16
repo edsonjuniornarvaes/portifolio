@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { Wrap } from "@/components/ui/layout";
 import Letters from "@/components/ui/letters";
-import Sticker, { CoffeeSticker, MacBookSticker } from "@/components/ui/sticker";
+import { Coffee, DigitalClock, Floater, Laptop } from "@/components/ui/floaters";
 import Mascot from "@/components/ui/mascot";
 import { useLang } from "@/i18n/provider";
 
@@ -15,7 +14,7 @@ const Box = styled.section`
   .kicker { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
   .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: ping 2.2s ease-out infinite; }
   @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); } 80%, 100% { box-shadow: 0 0 0 9px transparent; } }
-  h1 { margin-top: 22px; font-size: clamp(3.6rem, 11.5vw, 9.4rem); font-weight: 700; line-height: 0.88; letter-spacing: -0.065em; }
+  h1 { margin-top: 22px; font-size: clamp(2.9rem, 7.2vw, 6rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.055em; }
   h1 span { display: block; }
   .lead { max-width: 34rem; margin-top: 30px; font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.6; }
   .cta { display: flex; flex-wrap: wrap; gap: 12px 14px; margin-top: 34px; }
@@ -26,35 +25,20 @@ const Box = styled.section`
   .btn.g:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
   .meta { display: flex; flex-wrap: wrap; gap: 8px 40px; margin-top: 44px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
   .meta b { color: var(--ink); font-weight: 500; }
-  .hint { margin-top: 26px; max-width: 30rem; font-family: var(--font-hand); font-size: 1.45rem; line-height: 1.15; color: var(--accent); transform: rotate(-1.5deg); }
 
   .board { position: absolute; top: 50%; height: min(600px, 84%); transform: translateY(-50%); right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
   .board::before { content: ""; position: absolute; left: 50%; bottom: 8%; width: 86%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 17%, transparent), transparent 66%); }
-  .mascot { position: absolute; left: 10%; right: 4%; bottom: 6%; height: 70%; pointer-events: auto; }
+  .mascot { position: absolute; left: 22%; right: 22%; bottom: 8%; height: 56%; pointer-events: auto; }
   @media (max-width: 760px) {
     .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 420px; margin-top: 30px; }
     .meta { grid-template-columns: 1fr; gap: 8px; margin-top: 40px; }
-    .hint { font-size: 1.3rem; }
-  }
+    }
   @media (prefers-reduced-motion: reduce) { .kicker i { animation: none; } }
 `;
-
-function useClock() {
-  const [now, setNow] = useState("");
-  useEffect(() => {
-    const f = () => setNow(new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" }).format(new Date()));
-    f();
-    const id = setInterval(f, 20_000);
-    return () => clearInterval(id);
-  }, []);
-  return now;
-}
 
 export default function Hero() {
   const { t } = useLang();
   const h = t.hero;
-  const board = useRef<HTMLDivElement>(null);
-  const clock = useClock();
 
   return (
     <Box>
@@ -72,16 +56,15 @@ export default function Hero() {
           </div>
           <div className="meta">
             <span><b>●</b> {h.status}</span>
-            <span>{h.now} · <b>{clock || "--:--"}</b></span>
           </div>
-          <p className="hint">{h.hint}</p>
         </div>
       </Wrap>
 
-      <div className="board" ref={board}>
+      <div className="board">
         <div className="mascot"><Mascot hello={h.hello} label={h.mascot} /></div>
-        <Sticker at={["0%", "2%"]} mobile={["0%", "2%"]} rot={-7} label={h.stickers.laptop} constraints={board}><MacBookSticker /></Sticker>
-        <Sticker at={["2%", "62%"]} mobile={["4%", "60%"]} rot={8} label={h.stickers.coffee} constraints={board}><CoffeeSticker /></Sticker>
+        <Floater style={{ left: "6%", top: "10%" }} delay={0} amp={9}><Laptop w={132} /></Floater>
+        <Floater style={{ right: "4%", top: "46%" }} delay={2} amp={7}><Coffee w={78} /></Floater>
+        <Floater style={{ right: "6%", top: "6%" }} delay={1} amp={5}><DigitalClock /></Floater>
       </div>
     </Box>
   );

@@ -5,7 +5,7 @@
 type Win = Window & { webkitAudioContext?: typeof AudioContext };
 
 let ctx: AudioContext | null = null;
-let on = false;
+let on = true;
 const listeners = new Set<() => void>();
 const last: Record<string, number> = {};
 
@@ -20,12 +20,27 @@ function audio(): AudioContext | null {
   return ctx;
 }
 
+/** Navegadores só liberam áudio depois do primeiro toque/clique/tecla: destrava na primeira interação. */
+let unlocked = false;
+function unlockOnFirstGesture() {
+  if (unlocked || typeof window === "undefined") return;
+  unlocked = true;
+  const go = () => {
+    audio();
+    window.removeEventListener("pointerdown", go);
+    window.removeEventListener("keydown", go);
+  };
+  window.addEventListener("pointerdown", go, { passive: true });
+  window.addEventListener("keydown", go);
+}
+
 export function loadSoundPreference() {
   try {
-    on = localStorage.getItem("sound") === "1";
+    on = localStorage.getItem("sound") !== "0";
   } catch {
-    on = false;
+    on = true;
   }
+  unlockOnFirstGesture();
   listeners.forEach((l) => l());
 }
 
