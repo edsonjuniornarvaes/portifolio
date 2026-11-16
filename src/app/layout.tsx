@@ -72,7 +72,7 @@ const personJsonLd = (jobTitle: string) => ({
   knowsAbout: ["React Native", "TypeScript", "iOS", "Android", "Next.js"],
 });
 
-const themeScript = `try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}`;
+const themeScript = `try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);var a=localStorage.getItem('accent');if(a&&a!=='mint')document.documentElement.setAttribute('data-accent',a)}catch(e){}`;
 
 export default async function RootLayout({
   children,

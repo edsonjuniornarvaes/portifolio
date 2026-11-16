@@ -26,10 +26,10 @@ export function Laptop({ w = 128 }: { w?: number }) {
       <rect x="14" y="4" width="112" height="72" rx="7" fill="url(#lp-lid)" />
       <rect x="19" y="9" width="102" height="62" rx="3.5" fill="url(#lp-scr)" />
       <g fontFamily="var(--font-jetbrains), monospace" fontSize="5.4">
-        <text x="25" y="23" fill="#c792ea">const</text><text x="44" y="23" fill="#82aaff">app</text><text x="56" y="23" fill="#fff">=</text><text x="63" y="23" fill="#2eebaa">build()</text>
+        <text x="25" y="23" fill="#c792ea">const</text><text x="44" y="23" fill="#82aaff">app</text><text x="56" y="23" fill="#fff">=</text><text x="63" y="23" fill="var(--accent)">build()</text>
         <text x="25" y="33" fill="#7fdbca">ship</text><text x="40" y="33" fill="#fff">(app)</text>
       </g>
-      <rect x="25" y="44" width="38" height="16" rx="3" fill="#2eebaa" opacity=".9" /><rect x="68" y="44" width="26" height="16" rx="3" fill="#fff" opacity=".1" />
+      <rect x="25" y="44" width="38" height="16" rx="3" fill="var(--accent)" opacity=".9" /><rect x="68" y="44" width="26" height="16" rx="3" fill="#fff" opacity=".1" />
       <path d="M4 78h132l-5 10a6 6 0 0 1-5.4 3.4H14.4A6 6 0 0 1 9 88L4 78Z" fill="url(#lp-base)" />
       <rect x="56" y="78" width="28" height="3.6" rx="1.8" fill="#8b919a" />
     </svg>
@@ -48,7 +48,7 @@ export function Coffee({ w = 84 }: { w?: number }) {
       <path d="M10 44h56v22c0 14-11 24-28 24S10 80 10 66V44Z" fill="url(#cf-body)" />
       <path d="M66 52h6c7 0 11 4 11 10s-4 10-11 10h-8" fill="none" stroke="#e3dccf" strokeWidth="6" strokeLinecap="round" />
       <ellipse cx="38" cy="44" rx="28" ry="6" fill="#3a2314" /><ellipse cx="38" cy="43.4" rx="23" ry="3.8" fill="#7b4a2b" />
-      <path d="M10 62h56v4c0 14-11 24-28 24S10 80 10 66v-4Z" fill="#2eebaa" opacity=".9" />
+      <path d="M10 62h56v4c0 14-11 24-28 24S10 80 10 66v-4Z" fill="var(--accent)" opacity=".9" />
       <g fill="none" stroke="#e8eef2" strokeWidth="3" strokeLinecap="round" opacity=".85">
         <path className="steam" d="M28 36c-5-6 5-8 0-16" /><path className="steam b" d="M40 36c-5-6 5-8 0-16" /><path className="steam c" d="M52 36c-5-6 5-8 0-16" />
       </g>

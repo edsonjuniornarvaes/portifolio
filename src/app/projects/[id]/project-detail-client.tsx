@@ -8,6 +8,7 @@ import { MarkdownBody } from "@/components/markdown-body";
 import { Page, PageTitle, Lead, Wrap } from "@/components/ui/layout";
 import { cases } from "@/data/profile";
 import WebWire from "@/components/ui/web-wire";
+import TechIcons from "@/components/ui/tech-icons";
 import { isWebId, projectColor } from "@/data/work";
 import { type Project } from "../helper";
 
@@ -127,7 +128,7 @@ function ProjectDetailClient({ project: base }: { project: Project }) {
         {project.tags.length > 0 && (
           <Block>
             <h2>{t.project.tools}</h2>
-            <p className="plain">{(study ? study.stack : project.tags).join(" · ")}</p>
+            <TechIcons tags={study ? study.stack : project.tags} max={20} labels />
           </Block>
         )}
       </Page>
