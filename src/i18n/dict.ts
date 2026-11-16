@@ -23,6 +23,7 @@ const pt = {
     portraitAlt: "Retrato de Edson Junior",
     chips: ["iPhone e Android", "Sites e lojas online", "Pagamentos Pix e cartão"],
     kicker: "Engenheiro mobile sênior",
+    lines: ["Aplicativos de iPhone e Android", "Sites, lojas online e pagamentos", "Hoje no app do PJBank (Superlógica)"],
     worked: "Já criei coisas para o",
     and: "e",
     hello: "e aí!",
@@ -64,6 +65,7 @@ const pt = {
     ],
   },
   sound: { on: "Ligar sons", off: "Desligar sons" },
+  music: { play: "lofi", close: "fechar" },
   cord: "Corda: puxe e solte para trocar a cor do site",
   lab: {
     title: "Laboratório",
@@ -171,6 +173,7 @@ const en: Dict = {
     portraitAlt: "Portrait of Edson Junior",
     chips: ["iPhone and Android", "Websites and online stores", "Pix and card payments"],
     kicker: "Senior mobile engineer",
+    lines: ["iPhone and Android apps", "Websites, online stores and payments", "Now on the PJBank app (Superlógica)"],
     worked: "I have built things for",
     and: "and",
     hello: "hey!",
@@ -212,6 +215,7 @@ const en: Dict = {
     ],
   },
   sound: { on: "Turn sound on", off: "Turn sound off" },
+  music: { play: "lofi", close: "close" },
   cord: "Cord: pull and release to change the site color",
   lab: {
     title: "Lab",

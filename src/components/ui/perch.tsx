@@ -27,7 +27,7 @@ export default function Perch() {
       const { px, py } = spot(el);
       if (!placed.current) { placed.current = true; x.jump(px); y.jump(py); sx.jump(px); sy.jump(py); return; }
       x.set(px); y.set(py - (hop ? 30 : 0));
-      if (hop) { play("pop"); animate(y, py, { delay: 0.12, duration: 0.18 }); }
+      if (hop) { play("chirp", Math.floor(Math.random() * 4)); animate(y, py, { delay: 0.12, duration: 0.18 }); }
     };
     const links = Array.from(document.querySelectorAll<HTMLElement>("[data-perch]"));
     const first = links[links.length - 1];
@@ -37,10 +37,12 @@ export default function Perch() {
       if (el && el !== target.current) go(el, true);
     };
     const follow = () => { if (target.current && document.contains(target.current)) { const { px, py } = spot(target.current); x.set(px); y.set(py); sx.jump(px); sy.jump(py); } };
+    const tweet = setInterval(() => { if (document.visibilityState === "visible") play("chirp", Math.floor(Math.random() * 4)); }, 9000 + Math.random() * 6000);
     document.addEventListener("pointerover", over, { passive: true });
     window.addEventListener("scroll", follow, { passive: true });
     window.addEventListener("resize", follow);
     return () => {
+      clearInterval(tweet);
       document.removeEventListener("pointerover", over);
       window.removeEventListener("scroll", follow);
       window.removeEventListener("resize", follow);

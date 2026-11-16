@@ -102,13 +102,13 @@ function noise(c: AudioContext, dur: number, vol: number, f1: number, f2: number
   src.start();
 }
 
-export type SoundName = "pluck" | "tick" | "pop" | "peel" | "click" | "on" | "hover" | "select";
+export type SoundName = "pluck" | "tick" | "pop" | "peel" | "click" | "on" | "hover" | "select" | "chirp" | "drop";
 
 /** Toca um som. `n` escolhe a nota (corda) e `v` a força (0 a 1). */
 export function play(name: SoundName, n = 0, v = 0.6) {
   if (!on) return;
   const now = performance.now();
-  const gap = name === "pluck" ? 70 : name === "hover" ? 90 : 25;
+  const gap = name === "pluck" ? 70 : name === "hover" ? 90 : name === "chirp" ? 350 : 25;
   if (now - (last[name] ?? 0) < gap) return;
   last[name] = now;
   const c = audio();
@@ -137,6 +137,20 @@ export function play(name: SoundName, n = 0, v = 0.6) {
     case "click":
       tone(c, { f: 180, f2: 90, type: "square", dur: 0.06, vol: 0.12 });
       noise(c, 0.04, 0.08, 2400, 1200);
+      break;
+    case "chirp": {
+      // pássaro: dois ou três pios curtos, cada um subindo e caindo de tom
+      const base = 2400 + (n % 4) * 220;
+      const notes = 2 + (n % 2);
+      for (let i = 0; i < notes; i++) {
+        tone(c, { f: base, f2: base * 1.35, type: "sine", dur: 0.09, vol: 0.05, attack: 0.008, when: i * 0.12 });
+        tone(c, { f: base * 1.35, f2: base * 0.9, type: "sine", dur: 0.07, vol: 0.04, attack: 0.004, when: i * 0.12 + 0.07 });
+      }
+      break;
+    }
+    case "drop":
+      tone(c, { f: 520, f2: 180, type: "sine", dur: 0.14, vol: 0.12 });
+      noise(c, 0.05, 0.05, 1800, 600);
       break;
     case "select":
       tone(c, { f: 740, type: "square", dur: 0.06, vol: 0.07 });

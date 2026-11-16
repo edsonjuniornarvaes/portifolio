@@ -8,6 +8,7 @@ import PullCord from "@/components/ui/pull-cord";
 import Perch from "@/components/ui/perch";
 import CornerStrings from "@/components/ui/corner-strings";
 import SoundEffects from "@/components/ui/sound-effects";
+import MusicPlayer from "@/components/ui/music-player";
 import CoffeeRain from "@/components/ui/coffee-rain";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
@@ -68,6 +69,7 @@ const personJsonLd = (jobTitle: string) => ({
     "https://github.com/edsonjuniornarvaes",
     "https://dev.to/edsonjuniornarvaes",
     "https://www.instagram.com/edsonjunior.dev",
+    "https://x.com/edsonjrandrade",
   ],
   knowsAbout: ["React Native", "TypeScript", "iOS", "Android", "Next.js"],
 });
@@ -102,6 +104,7 @@ export default async function RootLayout({
             <CornerStrings />
             <SoundEffects />
             <CoffeeRain />
+            <MusicPlayer />
             <main>{children}</main>
             <SiteFooter />
           </StyledComponentsRegistry>

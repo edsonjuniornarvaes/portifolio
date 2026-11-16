@@ -11,6 +11,7 @@ export const contact = {
   linkedin: "https://linkedin.com/in/edsonjuniornarvaes",
   github: "https://github.com/edsonjuniornarvaes",
   devto: "https://dev.to/edsonjuniornarvaes",
+  twitter: "https://x.com/edsonjrandrade",
   instagram: "https://www.instagram.com/edsonjunior.dev",
 };
 
