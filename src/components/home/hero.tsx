@@ -9,15 +9,15 @@ import DecodeLines from "@/components/ui/decode-lines";
 import MatrixRain from "@/components/ui/matrix-rain";
 import IDot from "@/components/ui/i-dot-machine";
 import { DigitalClock, Floater } from "@/components/ui/floaters";
-import PeelSticker, { AvatarSticker, LaptopSticker, MugSticker } from "@/components/ui/peel-sticker";
+import PeelSticker, { AvatarSticker, EmojiSticker } from "@/components/ui/peel-sticker";
 import { useLang } from "@/i18n/provider";
 
 const Box = styled.section`
   position: relative; display: flex; flex-direction: column; justify-content: center; min-height: calc(100svh - var(--header)); padding: 56px 0 64px;
   .content { position: relative; z-index: 2; max-width: 680px; }
   .kicker { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-  .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: ping 2.2s ease-out infinite; }
-  @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); } 80%, 100% { box-shadow: 0 0 0 9px transparent; } }
+  .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ping, var(--accent)) 60%, transparent); } 80%, 100% { box-shadow: 0 0 0 9px transparent; } }
   h1 { margin-top: 22px; font-size: clamp(2.9rem, 7.2vw, 6rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.055em; }
   h1 { cursor: default; }
   h1 > span { display: block; }
@@ -31,6 +31,8 @@ const Box = styled.section`
   .btn.g { border: 1px solid var(--line); }
   .btn.g:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
   .meta { display: flex; flex-wrap: wrap; gap: 8px 40px; margin-top: 44px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .meta .live { display: inline-flex; align-items: center; gap: 10px; }
+  .meta .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
   .meta b { color: var(--ink); font-weight: 500; }
 
   .board { position: absolute; top: 50%; height: min(600px, 84%); transform: translateY(-50%); right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
@@ -39,7 +41,7 @@ const Box = styled.section`
     .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 420px; margin-top: 30px; }
     .meta { grid-template-columns: 1fr; gap: 8px; margin-top: 40px; }
     }
-  @media (prefers-reduced-motion: reduce) { .kicker i { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .meta .live i { animation: none; } }
 `;
 
 export default function Hero() {
@@ -67,15 +69,16 @@ export default function Hero() {
             <Link className="btn g" href="/home#contato">{h.ctaTalk}</Link>
           </div>
           <div className="meta">
-            <span><b>●</b> {h.status}</span>
+            <span className="live"><i /> {h.status}</span>
           </div>
         </div>
       </Wrap>
 
       <div className="board">
-        <PeelSticker h={136} rot={-6} style={{ left: "4%", top: "12%" }} label={h.stickers.laptop}><LaptopSticker /></PeelSticker>
-        <PeelSticker h={140} rot={4} style={{ left: "36%", top: "46%" }} label={h.stickers.photo}><AvatarSticker size={140} /></PeelSticker>
-        <PeelSticker h={124} rot={9} style={{ right: "6%", top: "30%" }} label={h.stickers.coffee}><MugSticker /></PeelSticker>
+        <PeelSticker h={106} rot={-8} style={{ left: "6%", top: "12%" }} label={h.stickers.laptop}><EmojiSticker emoji="💻" size={96} /></PeelSticker>
+        <PeelSticker h={140} rot={3} style={{ left: "36%", top: "40%" }} label={h.stickers.photo}><AvatarSticker size={140} /></PeelSticker>
+        <PeelSticker h={96} rot={9} style={{ right: "8%", top: "30%" }} label={h.stickers.coffee}><EmojiSticker emoji="☕" size={86} /></PeelSticker>
+        <PeelSticker h={96} rot={-6} style={{ left: "14%", top: "62%" }} label={h.stickers.mate}><EmojiSticker emoji="🧉" size={86} /></PeelSticker>
         <Floater style={{ right: "6%", top: "6%" }} delay={1} amp={5}><DigitalClock /></Floater>
       </div>
     </Box>

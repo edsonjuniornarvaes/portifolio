@@ -1,39 +1,26 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { MemojiArt } from "@/components/ui/memoji-art";
+import { useEffect, useRef } from "react";
+import { MemojiAvatar } from "@/components/ui/avatar";
 
-/**
- * Avatar no estilo Memoji do iPhone: traços suaves, óculos, headset e barba por fazer.
- * Os olhos seguem o mouse e piscam de vez em quando.
- */
+/** Memoji que acompanha o mouse com uma leve inclinação (usado espiando sobre a colina do rodapé). */
 export default function Memoji({ label }: { label: string }) {
-  const ref = useRef<SVGSVGElement>(null);
-  const [look, setLook] = useState({ x: 0, y: 0 });
-  const [blink, setBlink] = useState(false);
-
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const move = (e: PointerEvent) => {
       const el = ref.current;
       if (!el) return;
       const r = el.getBoundingClientRect();
-      const dx = e.clientX - (r.left + r.width / 2);
-      const dy = e.clientY - (r.top + r.height * 0.5);
-      const d = Math.hypot(dx, dy) || 1;
-      const k = Math.min(1, d / 300);
-      setLook({ x: (dx / d) * k, y: (dy / d) * k });
+      const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+      const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 400);
+      el.style.transform = `perspective(600px) rotateY(${(dx / d) * k * 14}deg) rotateX(${(-dy / d) * k * 10}deg)`;
     };
     window.addEventListener("pointermove", move, { passive: true });
-    let t: ReturnType<typeof setTimeout>;
-    const loop = () => { t = setTimeout(() => { setBlink(true); setTimeout(() => setBlink(false), 140); loop(); }, 2600 + Math.random() * 2600); };
-    loop();
-    return () => { window.removeEventListener("pointermove", move); clearTimeout(t); };
+    return () => window.removeEventListener("pointermove", move);
   }, []);
-
-  const px = look.x * 3, py = look.y * 2.2;
   return (
-    <svg ref={ref} viewBox="0 0 200 210" role="img" aria-label={label} style={{ display: "block", width: "100%", height: "auto", overflow: "visible" }}>
-      <MemojiArt px={px} py={py} blink={blink} id="mjf" />
-    </svg>
+    <div ref={ref} role="img" aria-label={label} style={{ width: "100%", transition: "transform 0.25s ease-out" }}>
+      <MemojiAvatar size={140} />
+    </div>
   );
 }
