@@ -142,15 +142,15 @@ export const professionalProjects: Project[] = [
     id: "pjbank",
     coverImage: "/images/projects/pjbank-cover.webp",
     screens: ["/images/projects/pjbank-home.webp", "/images/projects/pjbank-cover.webp"],
-    title: "PJBank",
-    tagline: "Conta Digital para Empresas",
+    title: "Conta Superlógica",
+    tagline: "Conta digital integrada ao sistema de gestão",
     description:
-      "App financeiro corporativo para operações bancárias, Pix, emissão de boletos e gestão financeira integrada.",
+      "Conta para empresas, administradoras e condomínios: recebimentos por boleto e Pix, pagamentos com alçadas de aprovação, conciliação automática e carteira Pix, direto do app ou do ERP.",
     longDescription:
       "Atuei em funcionalidades críticas do app corporativo: autenticação com Auth0, fluxos sensíveis, MVVM, testes com Jest e observabilidade (Sentry, Datadog, Mixpanel).",
     icon: "pjbank",
     iconColor: "#00D4D4",
-    iconLetter: "PJ",
+    iconLetter: "CS",
     tags: ["React Native", "TypeScript", "Redux", "Auth0"],
     status: "production",
     liveUrl:

@@ -9,6 +9,7 @@ import { useLang } from "@/i18n/provider";
 import { localizeProject } from "@/i18n/content";
 import { getProjectById } from "@/app/projects/helper";
 import { YEARS, appScreen, isWebId, projectColor } from "@/data/work";
+import { BRAND_ICON } from "@/data/brands";
 
 const Card = styled(Link)`
   position: relative; display: flex; flex-direction: column; height: 100%; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--card);
@@ -20,6 +21,8 @@ const Card = styled(Link)`
     background: radial-gradient(70% 80% at 50% 105%, color-mix(in srgb, var(--pc) 38%, transparent), transparent 70%), color-mix(in srgb, var(--paper-2) 92%, var(--pc)); }
   .vis::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(color-mix(in srgb, var(--ink) 16%, transparent) 1px, transparent 1.2px); background-size: 18px 18px; -webkit-mask-image: linear-gradient(#000, transparent 80%); mask-image: linear-gradient(#000, transparent 80%); pointer-events: none; }
   .brand { position: absolute; left: 16px; top: 16px; z-index: 3; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; background: var(--pc); color: var(--on-accent); font-size: 0.86rem; font-weight: 700; box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--pc) 70%, #000); }
+  .brand[data-img="true"] { background: none; overflow: hidden; }
+  .brand img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .ph { position: relative; z-index: 1; flex: none; transform-style: preserve-3d; transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 0.45s cubic-bezier(.2,.7,.2,1); }
   .ph.a { margin-bottom: -70px; }
   .ph.b { margin-bottom: -120px; opacity: 0.96; }
@@ -49,6 +52,10 @@ const Card = styled(Link)`
   p { color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
   .tags { margin-top: auto; padding-top: 10px; }
 `;
+
+// eslint-disable-next-line @next/next/no-img-element
+// eslint-disable-next-line @next/next/no-img-element
+const BrandImg = ({ src }: { src: string }) => <img src={src} alt="" />;
 
 // eslint-disable-next-line @next/next/no-img-element
 const ShotImg = ({ src }: { src: string }) => <img src={src} alt="" loading="lazy" />;
@@ -87,7 +94,7 @@ export default function ProjectCard({ id }: { id: string }) {
     <Card href={`/projects/${id}`} onPointerMove={tilt} onPointerLeave={untilt} style={{ ["--pc" as string]: color, ["--sc" as string]: STATUS_COLOR[p.status] }}>
       <div className="vis" aria-hidden>
         <span className="sheen" />
-        <span className="brand">{letter}</span>
+        <span className="brand" data-img={!!BRAND_ICON[id]}>{BRAND_ICON[id] ? <BrandImg src={BRAND_ICON[id]} /> : letter}</span>
         {web ? (
           <div className="lap">
             <div className="lid">
