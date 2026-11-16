@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import styled from "styled-components";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import LangSwitch from "@/components/ui/lang-switch";
+import SoundToggle from "@/components/ui/sound-toggle";
 import { useLang } from "@/i18n/provider";
 
 const LINKS = [
@@ -55,6 +56,7 @@ export default function SiteHeader() {
           ))}
         </nav>
         <div className="tools">
+          <SoundToggle />
           <LangSwitch />
           <ThemeToggle />
         </div>
