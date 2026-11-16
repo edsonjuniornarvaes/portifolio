@@ -21,8 +21,7 @@ const Box = styled.div`
 `;
 
 /**
- * Adesivo de verdade: ao passar o mouse, a ponta de cima começa a descolar; se você puxar para baixo,
- * ele descola mais (aparece o verso branco) e, ao soltar, gruda de volta. Funciona com qualquer desenho recortado.
+ * Adesivo de verdade: só descola quando você puxa: segure e arraste para baixo (aparece o verso branco) e, ao soltar, ele gruda de volta. Funciona com qualquer desenho recortado.
  * `h` é a altura do desenho, em px.
  */
 export default function PeelSticker({ children, h, style, rot = 0, label }: { children: ReactNode; h: number; style: React.CSSProperties; rot?: number; label: string }) {
@@ -40,11 +39,14 @@ export default function PeelSticker({ children, h, style, rot = 0, label }: { ch
       style={{ ...style, transform: `rotate(${rot}deg)` }}
       role="img"
       aria-label={label}
-      onPointerEnter={() => { if (!drag) { peel.set(0.22); play("peel"); } }}
-      onPointerLeave={() => { if (!drag) peel.set(0); }}
-      onPointerDown={(e) => { (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId); start.current = e.clientY; setDrag(true); play("peel"); }}
-      onPointerMove={(e) => { if (drag) peel.set(Math.max(0.12, Math.min(0.78, 0.22 + (e.clientY - start.current) / h))); }}
-      onPointerUp={() => { setDrag(false); peel.set(0); play("pop"); }}
+      onPointerDown={(e) => { (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId); start.current = e.clientY; setDrag(true); }}
+      onPointerMove={(e) => {
+        if (!drag) return;
+        const v = Math.max(0, Math.min(0.55, (e.clientY - start.current) / (h * 1.1)));
+        if (v > 0.06 && peel.get() <= 0.06) play("peel");
+        peel.set(v);
+      }}
+      onPointerUp={() => { setDrag(false); if (peel.get() > 0.06) play("pop"); peel.set(0); }}
       onPointerCancel={() => { setDrag(false); peel.set(0); }}
     >
       <div className="stack shadow">
