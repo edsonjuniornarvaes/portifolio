@@ -30,7 +30,7 @@ export const journey: JourneyItem[] = [
   { year: "2021", title: "Virada para o mobile", text: "React Native e Expo: Mont Capital, Minha Navex (do zero) e Consórcio Gazin nas lojas.", kind: "work" },
   { year: "2023", title: "Scrum Master e desenvolvedor mobile", text: "Ritos, métricas e decisões técnicas no time mobile, sem sair do código: Mont Capital, Gazin Consórcio e Minha Navex.", kind: "work" },
   { year: "2024", title: "Gruvi na Superlógica", text: "Superapp para condomínios com Redux Saga, MongoDB, Jest e CI/CD com Bitrise.", kind: "work" },
-  { year: "2025", title: "Mobile Sênior no PJBank", text: "Conta digital para empresas: MVVM, Auth0, Pix Automático, autorização corporativa e observabilidade completa.", kind: "work" },
+  { year: "2025", title: "Mobile Sênior na Conta Superlógica", text: "Conta digital para empresas: MVVM, Auth0, Pix Automático, autorização corporativa e observabilidade completa.", kind: "work" },
   { year: "Hoje", title: "Produtos próprios", text: "Clube da Joia: site, painel, app e pagamentos em um backend só. Construo de ponta a ponta.", kind: "build" },
 ];
 
@@ -51,7 +51,7 @@ export type CaseStudy = {
 export const cases: CaseStudy[] = [
   {
     id: "pjbank",
-    name: "PJBank",
+    name: "Conta Superlógica",
     tag: "Fintech · Conta digital para empresas",
     period: "Abr 2025 – hoje · Superlógica",
     color: "#00d4d4",

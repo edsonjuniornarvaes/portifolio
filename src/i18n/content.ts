@@ -47,9 +47,9 @@ const PROJECTS_EN: Record<string, ProjectEn> = {
     ],
   },
   pjbank: {
-    tagline: "Digital account for businesses",
+    tagline: "Digital account integrated with the management system",
     description:
-      "Corporate financial app for banking operations, Pix, boleto issuing and integrated financial management.",
+      "Account for companies, property managers and condominiums: boleto and Pix receipts, payments with approval tiers, automatic reconciliation and Pix wallet, straight from the app or the ERP.",
     longDescription:
       "I worked on critical features of the corporate app: authentication with Auth0, sensitive flows, MVVM, Jest tests and observability (Sentry, Datadog, Mixpanel).",
   },
@@ -214,7 +214,7 @@ const JOURNEY_EN: Pick<JourneyItem, "title" | "text">[] = [
   { title: "Moving to mobile", text: "React Native and Expo: Mont Capital, Minha Navex (from scratch) and Consórcio Gazin on the stores." },
   { title: "Scrum Master and mobile developer", text: "Ceremonies, metrics and technical decisions on the mobile team, without leaving the code: Mont Capital, Gazin Consórcio and Minha Navex." },
   { title: "Gruvi at Superlógica", text: "Super app for condominiums with Redux Saga, MongoDB, Jest and CI/CD with Bitrise." },
-  { title: "Senior Mobile at PJBank", text: "Digital account for businesses: MVVM, Auth0, Pix Automático, corporate authorization and full observability." },
+  { title: "Senior Mobile on Conta Superlógica", text: "Digital account for businesses: MVVM, Auth0, Pix Automático, corporate authorization and full observability." },
   { title: "Own products", text: "Clube da Joia: site, admin panel, app and payments on a single backend. I build end to end." },
 ];
 
@@ -237,7 +237,7 @@ const EXPERIENCE_EN: Pick<Exp, "role" | "location" | "description" | "highlights
   {
     role: "Senior Mobile Developer",
     location: "Campinas, SP · Remote",
-    description: "On PJBank (digital account for businesses), I handle architecture, performance, user experience and security in critical financial features.",
+    description: "On Conta Superlógica (digital account for businesses), I handle architecture, performance, user experience and security in critical financial features.",
     highlights: [
       "MVVM architecture applied and standardized to scale and ease maintenance",
       "Native and cross-platform features with React Native",

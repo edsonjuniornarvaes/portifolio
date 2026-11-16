@@ -10,6 +10,7 @@ import { useLang } from "@/i18n/provider";
 import { localizeProject } from "@/i18n/content";
 import { getProjectById } from "@/app/projects/helper";
 import { SHOWCASE, isWebId, projectColor } from "@/data/work";
+import { BRAND_ICON } from "@/data/brands";
 
 const List = styled.ol`
   list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line);
@@ -41,6 +42,7 @@ const Float = styled(motion.div)`
   .card { position: absolute; left: 26px; top: -64px; width: 196px; padding: 10px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--card) 94%, transparent); backdrop-filter: blur(10px); box-shadow: 0 24px 40px -18px rgba(0,0,0,0.6); }
   .top { display: flex; align-items: center; gap: 9px; margin-bottom: 9px; }
   .brand { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 9px; overflow: hidden; background: var(--c); color: var(--on-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; }
+  .brand[data-img="true"] { background: none; }
   .brand img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .top b { display: block; font-size: 0.86rem; font-weight: 600; line-height: 1.2; }
   .top small { display: block; font-size: 0.7rem; color: var(--muted); }
@@ -72,6 +74,7 @@ export default function WorkList() {
         p: own ? { ...p, title: "Clube da Joia" } : p,
         kind: own ? t.work.clubeKind : isWebId(s.id) || !s.screen ? t.work.web : t.work.app,
         shot: own ? "/images/projects/clube-app-home.webp" : s.screen,
+        brand: BRAND_ICON[s.id],
         letter: base.iconLetter || base.title.slice(0, 2).toUpperCase(),
         color: projectColor(s.id),
       };
@@ -124,8 +127,9 @@ export default function WorkList() {
               transition={{ duration: 0.16, ease: [0.2, 0.7, 0.2, 1] }}
             >
               <div className="top">
-                <span className="brand">
-                  {cur.letter}
+                <span className="brand" data-img={!!cur.brand}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  {cur.brand ? <img src={cur.brand} alt="" /> : cur.letter}
                 </span>
                 <div><b>{cur.p.title}</b><small>{cur.kind}</small></div>
               </div>

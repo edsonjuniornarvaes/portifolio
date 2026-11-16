@@ -4,7 +4,7 @@ export const ExperienceData = [
     role: "Desenvolvedor Mobile Sênior",
     period: "Abr 2025 - Atual",
     location: "Campinas, SP · Remoto",
-    description: `No PJBank (conta digital para empresas), cuido de arquitetura, performance, experiência do usuário e segurança em funcionalidades financeiras críticas.`,
+    description: `Na Conta Superlógica (conta digital para empresas), cuido de arquitetura, performance, experiência do usuário e segurança em funcionalidades financeiras críticas.`,
     highlights: [
       "Arquitetura MVVM aplicada e padronizada para escalar e facilitar a manutenção",
       "Funcionalidades nativas e cross-platform com React Native",
