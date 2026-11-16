@@ -18,15 +18,16 @@ export default async function Home() {
   return (
     <>
       <Hero />
+      <Wrap>
+        <Section style={{ marginTop: 20 }}>
+          <DevicesStrip />
+        </Section>
+      </Wrap>
       <Wave id="a" />
       <Wrap>
-        <Section id="trabalhos" style={{ marginTop: 80 }}>
+        <Section id="trabalhos" style={{ marginTop: 60 }}>
           <SectionHead n="01" label={t.work.label} action={{ href: "/projects", label: t.work.seeAll }} />
           <WorkList />
-        </Section>
-
-        <Section style={{ marginTop: 90 }}>
-          <DevicesStrip />
         </Section>
 
         <Wave id="b" />
