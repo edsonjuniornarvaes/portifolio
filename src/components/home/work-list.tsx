@@ -40,7 +40,7 @@ const Float = styled(motion.div)`
   position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; will-change: transform;
   .card { position: absolute; left: 26px; top: -64px; width: 196px; padding: 10px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--card) 94%, transparent); backdrop-filter: blur(10px); box-shadow: 0 24px 40px -18px rgba(0,0,0,0.6); }
   .top { display: flex; align-items: center; gap: 9px; margin-bottom: 9px; }
-  .brand { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 9px; overflow: hidden; background: var(--c); color: #fff; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; }
+  .brand { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 9px; overflow: hidden; background: var(--c); color: var(--on-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; }
   .brand img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .top b { display: block; font-size: 0.86rem; font-weight: 600; line-height: 1.2; }
   .top small { display: block; font-size: 0.7rem; color: var(--muted); }

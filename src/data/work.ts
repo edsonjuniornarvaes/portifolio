@@ -39,7 +39,8 @@ const WEB_IDS = new Set<string>([...webProjects.map((p) => p.id), "clube-da-joia
 export const isWebId = (id: string) => WEB_IDS.has(id);
 
 /** Cor da marca do projeto (com reserva). */
-export const projectColor = (id: string) => getProjectById(id)?.iconColor || "#2eebaa";
+/** Todos os projetos usam a cor de destaque do site (a que a corda troca), para o visual ficar coeso. */
+export const projectColor = (_id: string) => "var(--accent)";
 
 /** Tela de app de um projeto (primeira de `screens` que não seja capa de divulgação). */
 export function appScreen(id: string): string | undefined {
