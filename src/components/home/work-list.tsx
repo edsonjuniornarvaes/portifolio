@@ -30,11 +30,20 @@ const List = styled.ol`
   }
 `;
 
+const Group = styled.div`
+  & + & { margin-top: 56px; }
+  .gh { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin-bottom: 14px; }
+  .gh b { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .gh span { font-size: 0.95rem; color: var(--muted); }
+`;
+
 const Float = styled(motion.div)`
   position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; will-change: transform;
   .card { position: absolute; left: 110px; top: -120px; width: var(--pw, 150px); filter: drop-shadow(0 30px 40px rgba(0,0,0,0.5)); }
   @media (hover: none) { display: none; }
 `;
+
+const OWN = new Set(['clube-da-joia-marketplace', 'clube-da-joia-app']);
 
 export default function WorkList() {
   const { lang, t } = useLang();
@@ -44,7 +53,7 @@ export default function WorkList() {
   const y = useSpring(my, { stiffness: 260, damping: 26 });
   const tilt = useTransform(x, (v) => Math.max(-14, Math.min(14, (v - mx.get()) * -0.6)));
 
-  const items = SHOWCASE.map((s) => {
+  const items = [...SHOWCASE].sort((a, b) => Number(OWN.has(b.id)) - Number(OWN.has(a.id))).map((s) => {
     const base = getProjectById(s.id);
     return base ? { s, p: localizeProject(base, lang), web: isWebId(s.id) || !s.screen, color: projectColor(s.id) } : null;
   }).filter((v): v is NonNullable<typeof v> => !!v);
@@ -52,25 +61,36 @@ export default function WorkList() {
 
   return (
     <div onPointerMove={(e) => { mx.set(e.clientX); my.set(e.clientY); }} onPointerLeave={() => setHot(null)}>
-      <List>
-        {items.map((it, i) => (
-          <li key={it.s.id}>
-            <Link
-              href={`/projects/${it.s.id}`}
-              data-perch
-              style={{ ["--c" as string]: it.color }}
-              onPointerEnter={() => { setHot(it.s.id); play("hover", i); }}
-              onFocus={() => setHot(it.s.id)}
-              onBlur={() => setHot(null)}
-            >
-              <span className="i">{String(i + 1).padStart(2, "0")}</span>
-              <span className="n">{it.p.title}</span>
-              <span className="m">{it.web ? t.work.web : t.work.app} · {it.s.year}</span>
-              <span className="ar" aria-hidden>↗</span>
-            </Link>
-          </li>
-        ))}
-      </List>
+      {[
+        { key: "own", title: t.work.own, note: t.work.ownNote, list: items.filter((it) => OWN.has(it.s.id)) },
+        { key: "job", title: t.work.job, note: t.work.jobNote, list: items.filter((it) => !OWN.has(it.s.id)) },
+      ].map((g) => (
+        <Group key={g.key}>
+          <div className="gh"><b>{"// "}{g.title}</b><span>{g.note}</span></div>
+          <List>
+            {g.list.map((it) => {
+              const i = items.indexOf(it);
+              return (
+                <li key={it.s.id}>
+                  <Link
+                    href={`/projects/${it.s.id}`}
+                    data-perch
+                    style={{ ["--c" as string]: it.color }}
+                    onPointerEnter={() => { setHot(it.s.id); play("hover", i); }}
+                    onFocus={() => setHot(it.s.id)}
+                    onBlur={() => setHot(null)}
+                  >
+                    <span className="i">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="n">{it.p.title}</span>
+                    <span className="m">{it.web ? t.work.web : t.work.app} · {it.s.year}</span>
+                    <span className="ar" aria-hidden>↗</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </List>
+        </Group>
+      ))}
 
       <Float style={{ x, y }} aria-hidden>
         <AnimatePresence mode="wait">

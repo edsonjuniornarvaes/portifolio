@@ -1,4 +1,5 @@
 import Hero from "@/components/home/hero";
+import Wave from "@/components/ui/wave";
 import WorkList from "@/components/home/work-list";
 import Services from "@/components/home/services";
 import Writing from "@/components/home/writing";
@@ -16,13 +17,15 @@ export default async function Home() {
   return (
     <>
       <Hero />
+      <Wave id="a" />
       <Wrap>
         <Section id="trabalhos" style={{ marginTop: 80 }}>
           <SectionHead n="01" label={t.work.label} action={{ href: "/projects", label: t.work.seeAll }} />
           <WorkList />
         </Section>
 
-        <Section id="faco">
+        <Wave id="b" />
+        <Section id="faco" style={{ marginTop: 40 }}>
           <SectionHead n="02" label={t.services.label} />
           <Services />
         </Section>

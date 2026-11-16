@@ -33,7 +33,7 @@ export default function StringGrid() {
     let hs: Str[] = [];
     let raf = 0, running = false, idle = 0;
     let px = -999, py = -999, lx = -999, ly = -999, active = false;
-    let colLine = "rgba(255,255,255,.1)", colHot = "#ff6a3d";
+    let colLine = "rgba(255,255,255,.1)", colHot = "#2eebaa";
 
     const readColors = () => {
       const s = getComputedStyle(document.documentElement);

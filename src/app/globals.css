@@ -1,18 +1,20 @@
 /* ===== Identidade: ambiente de desenvolvimento (escuro, mono, menta como destaque) ===== */
 :root,
 :root[data-theme="dark"] {
-  --paper: #060606;
-  --paper-2: #0d0d0d;
-  --card: #0e0e0e;
-  --ink: #f3f1ec;
-  --muted: #8f8b84;
-  --line: rgba(255, 255, 255, 0.11);
+  --paper: #090b0d;
+  --paper-2: #0f1316;
+  --card: #0c1013;
+  --ink: #e8eef2;
+  --muted: #8b98a5;
+  --line: rgba(255, 255, 255, 0.1);
   --line-2: rgba(255, 255, 255, 0.045);
-  --accent: #ff6a3d;
-  --accent-ink: #ff7e57;
-  --on-accent: #1a0802;
+  --accent: #2eebaa;
+  --accent-ink: #2eebaa;
+  --accent-2: #06b6d4;
+  --lilac: #c4a1ff;
+  --on-accent: #04130d;
   --syn-k: #c792ea;
-  --syn-s: #ff8a65;
+  --syn-s: #2eebaa;
   --syn-n: #ffcb6b;
   --syn-f: #82aaff;
   --syn-c: #5f6b7d;
@@ -21,18 +23,20 @@
 }
 
 :root[data-theme="light"] {
-  --paper: #f3efe6;
-  --paper-2: #ebe6da;
-  --card: #fffdf8;
-  --ink: #121110;
-  --muted: #6b665c;
-  --line: rgba(18, 17, 16, 0.14);
-  --line-2: rgba(18, 17, 16, 0.06);
-  --accent: #f0501f;
-  --accent-ink: #c93a0e;
-  --on-accent: #fff6f1;
+  --paper: #f5f8f7;
+  --paper-2: #eaf0ee;
+  --card: #ffffff;
+  --ink: #0b1512;
+  --muted: #53635b;
+  --line: rgba(11, 21, 18, 0.13);
+  --line-2: rgba(11, 21, 18, 0.06);
+  --accent: #1fcf94;
+  --accent-ink: #0b8a5f;
+  --accent-2: #0e8aa6;
+  --lilac: #8a5cf0;
+  --on-accent: #04130d;
   --syn-k: #8a3fd0;
-  --syn-s: #c93a0e;
+  --syn-s: #0b8a5f;
   --syn-n: #b25e00;
   --syn-f: #2457d6;
   --syn-c: #7a8594;
