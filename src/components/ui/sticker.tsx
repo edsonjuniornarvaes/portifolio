@@ -149,3 +149,19 @@ export function PixSticker() {
     </svg>
   );
 }
+
+/** Gema: as cores "refletem" conforme o ponteiro passa por cima (usa --hx/--hy do adesivo). */
+export function GemSticker() {
+  const gem = "polygon(22% 4%, 78% 4%, 98% 36%, 50% 98%, 2% 36%)";
+  return (
+    <div style={{ position: "relative", width: 120, height: 112 }} aria-hidden>
+      <div style={{ position: "absolute", inset: 0, background: "#fff", clipPath: gem }} />
+      <div style={{ position: "absolute", inset: 7, clipPath: gem, background: "linear-gradient(120deg, #7bd3ff, #c792ea 25%, #ffffff 40%, #ff9ad5 58%, #7bffd8 78%, #7bd3ff)", backgroundSize: "320% 320%", backgroundPosition: "var(--hx, 30%) var(--hy, 30%)" }} />
+      <svg viewBox="0 0 120 112" width="120" height="112" style={{ position: "absolute", inset: 0 }}>
+        <g fill="none" stroke="#fff" strokeOpacity=".75" strokeWidth="1.4" strokeLinejoin="round">
+          <path d="M8 40h104M27 8l22 32 11 52 11-52 22-32M49 40l11-32 11 32" />
+        </g>
+      </svg>
+    </div>
+  );
+}

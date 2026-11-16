@@ -32,7 +32,7 @@ const List = styled.ol`
 
 const Float = styled(motion.div)`
   position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; will-change: transform;
-  .card { position: absolute; left: 36px; top: -120px; width: var(--pw, 150px); filter: drop-shadow(0 30px 40px rgba(0,0,0,0.5)); }
+  .card { position: absolute; left: 110px; top: -120px; width: var(--pw, 150px); filter: drop-shadow(0 30px 40px rgba(0,0,0,0.5)); }
   @media (hover: none) { display: none; }
 `;
 
@@ -57,6 +57,7 @@ export default function WorkList() {
           <li key={it.s.id}>
             <Link
               href={`/projects/${it.s.id}`}
+              data-perch
               style={{ ["--c" as string]: it.color }}
               onPointerEnter={() => { setHot(it.s.id); play("hover", i); }}
               onFocus={() => setHot(it.s.id)}

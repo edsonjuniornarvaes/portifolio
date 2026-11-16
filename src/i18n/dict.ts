@@ -29,7 +29,7 @@ const pt = {
     hint: "Brinque: arraste os adesivos, passe o mouse nas linhas e puxe a corda.",
     now: "Agora em Umuarama",
     index: "Índice",
-    stickers: { phone: "Adesivo de celular", web: "Adesivo de site", coffee: "Adesivo de café", star: "Adesivo de estrela", hello: "Adesivo olá", photo: "Adesivo com a foto do Edson", pix: "Adesivo Pix" },
+    stickers: { phone: "Adesivo de celular", web: "Adesivo de site", coffee: "Adesivo de café", star: "Adesivo de estrela", hello: "Adesivo olá", photo: "Adesivo com a foto do Edson", pix: "Adesivo Pix", gem: "Adesivo de gema" },
   },
   sectors: ["Banco digital", "Condomínios", "Investimentos", "Telecom", "Loja online", "Consórcios", "Painéis de controle", "Pagamentos"],
   work: {
@@ -123,7 +123,7 @@ const pt = {
     elsewhere: "Em outros lugares",
     contactCta: "Vamos conversar",
   },
-  notFound: { title: "404", text: "Esta página não existe.", back: "Voltar ao início" },
+  notFound: { title: "404", text: "Esta página saiu para tomar um café e não voltou.", hint: "Enquanto isso, toque as cordas.", back: "Voltar ao início" },
 };
 
 export type Dict = typeof pt;
@@ -157,7 +157,7 @@ const en: Dict = {
     hint: "Play: drag the stickers, hover the lines and pull the cord.",
     now: "Now in Umuarama",
     index: "Index",
-    stickers: { phone: "Phone sticker", web: "Website sticker", coffee: "Coffee sticker", star: "Star sticker", hello: "Hello sticker", photo: "Sticker with Edson's photo", pix: "Pix sticker" },
+    stickers: { phone: "Phone sticker", web: "Website sticker", coffee: "Coffee sticker", star: "Star sticker", hello: "Hello sticker", photo: "Sticker with Edson's photo", pix: "Pix sticker", gem: "Gem sticker" },
   },
   sectors: ["Digital banking", "Condominiums", "Investments", "Telecom", "Online store", "Consortiums", "Dashboards", "Payments"],
   work: {
@@ -251,7 +251,7 @@ const en: Dict = {
     elsewhere: "Elsewhere",
     contactCta: "Let's talk",
   },
-  notFound: { title: "404", text: "This page does not exist.", back: "Back to home" },
+  notFound: { title: "404", text: "This page went out for a coffee and never came back.", hint: "Meanwhile, pluck the strings.", back: "Back to home" },
 };
 
 export const ui: Record<Lang, Dict> = { pt, en };

@@ -5,6 +5,8 @@ import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import ScrollProgress from "@/components/ui/scroll-progress";
 import PullCord from "@/components/ui/pull-cord";
+import Perch from "@/components/ui/perch";
+import CoffeeRain from "@/components/ui/coffee-rain";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
 import { LangProvider } from "@/i18n/provider";
@@ -94,6 +96,8 @@ export default async function RootLayout({
             <ScrollProgress />
             <SiteHeader />
             <PullCord />
+            <Perch />
+            <CoffeeRain />
             <main>{children}</main>
             <SiteFooter />
           </StyledComponentsRegistry>
