@@ -7,6 +7,8 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import Phone from "@/components/ui/phone";
 import WebWire from "@/components/ui/web-wire";
 import { getProjectById } from "@/app/projects/helper";
+import AdminShot from "@/components/ui/admin-shot";
+import { ADMIN_BRAND } from "@/data/brands";
 import { play } from "@/lib/sound";
 
 const P = "/images/projects/";
@@ -17,10 +19,11 @@ const PHONES = [
   { id: "clube-da-joia-app", src: `${P}clube-app-home.webp`, w: 200, mt: 32, k: 60 },
   { id: "mont-b2b", src: `${P}mont-b2b-home.webp`, w: 168, mt: 70, k: 26 },
 ];
-const LAPTOPS: { id: string; img?: string; color: string; url: string; k: number }[] = [
-  { id: "gazin-b2b-b2c", color: "#4c8dff", url: "gazin.com.br", k: 24 },
+const LAPTOPS: { id: string; admin?: boolean; img?: string; color: string; url: string; k: number }[] = [
+  { id: "gazin-b2b-b2c", admin: true, color: "#4c8dff", url: "gazin.com.br", k: 24 },
   { id: "clube-da-joia-marketplace", img: `${P}marketplace-web.webp`, color: "#b08d57", url: "clubedajoia.com", k: 56 },
-  { id: "lojas-manao", img: `${P}lojas-manao.webp`, color: "#f2c94c", url: "lojasdomanao.com.br", k: 24 },
+  { id: "mont-b2b", admin: true, color: "#47c2d6", url: "montcapital.com.br", k: 40 },
+  { id: "lojas-manao", admin: true, color: "#f2c94c", url: "lojasdomanao.com.br", k: 24 },
 ];
 
 const Box = styled.div`
@@ -32,7 +35,7 @@ const Box = styled.div`
   .tip { position: absolute; left: 50%; top: -14px; transform: translate(-50%, 6px); padding: 5px 12px; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-size: 0.78rem; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.25s cubic-bezier(.2,.7,.2,1); z-index: 5; }
   .go:hover .tip, .go:focus-visible .tip { opacity: 1; transform: translate(-50%, 0); }
   .laptops { display: flex; justify-content: center; gap: clamp(14px, 3vw, 36px); margin-top: 28px; }
-  .lp { flex: 0 1 340px; min-width: 0; }
+  .lp { flex: 0 1 300px; min-width: 0; }
   .lap { position: relative; }
   .lid { position: relative; padding: 2.6% 2.6% 0; border-radius: 12px 12px 4px 4px; background: linear-gradient(#3a3f48, #23262c); box-shadow: 0 0 0 1px rgba(255,255,255,0.1) inset; }
   .scr { position: relative; aspect-ratio: 16 / 10; border-radius: 4px 4px 0 0; overflow: hidden; background: #101214; }
@@ -42,7 +45,7 @@ const Box = styled.div`
   .base { height: 12px; margin: 0 -4%; border-radius: 0 0 14px 14px; background: linear-gradient(#e0e3e8, #a3a9b2); position: relative; }
   .base::after { content: ""; position: absolute; left: 50%; top: 0; width: 18%; height: 4px; transform: translateX(-50%); border-radius: 0 0 6px 6px; background: #868c95; }
   .glow { position: absolute; left: 10%; right: 10%; bottom: -10px; height: 24px; background: radial-gradient(closest-side, rgba(0,0,0,0.5), transparent); filter: blur(6px); }
-  @media (max-width: 700px) { .row { zoom: 0.7; } .ph:nth-child(1), .ph:nth-child(5) { display: none; } .laptops { flex-direction: column; align-items: center; } .lp { flex-basis: auto; width: min(100%, 340px); } .lp:nth-child(3) { display: none; } }
+  @media (max-width: 700px) { .row { zoom: 0.7; } .ph:nth-child(1), .ph:nth-child(5) { display: none; } .laptops { flex-direction: column; align-items: center; } .lp { flex-basis: auto; width: min(100%, 340px); } .lp:nth-child(n + 3) { display: none; } }
 `;
 
 // eslint-disable-next-line @next/next/no-img-element
@@ -87,9 +90,9 @@ export default function DevicesStrip() {
       </div>
       <div className="laptops">
         {LAPTOPS.map((lp, i) => (
-          <Rise key={lp.url} id={lp.id} i={i} k={lp.k / 2} mt={i === 1 ? 0 : 18} p={scrollYProgress} cls="lp">
+          <Rise key={lp.url} id={lp.id} i={i} k={lp.k / 2} mt={i === 1 || i === 2 ? 0 : 18} p={scrollYProgress} cls="lp">
             <div className="lap">
-              <div className="lid"><div className="scr">{lp.img ? <LapImg src={lp.img} /> : <div className="w"><WebWire color={lp.color} url={lp.url} /></div>}</div></div>
+              <div className="lid"><div className="scr">{lp.admin && ADMIN_BRAND[lp.id] ? <AdminShot brand={ADMIN_BRAND[lp.id]} /> : lp.img ? <LapImg src={lp.img} /> : <div className="w"><WebWire color={lp.color} url={lp.url} /></div>}</div></div>
               <div className="base" /><div className="glow" />
             </div>
           </Rise>

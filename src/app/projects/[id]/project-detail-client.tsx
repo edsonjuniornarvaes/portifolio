@@ -9,6 +9,8 @@ import { Page, PageTitle, Lead, Wrap } from "@/components/ui/layout";
 import { cases } from "@/data/profile";
 import WebWire from "@/components/ui/web-wire";
 import TechIcons from "@/components/ui/tech-icons";
+import AdminShot from "@/components/ui/admin-shot";
+import { ADMIN_BRAND } from "@/data/brands";
 import { isWebId, projectColor } from "@/data/work";
 import { type Project } from "../helper";
 
@@ -84,7 +86,13 @@ function ProjectDetailClient({ project: base }: { project: Project }) {
 
         {web && (
           <Block as="div" style={{ display: "block" }}>
-            <div style={{ maxWidth: 640 }}><WebWire color={projectColor(project.id)} url={project.title} /></div>
+            <div style={{ maxWidth: 640 }}>
+              {ADMIN_BRAND[project.id] ? (
+                <div style={{ aspectRatio: "16 / 10", borderRadius: 12, overflow: "hidden", border: "1px solid var(--line)" }}><AdminShot brand={ADMIN_BRAND[project.id]} /></div>
+              ) : (
+                <WebWire color={projectColor(project.id)} url={project.title} />
+              )}
+            </div>
           </Block>
         )}
 
