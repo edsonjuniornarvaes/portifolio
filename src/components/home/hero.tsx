@@ -27,6 +27,7 @@ const Box = styled.section`
   .meta b { color: var(--ink); font-weight: 500; }
 
   .board { position: absolute; top: 50%; height: min(600px, 84%); transform: translateY(-50%); right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
+  .say { position: absolute; left: 56%; top: 37%; padding: 7px 14px 9px; border-radius: 12px 12px 12px 3px; background: var(--accent); color: var(--on-accent); font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; transform: rotate(-4deg); box-shadow: 3px 3px 0 var(--accent-2); pointer-events: none; z-index: 2; }
   .board::before { content: ""; position: absolute; left: 50%; bottom: 8%; width: 86%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 17%, transparent), transparent 66%); }
   @media (max-width: 760px) {
     .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 420px; margin-top: 30px; }
@@ -62,6 +63,7 @@ export default function Hero() {
       <div className="board">
         <PeelSticker h={129} rot={-6} style={{ left: "4%", top: "12%" }} label={h.stickers.laptop}><MacBookSticker /></PeelSticker>
         <PeelSticker h={150} rot={4} style={{ left: "36%", top: "46%" }} label={h.stickers.photo}><AvatarSticker size={150} /></PeelSticker>
+        <span className="say" aria-hidden>{h.hello}</span>
         <PeelSticker h={106} rot={9} style={{ right: "6%", top: "30%" }} label={h.stickers.coffee}><CoffeeSticker /></PeelSticker>
         <Floater style={{ right: "6%", top: "6%" }} delay={1} amp={5}><DigitalClock /></Floater>
       </div>
