@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import ScrollProgress from "@/components/ui/scroll-progress";
+import PullCord from "@/components/ui/pull-cord";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
 import { LangProvider } from "@/i18n/provider";
@@ -21,6 +22,12 @@ const body = Space_Grotesk({
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains",
+  display: "swap",
+});
+
+const hand = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
   display: "swap",
 });
 
@@ -70,7 +77,7 @@ export default async function RootLayout({
   return (
     <html
       lang={lang === "pt" ? "pt-BR" : "en"}
-      className={`${body.variable} ${jetbrains.variable}`}
+      className={`${body.variable} ${jetbrains.variable} ${hand.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -86,6 +93,7 @@ export default async function RootLayout({
             <AnalyticsTracker />
             <ScrollProgress />
             <SiteHeader />
+            <PullCord />
             <main>{children}</main>
             <SiteFooter />
           </StyledComponentsRegistry>

@@ -1,120 +1,104 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { Wrap } from "@/components/ui/layout";
 import Letters from "@/components/ui/letters";
-import Phone from "@/components/ui/phone";
-import { HERO_SCREENS } from "@/data/work";
+import StringGrid from "@/components/ui/string-grid";
+import Sticker, { BrowserSticker, BubbleSticker, CoffeeSticker, PhoneSticker, PhotoSticker, PixSticker, SparkSticker } from "@/components/ui/sticker";
+import { play } from "@/lib/sound";
 import { useLang } from "@/i18n/provider";
 
 const Box = styled.section`
-  position: relative; overflow: hidden; --mx: 50%; --my: 30%;
-  .glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(560px circle at var(--mx) var(--my), color-mix(in srgb, var(--accent) 12%, transparent), transparent 62%); }
-  .lit { position: absolute; inset: 0; pointer-events: none; opacity: 0.55;
-    background-image: linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px); background-size: 56px 56px;
-    -webkit-mask-image: radial-gradient(260px circle at var(--mx) var(--my), #000, transparent); mask-image: radial-gradient(260px circle at var(--mx) var(--my), #000, transparent); }
-
-  .top { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: clamp(40px, 8vh, 84px); }
-  .kicker { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 99px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: color-mix(in srgb, var(--card) 70%, transparent); }
+  position: relative; display: flex; flex-direction: column; justify-content: center; min-height: calc(100svh - var(--header)); padding: 56px 0 64px;
+  .content { position: relative; z-index: 2; max-width: 680px; }
+  .kicker { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
   .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: ping 2.2s ease-out infinite; }
   @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); } 80%, 100% { box-shadow: 0 0 0 9px transparent; } }
+  h1 { margin-top: 22px; font-size: clamp(3.6rem, 11.5vw, 9.4rem); font-weight: 700; line-height: 0.88; letter-spacing: -0.065em; }
+  h1 span { display: block; }
+  .lead { max-width: 33rem; margin-top: 34px; font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.6; }
+  .lead .w { margin-top: 12px; color: var(--muted); }
+  .lead a.u { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 4px; transition: color 0.2s ease; }
+  .lead a.u:hover { color: var(--accent); }
+  .menu { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 38px; font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .menu a { position: relative; padding: 4px 0; color: var(--ink); }
+  .menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
+  .menu a:hover::after, .menu a:focus-visible::after { transform: scaleX(1); }
+  .menu a.main { color: var(--accent); }
+  .meta { display: grid; grid-template-columns: repeat(2, minmax(0, auto)); gap: 10px 56px; justify-content: start; margin-top: 56px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 500; }
+  .hint { margin-top: 26px; max-width: 30rem; font-family: var(--font-hand); font-size: 1.45rem; line-height: 1.15; color: var(--accent); transform: rotate(-1.5deg); }
 
-  h1 { margin-top: 28px; font-size: clamp(2.7rem, 8.2vw, 7.2rem); font-weight: 700; line-height: 0.98; letter-spacing: -0.055em; }
-  h1 .l1 { display: block; }
-  h1 .l2 { display: block; color: var(--accent); }
-  h1 .caret { display: inline-block; width: 0.07em; height: 0.82em; margin-left: 0.08em; background: var(--accent); vertical-align: -0.06em; animation: blink 1.1s steps(1) infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-  .lead { max-width: 41rem; text-wrap: balance; margin-top: 28px; font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.6; color: var(--muted); }
-  .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 14px; margin-top: 34px; }
-  .btn { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 28px; border-radius: 99px; font-size: 1rem; font-weight: 500; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
-  .btn.p { background: var(--accent); color: var(--on-accent); font-weight: 600; }
-  .btn.p:hover { transform: translateY(-2px); box-shadow: 0 12px 36px -8px color-mix(in srgb, var(--accent) 70%, transparent); }
-  .btn.g { border: 1px solid var(--line); }
-  .btn.g:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-top: 30px; padding: 0; list-style: none; font-size: 0.9rem; color: var(--muted); }
-  .chips li { display: inline-flex; align-items: center; gap: 9px; }
-  .chips li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--c, var(--accent)); }
-
-  .stage { position: relative; height: clamp(300px, 40vw, 470px); margin-top: clamp(36px, 6vh, 64px); overflow: hidden;
-    -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
-  .row { position: absolute; left: 50%; top: 0; display: flex; align-items: flex-start; gap: clamp(14px, 2vw, 28px); transform: translateX(-50%); }
-  .ph { flex: none; }
-  .ph > div { transition: transform 0.4s cubic-bezier(.2,.7,.2,1); }
-  .ph:hover > div { transform: translateY(-14px); }
-  @media (max-width: 520px) { .kicker { font-size: 0.66rem; letter-spacing: 0.06em; padding: 8px 14px; text-align: left; } }
-  @media (max-width: 700px) { .row { zoom: 0.72; } .ph:nth-child(1), .ph:nth-child(5) { display: none; } }
-  @media (prefers-reduced-motion: reduce) { .kicker i, .caret { animation: none; } }
+  .board { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  @media (max-width: 760px) {
+    .board { position: relative; inset: auto; height: 400px; margin-top: 30px; }
+    .meta { grid-template-columns: 1fr; gap: 8px; margin-top: 40px; }
+    .hint { font-size: 1.3rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .kicker i { animation: none; } }
 `;
 
-const CHIP_COLORS = ["#61dafb", "#a78bfa", "#2eebaa"];
-// largura, deslocamento inicial (mt) e quanto sobe ao rolar
-const ROW = [
-  { w: 176, mt: 76, k: 30 },
-  { w: 212, mt: 36, k: 70 },
-  { w: 248, mt: 0, k: 120 },
-  { w: 212, mt: 36, k: 70 },
-  { w: 176, mt: 76, k: 30 },
-];
-const ORDER = [3, 5, 1, 2, 4];
-
-function Rise({ i, k, mt, children, p }: { i: number; k: number; mt: number; children: React.ReactNode; p: ReturnType<typeof useScroll>["scrollYProgress"] }) {
-  const y = useTransform(p, [0, 1], [0, -k]);
-  return (
-    <motion.div className="ph" style={{ y, marginTop: mt }}>
-      <motion.div initial={{ y: 220, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.9, delay: 0.55 + i * 0.1, ease: [0.2, 0.7, 0.2, 1] }}>
-        {children}
-      </motion.div>
-    </motion.div>
-  );
+function useClock() {
+  const [now, setNow] = useState("");
+  useEffect(() => {
+    const f = () => setNow(new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" }).format(new Date()));
+    f();
+    const id = setInterval(f, 20_000);
+    return () => clearInterval(id);
+  }, []);
+  return now;
 }
 
 export default function Hero() {
   const { t } = useLang();
   const h = t.hero;
-  const box = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: box, offset: ["start start", "end start"] });
-
-  const move = (e: React.PointerEvent) => {
-    const el = box.current;
-    if (!el || e.pointerType !== "mouse") return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    el.style.setProperty("--my", `${e.clientY - r.top}px`);
-  };
+  const board = useRef<HTMLDivElement>(null);
+  const clock = useClock();
+  const hover = () => play("hover", Math.floor(Math.random() * 5));
 
   return (
-    <Box ref={box} onPointerMove={move}>
-      <div className="glow" aria-hidden />
-      <div className="lit" aria-hidden />
-      <Wrap>
-        <div className="top">
-          <span className="kicker"><i /> {h.based} · {h.status}</span>
+    <Box>
+      <StringGrid />
+      <Wrap style={{ width: "100%", position: "relative" }}>
+        <div className="content">
+          <div className="kicker"><i /> {h.kicker} · {h.based}</div>
           <h1>
-            <span className="l1"><Letters text={h.h1a} delay={0.15} /></span>
-            <span className="l2"><Letters text={h.h1b} delay={0.45} /><span className="caret" aria-hidden /></span>
+            <span><Letters text="Edson" delay={0.1} /></span>
+            <span><Letters text="Junior" delay={0.35} /></span>
           </h1>
-          <p className="lead">{h.lead}</p>
-          <div className="cta">
-            <Link className="btn p" href="/home#trabalhos">{h.ctaWork} <span aria-hidden>↓</span></Link>
-            <Link className="btn g" href="/home#contato">{h.ctaTalk}</Link>
+          <p className="lead">
+            {h.lead}
+            <span className="w" style={{ display: "block" }}>
+              {h.worked} <Link className="u" href="/projects/pjbank">PJBank</Link>, <Link className="u" href="/projects/gruvi">Gruvi</Link> {h.and} <Link className="u" href="/projects/clube-da-joia-marketplace">Clube da Joia</Link>.
+            </span>
+          </p>
+          <nav className="menu" aria-label={h.index}>
+            <Link className="main" href="/projects" onPointerEnter={hover}>{t.nav.work}</Link>
+            <Link href="/trajetoria" onPointerEnter={hover}>{t.nav.journey}</Link>
+            <Link href="/blog" onPointerEnter={hover}>{t.nav.writing}</Link>
+            <Link href="/home#contato" onPointerEnter={hover}>{h.ctaTalk}</Link>
+          </nav>
+          <div className="meta">
+            <span><b>●</b> {h.status}</span>
+            <span>{h.now} · <b>{clock || "--:--"}</b></span>
+            <span>☕ {t.footer.coffee}</span>
           </div>
-          <ul className="chips">
-            {h.chips.map((name, i) => <li key={name} style={{ ["--c" as string]: CHIP_COLORS[i] }}>{name}</li>)}
-          </ul>
+          <p className="hint">{h.hint}</p>
         </div>
       </Wrap>
-      <div className="stage" aria-hidden>
-        <div className="row">
-          {ROW.map((r, i) => (
-            <Rise key={i} i={i} k={r.k} mt={r.mt} p={scrollYProgress}>
-              <Phone screens={[HERO_SCREENS[ORDER[i] - 1] ?? HERO_SCREENS[0]]} alt="" width={r.w} />
-            </Rise>
-          ))}
-        </div>
+
+      <div className="board" ref={board}>
+        <Sticker at={["60%", "8%"]} mobile={["4%", "4%"]} rot={-8} label={h.stickers.photo} constraints={board}><PhotoSticker src="/images/edson.webp" /></Sticker>
+        <Sticker at={["76%", "14%"]} mobile={["58%", "6%"]} rot={8} label={h.stickers.phone} constraints={board}><PhoneSticker src="/images/projects/clube-app-home.webp" /></Sticker>
+        <Sticker at={["52%", "46%"]} mobile={["2%", "40%"]} rot={-5} label={h.stickers.web} constraints={board}><BrowserSticker /></Sticker>
+        <Sticker at={["71%", "62%"]} mobile={["56%", "56%"]} rot={9} label={h.stickers.coffee} constraints={board}><CoffeeSticker /></Sticker>
+        <Sticker at={["88%", "4%"]} mobile={["38%", "2%"]} rot={14} holo label={h.stickers.star} constraints={board}><SparkSticker /></Sticker>
+        <Sticker at={["46%", "20%"]} mobile={["30%", "30%"]} rot={-6} label={h.stickers.hello} constraints={board}><BubbleSticker text={h.hello} /></Sticker>
+        <Sticker at={["87%", "56%"]} mobile={["40%", "72%"]} rot={-12} label={h.stickers.pix} constraints={board}><PixSticker /></Sticker>
       </div>
     </Box>
   );
 }
+
