@@ -1,31 +1,36 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import styled from "styled-components";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Phone from "@/components/ui/phone";
 import WebWire from "@/components/ui/web-wire";
+import { getProjectById } from "@/app/projects/helper";
+import { play } from "@/lib/sound";
 
 const P = "/images/projects/";
 const PHONES = [
-  { src: `${P}navex-home.webp`, w: 168, mt: 70, k: 26 },
-  { src: `${P}gruvi-home.webp`, w: 200, mt: 32, k: 60 },
-  { src: `${P}pjbank-home.webp`, w: 232, mt: 0, k: 100 },
-  { src: `${P}clube-app-home.webp`, w: 200, mt: 32, k: 60 },
-  { src: `${P}mont-b2b-home.webp`, w: 168, mt: 70, k: 26 },
+  { id: "minha-navex", src: `${P}navex-home.webp`, w: 168, mt: 70, k: 26 },
+  { id: "gruvi", src: `${P}gruvi-home.webp`, w: 200, mt: 32, k: 60 },
+  { id: "pjbank", src: `${P}pjbank-home.webp`, w: 232, mt: 0, k: 100 },
+  { id: "clube-da-joia-app", src: `${P}clube-app-home.webp`, w: 200, mt: 32, k: 60 },
+  { id: "mont-b2b", src: `${P}mont-b2b-home.webp`, w: 168, mt: 70, k: 26 },
 ];
-const LAPTOPS: { img?: string; color: string; url: string; k: number }[] = [
-  { color: "#4c8dff", url: "gazin.com.br", k: 24 },
-  { img: `${P}marketplace-web.webp`, color: "#b08d57", url: "clubedajoia.com", k: 56 },
-  { img: `${P}lojas-manao.webp`, color: "#f2c94c", url: "lojasdomanao.com.br", k: 24 },
+const LAPTOPS: { id: string; img?: string; color: string; url: string; k: number }[] = [
+  { id: "gazin-b2b-b2c", color: "#4c8dff", url: "gazin.com.br", k: 24 },
+  { id: "clube-da-joia-marketplace", img: `${P}marketplace-web.webp`, color: "#b08d57", url: "clubedajoia.com", k: 56 },
+  { id: "lojas-manao", img: `${P}lojas-manao.webp`, color: "#f2c94c", url: "lojasdomanao.com.br", k: 24 },
 ];
 
 const Box = styled.div`
   position: relative; overflow: hidden;
-  .phones { position: relative; height: clamp(300px, 36vw, 400px); -webkit-mask-image: linear-gradient(#000 72%, transparent); mask-image: linear-gradient(#000 72%, transparent); }
-  .row { position: absolute; left: 50%; top: 0; display: flex; align-items: flex-start; gap: clamp(12px, 2vw, 26px); transform: translateX(-50%); }
-  .ph > div, .lp > div { transition: transform 0.4s cubic-bezier(.2,.7,.2,1); }
-  .ph:hover > div, .lp:hover > div { transform: translateY(-12px); }
+  .phones { position: relative; height: calc(clamp(300px, 36vw, 400px) + 32px); -webkit-mask-image: linear-gradient(#000 72%, transparent); mask-image: linear-gradient(#000 72%, transparent); }
+  .row { position: absolute; left: 50%; top: 32px; display: flex; align-items: flex-start; gap: clamp(12px, 2vw, 26px); transform: translateX(-50%); }
+  .go { position: relative; display: block; cursor: pointer; }
+  .go:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 16px; }
+  .tip { position: absolute; left: 50%; top: -14px; transform: translate(-50%, 6px); padding: 5px 12px; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-size: 0.78rem; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.25s cubic-bezier(.2,.7,.2,1); z-index: 5; }
+  .go:hover .tip, .go:focus-visible .tip { opacity: 1; transform: translate(-50%, 0); }
   .laptops { display: flex; justify-content: center; gap: clamp(14px, 3vw, 36px); margin-top: 28px; }
   .lp { flex: 0 1 340px; min-width: 0; }
   .lap { position: relative; }
@@ -43,12 +48,26 @@ const Box = styled.div`
 // eslint-disable-next-line @next/next/no-img-element
 const LapImg = ({ src }: { src: string }) => <img src={src} alt="" />;
 
-function Rise({ i, k, mt, p, children, cls }: { i: number; k: number; mt: number; p: ReturnType<typeof useScroll>["scrollYProgress"]; children: React.ReactNode; cls: string }) {
+function Rise({ i, k, mt, p, children, cls, id }: { i: number; k: number; mt: number; p: ReturnType<typeof useScroll>["scrollYProgress"]; children: React.ReactNode; cls: string; id: string }) {
+  const name = getProjectById(id)?.title ?? id;
   const reduce = useReducedMotion();
   const y = useTransform(p, [0, 1], [reduce ? 0 : k, reduce ? 0 : -k]);
   return (
     <motion.div className={cls} style={{ y, marginTop: mt }}>
-      <motion.div initial={reduce ? false : { opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.8, delay: i * 0.08, ease: [0.2, 0.7, 0.2, 1] }}>{children}</motion.div>
+      <motion.div initial={reduce ? false : { opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.8, delay: i * 0.08, ease: [0.2, 0.7, 0.2, 1] }}>
+        <motion.div
+          className="hop"
+          whileHover={reduce ? undefined : { y: -22, scale: 1.035 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ type: "spring", stiffness: 520, damping: 11, mass: 0.7 }}
+          onHoverStart={() => play("pop")}
+        >
+          <Link href={`/projects/${id}`} aria-label={name} className="go">
+            {children}
+            <span className="tip" aria-hidden>{name} <b>↗</b></span>
+          </Link>
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 }
@@ -58,17 +77,17 @@ export default function DevicesStrip() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   return (
-    <Box ref={ref} aria-hidden>
+    <Box ref={ref}>
       <div className="phones">
         <div className="row">
           {PHONES.map((ph, i) => (
-            <Rise key={ph.src} i={i} k={ph.k} mt={ph.mt} p={scrollYProgress} cls="ph"><Phone screens={[ph.src]} alt="" width={ph.w} /></Rise>
+            <Rise key={ph.src} id={ph.id} i={i} k={ph.k} mt={ph.mt} p={scrollYProgress} cls="ph"><Phone screens={[ph.src]} alt="" width={ph.w} /></Rise>
           ))}
         </div>
       </div>
       <div className="laptops">
         {LAPTOPS.map((lp, i) => (
-          <Rise key={lp.url} i={i} k={lp.k / 2} mt={i === 1 ? 0 : 18} p={scrollYProgress} cls="lp">
+          <Rise key={lp.url} id={lp.id} i={i} k={lp.k / 2} mt={i === 1 ? 0 : 18} p={scrollYProgress} cls="lp">
             <div className="lap">
               <div className="lid"><div className="scr">{lp.img ? <LapImg src={lp.img} /> : <div className="w"><WebWire color={lp.color} url={lp.url} /></div>}</div></div>
               <div className="base" /><div className="glow" />
