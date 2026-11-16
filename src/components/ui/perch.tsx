@@ -20,8 +20,7 @@ export default function Perch() {
     if (!window.matchMedia("(hover: hover) and (min-width: 861px)").matches) return;
     const spot = (el: HTMLElement) => {
       const r = el.getBoundingClientRect();
-      const tall = r.height > 160;
-      return { px: Math.min(window.innerWidth - 56, r.left + (tall ? r.width * 0.78 : r.width - 70)), py: r.top - 26 };
+      return { px: r.left + r.width / 2 - 23, py: r.top - 22 };
     };
     const go = (el: HTMLElement, hop: boolean) => {
       target.current = el;
@@ -30,7 +29,8 @@ export default function Perch() {
       x.set(px); y.set(py - (hop ? 30 : 0));
       if (hop) { play("pop"); animate(y, py, { delay: 0.12, duration: 0.18 }); }
     };
-    const first = document.querySelector<HTMLElement>("[data-perch]");
+    const links = Array.from(document.querySelectorAll<HTMLElement>("[data-perch]"));
+    const first = links[links.length - 1];
     if (first) go(first, false);
     const over = (e: PointerEvent) => {
       const el = (e.target as HTMLElement | null)?.closest?.("[data-perch]") as HTMLElement | null;

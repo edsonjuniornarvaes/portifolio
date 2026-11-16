@@ -87,13 +87,13 @@ function noise(c: AudioContext, dur: number, vol: number, f1: number, f2: number
   src.start();
 }
 
-export type SoundName = "pluck" | "tick" | "pop" | "peel" | "click" | "on" | "hover";
+export type SoundName = "pluck" | "tick" | "pop" | "peel" | "click" | "on" | "hover" | "select";
 
 /** Toca um som. `n` escolhe a nota (corda) e `v` a força (0 a 1). */
 export function play(name: SoundName, n = 0, v = 0.6) {
   if (!on) return;
   const now = performance.now();
-  const gap = name === "pluck" ? 55 : name === "hover" ? 90 : 25;
+  const gap = name === "pluck" ? 70 : name === "hover" ? 90 : 25;
   if (now - (last[name] ?? 0) < gap) return;
   last[name] = now;
   const c = audio();
@@ -102,8 +102,9 @@ export function play(name: SoundName, n = 0, v = 0.6) {
   switch (name) {
     case "pluck": {
       const f = hz(SCALE[Math.abs(n) % SCALE.length] + 12 * Math.floor(Math.abs(n) / SCALE.length % 2));
-      tone(c, { f, type: "triangle", dur: 1.1, vol, attack: 0.004 });
-      tone(c, { f: f * 2.005, type: "sine", dur: 0.5, vol: vol * 0.35, attack: 0.004 });
+      tone(c, { f, type: "sine", dur: 1.4, vol: vol * 0.9, attack: 0.005 });
+      tone(c, { f: f * 2.002, type: "sine", dur: 0.7, vol: vol * 0.4, attack: 0.005 });
+      tone(c, { f: f * 3.01, type: "sine", dur: 0.3, vol: vol * 0.15, attack: 0.005 });
       break;
     }
     case "tick":
@@ -121,6 +122,10 @@ export function play(name: SoundName, n = 0, v = 0.6) {
     case "click":
       tone(c, { f: 180, f2: 90, type: "square", dur: 0.06, vol: 0.12 });
       noise(c, 0.04, 0.08, 2400, 1200);
+      break;
+    case "select":
+      tone(c, { f: 740, type: "square", dur: 0.06, vol: 0.07 });
+      tone(c, { f: 1110, type: "square", dur: 0.09, vol: 0.07, when: 0.055 });
       break;
     case "on":
       tone(c, { f: hz(0, 262), dur: 0.18, vol: 0.18 });

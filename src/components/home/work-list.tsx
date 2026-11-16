@@ -74,7 +74,6 @@ export default function WorkList() {
                 <li key={it.s.id}>
                   <Link
                     href={`/projects/${it.s.id}`}
-                    data-perch
                     style={{ ["--c" as string]: it.color }}
                     onPointerEnter={() => { setHot(it.s.id); play("hover", i); }}
                     onFocus={() => setHot(it.s.id)}
