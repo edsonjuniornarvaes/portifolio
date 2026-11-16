@@ -9,7 +9,7 @@ import DecodeLines from "@/components/ui/decode-lines";
 import MatrixRain from "@/components/ui/matrix-rain";
 import IDot from "@/components/ui/i-dot-machine";
 import { DigitalClock, Floater } from "@/components/ui/floaters";
-import PeelSticker, { AvatarSticker, EmojiSticker } from "@/components/ui/peel-sticker";
+import PeelSticker, { AvatarSticker, LaptopSticker, MateSticker, MugSticker } from "@/components/ui/peel-sticker";
 import { useLang } from "@/i18n/provider";
 
 const Box = styled.section`
@@ -75,10 +75,10 @@ export default function Hero() {
       </Wrap>
 
       <div className="board">
-        <PeelSticker h={106} rot={-8} style={{ left: "6%", top: "12%" }} label={h.stickers.laptop}><EmojiSticker emoji="💻" size={96} /></PeelSticker>
-        <PeelSticker h={140} rot={3} style={{ left: "36%", top: "40%" }} label={h.stickers.photo}><AvatarSticker size={140} /></PeelSticker>
-        <PeelSticker h={96} rot={9} style={{ right: "8%", top: "30%" }} label={h.stickers.coffee}><EmojiSticker emoji="☕" size={86} /></PeelSticker>
-        <PeelSticker h={96} rot={-6} style={{ left: "14%", top: "62%" }} label={h.stickers.mate}><EmojiSticker emoji="🧉" size={86} /></PeelSticker>
+        <PeelSticker h={136} rot={-7} style={{ left: "4%", top: "10%" }} label={h.stickers.laptop}><LaptopSticker /></PeelSticker>
+        <PeelSticker h={140} rot={3} style={{ left: "36%", top: "42%" }} label={h.stickers.photo}><AvatarSticker size={140} /></PeelSticker>
+        <PeelSticker h={124} rot={9} style={{ right: "6%", top: "30%" }} label={h.stickers.coffee}><MugSticker /></PeelSticker>
+        <PeelSticker h={128} rot={-6} style={{ left: "10%", top: "60%" }} label={h.stickers.mate}><MateSticker /></PeelSticker>
         <Floater style={{ right: "6%", top: "6%" }} delay={1} amp={5}><DigitalClock /></Floater>
       </div>
     </Box>
