@@ -1,70 +1,122 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { usePathname } from "next/navigation";
+import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { useLang } from "@/i18n/provider";
 import { contact } from "@/data/profile";
-import Wave from "@/components/ui/wave";
+import Mascot from "@/components/ui/mascot";
+import SoundToggle from "@/components/ui/sound-toggle";
+import ThemeToggle from "@/components/ui/theme-toggle";
 
 const Foot = styled.footer`
-  margin-top: 150px; padding-bottom: 36px;
-  .in { max-width: var(--wrap); margin: 0 auto; padding: 36px var(--gutter) 0; }
-  .grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px 56px; }
-  @media (max-width: 800px) { .grid { grid-template-columns: 1fr 1fr; } .talk { grid-column: 1 / -1; } }
+  position: relative; margin-top: 140px; color: var(--ink);
+  .land { position: relative; height: 150px; }
+  .land svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 1; pointer-events: none; }
+  .peek { position: absolute; left: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter) + 8px)); top: -72px; width: 150px; pointer-events: auto; z-index: 0; }
+  .body { position: relative; background: linear-gradient(180deg, var(--land-2) 0%, var(--land-3) 100%); padding-bottom: 28px; }
+  .in { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+  .grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px 56px; padding-top: 8px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr 1fr; } .talk { grid-column: 1 / -1; } }
   @media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
+  .brand { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; }
+  .talk p { margin-top: 10px; max-width: 26rem; color: color-mix(in srgb, var(--ink) 72%, transparent); line-height: 1.55; }
+  form { display: flex; margin-top: 22px; max-width: 26rem; border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); border-radius: 8px; background: color-mix(in srgb, var(--paper) 70%, transparent); overflow: hidden; }
+  form input { flex: 1; min-width: 0; padding: 14px 16px; border: 0; background: transparent; color: var(--ink); font: inherit; }
+  form input:focus { outline: none; }
+  form button { width: 54px; border: 0; cursor: pointer; background: var(--accent); color: var(--on-accent); font-size: 1.2rem; font-weight: 700; transition: filter 0.2s ease; }
+  form button:hover { filter: brightness(1.12); }
   h4 { font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
-  .talk strong { display: block; font-size: clamp(1.8rem, 3.6vw, 2.8rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; }
-  .talk p { margin-top: 12px; max-width: 24rem; color: var(--muted); line-height: 1.55; }
-  .mail { display: inline-block; margin-top: 18px; padding: 10px 18px; border: 1px solid var(--line); border-radius: 6px; font-family: var(--font-mono); font-size: 0.86rem; box-shadow: 3px 3px 0 var(--accent-2); transition: transform 0.2s ease, box-shadow 0.2s ease; }
-  .mail:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--accent-2); color: var(--accent); }
   ul { list-style: none; display: grid; gap: 10px; }
-  li a { color: var(--ink); transition: color 0.2s ease, padding 0.25s ease; }
+  li a { transition: color 0.2s ease, padding 0.25s ease; }
   li a:hover { color: var(--accent); padding-left: 6px; }
-  .base { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 0.86rem; color: var(--muted); }
-  .base button { background: none; border: 0; padding: 0; cursor: pointer; color: var(--muted); font-size: inherit; transition: color 0.2s ease; }
-  .base button:hover { color: var(--accent); }
-  .tip { margin-top: 14px; font-family: var(--font-hand); font-size: 1.25rem; color: var(--accent); }
+  .icons { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 44px; }
+  .icons a { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
+  .icons a:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+  .tip { margin-top: 22px; font-family: var(--font-hand); font-size: 1.3rem; color: var(--accent); }
+  .base { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.86rem; color: var(--muted); }
+  .meta { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; display: flex; flex-wrap: wrap; gap: 4px 22px; }
+  .base button.top { background: none; border: 0; padding: 0; cursor: pointer; color: var(--muted); font-size: inherit; transition: color 0.2s ease; }
+  .base button.top:hover { color: var(--accent); }
+  --land-1: #0b1d1a; --land-2: #0e2e2b; --land-3: #123f3b;
+  :root[data-theme="light"] & { --land-1: #cfe9de; --land-2: #bfe3d3; --land-3: #a9d9c6; }
 `;
 
 export default function SiteFooter() {
   const pathname = usePathname();
   const { t } = useLang();
+  const [vp, setVp] = useState("");
+  const [email, setEmail] = useState("");
+  useEffect(() => {
+    const f = () => setVp(`${window.innerWidth}×${window.innerHeight}`);
+    f();
+    window.addEventListener("resize", f);
+    return () => window.removeEventListener("resize", f);
+  }, []);
   if (pathname.startsWith("/adminaccess")) return null;
   const f = t.footer;
+  const rev = (process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA || "local").slice(0, 7);
+  const send = (e: React.FormEvent) => {
+    e.preventDefault();
+    const body = `${f.bodyPre} ${email}`;
+    window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(f.subject)}&body=${encodeURIComponent(body)}`;
+  };
   return (
     <Foot>
-      <Wave id="f" />
-      <div className="in">
-        <div className="grid">
-          <div className="talk">
-            <strong>{f.talk}</strong>
-            <p>{f.talkText}</p>
-            <a className="mail" href={`mailto:${contact.email}`}>{contact.email}</a>
+      <div className="land">
+        <div className="peek"><Mascot hello="👋" label="Bonequinho acenando" /></div>
+        <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+          <path d="M0 150V70C120 20 240 10 380 48S640 100 800 60 1100 -6 1240 34 1380 80 1440 56V150Z" fill="var(--land-1)" />
+          <path d="M0 150V104C160 70 300 70 440 96S760 132 960 96 1280 60 1440 100V150Z" fill="var(--land-2)" />
+        </svg>
+      </div>
+      <div className="body">
+        <div className="in">
+          <div className="grid">
+            <div className="talk">
+              <div className="brand">{f.talk}</div>
+              <p>{f.talkText}</p>
+              <p style={{ marginTop: 22 }}>{f.ask}</p>
+              <form onSubmit={send}>
+                <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder={f.emailPh} aria-label={f.emailPh} />
+                <button type="submit" aria-label={f.send}>→</button>
+              </form>
+            </div>
+            <nav aria-label={f.explore}>
+              <h4>{"// "}{f.explore}</h4>
+              <ul>
+                <li><Link href="/projects">{t.nav.work}</Link></li>
+                <li><Link href="/trajetoria">{t.nav.journey}</Link></li>
+                <li><Link href="/blog">{t.nav.writing}</Link></li>
+                <li><Link href="/lab">{f.lab}</Link></li>
+                <li><Link href="/home#contato">{t.nav.contact}</Link></li>
+              </ul>
+            </nav>
+            <div>
+              <h4>{"// "}{f.social}</h4>
+              <ul>
+                <li><a href={contact.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                <li><a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href={contact.github} target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href={contact.devto} target="_blank" rel="noopener noreferrer">dev.to</a></li>
+              </ul>
+            </div>
           </div>
-          <nav aria-label={f.explore}>
-            <h4>{"// "}{f.explore}</h4>
-            <ul>
-              <li><Link href="/projects">{t.nav.work}</Link></li>
-              <li><Link href="/trajetoria">{t.nav.journey}</Link></li>
-              <li><Link href="/blog">{t.nav.writing}</Link></li>
-              <li><Link href="/home#contato">{t.nav.contact}</Link></li>
-            </ul>
-          </nav>
-          <div>
-            <h4>{"// "}{f.social}</h4>
-            <ul>
-              <li><a href={contact.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></li>
-              <li><a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-              <li><a href={contact.github} target="_blank" rel="noopener noreferrer">GitHub</a></li>
-              <li><a href={contact.devto} target="_blank" rel="noopener noreferrer">dev.to</a></li>
-            </ul>
+          <div className="icons">
+            <SoundToggle />
+            <ThemeToggle />
+            <a href={contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
+            <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
+            <a href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub /></a>
           </div>
-        </div>
-        <p className="tip">{f.sound}</p>
-        <div className="base">
-          <span>© {new Date().getFullYear()} Edson Junior · {f.coffee} ☕ · {f.made}</span>
-          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>{f.top} ↑</button>
+          <p className="tip">{f.sound}</p>
+          <div className="base">
+            <span>© {new Date().getFullYear()} Edson Junior · {f.coffee} ☕ · {f.made}</span>
+            <span className="meta"><span>rev {rev}</span><span>viewport {vp || "—"}</span></span>
+            <button className="top" type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>{f.top} ↑</button>
+          </div>
         </div>
       </div>
     </Foot>
