@@ -8,7 +8,6 @@ import ThemeToggle from "@/components/ui/theme-toggle";
 import LangSwitch from "@/components/ui/lang-switch";
 import { MemojiAvatar } from "@/components/ui/avatar";
 import SoundToggle from "@/components/ui/sound-toggle";
-import MusicButton from "@/components/ui/music-player";
 import { useLang } from "@/i18n/provider";
 
 const LINKS = [
@@ -29,7 +28,6 @@ const Bar = styled.header`
   nav a { font-size: 0.95rem; color: var(--muted); padding: 8px 14px; border-radius: 99px; transition: color 0.2s ease, background 0.2s ease; }
   nav a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 7%, transparent); }
   nav a[aria-current="page"] { color: var(--ink); background: color-mix(in srgb, var(--accent) 16%, transparent); }
-  .music { order: 3; display: flex; margin-left: auto; margin-right: -6px; }
   .tools { order: 4; display: flex; align-items: center; gap: 10px; }
   .burger { order: 5; display: none; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 12px; background: none; cursor: pointer; color: var(--ink); place-items: center; }
   .burger span { position: relative; display: block; width: 16px; height: 2px; border-radius: 2px; background: currentColor; transition: background 0.2s ease; }
@@ -41,7 +39,7 @@ const Bar = styled.header`
   @media (max-width: 860px) {
     --header: 60px;
     .in { gap: 10px; }
-    .music { margin-left: auto; margin-right: 0; }
+    .burger { margin-left: auto; }
     .burger { display: grid; }
     .panel { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 6px; padding: 10px var(--gutter) 18px; background: color-mix(in srgb, var(--paper) 96%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); box-shadow: 0 30px 50px -30px rgba(0,0,0,0.7); }
     .panel[data-open="true"] { display: flex; animation: drop 0.22s ease; }
@@ -75,7 +73,6 @@ export default function SiteHeader() {
           <MemojiAvatar size={34} />
           <span>Edson Junior</span>
         </Link>
-        <span className="music"><MusicButton /></span>
         <button type="button" className="burger" aria-expanded={open} aria-controls="menu" aria-label={open ? t.nav.close : t.nav.menu} onClick={() => setOpen((v) => !v)}><span /></button>
         <div id="menu" className="panel" data-open={open}>
           <nav aria-label={t.nav.aria}>
