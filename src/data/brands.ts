@@ -18,5 +18,4 @@ export const ADMIN_BRAND: Record<string, AdminBrand> = {
   "gazin-b2b-b2c": { name: "Gazin", color: "#3f7cf0" },
   "venda-direta-gazin": { name: "Gazin", color: "#3f7cf0" },
   "lojas-manao": { name: "Lojas do Manão", color: "#ffd84d", icon: "/images/projects/lojas-manao.webp", pos: "22% 50%", scale: 1.7 },
-  "mont-b2b": { name: "Mont Capital", color: "#1d1d26", icon: "/images/brands/mont-icon.svg" },
 };
