@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useLang } from "@/i18n/provider";
 import { contact } from "@/data/profile";
 import Memoji from "@/components/ui/memoji";
+import SpotifyDock from "@/components/ui/spotify-dock";
 
 const Foot = styled.footer`
   position: relative; margin-top: 140px; color: var(--ink);
@@ -65,6 +66,7 @@ export default function SiteFooter() {
       </div>
       <div className="body">
         <div className="in">
+          <SpotifyDock />
           <div className="base">
           <span>© {new Date().getFullYear()} Edson Junior</span>
             <nav className="mini" aria-label={f.explore}>
