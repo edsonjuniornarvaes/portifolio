@@ -8,12 +8,21 @@ import Letters from "@/components/ui/letters";
 import DecodeLines from "@/components/ui/decode-lines";
 import MatrixRain from "@/components/ui/matrix-rain";
 import IDot from "@/components/ui/i-dot-machine";
-import { DigitalClock, Floater } from "@/components/ui/floaters";
-import PeelSticker, { AvatarSticker, LaptopSticker, MateSticker, MugSticker } from "@/components/ui/peel-sticker";
+import PeelSticker, { AvatarSticker, ClockSticker, LaptopSticker, MateSticker, MugSticker } from "@/components/ui/peel-sticker";
 import { useLang } from "@/i18n/provider";
+import { CAREER_SINCE, MOBILE_SINCE } from "@/data/profile";
+import { BRAND_ICON } from "@/data/brands";
+
+const WORKED = [
+  { id: "pjbank", name: "Conta Superlógica" },
+  { id: "gruvi", name: "Gruvi" },
+  { id: "minha-navex", name: "Minha Navex" },
+  { id: "mont-b2b", name: "Mont Capital" },
+  { id: "clube-da-joia-marketplace", name: "Clube da Joia" },
+];
 
 const Box = styled.section`
-  position: relative; display: flex; flex-direction: column; justify-content: center; min-height: calc(100svh - var(--header)); padding: 56px 0 64px;
+  position: relative; display: flex; flex-direction: column; justify-content: center; min-height: min(calc(100svh - var(--header)), 800px); padding: 48px 0 56px;
   .content { position: relative; z-index: 2; max-width: 680px; }
   .kicker { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
   .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
@@ -31,6 +40,12 @@ const Box = styled.section`
   .btn.g { border: 1px solid var(--line); }
   .btn.g:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
   .meta { display: flex; flex-wrap: wrap; gap: 8px 40px; margin-top: 44px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .worked { display: flex; align-items: center; gap: 14px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 34rem; }
+  .worked small { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .worked .icons { display: flex; gap: 8px; }
+  .worked a { display: block; width: 34px; height: 34px; border-radius: 9px; overflow: hidden; border: 1px solid var(--line); opacity: 0.85; transition: transform 0.25s cubic-bezier(.2,.7,.2,1), opacity 0.2s ease, border-color 0.2s ease; }
+  .worked a:hover { transform: translateY(-4px); opacity: 1; border-color: var(--accent); }
+  .worked img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .meta .live { display: inline-flex; align-items: center; gap: 10px; }
   .meta .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
   .meta b { color: var(--ink); font-weight: 500; }
@@ -38,7 +53,8 @@ const Box = styled.section`
   .board { position: absolute; top: 50%; height: min(600px, 84%); transform: translateY(-50%); right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
   .board::before { content: ""; position: absolute; left: 50%; bottom: 8%; width: 86%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 17%, transparent), transparent 66%); }
   @media (max-width: 760px) {
-    .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 420px; margin-top: 30px; }
+    .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 360px; margin-top: 24px; }
+    min-height: 0;
     .meta { grid-template-columns: 1fr; gap: 8px; margin-top: 40px; }
     }
   @media (prefers-reduced-motion: reduce) { .meta .live i { animation: none; } }
@@ -48,6 +64,8 @@ export default function Hero() {
   const { t } = useLang();
   const h = t.hero;
   const [again, setAgain] = useState(0);
+  const yr = new Date().getFullYear();
+  const lines = h.lines.map((l) => l.replace("{career}", String(yr - CAREER_SINCE)).replace("{mobile}", String(yr - MOBILE_SINCE)));
 
   return (
     <Box>
@@ -63,13 +81,24 @@ export default function Hero() {
               <Letters text="or" delay={0.6} />
             </span>
           </h1>
-          <DecodeLines lines={h.lines} delay={900} />
+          <DecodeLines lines={lines} delay={900} />
           <div className="cta">
             <Link className="btn p" href="/projects">{h.ctaWork} <span aria-hidden>→</span></Link>
             <Link className="btn g" href="/home#contato">{h.ctaTalk}</Link>
           </div>
           <div className="meta">
             <span className="live"><i /> {h.status}</span>
+          </div>
+          <div className="worked">
+            <small>{h.worked}</small>
+            <div className="icons">
+              {WORKED.map((w) => (
+                <Link key={w.id} href={`/projects/${w.id}`} title={w.name} aria-label={w.name}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={BRAND_ICON[w.id]} alt="" />
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </Wrap>
@@ -79,7 +108,7 @@ export default function Hero() {
         <PeelSticker h={140} rot={3} style={{ left: "36%", top: "42%" }} label={h.stickers.photo}><AvatarSticker size={140} /></PeelSticker>
         <PeelSticker h={124} rot={9} style={{ right: "6%", top: "30%" }} label={h.stickers.coffee}><MugSticker /></PeelSticker>
         <PeelSticker h={132} rot={-6} style={{ left: "10%", top: "60%" }} label={h.stickers.mate}><MateSticker /></PeelSticker>
-        <Floater style={{ right: "6%", top: "6%" }} delay={1} amp={5}><DigitalClock /></Floater>
+        <PeelSticker h={46} rot={3} style={{ right: "6%", top: "4%" }} label={h.stickers.clock}><ClockSticker /></PeelSticker>
       </div>
     </Box>
   );

@@ -3,6 +3,7 @@ import Wave from "@/components/ui/wave";
 import WorkList from "@/components/home/work-list";
 import DevicesStrip from "@/components/home/devices-strip";
 import Services from "@/components/home/services";
+import Radar from "@/components/home/radar";
 import Writing from "@/components/home/writing";
 import Contact from "@/components/home/contact";
 import InstagramGrid from "@/components/home/instagram";
@@ -38,6 +39,10 @@ export default async function Home() {
         <Section id="faco" style={{ marginTop: 40 }}>
           <SectionHead n="02" label={t.services.label} />
           <Services />
+        </Section>
+
+        <Section style={{ marginTop: 90 }}>
+          <Radar />
         </Section>
 
         <Section id="escrita">

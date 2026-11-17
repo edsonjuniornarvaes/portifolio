@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import styled from "styled-components";
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { play } from "@/lib/sound";
@@ -168,29 +168,59 @@ export function MugSticker() {
 }
 
 
-/** Guampa de tereré (copo de chifre) com bomba de metal; a faixa muda com a cor do site. */
+/** Guampa de tereré (copo de chifre) com bomba de metal; o contorno branco é gerado do formato, sem emendas. */
 export function MateSticker() {
   return (
-    <svg width="104" height="132" viewBox="0 0 130 166" aria-hidden style={{ display: "block", overflow: "visible" }}>
+    <svg width="112" height="136" viewBox="0 0 140 170" aria-hidden style={{ display: "block", overflow: "visible" }}>
       <defs>
-        <linearGradient id="mt-horn" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#d9b98c" /><stop offset=".5" stopColor="#b88a58" /><stop offset="1" stopColor="#7e5632" /></linearGradient>
-        <linearGradient id="mt-metal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#f4f6f8" /><stop offset="1" stopColor="#a4abb5" /></linearGradient>
-        <radialGradient id="mt-herb" cx="45%" cy="40%" r="70%"><stop offset="0" stopColor="#8cc152" /><stop offset="1" stopColor="#3f7024" /></radialGradient>
+        <filter id="mt-o" x="-25%" y="-25%" width="150%" height="150%">
+          <feMorphology in="SourceAlpha" operator="dilate" radius="5.5" result="d" />
+          <feFlood floodColor="#fff" />
+          <feComposite in2="d" operator="in" result="w" />
+          <feMerge><feMergeNode in="w" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <linearGradient id="mt-horn" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#e2c79c" /><stop offset=".45" stopColor="#c19660" /><stop offset="1" stopColor="#7a5230" /></linearGradient>
+        <linearGradient id="mt-metal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#f7f9fb" /><stop offset="1" stopColor="#a7aeb8" /></linearGradient>
+        <radialGradient id="mt-herb" cx="45%" cy="40%" r="70%"><stop offset="0" stopColor="#92c957" /><stop offset="1" stopColor="#3f7024" /></radialGradient>
+        <clipPath id="mt-body"><path d="M26 56C24 96 42 136 66 158c4 4 12 3 14-3 22-26 36-62 34-99Z" /></clipPath>
       </defs>
-      {/* contorno branco (silhueta única) */}
-      <path d="M92 8L68 72" stroke="#fff" strokeWidth="18" strokeLinecap="round" fill="none" />
-      <path d="M24 58h82l-10 78c-1 9-8 16-17 16H51c-9 0-16-7-17-16Z" fill="#fff" stroke="#fff" strokeWidth="12" strokeLinejoin="round" />
-      {/* copo */}
-      <path d="M24 58h82l-10 78c-1 9-8 16-17 16H51c-9 0-16-7-17-16Z" fill="url(#mt-horn)" />
-      <path d="M31 96h68l-2 14H33Z" fill="var(--accent)" opacity=".95" />
-      <path d="M24 58h82l-1.6 12H25.6Z" fill="url(#mt-metal)" />
-      <ellipse cx="65" cy="58" rx="41" ry="9" fill="#e9dcc6" /><ellipse cx="65" cy="58" rx="36" ry="6.4" fill="url(#mt-herb)" />
-      <path d="M46 58c6-3 12-3 18 0 6-3 14-3 20 0-6 3-14 4-20 1-6 2-12 2-18-1Z" fill="#b6dc7c" opacity=".7" />
-      <path d="M38 76c-1 14 1 30 6 44" stroke="#fff" strokeOpacity=".45" strokeWidth="4" strokeLinecap="round" fill="none" />
-      {/* bomba */}
-      <path d="M92 8L68 70" stroke="url(#mt-metal)" strokeWidth="6" strokeLinecap="round" fill="none" />
-      <ellipse cx="94" cy="7" rx="8.5" ry="5" transform="rotate(-22 94 7)" fill="url(#mt-metal)" />
+      <g filter="url(#mt-o)">
+        <path d="M26 56C24 96 42 136 66 158c4 4 12 3 14-3 22-26 36-62 34-99Z" fill="url(#mt-horn)" />
+        <g clipPath="url(#mt-body)">
+          <path d="M20 100c30 8 70 8 100-6v14c-30 14-70 14-100 6Z" fill="var(--accent)" opacity=".95" />
+          <path d="M30 70c6 14 14 26 26 36M40 62c8 18 18 34 32 46" stroke="#fff" strokeOpacity=".28" strokeWidth="3" strokeLinecap="round" fill="none" />
+          <path d="M100 70c-2 20-10 44-24 62" stroke="#3b2412" strokeOpacity=".28" strokeWidth="6" strokeLinecap="round" fill="none" />
+        </g>
+        <path d="M22 54h96c1 5-1 9-4 11H26c-3-2-5-6-4-11Z" fill="url(#mt-metal)" />
+        <ellipse cx="70" cy="54" rx="48" ry="9" fill="#ece0ca" /><ellipse cx="70" cy="54" rx="43" ry="6.4" fill="url(#mt-herb)" />
+        <path d="M48 54c7-3 14-3 21 0 7-3 15-3 22 0-7 3-15 4-22 1-7 2-14 2-21-1Z" fill="#b9de80" opacity=".7" />
+        <path d="M78 58L102 12" stroke="url(#mt-metal)" strokeWidth="6.4" strokeLinecap="round" fill="none" />
+        <ellipse cx="104" cy="9" rx="9" ry="5.2" transform="rotate(-24 104 9)" fill="url(#mt-metal)" />
+      </g>
     </svg>
+  );
+}
+
+/** Relógio digital (horário de Brasília) como adesivo: dá para descolar e levar para outro canto. */
+export function ClockSticker() {
+  const [t, setT] = useState<[string, string] | null>(null);
+  const [sep, setSep] = useState(true);
+  useEffect(() => {
+    const f = () => {
+      const [h, m] = new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "America/Sao_Paulo" }).format(new Date()).split(":");
+      setT([h, m]);
+    };
+    f();
+    const id = setInterval(f, 10_000);
+    const bl = setInterval(() => setSep((v) => !v), 1000);
+    return () => { clearInterval(id); clearInterval(bl); };
+  }, []);
+  return (
+    <div style={{ padding: 5, borderRadius: 16, background: "#fff" }} aria-label={t ? `${t[0]}:${t[1]}` : undefined}>
+      <div style={{ display: "flex", alignItems: "center", gap: 3, padding: "8px 14px", borderRadius: 12, background: "#0c1013", color: "var(--accent)", fontFamily: "var(--font-mono)", fontSize: "1.15rem", fontWeight: 600, letterSpacing: "0.04em", fontVariantNumeric: "tabular-nums", boxShadow: "inset 0 0 14px color-mix(in srgb, var(--accent) 18%, transparent)" }}>
+        <span>{t ? t[0] : "--"}</span><span style={{ opacity: sep ? 1 : 0.25 }}>:</span><span>{t ? t[1] : "--"}</span>
+      </div>
+    </div>
   );
 }
 

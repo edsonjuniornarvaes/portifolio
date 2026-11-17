@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-const GLYPHS = "01アイウエオカキクケコサシスセソタチツテトナニヌネノ{}</>;=+*";
+const GLYPHS = "01{}[]<>/=+*;:#$%&_";
 
 /**
  * Chuva de código estilo Matrix, bem discreta, atrás do início. Usa a cor de destaque do site,

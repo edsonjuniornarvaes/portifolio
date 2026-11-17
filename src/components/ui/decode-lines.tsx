@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useReducedMotion } from "framer-motion";
 
-const CH = "01{}[]<>/\\=+*#$%&ｱｲｳｴｵｶｷｸｹｺ";
+const CH = "01{}[]<>/\\=+*#$%&;:_";
 
 const List = styled.ul`
   margin-top: 28px; padding: 0; list-style: none; display: grid; gap: 8px; font-family: var(--font-mono); font-size: clamp(0.92rem, 1.5vw, 1.08rem); line-height: 1.5;
