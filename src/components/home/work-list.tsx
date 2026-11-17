@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
-import WebWire from "@/components/ui/web-wire";
 import { play } from "@/lib/sound";
 import { useLang } from "@/i18n/provider";
 import { localizeProject } from "@/i18n/content";
@@ -39,16 +38,12 @@ const Group = styled.div`
 
 const Float = styled(motion.div)`
   position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; will-change: transform;
-  .card { position: absolute; left: 26px; top: -64px; width: 196px; padding: 10px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--card) 94%, transparent); backdrop-filter: blur(10px); box-shadow: 0 24px 40px -18px rgba(0,0,0,0.6); }
-  .top { display: flex; align-items: center; gap: 9px; margin-bottom: 9px; }
-  .brand { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 9px; overflow: hidden; background: var(--c); color: var(--on-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; }
+  .card { position: absolute; left: 26px; top: -30px; display: flex; align-items: center; gap: 12px; padding: 10px 16px 10px 10px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--card) 94%, transparent); backdrop-filter: blur(10px); box-shadow: 0 20px 36px -18px rgba(0,0,0,0.65); white-space: nowrap; }
+  .brand { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 11px; overflow: hidden; background: var(--c); color: var(--on-accent); font-size: 0.86rem; font-weight: 700; }
   .brand[data-img="true"] { background: none; }
   .brand img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .top b { display: block; font-size: 0.86rem; font-weight: 600; line-height: 1.2; }
-  .top small { display: block; font-size: 0.7rem; color: var(--muted); }
-  .shot { position: relative; height: 112px; border-radius: 8px; overflow: hidden; background: color-mix(in srgb, var(--c) 14%, var(--paper-2)); }
-  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-  .shot .wire { position: absolute; left: 8%; right: 8%; top: 14px; }
+  .card b { display: block; font-size: 0.95rem; font-weight: 600; line-height: 1.2; }
+  .card small { display: block; font-size: 0.74rem; color: var(--muted); }
   @media (hover: none) { display: none; }
 `;
 
@@ -73,7 +68,6 @@ export default function WorkList() {
         s,
         p: own ? { ...p, title: "Clube da Joia" } : p,
         kind: own ? t.work.clubeKind : isWebId(s.id) || !s.screen ? t.work.web : t.work.app,
-        shot: own ? "/images/projects/clube-app-home.webp" : s.screen,
         brand: BRAND_ICON[s.id],
         letter: base.iconLetter || base.title.slice(0, 2).toUpperCase(),
         color: projectColor(s.id),
@@ -126,17 +120,11 @@ export default function WorkList() {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.16, ease: [0.2, 0.7, 0.2, 1] }}
             >
-              <div className="top">
-                <span className="brand" data-img={!!cur.brand}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {cur.brand ? <img src={cur.brand} alt="" /> : cur.letter}
-                </span>
-                <div><b>{cur.p.title}</b><small>{cur.kind}</small></div>
-              </div>
-              <div className="shot">
+              <span className="brand" data-img={!!cur.brand}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                {cur.shot ? <img src={cur.shot} alt="" /> : <div className="wire"><WebWire color={cur.color} url={cur.p.title} /></div>}
-              </div>
+                {cur.brand ? <img src={cur.brand} alt="" /> : cur.letter}
+              </span>
+              <div><b>{cur.p.title}</b><small>{cur.kind} · {cur.s.year}</small></div>
             </motion.div>
           )}
         </AnimatePresence>

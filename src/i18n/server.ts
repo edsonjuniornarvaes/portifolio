@@ -1,12 +1,12 @@
-import { cookies, headers } from "next/headers";
-import { DEFAULT_LANG, LANG_COOKIE, fromAcceptLanguage, normalizeLang, type Lang } from "./config";
+import { cookies } from "next/headers";
+import { DEFAULT_LANG, LANG_COOKIE, normalizeLang, type Lang } from "./config";
 
-/** Idioma da requisição: cookie escolhido pelo visitante, senão Accept-Language do navegador. */
+/** Idioma da requisição: o que o visitante escolheu (cookie); sem escolha, português. */
 export async function getLang(): Promise<Lang> {
   try {
     const c = normalizeLang((await cookies()).get(LANG_COOKIE)?.value);
     if (c) return c;
-    return fromAcceptLanguage((await headers()).get("accept-language"));
+    return DEFAULT_LANG;
   } catch {
     return DEFAULT_LANG;
   }

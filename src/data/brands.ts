@@ -11,12 +11,12 @@ export const BRAND_ICON: Record<string, string> = {
 
 /**
  * Painéis administrativos que usavam o mesmo modelo (white label) com a marca de cada cliente:
- * mostramos a mesma tela com o logo trocado.
+ * mostramos a mesma tela com o ícone e o nome do cliente no canto.
  */
-export type AdminBrand = { name: string; color: string; logo?: string; wide?: string; glyph?: "mont" | "gazin" };
+export type AdminBrand = { name: string; color: string; icon?: string; pos?: string; scale?: number };
 export const ADMIN_BRAND: Record<string, AdminBrand> = {
-  "gazin-b2b-b2c": { name: "Gazin", color: "#5aa0ff", glyph: "gazin" },
-  "venda-direta-gazin": { name: "Gazin", color: "#5aa0ff", glyph: "gazin" },
-  "lojas-manao": { name: "Lojas do Manão", color: "#ffd84d", logo: "/images/projects/lojas-manao.webp" },
-  "mont-b2b": { name: "Mont Capital", color: "#47c2d6", wide: "/images/brands/mont-logo.svg" },
+  "gazin-b2b-b2c": { name: "Gazin", color: "#3f7cf0" },
+  "venda-direta-gazin": { name: "Gazin", color: "#3f7cf0" },
+  "lojas-manao": { name: "Lojas do Manão", color: "#ffd84d", icon: "/images/projects/lojas-manao.webp", pos: "22% 50%", scale: 1.7 },
+  "mont-b2b": { name: "Mont Capital", color: "#1d1d26", icon: "/images/brands/mont-icon.svg" },
 };

@@ -5,7 +5,6 @@ import Link from "next/link";
 import styled from "styled-components";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Phone from "@/components/ui/phone";
-import WebWire from "@/components/ui/web-wire";
 import { getProjectById } from "@/app/projects/helper";
 import AdminShot from "@/components/ui/admin-shot";
 import { ADMIN_BRAND } from "@/data/brands";
@@ -19,11 +18,10 @@ const PHONES = [
   { id: "clube-da-joia-app", src: `${P}clube-app-home.webp`, w: 200, mt: 32, k: 60 },
   { id: "mont-b2b", src: `${P}mont-home-alt.webp`, w: 168, mt: 70, k: 26 },
 ];
-const LAPTOPS: { id: string; admin?: boolean; img?: string; color: string; url: string; k: number }[] = [
-  { id: "gazin-b2b-b2c", admin: true, color: "#4c8dff", url: "gazin.com.br", k: 24 },
-  { id: "clube-da-joia-marketplace", img: `${P}clube-site-hero.webp`, color: "#b08d57", url: "clubedajoia.com", k: 56 },
-  { id: "mont-b2b", admin: true, color: "#47c2d6", url: "montcapital.com.br", k: 40 },
-  { id: "lojas-manao", admin: true, color: "#f2c94c", url: "lojasdomanao.com.br", k: 24 },
+const LAPTOPS: { id: string; admin?: boolean; img?: string; k: number }[] = [
+  { id: "clube-da-joia-marketplace", img: `${P}clube-site-aneis.webp`, k: 24 },
+  { id: "clube-da-joia-marketplace", img: `${P}clube-site-hero.webp`, k: 56 },
+  { id: "mont-b2b", admin: true, k: 24 },
 ];
 
 const Box = styled.div`
@@ -45,7 +43,15 @@ const Box = styled.div`
   .base { height: 12px; margin: 0 -4%; border-radius: 0 0 14px 14px; background: linear-gradient(#e0e3e8, #a3a9b2); position: relative; }
   .base::after { content: ""; position: absolute; left: 50%; top: 0; width: 18%; height: 4px; transform: translateX(-50%); border-radius: 0 0 6px 6px; background: #868c95; }
   .glow { position: absolute; left: 10%; right: 10%; bottom: -10px; height: 24px; background: radial-gradient(closest-side, rgba(0,0,0,0.5), transparent); filter: blur(6px); }
-  @media (max-width: 700px) { .row { zoom: 0.7; } .ph:nth-child(1), .ph:nth-child(5) { display: none; } .laptops { flex-direction: column; align-items: center; } .lp { flex-basis: auto; width: min(100%, 340px); } .lp:nth-child(n + 3) { display: none; } }
+  @media (max-width: 700px) {
+    .phones { height: auto; padding-top: 28px; margin: 0 calc(var(--gutter) * -1); -webkit-mask-image: none; mask-image: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .phones::-webkit-scrollbar { display: none; }
+    .row { position: static; transform: none; display: flex; gap: 18px; padding: 0 calc(50vw - 100px); width: max-content; }
+    .ph { scroll-snap-align: center; margin-top: 0 !important; transform: none !important; zoom: 0.82; }
+    .tip { display: none; }
+    .laptops { flex-direction: column; align-items: center; gap: 28px; margin-top: 8px; }
+    .lp { flex-basis: auto; width: min(100%, 360px); margin-top: 0 !important; transform: none !important; }
+  }
 `;
 
 // eslint-disable-next-line @next/next/no-img-element
@@ -90,9 +96,9 @@ export default function DevicesStrip() {
       </div>
       <div className="laptops">
         {LAPTOPS.map((lp, i) => (
-          <Rise key={lp.url} id={lp.id} i={i} k={lp.k / 2} mt={i === 1 || i === 2 ? 0 : 18} p={scrollYProgress} cls="lp">
+          <Rise key={`${lp.id}-${i}`} id={lp.id} i={i} k={lp.k / 2} mt={i === 1 ? 0 : 18} p={scrollYProgress} cls="lp">
             <div className="lap">
-              <div className="lid"><div className="scr">{lp.admin && ADMIN_BRAND[lp.id] ? <AdminShot brand={ADMIN_BRAND[lp.id]} /> : lp.img ? <LapImg src={lp.img} /> : <div className="w"><WebWire color={lp.color} url={lp.url} /></div>}</div></div>
+              <div className="lid"><div className="scr">{lp.admin && ADMIN_BRAND[lp.id] ? <AdminShot brand={ADMIN_BRAND[lp.id]} /> : <LapImg src={lp.img ?? ""} />}</div></div>
               <div className="base" /><div className="glow" />
             </div>
           </Rise>
