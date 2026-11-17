@@ -18,6 +18,7 @@ const WORKED = [
   { id: "gruvi", name: "Gruvi" },
   { id: "minha-navex", name: "Minha Navex" },
   { id: "mont-b2b", name: "Mont Capital" },
+  { id: "consorcio-gazin", name: "Consórcio Gazin" },
   { id: "clube-da-joia-marketplace", name: "Clube da Joia" },
 ];
 

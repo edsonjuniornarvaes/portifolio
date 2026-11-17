@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
@@ -12,15 +12,17 @@ import { play } from "@/lib/sound";
 
 const P = "/images/projects/";
 const PHONES = [
-  { id: "minha-navex", src: `${P}navex-home-new.webp`, w: 168, mt: 70, k: 26 },
-  { id: "gruvi", src: `${P}gruvi-home.webp`, w: 200, mt: 32, k: 60 },
-  { id: "pjbank", src: `${P}pjbank-home.webp`, w: 232, mt: 0, k: 100 },
-  { id: "clube-da-joia-app", src: `${P}clube-app-home.webp`, w: 200, mt: 32, k: 60 },
-  { id: "mont-b2b", src: `${P}mont-home-alt.webp`, w: 168, mt: 70, k: 26 },
+  { id: "minha-navex", src: `${P}navex-home-new.webp`, w: 160, mt: 78, k: 24 },
+  { id: "gruvi", src: `${P}gruvi-home.webp`, w: 192, mt: 40, k: 50 },
+  { id: "pjbank", src: `${P}pjbank-home.webp`, w: 228, mt: 0, k: 100 },
+  { id: "clube-da-joia-app", src: `${P}clube-app-home.webp`, w: 206, mt: 26, k: 70 },
+  { id: "consorcio-gazin", src: `${P}consorcio-gazin-simulador.webp`, w: 186, mt: 48, k: 44 },
+  { id: "mont-b2b", src: `${P}mont-home-alt.webp`, w: 160, mt: 78, k: 24 },
 ];
 const LAPTOPS: { id: string; admin?: boolean; img?: string; k: number }[] = [
   { id: "clube-da-joia-marketplace", img: `${P}clube-admin.webp`, k: 24 },
   { id: "clube-da-joia-marketplace", img: `${P}clube-site-hero.webp`, k: 56 },
+  { id: "venda-direta-gazin", img: `${P}venda-direta-site.webp`, k: 40 },
   { id: "minha-navex", img: `${P}painel-admin.webp`, k: 24 },
 ];
 
@@ -46,7 +48,7 @@ const Box = styled.div`
   @media (max-width: 700px) {
     .phones { height: auto; padding-top: 28px; margin: 0 calc(var(--gutter) * -1); -webkit-mask-image: none; mask-image: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
     .phones::-webkit-scrollbar { display: none; }
-    .row { position: static; transform: none; display: flex; gap: 18px; padding: 0 calc(50vw - 100px); width: max-content; }
+    .row { position: static; transform: none; display: flex; gap: 16px; padding: 0 calc(50vw - 95px); width: max-content; }
     .ph { scroll-snap-align: center; margin-top: 0 !important; transform: none !important; zoom: 0.82; }
     .tip { display: none; }
     .laptops { flex-direction: column; align-items: center; gap: 28px; margin-top: 8px; }
@@ -84,10 +86,17 @@ function Rise({ i, k, mt, p, children, cls, id }: { i: number; k: number; mt: nu
 /** Fileira de celulares (apps) e notebooks (sites), que sobem devagar enquanto você rola. */
 export default function DevicesStrip() {
   const ref = useRef<HTMLDivElement>(null);
+  const scroller = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const sc = scroller.current;
+    if (!sc || window.innerWidth > 700) return;
+    const mid = sc.querySelectorAll<HTMLElement>(".ph")[2];
+    if (mid) sc.scrollLeft = mid.offsetLeft + mid.offsetWidth / 2 - sc.clientWidth / 2;
+  }, []);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   return (
     <Box ref={ref}>
-      <div className="phones">
+      <div className="phones" ref={scroller}>
         <div className="row">
           {PHONES.map((ph, i) => (
             <Rise key={ph.src} id={ph.id} i={i} k={ph.k} mt={ph.mt} p={scrollYProgress} cls="ph"><Phone screens={[ph.src]} alt="" width={ph.w} /></Rise>
@@ -96,7 +105,7 @@ export default function DevicesStrip() {
       </div>
       <div className="laptops">
         {LAPTOPS.map((lp, i) => (
-          <Rise key={`${lp.id}-${i}`} id={lp.id} i={i} k={lp.k / 2} mt={i === 1 ? 0 : 18} p={scrollYProgress} cls="lp">
+          <Rise key={`${lp.id}-${i}`} id={lp.id} i={i} k={lp.k / 2} mt={i === 1 || i === 2 ? 0 : 18} p={scrollYProgress} cls="lp">
             <div className="lap">
               <div className="lid"><div className="scr">{lp.admin && ADMIN_BRAND[lp.id] ? <AdminShot brand={ADMIN_BRAND[lp.id]} /> : <LapImg src={lp.img ?? ""} />}</div></div>
               <div className="base" /><div className="glow" />

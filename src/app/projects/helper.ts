@@ -276,6 +276,8 @@ export const webProjects: Project[] = [
   },
   {
     id: "venda-direta-gazin",
+    coverImage: "/images/projects/venda-direta-site.webp",
+    screens: ["/images/projects/venda-direta-site.webp"],
     title: "Venda Direta Gazin",
     tagline: "Marketplace de Lojistas",
     description:
