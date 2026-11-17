@@ -144,58 +144,72 @@ export function LaptopSticker() {
 
 export function MugSticker() {
   return (
-    <svg width="112" height="124" viewBox="0 0 140 154" aria-hidden style={{ display: "block", overflow: "visible" }}>
+    <svg width="112" height="128" viewBox="0 0 140 160" aria-hidden style={{ display: "block", overflow: "visible" }}>
       <defs>
-        <linearGradient id="mg-body" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#ffffff" /><stop offset=".55" stopColor="#f1ece4" /><stop offset="1" stopColor="#d4ccc0" /></linearGradient>
-        <radialGradient id="mg-coffee" cx="40%" cy="40%" r="70%"><stop offset="0" stopColor="#a8693a" /><stop offset="1" stopColor="#4b2812" /></radialGradient>
-        <style>{`.mg-s{stroke-dasharray:14 44;animation:mgs 3.4s ease-in-out infinite}.mg-s.b{animation-delay:-1.2s}.mg-s.c{animation-delay:-2.2s}@keyframes mgs{0%{stroke-dashoffset:44;opacity:0}30%{opacity:.9}100%{stroke-dashoffset:-8;opacity:0}}@media (prefers-reduced-motion:reduce){.mg-s{animation:none;opacity:.6}}`}</style>
+        <filter id="mg-o" x="-25%" y="-25%" width="150%" height="150%">
+          <feMorphology in="SourceAlpha" operator="dilate" radius="4.2" result="d" />
+          <feGaussianBlur in="d" stdDeviation="2" result="b" />
+          <feComponentTransfer in="b" result="r"><feFuncA type="linear" slope="9" intercept="-3.6" /></feComponentTransfer>
+          <feFlood floodColor="#fff" />
+          <feComposite in2="r" operator="in" result="w" />
+          <feMerge><feMergeNode in="w" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <linearGradient id="mg-cer" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#d9d2c6" /><stop offset=".22" stopColor="#ffffff" /><stop offset=".6" stopColor="#efe9df" /><stop offset="1" stopColor="#bdb4a6" /></linearGradient>
+        <radialGradient id="mg-cof" cx="42%" cy="40%" r="70%"><stop offset="0" stopColor="#b07a46" /><stop offset=".6" stopColor="#5d3414" /><stop offset="1" stopColor="#2d170a" /></radialGradient>
+        <clipPath id="mg-bd"><path d="M20 62h78v52c0 22-17 38-39 38S20 136 20 114Z" /></clipPath>
+        <style>{`.mg-s{stroke-dasharray:14 44;animation:mgs 3.4s ease-in-out infinite}.mg-s.b{animation-delay:-1.2s}.mg-s.c{animation-delay:-2.2s}@keyframes mgs{0%{stroke-dashoffset:44;opacity:0}30%{opacity:.95}100%{stroke-dashoffset:-8;opacity:0}}@media (prefers-reduced-motion:reduce){.mg-s{animation:none;opacity:.6}}`}</style>
       </defs>
-      <path d="M24 56h72v44c0 22-16 36-36 36s-36-14-36-36V56Z" {...W} />
-      <path d="M96 66h10c13 0 20 7 20 17s-7 17-20 17H92" fill="none" stroke="#fff" strokeWidth="24" strokeLinecap="round" />
-      <path d="M96 68h10c10 0 16 5 16 15s-6 15-16 15H93" fill="none" stroke="#e4ddd1" strokeWidth="8" strokeLinecap="round" />
-      <path d="M24 56h72v44c0 22-16 36-36 36s-36-14-36-36V56Z" fill="url(#mg-body)" />
-      <path d="M24 84h72v16c0 22-16 36-36 36s-36-14-36-36V84Z" fill="var(--accent)" opacity=".92" />
-      <path d="M24 84h72" stroke="#fff" strokeOpacity=".35" strokeWidth="2" />
-      <text x="60" y="119" textAnchor="middle" fontFamily="var(--font-jetbrains), monospace" fontSize="20" fontWeight="700" fill="#04130d">{"</>"}</text>
-      <ellipse cx="60" cy="56" rx="36" ry="9" fill="#e9e3d9" /><ellipse cx="60" cy="56" rx="31" ry="6.4" fill="url(#mg-coffee)" />
-      <path d="M48 56c4-4 8-4 12 0 4-4 8-4 12 0-4 4-8 5-12 2-4 3-8 2-12-2Z" fill="#d9a56a" opacity=".85" />
-      <path d="M32 66v26" stroke="#fff" strokeOpacity=".7" strokeWidth="4" strokeLinecap="round" />
-      <g fill="none" stroke="#f3f6f9" strokeWidth="3.4" strokeLinecap="round">
-        <path className="mg-s" d="M46 44c-6-7 6-10 0-20" /><path className="mg-s b" d="M60 44c-6-7 6-10 0-20" /><path className="mg-s c" d="M74 44c-6-7 6-10 0-20" />
+      <g filter="url(#mg-o)">
+        <path d="M98 74h8c14 0 22 8 22 20s-8 20-22 20h-10" fill="none" stroke="#e6dfd2" strokeWidth="12" strokeLinecap="round" />
+        <path d="M98 72h8c14 0 22 8 22 20" fill="none" stroke="#fff" strokeOpacity=".55" strokeWidth="3" strokeLinecap="round" />
+        <path d="M20 62h78v52c0 22-17 38-39 38S20 136 20 114Z" fill="url(#mg-cer)" />
+        <g clipPath="url(#mg-bd)">
+          <path d="M16 100h86v22H16Z" fill="#1a1d22" /><path d="M16 100h86v3H16Z" fill="#fff" opacity=".12" />
+          <text x="59" y="118" textAnchor="middle" fontFamily="var(--font-jetbrains), monospace" fontSize="17" fontWeight="700" fill="var(--accent)">{"</>"}</text>
+          <path d="M26 70v66" stroke="#fff" strokeOpacity=".75" strokeWidth="5" strokeLinecap="round" />
+        </g>
+        <ellipse cx="59" cy="62" rx="39" ry="9.5" fill="#f3eee5" /><ellipse cx="59" cy="62" rx="34.5" ry="7" fill="url(#mg-cof)" />
+        <path d="M44 61.5c5-3 10-3 15 0s10 3 15 0" stroke="#e8c79a" strokeOpacity=".6" strokeWidth="2.4" fill="none" strokeLinecap="round" />
+      </g>
+      <g fill="none" stroke="#dfe5ea" strokeWidth="3.4" strokeLinecap="round">
+        <path className="mg-s" d="M44 46c-6-6 6-9 0-18" /><path className="mg-s b" d="M59 46c-6-6 6-9 0-18" /><path className="mg-s c" d="M74 46c-6-6 6-9 0-18" />
       </g>
     </svg>
   );
 }
 
-
 /** Guampa de tereré (copo de chifre) com bomba de metal; o contorno branco é gerado do formato, sem emendas. */
 export function MateSticker() {
   return (
-    <svg width="112" height="136" viewBox="0 0 140 170" aria-hidden style={{ display: "block", overflow: "visible" }}>
+    <svg width="112" height="141" viewBox="0 0 140 176" aria-hidden style={{ display: "block", overflow: "visible" }}>
       <defs>
         <filter id="mt-o" x="-25%" y="-25%" width="150%" height="150%">
-          <feMorphology in="SourceAlpha" operator="dilate" radius="5.5" result="d" />
+          <feMorphology in="SourceAlpha" operator="dilate" radius="4.2" result="d" />
+          <feGaussianBlur in="d" stdDeviation="2" result="b" />
+          <feComponentTransfer in="b" result="r"><feFuncA type="linear" slope="9" intercept="-3.6" /></feComponentTransfer>
           <feFlood floodColor="#fff" />
-          <feComposite in2="d" operator="in" result="w" />
+          <feComposite in2="r" operator="in" result="w" />
           <feMerge><feMergeNode in="w" /><feMergeNode in="SourceGraphic" /></feMerge>
         </filter>
-        <linearGradient id="mt-horn" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#e2c79c" /><stop offset=".45" stopColor="#c19660" /><stop offset="1" stopColor="#7a5230" /></linearGradient>
-        <linearGradient id="mt-metal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#f7f9fb" /><stop offset="1" stopColor="#a7aeb8" /></linearGradient>
-        <radialGradient id="mt-herb" cx="45%" cy="40%" r="70%"><stop offset="0" stopColor="#92c957" /><stop offset="1" stopColor="#3f7024" /></radialGradient>
-        <clipPath id="mt-body"><path d="M26 56C24 96 42 136 66 158c4 4 12 3 14-3 22-26 36-62 34-99Z" /></clipPath>
+        <linearGradient id="mt-horn" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#5a3a1f" /><stop offset=".28" stopColor="#b98b55" /><stop offset=".5" stopColor="#e0bd8a" /><stop offset=".78" stopColor="#8a5c33" /><stop offset="1" stopColor="#3f2711" /></linearGradient>
+        <linearGradient id="mt-met" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#9aa2ac" /><stop offset=".4" stopColor="#fbfcfd" /><stop offset="1" stopColor="#8f97a1" /></linearGradient>
+        <radialGradient id="mt-herb" cx="45%" cy="40%" r="70%"><stop offset="0" stopColor="#a1d65c" /><stop offset="1" stopColor="#3b6c22" /></radialGradient>
+        <clipPath id="mt-hc"><path d="M24 62C20 100 36 140 62 164c4 3.6 11 3 13-2 26-24 42-64 41-100Z" /></clipPath>
       </defs>
       <g filter="url(#mt-o)">
-        <path d="M26 56C24 96 42 136 66 158c4 4 12 3 14-3 22-26 36-62 34-99Z" fill="url(#mt-horn)" />
-        <g clipPath="url(#mt-body)">
-          <path d="M20 100c30 8 70 8 100-6v14c-30 14-70 14-100 6Z" fill="var(--accent)" opacity=".95" />
-          <path d="M30 70c6 14 14 26 26 36M40 62c8 18 18 34 32 46" stroke="#fff" strokeOpacity=".28" strokeWidth="3" strokeLinecap="round" fill="none" />
-          <path d="M100 70c-2 20-10 44-24 62" stroke="#3b2412" strokeOpacity=".28" strokeWidth="6" strokeLinecap="round" fill="none" />
+        <path d="M24 62C20 100 36 140 62 164c4 3.6 11 3 13-2 26-24 42-64 41-100Z" fill="url(#mt-horn)" />
+        <g clipPath="url(#mt-hc)">
+          <path d="M18 112c32 9 74 8 104-8v16c-30 16-72 17-104 8Z" fill="var(--accent)" opacity=".95" />
+          <path d="M18 112c32 9 74 8 104-8" stroke="#fff" strokeOpacity=".5" strokeWidth="2" fill="none" />
+          <g stroke="#2a180a" strokeOpacity=".22" strokeWidth="2" fill="none"><path d="M30 76c3 22 12 44 26 62" /><path d="M96 70c0 22-8 46-22 66" /><path d="M44 70c4 22 12 40 24 58" /></g>
+          <path d="M32 74c2 14 7 28 14 40" stroke="#fff" strokeOpacity=".55" strokeWidth="4" strokeLinecap="round" fill="none" />
         </g>
-        <path d="M22 54h96c1 5-1 9-4 11H26c-3-2-5-6-4-11Z" fill="url(#mt-metal)" />
-        <ellipse cx="70" cy="54" rx="48" ry="9" fill="#ece0ca" /><ellipse cx="70" cy="54" rx="43" ry="6.4" fill="url(#mt-herb)" />
-        <path d="M48 54c7-3 14-3 21 0 7-3 15-3 22 0-7 3-15 4-22 1-7 2-14 2-21-1Z" fill="#b9de80" opacity=".7" />
-        <path d="M78 58L102 12" stroke="url(#mt-metal)" strokeWidth="6.4" strokeLinecap="round" fill="none" />
-        <ellipse cx="104" cy="9" rx="9" ry="5.2" transform="rotate(-24 104 9)" fill="url(#mt-metal)" />
+        <path d="M18 58c0-3 3-5 8-5h88c5 0 8 2 8 5 0 5-4 8-8 9H26c-4-1-8-4-8-9Z" fill="url(#mt-met)" />
+        <ellipse cx="70" cy="56" rx="48" ry="9" fill="#efe6d4" /><ellipse cx="70" cy="56" rx="43" ry="6.4" fill="url(#mt-herb)" />
+        <g fill="#eaf6ff" opacity=".85"><rect x="46" y="51" width="11" height="9" rx="2" transform="rotate(-12 51 55)" /><rect x="84" y="52" width="10" height="8" rx="2" transform="rotate(10 89 56)" /></g>
+        <path d="M76 62L104 14" stroke="url(#mt-met)" strokeWidth="6.6" strokeLinecap="round" fill="none" />
+        <path d="M104 14c2-5 8-7 13-4" stroke="url(#mt-met)" strokeWidth="6.6" strokeLinecap="round" fill="none" />
+        <ellipse cx="76" cy="62" rx="5.5" ry="3.4" fill="#8f97a1" transform="rotate(-30 76 62)" />
       </g>
     </svg>
   );

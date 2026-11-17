@@ -19,9 +19,9 @@ const PHONES = [
   { id: "mont-b2b", src: `${P}mont-home-alt.webp`, w: 168, mt: 70, k: 26 },
 ];
 const LAPTOPS: { id: string; admin?: boolean; img?: string; k: number }[] = [
-  { id: "clube-da-joia-marketplace", img: `${P}clube-site-aneis.webp`, k: 24 },
+  { id: "clube-da-joia-marketplace", img: `${P}clube-admin.webp`, k: 24 },
   { id: "clube-da-joia-marketplace", img: `${P}clube-site-hero.webp`, k: 56 },
-  { id: "mont-b2b", admin: true, k: 24 },
+  { id: "minha-navex", img: `${P}painel-admin.webp`, k: 24 },
 ];
 
 const Box = styled.div`

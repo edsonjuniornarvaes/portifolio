@@ -14,7 +14,8 @@ const Grid = styled.div`
   a.post img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
   a.post:hover, a.post:focus-visible { transform: translateY(-4px); border-color: var(--accent); }
   a.post:hover img { transform: scale(1.06); }
-  .cap { position: absolute; inset: auto 0 0 0; padding: 26px 10px 10px; font-size: 0.76rem; line-height: 1.35; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,0.78)); opacity: 0; transform: translateY(6px); transition: opacity 0.25s ease, transform 0.25s ease; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .cap { position: absolute; inset: auto 0 0 0; padding: 34px 10px 10px; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,0.82) 55%); opacity: 0; transform: translateY(6px); transition: opacity 0.25s ease, transform 0.25s ease; }
+  .cap span { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.74rem; line-height: 1.35; }
   a.post:hover .cap, a.post:focus-visible .cap { opacity: 1; transform: none; }
   .vid { position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; background: rgba(0,0,0,0.55); color: #fff; font-size: 0.6rem; }
 `;
@@ -41,7 +42,7 @@ export default function InstagramGrid({ posts }: { posts: InstagramPost[] }) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={p.imageUrl} alt="" loading="lazy" />
                 {p.isVideo && <span className="vid" aria-hidden>▶</span>}
-                {p.caption && <span className="cap">{p.caption}</span>}
+                {p.caption && <span className="cap"><span>{p.caption}</span></span>}
               </a>
             </motion.div>
           ))}

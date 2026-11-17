@@ -7,6 +7,7 @@ import ThemeToggle from "@/components/ui/theme-toggle";
 import LangSwitch from "@/components/ui/lang-switch";
 import { MemojiAvatar } from "@/components/ui/avatar";
 import SoundToggle from "@/components/ui/sound-toggle";
+import MusicButton from "@/components/ui/music-player";
 import { useLang } from "@/i18n/provider";
 
 const LINKS = [
@@ -56,6 +57,7 @@ export default function SiteHeader() {
           ))}
         </nav>
         <div className="tools">
+          <MusicButton />
           <SoundToggle />
           <LangSwitch />
           <ThemeToggle />

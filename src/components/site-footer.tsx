@@ -71,7 +71,6 @@ export default function SiteFooter() {
               <Link href="/projects">{t.nav.work}</Link>
               <Link href="/trajetoria">{t.nav.journey}</Link>
               <Link href="/blog">{t.nav.writing}</Link>
-              <Link href="/lab">{f.lab}</Link>
             </nav>
             <button className="top" type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>{f.top} ↑</button>
           </div>
