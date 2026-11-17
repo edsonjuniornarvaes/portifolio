@@ -7,6 +7,9 @@ export const BRAND_ICON: Record<string, string> = {
   "mont-b2c": "/images/brands/mont-icon.svg",
   "clube-da-joia-marketplace": "/images/brands/clube-da-joia.webp",
   "clube-da-joia-app": "/images/brands/clube-da-joia.webp",
+  "consorcio-gazin": "/images/brands/gazin.webp",
+  "gazin-b2b-b2c": "/images/brands/gazin.webp",
+  "venda-direta-gazin": "/images/brands/gazin.webp",
 };
 
 /**
