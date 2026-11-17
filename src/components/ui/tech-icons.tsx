@@ -27,8 +27,11 @@ const ICONS: Record<string, IconType> = {
 };
 
 const Row = styled.ul<{ $labels?: boolean }>`
+  && { display: flex; }
   display: flex; flex-wrap: wrap; gap: ${(p) => (p.$labels ? "8px" : "6px")}; margin: 0; padding: 0; list-style: none;
   li { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 32px; height: 32px; padding: ${(p) => (p.$labels ? "0 12px 0 10px" : "0 8px")}; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); font-size: 0.78rem; transition: color 0.2s ease, border-color 0.2s ease; }
+  && li { width: auto; justify-content: center; }
+  && li::before, && li::after { content: none; }
   li:hover { color: var(--accent); border-color: var(--accent); }
   li svg { width: 15px; height: 15px; flex: none; }
 `;

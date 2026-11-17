@@ -21,6 +21,7 @@ const PHONES = [
 const LAPTOPS: { id: string; admin?: boolean; img?: string; k: number }[] = [
   { id: "clube-da-joia-marketplace", img: `${P}clube-admin.webp`, k: 24 },
   { id: "clube-da-joia-marketplace", img: `${P}clube-site-hero.webp`, k: 56 },
+  { id: "venda-direta-gazin", img: `${P}venda-direta-site.webp`, k: 40 },
   { id: "minha-navex", img: `${P}painel-admin.webp`, k: 24 },
 ];
 
@@ -96,7 +97,7 @@ export default function DevicesStrip() {
       </div>
       <div className="laptops">
         {LAPTOPS.map((lp, i) => (
-          <Rise key={`${lp.id}-${i}`} id={lp.id} i={i} k={lp.k / 2} mt={i === 1 ? 0 : 18} p={scrollYProgress} cls="lp">
+          <Rise key={`${lp.id}-${i}`} id={lp.id} i={i} k={lp.k / 2} mt={i === 1 || i === 2 ? 0 : 18} p={scrollYProgress} cls="lp">
             <div className="lap">
               <div className="lid"><div className="scr">{lp.admin && ADMIN_BRAND[lp.id] ? <AdminShot brand={ADMIN_BRAND[lp.id]} /> : <LapImg src={lp.img ?? ""} />}</div></div>
               <div className="base" /><div className="glow" />

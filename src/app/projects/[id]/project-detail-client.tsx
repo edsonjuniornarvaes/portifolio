@@ -89,6 +89,11 @@ function ProjectDetailClient({ project: base }: { project: Project }) {
             <div style={{ maxWidth: 640 }}>
               {ADMIN_BRAND[project.id] ? (
                 <div style={{ aspectRatio: "16 / 10", borderRadius: 12, overflow: "hidden", border: "1px solid var(--line)" }}><AdminShot brand={ADMIN_BRAND[project.id]} /></div>
+              ) : project.screens?.[0] && !/cover|board/.test(project.screens[0]) ? (
+                <div style={{ aspectRatio: "16 / 10", borderRadius: 12, overflow: "hidden", border: "1px solid var(--line)", background: "#fff" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={project.screens[0]} alt={project.title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
+                </div>
               ) : (
                 <WebWire color={projectColor(project.id)} url={project.title} />
               )}

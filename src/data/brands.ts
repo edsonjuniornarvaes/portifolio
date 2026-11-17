@@ -16,6 +16,5 @@ export const BRAND_ICON: Record<string, string> = {
 export type AdminBrand = { name: string; color: string; icon?: string; pos?: string; scale?: number };
 export const ADMIN_BRAND: Record<string, AdminBrand> = {
   "gazin-b2b-b2c": { name: "Gazin", color: "#3f7cf0" },
-  "venda-direta-gazin": { name: "Gazin", color: "#3f7cf0" },
   "lojas-manao": { name: "Lojas do Manão", color: "#ffd84d", icon: "/images/projects/lojas-manao.webp", pos: "22% 50%", scale: 1.7 },
 };
