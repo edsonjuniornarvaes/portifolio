@@ -14,7 +14,7 @@ const Grid = styled.div`
   .card:hover::before { opacity: 1; }
   .bar { position: absolute; left: 0; right: 0; top: 0; height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 12px; background: linear-gradient(90deg, var(--accent), var(--accent-2) 55%, var(--lilac)); }
   .bar i { width: 10px; height: 10px; border: 2px solid var(--paper); display: block; }
-  .ic { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 16px; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+  .ic { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 16px; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent-ink); }
   .ic svg { width: 26px; height: 26px; }
   h3 { margin-top: 10px; font-size: 1.55rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; }
   p { color: var(--muted); line-height: 1.65; }

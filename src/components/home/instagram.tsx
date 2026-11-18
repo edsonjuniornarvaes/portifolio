@@ -24,7 +24,7 @@ const Foot = styled.div`
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-top: 22px;
   p { color: var(--muted); font-size: 0.95rem; }
   a.follow { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 18px; border: 1px solid var(--line); border-radius: 8px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
-  a.follow:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+  a.follow:hover { color: var(--accent-ink); border-color: var(--accent); transform: translateY(-2px); }
 `;
 
 /** Últimos posts do Instagram (vindos do Behold) e um convite para seguir. */

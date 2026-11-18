@@ -29,7 +29,7 @@ const Line = styled.div`
   .c { position: relative; padding: 0 0 42px; }
   .c::before { content: ""; position: absolute; left: -42px; top: 8px; width: 16px; height: 16px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); box-shadow: 0 0 0 6px var(--paper); transition: background 0.25s ease, transform 0.25s ease; }
   .c:hover::before { background: var(--accent); transform: scale(1.25); }
-  .y { font-size: 0.95rem; font-weight: 600; color: var(--accent); }
+  .y { font-size: 0.95rem; font-weight: 600; color: var(--accent-ink); }
   h3 { margin-top: 6px; font-size: clamp(1.45rem, 2.8vw, 2rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; }
   p { margin-top: 8px; max-width: 42rem; color: var(--muted); line-height: 1.65; }
 `;
@@ -39,8 +39,8 @@ const Rows = styled.ol`
   li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 6px 32px; padding: 22px 0; border-bottom: 1px solid var(--line); transition: padding 0.3s cubic-bezier(.2,.7,.2,1); }
   li:hover { padding-left: 12px; }
   @media (max-width: 700px) { li { grid-template-columns: 1fr; } li:hover { padding-left: 0; } }
-  .m { font-size: 0.95rem; color: var(--accent); padding-top: 3px; }
-  h4 { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em; }
+  .m { font-size: 0.95rem; color: var(--accent-ink); padding-top: 3px; }
+  h3 { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em; }
   .s { margin-top: 2px; color: var(--muted); }
 `;
 
@@ -55,7 +55,7 @@ const Tools = styled.dl`
 const Links = styled.div`
   display: flex; flex-wrap: wrap; gap: 10px;
   a { padding: 11px 22px; border: 1px solid var(--line); border-radius: 99px; font-size: 0.95rem; color: var(--muted); transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
-  a:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+  a:hover { color: var(--accent-ink); border-color: var(--accent); transform: translateY(-2px); }
 `;
 
 export default function JourneyView() {
@@ -115,7 +115,7 @@ export default function JourneyView() {
               <li key={`${job.company}-${job.period}`}>
                 <span className="m">{job.period}</span>
                 <div>
-                  <h4>{job.role}</h4>
+                  <h3>{job.role}</h3>
                   <p className="s">{job.company}</p>
                 </div>
               </li>
@@ -130,7 +130,7 @@ export default function JourneyView() {
               <li key={e.course}>
                 <span className="m">{e.period}</span>
                 <div>
-                  <h4>{e.course}</h4>
+                  <h3>{e.course}</h3>
                   <p className="s">{e.institution}</p>
                 </div>
               </li>

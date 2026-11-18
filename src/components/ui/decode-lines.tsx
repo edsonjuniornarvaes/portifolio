@@ -9,7 +9,7 @@ const CH = "01{}[]<>/\\=+*#$%&;:_";
 const List = styled.ul`
   margin-top: 28px; padding: 0; list-style: none; display: grid; gap: 8px; font-family: var(--font-mono); font-size: clamp(0.92rem, 1.5vw, 1.08rem); line-height: 1.5;
   li { display: flex; gap: 12px; color: var(--ink); }
-  li::before { content: ">"; color: var(--accent); flex: none; }
+  li::before { content: ">"; color: var(--accent-ink); flex: none; }
   li span { min-height: 1.5em; }
   li:last-child span::after { content: ""; display: inline-block; width: 0.55em; height: 1.05em; margin-left: 4px; vertical-align: -0.15em; background: var(--accent); animation: dl-blink 1.1s steps(1) infinite; }
   @keyframes dl-blink { 50% { opacity: 0; } }

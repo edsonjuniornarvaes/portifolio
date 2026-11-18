@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 const Word = styled.span`
   display: inline-block; white-space: nowrap; margin-right: 0.22em;
   .ch { display: inline-block; transition: transform 0.35s cubic-bezier(.2,.7,.2,1), color 0.2s ease; }
-  .ch:hover { transform: translateY(-0.12em) rotate(-3deg); color: var(--accent); }
+  .ch:hover { transform: translateY(-0.12em) rotate(-3deg); color: var(--accent-ink); }
 `;
 
 /** Título que entra letra por letra e reage ao mouse (cada letra pula quando você passa por cima). */
@@ -14,7 +14,7 @@ export default function Letters({ text, delay = 0, view = false }: { text: strin
   const reduce = useReducedMotion();
   let n = 0;
   return (
-    <span aria-label={text}>
+    <span role="text" aria-label={text}>
       {text.split(" ").map((w, wi) => (
         <Word key={wi} aria-hidden>
           {w.split("").map((c, ci) => {

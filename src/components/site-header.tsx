@@ -70,7 +70,7 @@ export default function SiteHeader() {
     <Bar>
       <div className="in">
         <Link href="/home" className="brand" aria-label={t.nav.homeAria}>
-          <PixelAvatar size={36} ring />
+          <PixelAvatar size={36} ring decorative />
           <span>Edson Junior</span>
         </Link>
         <button type="button" className="burger" aria-expanded={open} aria-controls="menu" aria-label={open ? t.nav.close : t.nav.menu} onClick={() => setOpen((v) => !v)}><span /></button>

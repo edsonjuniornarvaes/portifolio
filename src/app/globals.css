@@ -31,7 +31,7 @@
   --line: rgba(11, 21, 18, 0.13);
   --line-2: rgba(11, 21, 18, 0.06);
   --accent: #1fcf94;
-  --accent-ink: #0b8a5f;
+  --accent-ink: #087a53;
   --accent-2: #0e8aa6;
   --lilac: #8a5cf0;
   --on-accent: #04130d;
@@ -50,9 +50,9 @@
 :root[data-accent="coral"] { --accent: #ff7a59; --accent-ink: #ff7a59; --accent-2: #ffb86b; --lilac: #ff9ec4; --on-accent: #2a0b02; }
 :root[data-accent="amber"] { --accent: #ffc83d; --accent-ink: #ffc83d; --accent-2: #ff9f43; --lilac: #ffe08a; --on-accent: #2b1c00; }
 :root[data-theme="light"][data-accent="violet"] { --accent: #7c4dff; --accent-ink: #5b2fd6; --accent-2: #4f6bff; --lilac: #c04bd6; --on-accent: #fff; }
-:root[data-theme="light"][data-accent="blue"] { --accent: #1f7ae0; --accent-ink: #0f5bb5; --accent-2: #0891b2; --lilac: #5a67d8; --on-accent: #fff; }
-:root[data-theme="light"][data-accent="coral"] { --accent: #f0501f; --accent-ink: #c93a0e; --accent-2: #e8870a; --lilac: #d6336c; --on-accent: #fff; }
-:root[data-theme="light"][data-accent="amber"] { --accent: #e5a400; --accent-ink: #a87400; --accent-2: #e07b00; --lilac: #c99700; --on-accent: #231800; }
+:root[data-theme="light"][data-accent="blue"] { --accent: #1a6bc7; --accent-ink: #0f5bb5; --accent-2: #0891b2; --lilac: #5a67d8; --on-accent: #fff; }
+:root[data-theme="light"][data-accent="coral"] { --accent: #cf3a0a; --accent-ink: #b8340a; --accent-2: #e8870a; --lilac: #d6336c; --on-accent: #fff; }
+:root[data-theme="light"][data-accent="amber"] { --accent: #e5a400; --accent-ink: #855a00; --accent-2: #e07b00; --lilac: #c99700; --on-accent: #231800; }
 
 :root {
   --font-sans: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;

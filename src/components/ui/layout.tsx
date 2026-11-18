@@ -10,11 +10,11 @@ export const Wrap = styled.div`
 
 const Head = styled.header`
   display: flex; align-items: center; gap: 18px; margin-bottom: 34px;
-  .n { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); }
+  .n { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-ink); }
   h2 { font-size: 1rem; font-weight: 600; letter-spacing: 0.02em; }
   .line { flex: 1; height: 1px; background: var(--line); }
   a { font-size: 0.92rem; color: var(--muted); transition: color 0.2s ease; white-space: nowrap; }
-  a:hover { color: var(--accent); }
+  a:hover { color: var(--accent-ink); }
 `;
 
 /** Cabeçalho de seção: número, nome e uma linha fina; link opcional à direita. */

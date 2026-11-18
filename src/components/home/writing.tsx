@@ -14,9 +14,9 @@ const List = styled.ul`
   a:hover { padding-left: 14px; }
   time { font-size: 0.88rem; color: var(--muted); }
   h3 { font-size: clamp(1.3rem, 2.6vw, 1.9rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.18; transition: color 0.2s ease; }
-  a:hover h3 { color: var(--accent); }
+  a:hover h3 { color: var(--accent-ink); }
   .go { font-family: var(--font-mono); color: var(--muted); transition: transform 0.3s ease, color 0.2s ease; }
-  a:hover .go { transform: translateX(6px); color: var(--accent); }
+  a:hover .go { transform: translateX(6px); color: var(--accent-ink); }
   p { grid-column: 2 / 3; max-width: 46rem; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
   @media (max-width: 700px) { a { grid-template-columns: 1fr auto; } time { grid-column: 1 / -1; } p { grid-column: 1 / -1; } a:hover { padding-left: 0; } }
 `;

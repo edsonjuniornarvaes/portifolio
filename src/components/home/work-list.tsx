@@ -32,7 +32,7 @@ const List = styled.ol`
 const Group = styled.div`
   & + & { margin-top: 56px; }
   .gh { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin-bottom: 14px; }
-  .gh b { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .gh b { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); }
   .gh span { font-size: 0.95rem; color: var(--muted); }
 `;
 

@@ -27,7 +27,7 @@ const Bar = styled.div`
   .on .eq i { animation: eq 0.9s ease-in-out infinite; } .eq i:nth-child(2) { animation-delay: -0.3s; } .eq i:nth-child(3) { animation-delay: -0.6s; }
   @keyframes eq { 0%, 100% { height: 4px; } 50% { height: 14px; } }
   .open { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 10px; background: none; color: var(--muted); cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease; }
-  .open:hover, .open[aria-expanded="true"] { color: var(--accent); border-color: var(--accent); }
+  .open:hover, .open[aria-expanded="true"] { color: var(--accent-ink); border-color: var(--accent); }
   .open svg { width: 16px; height: 16px; }
   @media (prefers-reduced-motion: reduce) { .eq i { animation: none !important; } }
 `;
