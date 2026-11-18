@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaEnvelope, FaGithub, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 import { useLang } from "@/i18n/provider";
@@ -19,14 +19,49 @@ const Row = styled.div`
   @media (max-width: 640px) { .links { margin-left: 0; } }
 `;
 
+const Form = styled.form`
+  display: grid; gap: 10px; margin-top: 18px; max-width: 560px;
+  input, textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: transparent; color: var(--ink); font: inherit; font-size: 0.95rem; }
+  textarea { min-height: 120px; resize: vertical; }
+  input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .act { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  button.send { height: 42px; padding: 0 22px; border: 0; border-radius: 10px; background: var(--accent); color: var(--on-accent); font-weight: 600; cursor: pointer; }
+  button.send:disabled { opacity: 0.6; cursor: default; }
+  .msg { font-size: 0.9rem; color: var(--muted); }
+  .msg.ok { color: var(--accent); }
+`;
+const Open = styled.p`
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 0.9rem; color: var(--muted);
+  i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent); }
+`;
+
+type Overrides = { links?: Partial<Record<"email" | "linkedin" | "github" | "instagram" | "twitter", string>>; status?: { available?: boolean; message?: string } };
+
 /** Contato discreto: e-mail (clique copia) e os links das redes numa linha só. */
 export default function Contact() {
   const { t } = useLang();
   const c = t.contact;
   const [done, setDone] = useState(false);
+  const [ov, setOv] = useState<Overrides>({});
+  const [form, setForm] = useState(false);
+  const [f, setF] = useState({ name: "", email: "", message: "", website: "" });
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  useEffect(() => {
+    fetch("/api/site-settings").then((r) => (r.ok ? r.json() : {})).then(setOv).catch(() => {});
+  }, []);
+  const L = { ...contact, ...Object.fromEntries(Object.entries(ov.links || {}).filter(([, v]) => v)) } as typeof contact;
+  const send = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setState("sending");
+    try {
+      const r = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(f) });
+      if (r.ok) { setState("sent"); setF({ name: "", email: "", message: "", website: "" }); } else setState("error");
+    } catch { setState("error"); }
+  };
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(contact.email);
+      await navigator.clipboard.writeText(L.email);
       setDone(true);
       setTimeout(() => setDone(false), 1600);
     } catch {
@@ -35,16 +70,33 @@ export default function Contact() {
   };
   const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
   return (
+    <>
+    {ov.status?.available !== false && ov.status?.message !== undefined && (ov.status.message || ov.status.available) ? <Open><i aria-hidden />{ov.status.message || c.open}</Open> : null}
     <Row>
       <button type="button" className="mail" onClick={copy} aria-label={c.copy}>
-        <FaEnvelope aria-hidden /> {contact.email} <small>{done ? c.copied : c.copy}</small>
+        <FaEnvelope aria-hidden /> {L.email} <small>{done ? c.copied : c.copy}</small>
       </button>
       <nav className="links" aria-label={c.label}>
-        <a href={contact.linkedin} {...ext}><FaLinkedinIn aria-hidden /> LinkedIn</a>
-        <a href={contact.github} {...ext}><FaGithub aria-hidden /> GitHub</a>
-        <a href={contact.instagram} {...ext}><FaInstagram aria-hidden /> Instagram</a>
-        <a href={contact.twitter} {...ext}><FaXTwitter aria-hidden /> X</a>
+        <a href={L.linkedin} {...ext}><FaLinkedinIn aria-hidden /> LinkedIn</a>
+        <a href={L.github} {...ext}><FaGithub aria-hidden /> GitHub</a>
+        <a href={L.instagram} {...ext}><FaInstagram aria-hidden /> Instagram</a>
+        <a href={L.twitter} {...ext}><FaXTwitter aria-hidden /> X</a>
       </nav>
+      <button type="button" className="mail" onClick={() => setForm((v) => !v)} aria-expanded={form}>{form ? c.close : c.write}</button>
     </Row>
+    {form && (
+      <Form onSubmit={send}>
+        <input className="hp" tabIndex={-1} autoComplete="off" aria-hidden value={f.website} onChange={(e) => setF({ ...f, website: e.target.value })} name="website" />
+        <input required minLength={2} maxLength={120} placeholder={c.name} aria-label={c.name} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} autoComplete="name" />
+        <input required type="email" maxLength={200} placeholder={c.email} aria-label={c.email} value={f.email} onChange={(e) => setF({ ...f, email: e.target.value })} autoComplete="email" />
+        <textarea required minLength={10} maxLength={4000} placeholder={c.message} aria-label={c.message} value={f.message} onChange={(e) => setF({ ...f, message: e.target.value })} />
+        <div className="act">
+          <button className="send" type="submit" disabled={state === "sending"}>{state === "sending" ? c.sending : c.send}</button>
+          {state === "sent" && <span className="msg ok" role="status">{c.sent}</span>}
+          {state === "error" && <span className="msg" role="alert">{c.error}</span>}
+        </div>
+      </Form>
+    )}
+    </>
   );
 }
