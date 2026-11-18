@@ -8,7 +8,7 @@ import Letters from "@/components/ui/letters";
 import DecodeLines from "@/components/ui/decode-lines";
 import MatrixRain from "@/components/ui/matrix-rain";
 import IDot from "@/components/ui/i-dot-machine";
-import PeelSticker, { SceneSticker, LaptopSticker, MugSticker, PhoneSticker } from "@/components/ui/peel-sticker";
+import PeelSticker, { ClockSticker, SceneSticker, LaptopSticker, MugSticker, PhoneSticker } from "@/components/ui/peel-sticker";
 import { useLang } from "@/i18n/provider";
 import { CAREER_SINCE, MOBILE_SINCE } from "@/data/profile";
 import { BRAND_ICON } from "@/data/brands";
@@ -54,7 +54,7 @@ const Box = styled.section`
   .board { position: absolute; top: 50%; height: min(600px, 84%); transform: translateY(-50%); right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
   .board::before { content: ""; position: absolute; left: 50%; bottom: 8%; width: 86%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 17%, transparent), transparent 66%); }
   @media (max-width: 760px) {
-    .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 360px; margin-top: 24px; }
+    .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 330px; margin-top: 18px; }
     min-height: 0;
     .meta { grid-template-columns: 1fr; gap: 8px; margin-top: 40px; }
     }
@@ -105,10 +105,11 @@ export default function Hero() {
       </Wrap>
 
       <div className="board">
-        <PeelSticker h={136} rot={-2} style={{ left: "2%", top: "8%" }} label={h.stickers.laptop}><LaptopSticker /></PeelSticker>
-        <PeelSticker h={216} rot={0} style={{ right: "5%", top: "6%" }} label={h.stickers.photo}><SceneSticker width={196} /></PeelSticker>
-        <PeelSticker h={226} rot={3} style={{ left: "5%", top: "46%" }} label={h.stickers.phone}><PhoneSticker /></PeelSticker>
-        <PeelSticker h={132} rot={-3} style={{ left: "56%", top: "62%" }} label={h.stickers.coffee}><MugSticker /></PeelSticker>
+        <PeelSticker h={98} rot={-1} style={{ left: "4%", top: "14%" }} label={h.stickers.laptop}><LaptopSticker scale={0.72} /></PeelSticker>
+        <PeelSticker h={178} rot={0} style={{ left: "37%", top: "8%" }} label={h.stickers.photo}><SceneSticker width={168} /></PeelSticker>
+        <PeelSticker h={44} rot={1} style={{ right: "4%", top: "16%" }} label={h.stickers.clock}><ClockSticker /></PeelSticker>
+        <PeelSticker h={136} rot={2} style={{ left: "12%", top: "56%" }} label={h.stickers.phone}><PhoneSticker scale={0.6} /></PeelSticker>
+        <PeelSticker h={95} rot={-2} style={{ left: "52%", top: "62%" }} label={h.stickers.coffee}><MugSticker scale={0.72} /></PeelSticker>
       </div>
     </Box>
   );
