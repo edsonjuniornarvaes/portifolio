@@ -25,8 +25,11 @@ const TOOLS: { name: string; Icon: IconType }[] = [
 
 const Box = styled.div`
   margin-top: 56px; overflow: hidden; padding: 6px 0;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-  .track { display: flex; width: max-content; gap: 14px; animation: tm 45s linear infinite; }
+  position: relative;
+  &::before, &::after { content: ""; position: absolute; top: 0; bottom: 0; width: 12%; z-index: 2; pointer-events: none; }
+  &::before { left: 0; background: linear-gradient(90deg, var(--paper), transparent); }
+  &::after { right: 0; background: linear-gradient(270deg, var(--paper), transparent); }
+  .track { display: flex; width: max-content; gap: 14px; animation: tm 45s linear infinite; will-change: transform; }
   &:hover .track { animation-play-state: paused; }
   .t { display: inline-flex; align-items: center; gap: 10px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); font-size: 0.88rem; white-space: nowrap; transition: color 0.2s ease, border-color 0.2s ease; }
   .t svg { width: 18px; height: 18px; flex: none; }

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import styled from "styled-components";
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { play } from "@/lib/sound";
-import DeskScene from "@/components/ui/desk-scene";
+import { PixelAvatar } from "@/components/ui/avatar";
 
 const Box = styled(motion.div)`
   position: absolute; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; pointer-events: auto;
@@ -12,7 +12,7 @@ const Box = styled(motion.div)`
   .stack { position: relative; }
   .layer { position: absolute; inset: 0; }
   .base { position: relative; }
-  .shadow { filter: drop-shadow(0 2px 1px rgba(0,0,0,0.25)) drop-shadow(0 14px 16px rgba(0,0,0,0.35)); }
+  .shadow { filter: drop-shadow(0 10px 12px rgba(0,0,0,0.38)); }
   .lifted { filter: drop-shadow(0 4px 3px rgba(0,0,0,0.25)) drop-shadow(0 26px 28px rgba(0,0,0,0.45)); }
   /* verso do adesivo: o desenho vira papel branco */
   .flap { filter: brightness(0) invert(0.96) drop-shadow(0 6px 8px rgba(0,0,0,0.4)); }
@@ -214,7 +214,6 @@ export function MugSticker({ scale = 1 }: { scale?: number }) {
         <linearGradient id="mg-cer" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#d9d2c6" /><stop offset=".22" stopColor="#ffffff" /><stop offset=".6" stopColor="#efe9df" /><stop offset="1" stopColor="#bdb4a6" /></linearGradient>
         <radialGradient id="mg-cof" cx="42%" cy="40%" r="70%"><stop offset="0" stopColor="#b07a46" /><stop offset=".6" stopColor="#5d3414" /><stop offset="1" stopColor="#2d170a" /></radialGradient>
         <clipPath id="mg-bd"><path d="M20 62h78v52c0 22-17 38-39 38S20 136 20 114Z" /></clipPath>
-        <style>{`.mg-s{stroke-dasharray:14 44;animation:mgs 3.4s ease-in-out infinite}.mg-s.b{animation-delay:-1.2s}.mg-s.c{animation-delay:-2.2s}@keyframes mgs{0%{stroke-dashoffset:44;opacity:0}30%{opacity:.95}100%{stroke-dashoffset:-8;opacity:0}}@media (prefers-reduced-motion:reduce){.mg-s{animation:none;opacity:.6}}`}</style>
       </defs>
       {/* contorno de adesivo: as mesmas formas em branco, todas com o mesmo recuo (5,5) para a borda ficar uniforme */}
       <g fill="#fff" stroke="#fff" strokeLinejoin="round" strokeLinecap="round">
@@ -233,7 +232,7 @@ export function MugSticker({ scale = 1 }: { scale?: number }) {
       <ellipse cx="59" cy="62" rx="39" ry="9.5" fill="#f3eee5" /><ellipse cx="59" cy="62" rx="34.5" ry="7" fill="url(#mg-cof)" />
       <path d="M44 61.5c5-3 10-3 15 0s10 3 15 0" stroke="#e8c79a" strokeOpacity=".6" strokeWidth="2.4" fill="none" strokeLinecap="round" />
       <g fill="none" stroke="#dfe5ea" strokeWidth="3.4" strokeLinecap="round">
-        <path className="mg-s" d="M44 46c-6-6 6-9 0-18" /><path className="mg-s b" d="M59 46c-6-6 6-9 0-18" /><path className="mg-s c" d="M74 46c-6-6 6-9 0-18" />
+        <path d="M44 46c-6-6 6-9 0-18" /><path d="M59 46c-6-6 6-9 0-18" /><path d="M74 46c-6-6 6-9 0-18" />
       </g>
     </svg>
   );
@@ -262,13 +261,11 @@ export function ClockSticker() {
   );
 }
 
-/** Adesivo com a ilustração do Edson programando (cartão com cantos arredondados e borda branca de adesivo). */
-export function SceneSticker({ width = 196 }: { width?: number }) {
+/** Adesivo com o seu avatar em pixel art (círculo com borda branca de adesivo). */
+export function AvatarSticker({ size = 136 }: { size?: number }) {
   return (
-    <div style={{ width, padding: 5, borderRadius: 26, background: "#fff" }}>
-      <div style={{ width: "100%", aspectRatio: "360 / 380", borderRadius: 22, overflow: "hidden" }}>
-        <DeskScene title="Edson Junior programando" />
-      </div>
+    <div style={{ width: size, height: size, borderRadius: "50%", background: "#fff", padding: Math.round(size * 0.04) }}>
+      <PixelAvatar size={size - Math.round(size * 0.08)} />
     </div>
   );
 }
