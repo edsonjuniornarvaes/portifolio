@@ -25,6 +25,21 @@ const Box = styled(motion.div)`
  * Puxe mais um pouco e ele solta de vez: leve para outro canto e solte, e ele gruda ali.
  * Se soltar antes de descolar por inteiro, ele gruda de volta no mesmo lugar. `h` é a altura do desenho, em px.
  */
+/** Hora de Brasília (GMT-3), atualizada sozinha: o relógio, o notebook e o iPhone mostram sempre o mesmo horário. */
+function useBrasilia() {
+  const [t, setT] = useState<[string, string] | null>(null);
+  useEffect(() => {
+    const f = () => {
+      const [h, m] = new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "America/Sao_Paulo" }).format(new Date()).split(":");
+      setT([h, m]);
+    };
+    f();
+    const id = setInterval(f, 10_000);
+    return () => clearInterval(id);
+  }, []);
+  return t;
+}
+
 export default function PeelSticker({ children, h, style, rot = 0, label }: { children: ReactNode; h: number; style: React.CSSProperties; rot?: number; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const peel = useMotionValue(0); // fração da altura já descolada
@@ -108,9 +123,10 @@ export default function PeelSticker({ children, h, style, rot = 0, label }: { ch
 
 const W = { fill: "#fff", stroke: "#fff", strokeWidth: 10, strokeLinejoin: "round" as const };
 
-export function LaptopSticker() {
+export function LaptopSticker({ scale = 1 }: { scale?: number }) {
+  const t = useBrasilia();
   return (
-    <svg width="212" height="136" viewBox="0 0 260 168" aria-hidden style={{ display: "block", overflow: "visible" }}>
+    <svg width={212 * scale} height={136 * scale} viewBox="0 0 260 168" aria-hidden style={{ display: "block", overflow: "visible" }}>
       <defs>
         <filter id="lt-o" x="-25%" y="-25%" width="150%" height="150%">
           <feMorphology in="SourceAlpha" operator="dilate" radius="4.2" result="d" />
@@ -133,6 +149,7 @@ export function LaptopSticker() {
           <rect x="34" y="14" width="192" height="112" fill="url(#lt-wall)" />
           <circle cx="196" cy="40" r="46" fill="var(--accent)" opacity=".22" />
           <rect x="34" y="14" width="192" height="8" fill="#0a0b0d" opacity=".55" />
+          <text x="220" y="19.6" textAnchor="end" fontFamily="var(--font-body), sans-serif" fontSize="6.6" fontWeight="600" fill="#e8eef2">{t ? `${t[0]}:${t[1]}` : "--:--"}</text>
           <circle cx="44" cy="18" r="1.8" fill="#ff5f57" /><circle cx="50" cy="18" r="1.8" fill="#febc2e" /><circle cx="56" cy="18" r="1.8" fill="#28c840" />
           <rect x="48" y="30" width="112" height="72" rx="6" fill="#0a0b0d" opacity=".9" />
           <rect x="48" y="30" width="112" height="9" rx="4" fill="#1a1d22" />
@@ -156,17 +173,12 @@ export function LaptopSticker() {
 }
 
 /** iPhone "caricato": corpo grosso de metal, tela com papel de parede e ícones de app (sem print de verdade). */
-export function PhoneSticker() {
-  const [time, setTime] = useState("--:--");
-  useEffect(() => {
-    const f = () => setTime(new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "America/Sao_Paulo" }).format(new Date()));
-    f();
-    const id = setInterval(f, 10_000);
-    return () => clearInterval(id);
-  }, []);
+export function PhoneSticker({ scale = 1 }: { scale?: number }) {
+  const tm = useBrasilia();
+  const time = tm ? `${tm[0]}:${tm[1]}` : "--:--";
   const icons = ["#ff6a3d", "#2eebaa", "#5b7cff", "#ffcb6b", "#c792ea", "#ff5f8a", "#35c8e8", "#8bd450"];
   return (
-    <svg width="110" height="226" viewBox="0 0 120 246" aria-hidden style={{ display: "block", overflow: "visible" }}>
+    <svg width={110 * scale} height={226 * scale} viewBox="0 0 120 246" aria-hidden style={{ display: "block", overflow: "visible" }}>
       <defs>
         <linearGradient id="ph-fr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#eceef2" /><stop offset=".5" stopColor="#9aa0aa" /><stop offset="1" stopColor="#d4d8de" /></linearGradient>
         <linearGradient id="ph-wall" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#12423c" /><stop offset=".55" stopColor="#1b6a5c" /><stop offset="1" stopColor="#3a2a78" /></linearGradient>
@@ -195,9 +207,9 @@ export function PhoneSticker() {
   );
 }
 
-export function MugSticker() {
+export function MugSticker({ scale = 1 }: { scale?: number }) {
   return (
-    <svg width="116" height="132" viewBox="0 0 144 164" aria-hidden style={{ display: "block", overflow: "visible" }}>
+    <svg width={116 * scale} height={132 * scale} viewBox="0 0 144 164" aria-hidden style={{ display: "block", overflow: "visible" }}>
       <defs>
         <linearGradient id="mg-cer" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#d9d2c6" /><stop offset=".22" stopColor="#ffffff" /><stop offset=".6" stopColor="#efe9df" /><stop offset="1" stopColor="#bdb4a6" /></linearGradient>
         <radialGradient id="mg-cof" cx="42%" cy="40%" r="70%"><stop offset="0" stopColor="#b07a46" /><stop offset=".6" stopColor="#5d3414" /><stop offset="1" stopColor="#2d170a" /></radialGradient>
