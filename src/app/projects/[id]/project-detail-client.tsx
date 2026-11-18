@@ -10,6 +10,7 @@ import { cases } from "@/data/profile";
 import WebWire from "@/components/ui/web-wire";
 import TechIcons from "@/components/ui/tech-icons";
 import AdminShot from "@/components/ui/admin-shot";
+import Phone from "@/components/ui/phone";
 import { ADMIN_BRAND } from "@/data/brands";
 import { isWebId, projectColor } from "@/data/work";
 import { type Project } from "../helper";
@@ -41,9 +42,26 @@ const Block = styled.section`
 `;
 
 const Shots = styled.div`
-  display: flex; gap: 20px; overflow-x: auto; padding: 6px 2px 18px; scrollbar-width: thin;
-  img { display: block; height: 460px; width: auto; max-width: none; border-radius: 22px; border: 1px solid var(--line); box-shadow: 0 30px 60px -34px rgba(0,0,0,0.5); }
-  @media (max-width: 700px) { img { height: 380px; } }
+  --pw: 250px;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; padding: 10px 0 18px;
+  > div { flex: none; }
+  @media (max-width: 700px) {
+    --pw: 215px;
+    flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin: 0 calc(var(--gutter) * -1); padding: 10px var(--gutter) 18px; gap: 18px;
+    &::-webkit-scrollbar { display: none; }
+    > div { scroll-snap-align: center; }
+  }
+`;
+
+const Laptop = styled.div`
+  width: min(100%, 860px); margin: 0 auto;
+  .lid { padding: 2.2% 2.2% 0; border-radius: 14px 14px 4px 4px; background: linear-gradient(#3a3f48, #23262c); box-shadow: 0 0 0 1px rgba(255,255,255,0.1) inset; }
+  .scr { position: relative; aspect-ratio: 16 / 10; border-radius: 4px 4px 0 0; overflow: hidden; background: #101214; }
+  .scr img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .scr > div { height: 100%; }
+  .base { height: 14px; margin: 0 -3.5%; border-radius: 0 0 16px 16px; background: linear-gradient(#e0e3e8, #a3a9b2); position: relative; }
+  .base::after { content: ""; position: absolute; left: 50%; top: 0; width: 16%; height: 5px; transform: translateX(-50%); border-radius: 0 0 6px 6px; background: #868c95; }
 `;
 
 function ProjectDetailClient({ project: base }: { project: Project }) {
@@ -86,18 +104,21 @@ function ProjectDetailClient({ project: base }: { project: Project }) {
 
         {web && (
           <Block as="div" style={{ display: "block" }}>
-            <div style={{ maxWidth: 640 }}>
-              {ADMIN_BRAND[project.id] ? (
-                <div style={{ aspectRatio: "16 / 10", borderRadius: 12, overflow: "hidden", border: "1px solid var(--line)" }}><AdminShot brand={ADMIN_BRAND[project.id]} /></div>
-              ) : project.screens?.[0] && !/cover|board/.test(project.screens[0]) ? (
-                <div style={{ aspectRatio: "16 / 10", borderRadius: 12, overflow: "hidden", border: "1px solid var(--line)", background: "#fff" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={project.screens[0]} alt={project.title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
+            <Laptop>
+              <div className="lid">
+                <div className="scr">
+                  {ADMIN_BRAND[project.id] ? (
+                    <AdminShot brand={ADMIN_BRAND[project.id]} />
+                  ) : project.screens?.[0] && !/cover|board/.test(project.screens[0]) ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={project.screens[0]} alt={project.title} />
+                  ) : (
+                    <WebWire color={projectColor(project.id)} url={project.title} />
+                  )}
                 </div>
-              ) : (
-                <WebWire color={projectColor(project.id)} url={project.title} />
-              )}
-            </div>
+              </div>
+              <div className="base" />
+            </Laptop>
           </Block>
         )}
 
@@ -105,8 +126,7 @@ function ProjectDetailClient({ project: base }: { project: Project }) {
           <Block as="div" style={{ display: "block" }}>
             <Shots>
               {shots.map((src) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={src} src={src} alt={`${t.project.screenOf} ${project.title}`} loading="lazy" />
+                <div key={src}><Phone screens={[src]} alt={`${t.project.screenOf} ${project.title}`} width="var(--pw)" /></div>
               ))}
             </Shots>
           </Block>
