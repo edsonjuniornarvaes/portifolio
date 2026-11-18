@@ -157,6 +157,13 @@ export function LaptopSticker() {
 
 /** iPhone "caricato": corpo grosso de metal, tela com papel de parede e ícones de app (sem print de verdade). */
 export function PhoneSticker() {
+  const [time, setTime] = useState("--:--");
+  useEffect(() => {
+    const f = () => setTime(new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "America/Sao_Paulo" }).format(new Date()));
+    f();
+    const id = setInterval(f, 10_000);
+    return () => clearInterval(id);
+  }, []);
   const icons = ["#ff6a3d", "#2eebaa", "#5b7cff", "#ffcb6b", "#c792ea", "#ff5f8a", "#35c8e8", "#8bd450"];
   return (
     <svg width="110" height="226" viewBox="0 0 120 246" aria-hidden style={{ display: "block", overflow: "visible" }}>
@@ -172,7 +179,7 @@ export function PhoneSticker() {
       <g clipPath="url(#ph-scr)">
         <rect x="11" y="11" width="98" height="224" fill="url(#ph-wall)" />
         <circle cx="86" cy="70" r="52" fill="var(--accent)" opacity=".22" />
-        <text x="60" y="66" textAnchor="middle" fontFamily="var(--font-body), sans-serif" fontSize="30" fontWeight="600" fill="#fff">9:41</text>
+        <text x="60" y="66" textAnchor="middle" fontFamily="var(--font-body), sans-serif" fontSize="30" fontWeight="600" fill="#fff" aria-label={time} style={{ fontVariantNumeric: "tabular-nums" }}>{time}</text>
         <g>
           {icons.map((c, i) => (
             <rect key={c} x={20 + (i % 4) * 22} y={98 + Math.floor(i / 4) * 24} width="17" height="17" rx="5" fill={c} />
