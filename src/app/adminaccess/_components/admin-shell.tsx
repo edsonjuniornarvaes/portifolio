@@ -103,9 +103,10 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const logout = () => {
-    sessionStorage.removeItem("admin_token");
-    router.push("/adminaccess/login");
+  const logout = async () => {
+    await fetch("/api/admin/logout", { method: "POST" }).catch(() => {});
+    router.replace("/adminaccess/login");
+    router.refresh();
   };
 
   return (

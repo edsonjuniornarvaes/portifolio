@@ -13,15 +13,9 @@ export default function EditPostPage() {
 
   useEffect(() => {
     if (!id) return;
-    const t = sessionStorage.getItem("admin_token");
-    if (!t) {
-      router.push("/adminaccess/login");
-      return;
-    }
-    fetch(`/api/admin/posts/${id}`, { headers: { Authorization: `Bearer ${t}` } })
+    fetch(`/api/admin/posts/${id}`, { credentials: "same-origin" })
       .then((r) => {
         if (r.status === 401) {
-          sessionStorage.removeItem("admin_token");
           router.push("/adminaccess/login");
           return null;
         }

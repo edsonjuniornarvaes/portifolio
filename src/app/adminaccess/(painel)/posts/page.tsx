@@ -85,18 +85,13 @@ export default function AdminPostsPage() {
   const [filter, setFilter] = useState<Filter>("all");
   const [error, setError] = useState("");
 
-  const token = () => (typeof window !== "undefined" ? sessionStorage.getItem("admin_token") || "" : "");
+  const token = () => ("");
   const headers = (): HeadersInit => ({ Authorization: `Bearer ${token()}`, "Content-Type": "application/json" });
 
   const load = () => {
-    if (!token()) {
-      router.push("/adminaccess/login");
-      return;
-    }
     fetch("/api/admin/posts", { headers: headers() })
       .then((r) => {
         if (r.status === 401) {
-          sessionStorage.removeItem("admin_token");
           router.push("/adminaccess/login");
           return null;
         }

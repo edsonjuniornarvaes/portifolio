@@ -136,7 +136,7 @@ export default function PostEditor({ initial }: { initial?: PostData }) {
   const snapshot = useMemo(() => JSON.stringify({ title, slug, excerpt, cover, body, published }), [title, slug, excerpt, cover, body, published]);
   const dirty = snapshot !== saved.current;
 
-  const token = () => (typeof window !== "undefined" ? sessionStorage.getItem("admin_token") || "" : "");
+  const token = () => ("");
   const bearer = useCallback(() => `Bearer ${token()}`, []);
 
   // slug automático enquanto o usuário não mexer nele
@@ -205,7 +205,6 @@ export default function PostEditor({ initial }: { initial?: PostData }) {
           body: JSON.stringify(payload),
         });
         if (r.status === 401) {
-          sessionStorage.removeItem("admin_token");
           router.push("/adminaccess/login");
           return;
         }
