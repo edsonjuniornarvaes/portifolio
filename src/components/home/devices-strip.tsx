@@ -11,13 +11,14 @@ import { ADMIN_BRAND } from "@/data/brands";
 import { play } from "@/lib/sound";
 
 const P = "/images/projects/";
+// w: largura em px (celular); cq: largura em % da faixa (para caber inteira em qualquer tela larga)
 const PHONES = [
-  { id: "minha-navex", src: `${P}navex-home-new.webp`, w: 160, mt: 78, k: 24 },
-  { id: "gruvi", src: `${P}gruvi-home.webp`, w: 192, mt: 40, k: 50 },
-  { id: "pjbank", src: `${P}pjbank-home.webp`, w: 228, mt: 0, k: 100 },
-  { id: "clube-da-joia-app", src: `${P}clube-app-home.webp`, w: 206, mt: 26, k: 70 },
-  { id: "consorcio-gazin", src: `${P}consorcio-gazin-simulador.webp`, w: 186, mt: 48, k: 44 },
-  { id: "mont-b2b", src: `${P}mont-home-alt.webp`, w: 160, mt: 78, k: 24 },
+  { id: "minha-navex", src: `${P}navex-home-new.webp`, w: 160, cq: 11.9, mt: 78, k: 24 },
+  { id: "gruvi", src: `${P}gruvi-home.webp`, w: 192, cq: 14.3, mt: 40, k: 50 },
+  { id: "pjbank", src: `${P}pjbank-home.webp`, w: 228, cq: 17, mt: 0, k: 100 },
+  { id: "clube-da-joia-app", src: `${P}clube-app-home.webp`, w: 206, cq: 15.3, mt: 26, k: 70 },
+  { id: "consorcio-gazin", src: `${P}consorcio-gazin-simulador.webp`, w: 186, cq: 13.8, mt: 48, k: 44 },
+  { id: "mont-b2b", src: `${P}mont-home-alt.webp`, w: 160, cq: 11.9, mt: 78, k: 24 },
 ];
 const LAPTOPS: { id: string; admin?: boolean; img?: string; k: number }[] = [
   { id: "clube-da-joia-marketplace", img: `${P}clube-admin.webp`, k: 24 },
@@ -27,9 +28,9 @@ const LAPTOPS: { id: string; admin?: boolean; img?: string; k: number }[] = [
 ];
 
 const Box = styled.div`
-  position: relative; overflow: hidden;
-  .phones { position: relative; height: calc(clamp(300px, 36vw, 400px) + 32px); -webkit-mask-image: linear-gradient(#000 72%, transparent); mask-image: linear-gradient(#000 72%, transparent); }
-  .row { position: absolute; left: 50%; top: 32px; display: flex; align-items: flex-start; gap: clamp(12px, 2vw, 26px); transform: translateX(-50%); }
+  position: relative;
+  .phones { position: relative; container-type: inline-size; margin-inline: -56px; padding-inline: 56px; height: calc(clamp(300px, 36vw, 400px) + 32px); -webkit-mask-image: linear-gradient(#000 72%, transparent); mask-image: linear-gradient(#000 72%, transparent); }
+  .row { position: absolute; left: 50%; top: 32px; display: flex; align-items: flex-start; gap: 1.9cqw; transform: translateX(-50%); }
   .go { position: relative; display: block; cursor: pointer; }
   .go:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 16px; }
   .tip { position: absolute; left: 50%; top: -14px; transform: translate(-50%, 6px); padding: 5px 12px; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-size: 0.78rem; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.25s cubic-bezier(.2,.7,.2,1); z-index: 5; }
@@ -46,8 +47,10 @@ const Box = styled.div`
   .base::after { content: ""; position: absolute; left: 50%; top: 0; width: 18%; height: 4px; transform: translateX(-50%); border-radius: 0 0 6px 6px; background: #868c95; }
   .glow { position: absolute; left: 10%; right: 10%; bottom: -10px; height: 24px; background: radial-gradient(closest-side, rgba(0,0,0,0.5), transparent); filter: blur(6px); }
   @media (max-width: 700px) {
-    .phones { height: auto; padding-top: 28px; margin: 0 calc(var(--gutter) * -1); -webkit-mask-image: none; mask-image: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .phones { height: auto; padding: 28px 0 0; margin: 0 calc(var(--gutter) * -1); -webkit-mask-image: none; mask-image: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
     .phones::-webkit-scrollbar { display: none; }
+    .phones { container-type: normal; }
+    .ph { --pw: var(--pwm) !important; }
     .row { position: static; transform: none; display: flex; gap: 16px; padding: 0 calc(50vw - 95px); width: max-content; }
     .ph { scroll-snap-align: center; margin-top: 0 !important; transform: none !important; zoom: 0.82; }
     .tip { display: none; }
@@ -59,12 +62,12 @@ const Box = styled.div`
 // eslint-disable-next-line @next/next/no-img-element
 const LapImg = ({ src }: { src: string }) => <img src={src} alt="" />;
 
-function Rise({ i, k, mt, p, children, cls, id }: { i: number; k: number; mt: number; p: ReturnType<typeof useScroll>["scrollYProgress"]; children: React.ReactNode; cls: string; id: string }) {
+function Rise({ i, k, mt, p, children, cls, id, vars }: { i: number; k: number; mt: number; p: ReturnType<typeof useScroll>["scrollYProgress"]; children: React.ReactNode; cls: string; id: string; vars?: Record<string, string> }) {
   const name = getProjectById(id)?.title ?? id;
   const reduce = useReducedMotion();
   const y = useTransform(p, [0, 1], [reduce ? 0 : k, reduce ? 0 : -k]);
   return (
-    <motion.div className={cls} style={{ y, marginTop: mt }}>
+    <motion.div className={cls} style={{ y, marginTop: mt, ...(vars as object) }}>
       <motion.div initial={reduce ? false : { opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.8, delay: i * 0.08, ease: [0.2, 0.7, 0.2, 1] }}>
         <motion.div
           className="hop"
@@ -99,7 +102,7 @@ export default function DevicesStrip() {
       <div className="phones" ref={scroller}>
         <div className="row">
           {PHONES.map((ph, i) => (
-            <Rise key={ph.src} id={ph.id} i={i} k={ph.k} mt={ph.mt} p={scrollYProgress} cls="ph"><Phone screens={[ph.src]} alt="" width={ph.w} /></Rise>
+            <Rise key={ph.src} id={ph.id} i={i} k={ph.k} mt={ph.mt} p={scrollYProgress} cls="ph" vars={{ "--pw": `${ph.cq}cqw`, "--pwm": `${ph.w}px` }}><Phone screens={[ph.src]} alt="" width="var(--pw)" /></Rise>
           ))}
         </div>
       </div>
