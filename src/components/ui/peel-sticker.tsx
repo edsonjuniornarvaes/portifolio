@@ -155,67 +155,64 @@ export function LaptopSticker() {
   );
 }
 
-/** iPhone de lado a lado com a tela de um app (as laterais e a ilha dinâmica seguem o desenho real). */
-export function PhoneSticker({ src = "/images/projects/clube-app-home.webp" }: { src?: string }) {
+/** iPhone "caricato": corpo grosso de metal, tela com papel de parede e ícones de app (sem print de verdade). */
+export function PhoneSticker() {
+  const icons = ["#ff6a3d", "#2eebaa", "#5b7cff", "#ffcb6b", "#c792ea", "#ff5f8a", "#35c8e8", "#8bd450"];
   return (
-    <svg width="104" height="218" viewBox="0 0 120 252" aria-hidden style={{ display: "block", overflow: "visible" }}>
+    <svg width="110" height="226" viewBox="0 0 120 246" aria-hidden style={{ display: "block", overflow: "visible" }}>
       <defs>
-        <filter id="ph-o" x="-25%" y="-25%" width="150%" height="150%">
-          <feMorphology in="SourceAlpha" operator="dilate" radius="4.2" result="d" />
-          <feGaussianBlur in="d" stdDeviation="2" result="b" />
-          <feComponentTransfer in="b" result="r"><feFuncA type="linear" slope="9" intercept="-3.6" /></feComponentTransfer>
-          <feFlood floodColor="#fff" />
-          <feComposite in2="r" operator="in" result="w" />
-          <feMerge><feMergeNode in="w" /><feMergeNode in="SourceGraphic" /></feMerge>
-        </filter>
-        <linearGradient id="ph-fr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#d8dbe0" /><stop offset=".5" stopColor="#8e939c" /><stop offset="1" stopColor="#c9cdd4" /></linearGradient>
-        <linearGradient id="ph-gloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff" stopOpacity=".3" /><stop offset=".4" stopColor="#fff" stopOpacity="0" /></linearGradient>
-        <clipPath id="ph-scr"><rect x="9" y="9" width="102" height="234" rx="20" /></clipPath>
+        <linearGradient id="ph-fr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#eceef2" /><stop offset=".5" stopColor="#9aa0aa" /><stop offset="1" stopColor="#d4d8de" /></linearGradient>
+        <linearGradient id="ph-wall" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#12423c" /><stop offset=".55" stopColor="#1b6a5c" /><stop offset="1" stopColor="#3a2a78" /></linearGradient>
+        <linearGradient id="ph-gloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff" stopOpacity=".3" /><stop offset=".42" stopColor="#fff" stopOpacity="0" /></linearGradient>
+        <clipPath id="ph-scr"><rect x="11" y="11" width="98" height="224" rx="19" /></clipPath>
       </defs>
-      <g filter="url(#ph-o)">
-        <rect x="4" y="4" width="112" height="244" rx="26" fill="url(#ph-fr)" />
-        <rect x="7" y="7" width="106" height="238" rx="23" fill="#0b0b0d" />
-        <g clipPath="url(#ph-scr)">
-          <rect x="9" y="9" width="102" height="234" fill="#fff" />
-          <image href={src} x="9" y="9" width="102" height="234" preserveAspectRatio="xMidYMin slice" />
-          <rect x="9" y="9" width="102" height="234" fill="url(#ph-gloss)" />
+      <rect x="4" y="4" width="112" height="238" rx="27" fill="#fff" stroke="#fff" strokeWidth="9" strokeLinejoin="round" />
+      <rect x="4" y="4" width="112" height="238" rx="27" fill="url(#ph-fr)" />
+      <rect x="8" y="8" width="104" height="230" rx="23" fill="#0b0c0e" />
+      <g clipPath="url(#ph-scr)">
+        <rect x="11" y="11" width="98" height="224" fill="url(#ph-wall)" />
+        <circle cx="86" cy="70" r="52" fill="var(--accent)" opacity=".22" />
+        <text x="60" y="66" textAnchor="middle" fontFamily="var(--font-body), sans-serif" fontSize="30" fontWeight="600" fill="#fff">9:41</text>
+        <g>
+          {icons.map((c, i) => (
+            <rect key={c} x={20 + (i % 4) * 22} y={98 + Math.floor(i / 4) * 24} width="17" height="17" rx="5" fill={c} />
+          ))}
         </g>
-        <rect x="42" y="14" width="36" height="10" rx="5" fill="#000" />
-        <rect x="114" y="62" width="3" height="22" rx="1.5" fill="#8e939c" /><rect x="3" y="56" width="3" height="14" rx="1.5" fill="#8e939c" /><rect x="3" y="76" width="3" height="26" rx="1.5" fill="#8e939c" />
+        <rect x="18" y="196" width="84" height="26" rx="13" fill="#fff" opacity=".2" />
+        {icons.slice(0, 4).map((c, i) => <rect key={`d${c}`} x={24 + i * 20} y="201" width="15" height="15" rx="5" fill={c} />)}
+        <rect x="11" y="11" width="98" height="224" fill="url(#ph-gloss)" />
       </g>
+      <rect x="43" y="16" width="34" height="10" rx="5" fill="#000" />
+      <rect x="114" y="62" width="3.4" height="22" rx="1.7" fill="#9aa0aa" /><rect x="2.6" y="56" width="3.4" height="14" rx="1.7" fill="#9aa0aa" /><rect x="2.6" y="76" width="3.4" height="26" rx="1.7" fill="#9aa0aa" />
     </svg>
   );
 }
 
 export function MugSticker() {
   return (
-    <svg width="112" height="128" viewBox="0 0 140 160" aria-hidden style={{ display: "block", overflow: "visible" }}>
+    <svg width="116" height="132" viewBox="0 0 144 164" aria-hidden style={{ display: "block", overflow: "visible" }}>
       <defs>
-        <filter id="mg-o" x="-25%" y="-25%" width="150%" height="150%">
-          <feMorphology in="SourceAlpha" operator="dilate" radius="4.2" result="d" />
-          <feGaussianBlur in="d" stdDeviation="2" result="b" />
-          <feComponentTransfer in="b" result="r"><feFuncA type="linear" slope="9" intercept="-3.6" /></feComponentTransfer>
-          <feFlood floodColor="#fff" />
-          <feComposite in2="r" operator="in" result="w" />
-          <feMerge><feMergeNode in="w" /><feMergeNode in="SourceGraphic" /></feMerge>
-        </filter>
         <linearGradient id="mg-cer" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#d9d2c6" /><stop offset=".22" stopColor="#ffffff" /><stop offset=".6" stopColor="#efe9df" /><stop offset="1" stopColor="#bdb4a6" /></linearGradient>
         <radialGradient id="mg-cof" cx="42%" cy="40%" r="70%"><stop offset="0" stopColor="#b07a46" /><stop offset=".6" stopColor="#5d3414" /><stop offset="1" stopColor="#2d170a" /></radialGradient>
         <clipPath id="mg-bd"><path d="M20 62h78v52c0 22-17 38-39 38S20 136 20 114Z" /></clipPath>
         <style>{`.mg-s{stroke-dasharray:14 44;animation:mgs 3.4s ease-in-out infinite}.mg-s.b{animation-delay:-1.2s}.mg-s.c{animation-delay:-2.2s}@keyframes mgs{0%{stroke-dashoffset:44;opacity:0}30%{opacity:.95}100%{stroke-dashoffset:-8;opacity:0}}@media (prefers-reduced-motion:reduce){.mg-s{animation:none;opacity:.6}}`}</style>
       </defs>
-      <g filter="url(#mg-o)">
-        <path d="M98 74h8c14 0 22 8 22 20s-8 20-22 20h-10" fill="none" stroke="#e6dfd2" strokeWidth="12" strokeLinecap="round" />
-        <path d="M98 72h8c14 0 22 8 22 20" fill="none" stroke="#fff" strokeOpacity=".55" strokeWidth="3" strokeLinecap="round" />
-        <path d="M20 62h78v52c0 22-17 38-39 38S20 136 20 114Z" fill="url(#mg-cer)" />
-        <g clipPath="url(#mg-bd)">
-          <path d="M16 100h86v22H16Z" fill="#1a1d22" /><path d="M16 100h86v3H16Z" fill="#fff" opacity=".12" />
-          <text x="59" y="118" textAnchor="middle" fontFamily="var(--font-jetbrains), monospace" fontSize="17" fontWeight="700" fill="var(--accent)">{"</>"}</text>
-          <path d="M26 70v66" stroke="#fff" strokeOpacity=".75" strokeWidth="5" strokeLinecap="round" />
-        </g>
-        <ellipse cx="59" cy="62" rx="39" ry="9.5" fill="#f3eee5" /><ellipse cx="59" cy="62" rx="34.5" ry="7" fill="url(#mg-cof)" />
-        <path d="M44 61.5c5-3 10-3 15 0s10 3 15 0" stroke="#e8c79a" strokeOpacity=".6" strokeWidth="2.4" fill="none" strokeLinecap="round" />
+      {/* contorno de adesivo: as mesmas formas em branco, com traço grosso e pontas redondas */}
+      <g fill="#fff" stroke="#fff" strokeLinejoin="round" strokeLinecap="round">
+        <path d="M98 76h8c13 0 21 7 21 18s-8 18-21 18h-9" fill="none" strokeWidth="29" />
+        <path d="M20 62h78v52c0 22-17 38-39 38S20 136 20 114Z" strokeWidth="11" />
       </g>
+      <path d="M98 76h8c13 0 21 7 21 18s-8 18-21 18h-9" fill="none" stroke="#a89f90" strokeWidth="12" strokeLinecap="round" />
+      <path d="M98 76h8c13 0 21 7 21 18s-8 18-21 18h-9" fill="none" stroke="#e9e3d8" strokeWidth="8.4" strokeLinecap="round" />
+      <path d="M101 74.6h5c8 0 14 4 16 10" fill="none" stroke="#fff" strokeOpacity=".75" strokeWidth="2.4" strokeLinecap="round" />
+      <path d="M20 62h78v52c0 22-17 38-39 38S20 136 20 114Z" fill="url(#mg-cer)" />
+      <g clipPath="url(#mg-bd)">
+        <path d="M16 100h86v22H16Z" fill="#1a1d22" /><path d="M16 100h86v3H16Z" fill="#fff" opacity=".12" />
+        <text x="59" y="118" textAnchor="middle" fontFamily="var(--font-jetbrains), monospace" fontSize="17" fontWeight="700" fill="var(--accent)">{"</>"}</text>
+        <path d="M27 72v62" stroke="#fff" strokeOpacity=".75" strokeWidth="5" strokeLinecap="round" />
+      </g>
+      <ellipse cx="59" cy="62" rx="39" ry="9.5" fill="#f3eee5" /><ellipse cx="59" cy="62" rx="34.5" ry="7" fill="url(#mg-cof)" />
+      <path d="M44 61.5c5-3 10-3 15 0s10 3 15 0" stroke="#e8c79a" strokeOpacity=".6" strokeWidth="2.4" fill="none" strokeLinecap="round" />
       <g fill="none" stroke="#dfe5ea" strokeWidth="3.4" strokeLinecap="round">
         <path className="mg-s" d="M44 46c-6-6 6-9 0-18" /><path className="mg-s b" d="M59 46c-6-6 6-9 0-18" /><path className="mg-s c" d="M74 46c-6-6 6-9 0-18" />
       </g>
@@ -223,7 +220,7 @@ export function MugSticker() {
   );
 }
 
-/** Relógio de placas (flip clock) com o horário de Brasília: dá para descolar e levar para outro canto. */
+/** Relógio digital (horário de Brasília) como adesivo: dá para descolar e levar para outro canto. */
 export function ClockSticker() {
   const [t, setT] = useState<[string, string] | null>(null);
   const [sep, setSep] = useState(true);
@@ -237,21 +234,10 @@ export function ClockSticker() {
     const bl = setInterval(() => setSep((v) => !v), 1000);
     return () => { clearInterval(id); clearInterval(bl); };
   }, []);
-  const card = (d: string) => (
-    <div style={{ position: "relative", width: 30, height: 40, borderRadius: 6, background: "linear-gradient(#23272d 0 49%, #181b20 51% 100%)", color: "var(--accent)", display: "grid", placeItems: "center", fontFamily: "var(--font-jetbrains), monospace", fontSize: "1.35rem", fontWeight: 700, fontVariantNumeric: "tabular-nums", boxShadow: "inset 0 1px 0 rgba(255,255,255,.12), inset 0 -2px 6px rgba(0,0,0,.5)" }}>
-      <span style={{ position: "relative", zIndex: 1, textShadow: "0 0 14px color-mix(in srgb, var(--accent) 55%, transparent)" }}>{d}</span>
-      <i style={{ position: "absolute", left: 0, right: 0, top: "50%", height: 2, marginTop: -1, background: "rgba(0,0,0,.65)" }} />
-      <i style={{ position: "absolute", left: -1.5, top: "50%", width: 3, height: 6, marginTop: -3, borderRadius: 2, background: "#0c0e11" }} />
-      <i style={{ position: "absolute", right: -1.5, top: "50%", width: 3, height: 6, marginTop: -3, borderRadius: 2, background: "#0c0e11" }} />
-    </div>
-  );
-  const hh = t ? t[0] : "--", mm = t ? t[1] : "--";
   return (
     <div style={{ padding: 4, borderRadius: 14, background: "#fff" }} aria-label={t ? `${t[0]}:${t[1]}` : undefined}>
-      <div style={{ display: "flex", alignItems: "center", gap: 4, padding: 5, borderRadius: 10, background: "#0b0d10" }}>
-        {card(hh[0])}{card(hh[1])}
-        <span style={{ display: "grid", gap: 5, padding: "0 1px", opacity: sep ? 1 : 0.25, transition: "opacity .2s" }}><i style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--accent)" }} /><i style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--accent)" }} /></span>
-        {card(mm[0])}{card(mm[1])}
+      <div style={{ display: "flex", alignItems: "center", gap: 3, padding: "7px 13px", borderRadius: 10, background: "#0c1013", color: "var(--accent)", fontFamily: "var(--font-jetbrains), monospace", fontSize: "1.05rem", fontWeight: 600, letterSpacing: "0.04em", fontVariantNumeric: "tabular-nums", boxShadow: "inset 0 0 14px color-mix(in srgb, var(--accent) 18%, transparent)" }}>
+        <span>{t ? t[0] : "--"}</span><span style={{ opacity: sep ? 1 : 0.25 }}>:</span><span>{t ? t[1] : "--"}</span>
       </div>
     </div>
   );
