@@ -202,25 +202,18 @@ export default function DashboardPage() {
   }, [range]);
 
   const checkAuth = async () => {
-    const token = sessionStorage.getItem('admin_token');
-    if (!token) {
-      router.push('/adminaccess/login');
-      return;
-    }
 
     try {
       const response = await fetch('/api/admin/verify', {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': 'Bearer ',
         },
       });
 
       if (!response.ok) {
-        sessionStorage.removeItem('admin_token');
         router.push('/adminaccess/login');
       }
     } catch (err) {
-      sessionStorage.removeItem('admin_token');
       router.push('/adminaccess/login');
     }
   };
@@ -230,10 +223,10 @@ export default function DashboardPage() {
     setError('');
 
     try {
-      const token = sessionStorage.getItem('admin_token');
+      const token = '';
       const response = await fetch(`/api/admin/analytics?range=${range}`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': 'Bearer ',
         },
       });
 
@@ -241,7 +234,6 @@ export default function DashboardPage() {
         const analyticsData = await response.json();
         setData(analyticsData);
       } else if (response.status === 401) {
-        sessionStorage.removeItem('admin_token');
         router.push('/adminaccess/login');
       } else {
         const errorData = await response.json().catch(() => ({}));

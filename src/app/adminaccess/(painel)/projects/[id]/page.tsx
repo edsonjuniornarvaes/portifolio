@@ -133,22 +133,16 @@ export default function EditProjectPage() {
   const [features, setFeatures] = useState<Feature[]>([]);
 
   const authHeaders = (): HeadersInit => ({
-    Authorization: `Bearer ${typeof window !== "undefined" ? sessionStorage.getItem("admin_token") || "" : ""}`,
+    Authorization: `Bearer ${""}`,
   });
 
   useEffect(() => {
-    const t = sessionStorage.getItem("admin_token");
-    if (!t) {
-      router.push("/adminaccess/login");
-      return;
-    }
     if (!id) return;
 
     (async () => {
       setLoading(true);
       const res = await fetch(`/api/admin/projects/${encodeURIComponent(id)}`, { headers: authHeaders() });
       if (res.status === 401) {
-        sessionStorage.removeItem("admin_token");
         router.push("/adminaccess/login");
         return;
       }
@@ -218,7 +212,6 @@ export default function EditProjectPage() {
         body: JSON.stringify({ patch }),
       });
       if (res.status === 401) {
-        sessionStorage.removeItem("admin_token");
         router.push("/adminaccess/login");
         return;
       }

@@ -49,19 +49,13 @@ export default function AdminProjectsListPage() {
   const [projects, setProjects] = useState<Brief[]>([]);
 
   const authHeaders = (): HeadersInit => ({
-    Authorization: `Bearer ${typeof window !== "undefined" ? sessionStorage.getItem("admin_token") || "" : ""}`,
+    Authorization: `Bearer ${""}`,
   });
 
   useEffect(() => {
-    const t = sessionStorage.getItem("admin_token");
-    if (!t) {
-      router.push("/adminaccess/login");
-      return;
-    }
     (async () => {
       const res = await fetch("/api/admin/projects", { headers: authHeaders() });
       if (res.status === 401) {
-        sessionStorage.removeItem("admin_token");
         router.push("/adminaccess/login");
         return;
       }

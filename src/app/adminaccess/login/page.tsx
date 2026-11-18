@@ -144,9 +144,8 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Store token in sessionStorage
-        sessionStorage.setItem('admin_token', data.token);
-        router.push('/adminaccess/dashboard');
+        router.replace('/adminaccess/dashboard');
+        router.refresh();
       } else {
         setError(data.error || 'Credenciais inválidas');
       }

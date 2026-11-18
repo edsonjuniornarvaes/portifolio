@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ADMIN_EMAIL, verifyAdminPassword } from '@/lib/admin-auth';
 import { createAdminToken } from '@/lib/admin-session';
 import { clearRateLimit, rateLimit } from '@/lib/rate-limit';
+import { setAdminCookie } from '@/lib/admin-cookie';
+import { sameOrigin } from '@/lib/verify-admin';
 
 export async function POST(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
@@ -12,6 +14,8 @@ export async function POST(request: NextRequest) {
       { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } },
     );
   }
+
+  if (!sameOrigin(request)) return NextResponse.json({ error: 'Origem não permitida' }, { status: 403 });
 
   try {
     const { email, password } = await request.json();
@@ -29,7 +33,9 @@ export async function POST(request: NextRequest) {
 
     clearRateLimit(`login:${ip}`);
     const token = createAdminToken(ADMIN_EMAIL);
-    return NextResponse.json({ token, email: ADMIN_EMAIL });
+    const res = NextResponse.json({ ok: true, email: ADMIN_EMAIL });
+    setAdminCookie(res, token);
+    return res;
   } catch (error) {
     console.error('Login error:', error);
     const msg = error instanceof Error ? error.message : '';
