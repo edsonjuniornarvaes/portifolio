@@ -4,11 +4,10 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { play } from "@/lib/sound";
 
-const N = 6, GAP = 15, H = 120, PTS = 13;
+const N = 9, GAP = 32, H = 360, PTS = 19;
 
 /**
- * Cordinhas de violão no cantinho da tela: passe o mouse (ou o dedo) e elas vibram e tocam uma nota suave.
- * Só aqui, no canto, para não atrapalhar o resto.
+ * Cordinhas de violão no cantinho da tela, atrás do conteúdo: passe o mouse e elas vibram e tocam uma nota suave.
  */
 export default function CornerStrings() {
   const pathname = usePathname();
@@ -38,7 +37,7 @@ export default function CornerStrings() {
         let m = 0; for (let k = 0; k < PTS; k++) m = Math.max(m, Math.abs(off[i][k]));
         c.beginPath();
         for (let k = 0; k < PTS; k++) { const x = GAP + i * GAP + off[i][k]; const y = (k / (PTS - 1)) * H; if (k) c.lineTo(x, y); else c.moveTo(x, y); }
-        c.strokeStyle = m > 1 ? hot : base; c.globalAlpha = m > 1 ? 0.9 : 0.55; c.lineWidth = 1 + (N - i) * 0.12; c.stroke();
+        c.strokeStyle = m > 1 ? hot : base; c.globalAlpha = m > 1 ? 0.95 : 0.4; c.lineWidth = 1.4 + (N - i) * 0.28; c.stroke();
       }
       c.globalAlpha = 1;
     };
@@ -67,7 +66,7 @@ export default function CornerStrings() {
         if ((prev - sx) * (x - sx) <= 0 && prev !== x) {
           const dir = x - prev;
           const idx = Math.round((py / H) * (PTS - 1));
-          for (let k = 1; k < PTS - 1; k++) vel[i][k] += Math.sign(dir) * Math.max(0, 1 - Math.abs(k - idx) / 6) * 3.2;
+          for (let k = 1; k < PTS - 1; k++) vel[i][k] += Math.sign(dir) * Math.max(0, 1 - Math.abs(k - idx) / 8) * 4.2;
           const now = performance.now();
           if (now - lastHit[i] > 120) { lastHit[i] = now; play("pluck", N - 1 - i, 0.55); }
           wake();
@@ -82,6 +81,6 @@ export default function CornerStrings() {
 
   if (hidden) return null;
   return (
-    <canvas className="corner-strings" ref={cv} aria-hidden style={{ position: "fixed", left: 4, bottom: 6, width: N * GAP + GAP, height: H, zIndex: 60, pointerEvents: "none", opacity: 0.9 }} />
+    <canvas className="corner-strings" ref={cv} aria-hidden style={{ position: "fixed", left: 0, bottom: 0, width: N * GAP + GAP, height: H, zIndex: -1, pointerEvents: "none" }} />
   );
 }
