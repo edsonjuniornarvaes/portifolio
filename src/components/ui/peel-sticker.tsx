@@ -204,14 +204,14 @@ export function MugSticker() {
         <clipPath id="mg-bd"><path d="M20 62h78v52c0 22-17 38-39 38S20 136 20 114Z" /></clipPath>
         <style>{`.mg-s{stroke-dasharray:14 44;animation:mgs 3.4s ease-in-out infinite}.mg-s.b{animation-delay:-1.2s}.mg-s.c{animation-delay:-2.2s}@keyframes mgs{0%{stroke-dashoffset:44;opacity:0}30%{opacity:.95}100%{stroke-dashoffset:-8;opacity:0}}@media (prefers-reduced-motion:reduce){.mg-s{animation:none;opacity:.6}}`}</style>
       </defs>
-      {/* contorno de adesivo: as mesmas formas em branco, com traço grosso e pontas redondas */}
+      {/* contorno de adesivo: as mesmas formas em branco, todas com o mesmo recuo (5,5) para a borda ficar uniforme */}
       <g fill="#fff" stroke="#fff" strokeLinejoin="round" strokeLinecap="round">
-        <path d="M98 76h8c13 0 21 7 21 18s-8 18-21 18h-9" fill="none" strokeWidth="29" />
+        <path d="M96 78h10c16 0 25 8 25 21s-9 21-25 21H96" fill="none" strokeWidth="22" />
         <path d="M20 62h78v52c0 22-17 38-39 38S20 136 20 114Z" strokeWidth="11" />
       </g>
-      <path d="M98 76h8c13 0 21 7 21 18s-8 18-21 18h-9" fill="none" stroke="#a89f90" strokeWidth="12" strokeLinecap="round" />
-      <path d="M98 76h8c13 0 21 7 21 18s-8 18-21 18h-9" fill="none" stroke="#e9e3d8" strokeWidth="8.4" strokeLinecap="round" />
-      <path d="M101 74.6h5c8 0 14 4 16 10" fill="none" stroke="#fff" strokeOpacity=".75" strokeWidth="2.4" strokeLinecap="round" />
+      <path d="M96 78h10c16 0 25 8 25 21s-9 21-25 21H96" fill="none" stroke="#9c9384" strokeWidth="11.4" strokeLinecap="round" />
+      <path d="M96 78h10c16 0 25 8 25 21s-9 21-25 21H96" fill="none" stroke="#ebe5da" strokeWidth="8" strokeLinecap="round" />
+      <path d="M102 76.6h4c11 0 19 5 21 14" fill="none" stroke="#fff" strokeOpacity=".8" strokeWidth="2.2" strokeLinecap="round" />
       <path d="M20 62h78v52c0 22-17 38-39 38S20 136 20 114Z" fill="url(#mg-cer)" />
       <g clipPath="url(#mg-bd)">
         <path d="M16 100h86v22H16Z" fill="#1a1d22" /><path d="M16 100h86v3H16Z" fill="#fff" opacity=".12" />
