@@ -30,7 +30,7 @@ const pt = {
     hint: "Passe o mouse no bonequinho, descole os adesivos e dedilhe as cordas no cantinho.",
     now: "Agora em Umuarama",
     index: "Índice",
-    mascot: "Bonequinho do Edson, acene para ele", stickers: { phone: "Adesivo de celular", web: "Adesivo de site", coffee: "Adesivo de café", star: "Adesivo de estrela", hello: "Adesivo olá", photo: "Adesivo com a foto do Edson", pix: "Adesivo Pix", gem: "Adesivo de gema", laptop: "Adesivo de notebook", key: "Adesivo de tecla Command", code: "Adesivo de código", wifi: "Adesivo de Wi-Fi", mate: "Adesivo de guampa de tereré", clock: "Adesivo de relógio (horário de Brasília)" },
+    mascot: "Bonequinho do Edson, acene para ele", stickers: { phone: "Adesivo de iPhone com a hora de Brasília", web: "Adesivo de site", coffee: "Adesivo de café", star: "Adesivo de estrela", hello: "Adesivo olá", photo: "Adesivo com a foto do Edson", pix: "Adesivo Pix", gem: "Adesivo de gema", laptop: "Adesivo de notebook", key: "Adesivo de tecla Command", code: "Adesivo de código", wifi: "Adesivo de Wi-Fi", mate: "Adesivo de guampa de tereré", clock: "Adesivo de relógio (horário de Brasília)" },
   },
   sectors: ["Banco digital", "Condomínios", "Investimentos", "Telecom", "Loja online", "Consórcios", "Painéis de controle", "Pagamentos"],
   work: {
