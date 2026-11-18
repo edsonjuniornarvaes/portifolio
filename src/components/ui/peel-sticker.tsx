@@ -40,6 +40,9 @@ function useBrasilia() {
   return t;
 }
 
+/** No celular o adesivo é desenhado com `zoom: 0.8`; os deslocamentos precisam ser divididos por esse fator. */
+const zoom = () => (typeof window !== "undefined" && window.innerWidth <= 760 ? 0.8 : 1);
+
 export default function PeelSticker({ children, h, style, rot = 0, label }: { children: ReactNode; h: number; style: React.CSSProperties; rot?: number; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const peel = useMotionValue(0); // fração da altura já descolada
@@ -77,6 +80,13 @@ export default function PeelSticker({ children, h, style, rot = 0, label }: { ch
             // soltou de vez: agora o adesivo acompanha o ponteiro
             setMode("carry");
             d.carried = true;
+            // o adesivo "pula" para debaixo do ponteiro (antes ele ficava lá atrás, onde foi descolado)
+            const el = ref.current;
+            if (el) {
+              const r = el.getBoundingClientRect();
+              ox.set(ox.get() + (e.clientX - (r.left + r.width / 2)) / zoom());
+              oy.set(oy.get() + (e.clientY - (r.top + r.height / 2)) / zoom());
+            }
             d.ax = e.clientX; d.ay = e.clientY; d.aox = ox.get(); d.aoy = oy.get();
             peel.set(0);
             lift.set(1);
@@ -86,8 +96,8 @@ export default function PeelSticker({ children, h, style, rot = 0, label }: { ch
           }
           return;
         }
-        ox.set(d.aox + (e.clientX - d.ax));
-        oy.set(d.aoy + (e.clientY - d.ay));
+        ox.set(d.aox + (e.clientX - d.ax) / zoom());
+        oy.set(d.aoy + (e.clientY - d.ay) / zoom());
       }}
       onPointerUp={() => {
         if (mode === "idle") return;
@@ -102,7 +112,7 @@ export default function PeelSticker({ children, h, style, rot = 0, label }: { ch
             let dx = 0, dy = 0;
             if (r.left < 8) dx = 8 - r.left; else if (r.right > window.innerWidth - 8) dx = window.innerWidth - 8 - r.right;
             if (r.top < 70) dy = 70 - r.top; else if (r.bottom > window.innerHeight - 8) dy = window.innerHeight - 8 - r.bottom;
-            ox.set(ox.get() + dx); oy.set(oy.get() + dy);
+            ox.set(ox.get() + dx / zoom()); oy.set(oy.get() + dy / zoom());
           }
           play("drop");
         } else if (peel.get() > 0.06) play("pop");
