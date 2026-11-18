@@ -329,5 +329,6 @@ button { font: inherit; color: inherit; }
 h1, h2, h3 { text-wrap: balance; }
 p, li { text-wrap: pretty; }
 @media (max-width: 860px) { :root { --perch-display: none; } }
+html.strumming, html.strumming * { user-select: none !important; cursor: grabbing !important; }
 @media (max-width: 900px) { .corner-strings { display: none; } }
 @media (max-width: 1360px) { .pull-cord { display: none; } }
