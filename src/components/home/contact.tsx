@@ -9,13 +9,13 @@ import { contact } from "@/data/profile";
 const Row = styled.div`
   display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; padding: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
   .mail { display: inline-flex; align-items: center; gap: 12px; padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink); font-size: 1.05rem; transition: color 0.2s ease; }
-  .mail:hover { color: var(--accent); }
+  .mail:hover { color: var(--accent-ink); }
   .mail small { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-  .mail svg { width: 18px; height: 18px; color: var(--accent); }
+  .mail svg { width: 18px; height: 18px; color: var(--accent-ink); }
   .links { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
   .links a { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 0.9rem; color: var(--muted); transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
   .links a svg { width: 16px; height: 16px; }
-  .links a:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+  .links a:hover { color: var(--accent-ink); border-color: var(--accent); transform: translateY(-2px); }
   @media (max-width: 640px) { .links { margin-left: 0; } }
 `;
 
@@ -29,7 +29,7 @@ const Form = styled.form`
   button.send { height: 42px; padding: 0 22px; border: 0; border-radius: 10px; background: var(--accent); color: var(--on-accent); font-weight: 600; cursor: pointer; }
   button.send:disabled { opacity: 0.6; cursor: default; }
   .msg { font-size: 0.9rem; color: var(--muted); }
-  .msg.ok { color: var(--accent); }
+  .msg.ok { color: var(--accent-ink); }
 `;
 const Open = styled.p`
   display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 0.9rem; color: var(--muted);
@@ -73,7 +73,7 @@ export default function Contact() {
     <>
     {ov.status?.available !== false && ov.status?.message !== undefined && (ov.status.message || ov.status.available) ? <Open><i aria-hidden />{ov.status.message || c.open}</Open> : null}
     <Row>
-      <button type="button" className="mail" onClick={copy} aria-label={c.copy}>
+      <button type="button" className="mail" onClick={copy}>
         <FaEnvelope aria-hidden /> {L.email} <small>{done ? c.copied : c.copy}</small>
       </button>
       <nav className="links" aria-label={c.label}>

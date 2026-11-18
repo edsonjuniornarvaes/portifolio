@@ -48,8 +48,9 @@ const Card = styled(Link)`
   .body { display: flex; flex-direction: column; gap: 8px; padding: 20px 22px 22px; flex: 1; }
   .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.82rem; color: var(--muted); }
   .meta .k { color: var(--pc); font-weight: 600; }
+  :root[data-theme="light"] & .meta .k { color: color-mix(in srgb, var(--pc) 55%, var(--ink)); }
   .meta .st::before { content: "●"; margin-right: 5px; color: var(--sc); }
-  h3 { font-size: 1.45rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.12; }
+  .t { font-size: 1.45rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.12; }
   p { color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
   .tags { margin-top: auto; padding-top: 10px; }
 `;
@@ -63,7 +64,8 @@ const ShotImg = ({ src }: { src: string }) => <img src={src} alt="" loading="laz
 
 const STATUS_COLOR = { production: "#2eebaa", development: "#ffcb6b", paused: "#8c95a3" } as const;
 
-export default function ProjectCard({ id }: { id: string }) {
+export default function ProjectCard({ id, level = "h3" }: { id: string; level?: "h2" | "h3" }) {
+  const H = level;
   const { lang, t } = useLang();
   const base = getProjectById(id);
   if (!base) return null;
@@ -120,7 +122,7 @@ export default function ProjectCard({ id }: { id: string }) {
           {YEARS[id] && <span>{YEARS[id]}</span>}
           <span className="st">{t.status[p.status]}</span>
         </div>
-        <h3>{p.title}</h3>
+        <H className="t">{p.title}</H>
         <p>{p.tagline}</p>
         <div className="tags"><TechIcons tags={p.tags} max={5} /></div>
       </div>

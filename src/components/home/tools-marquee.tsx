@@ -33,7 +33,7 @@ const Box = styled.div`
   &:hover .track { animation-play-state: paused; }
   .t { display: inline-flex; align-items: center; gap: 10px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); font-size: 0.88rem; white-space: nowrap; transition: color 0.2s ease, border-color 0.2s ease; }
   .t svg { width: 18px; height: 18px; flex: none; }
-  .t:hover { color: var(--accent); border-color: var(--accent); }
+  .t:hover { color: var(--accent-ink); border-color: var(--accent); }
   @keyframes tm { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .track { animation: none; } overflow-x: auto; }
 `;

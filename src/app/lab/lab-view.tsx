@@ -21,7 +21,7 @@ const Card = styled.section`
   .stage { display: grid; place-items: center; min-height: 280px; padding: 28px; }
   .hint { padding: 0 24px 20px; color: var(--muted); font-size: 0.95rem; }
   .panel { border-top: 1px solid var(--line); padding: 14px 20px 18px; display: grid; gap: 10px; font-family: var(--font-mono); font-size: 0.78rem; }
-  .panel h4 { color: var(--accent); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.7rem; }
+  .panel h2 { color: var(--accent-ink); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.7rem; }
   .row { display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--muted); }
   .row input[type="checkbox"] { accent-color: var(--accent); width: 16px; height: 16px; }
   .row input[type="range"] { accent-color: var(--accent); width: 120px; }
@@ -80,7 +80,7 @@ function StubbornToggle() {
       </div>
       <p className="hint">{l.toggleHint} · <b style={{ color: on ? "var(--accent)" : "var(--muted)" }}>{on ? l.on : l.off}</b></p>
       <div className="panel">
-        <h4>{"// "}{l.panel}</h4>
+        <h2>{"// "}{l.panel}</h2>
         <label className="row"><span>{l.stubborn}</span><input type="checkbox" checked={stubborn} onChange={(e) => setStubborn(e.target.checked)} /></label>
         <label className="row"><span>{l.speed}</span><input type="range" min="0.5" max="2" step="0.1" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} /></label>
       </div>
@@ -126,9 +126,9 @@ function CoinFlip() {
       </div>
       <p className="hint">{result ? (result === "heads" ? l.heads : l.tails) : l.coinHint}</p>
       <div className="panel">
-        <h4>{"// "}{l.panel}</h4>
+        <h2>{"// "}{l.panel}</h2>
         <label className="row"><span>{l.speed}</span><input type="range" min="2" max="6" step="1" value={power} onChange={(e) => setPower(Number(e.target.value))} /></label>
-        <button type="button" onClick={() => toss(0.4)} className="btn p" style={{ justifySelf: "start", marginTop: 4, padding: "8px 16px", border: "1px solid var(--accent)", borderRadius: 6, background: "transparent", color: "var(--accent)", cursor: "pointer", fontFamily: "inherit" }}>{l.flip}</button>
+        <button type="button" onClick={() => toss(0.4)} className="btn p" style={{ justifySelf: "start", marginTop: 4, padding: "8px 16px", border: "1px solid var(--accent)", borderRadius: 6, background: "transparent", color: "var(--accent-ink)", cursor: "pointer", fontFamily: "inherit" }}>{l.flip}</button>
       </div>
     </Card>
   );

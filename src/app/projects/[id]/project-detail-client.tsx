@@ -17,7 +17,7 @@ import { type Project } from "../helper";
 
 const Back = styled(Link)`
   display: inline-block; margin-bottom: 36px; font-size: 0.95rem; color: var(--muted); transition: color 0.2s ease;
-  &:hover { color: var(--accent); }
+  &:hover { color: var(--accent-ink); }
 `;
 
 const Meta = styled.dl`
@@ -25,7 +25,7 @@ const Meta = styled.dl`
   dt { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
   dd { margin-top: 4px; font-size: 0.98rem; }
   a { border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
-  a:hover { color: var(--accent); }
+  a:hover { color: var(--accent-ink); }
 `;
 
 const Block = styled.section`
@@ -34,7 +34,7 @@ const Block = styled.section`
   h2 { font-size: 0.95rem; font-weight: 600; color: var(--ink); padding-top: 4px; }
   ul { list-style: none; display: grid; gap: 12px; }
   li { position: relative; padding-left: 22px; line-height: 1.6; }
-  li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+  li::before { content: "→"; position: absolute; left: 0; color: var(--accent-ink); }
   .plain { color: var(--muted); line-height: 1.7; }
   dl.f { display: grid; gap: 16px; }
   dl.f dt { font-weight: 600; }

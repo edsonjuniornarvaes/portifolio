@@ -17,7 +17,7 @@ const Box = styled.div`
   .btn.p { background: var(--accent); color: var(--on-accent); box-shadow: 4px 4px 0 var(--accent-2); }
   .btn.p:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--accent-2); }
   .btn.g { border: 1px solid var(--line); font-weight: 500; }
-  .btn.g:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.g:hover { border-color: var(--accent); color: var(--accent-ink); }
 `;
 
 /** Convite para empresas: site, página, marketplace e app, com chamada para conversar. */

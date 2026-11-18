@@ -39,7 +39,7 @@ const Box = styled.section`
   .btn.p { background: var(--accent); color: var(--on-accent); font-weight: 700; box-shadow: 4px 4px 0 var(--accent-2); }
   .btn.p:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--accent-2); }
   .btn.g { border: 1px solid var(--line); }
-  .btn.g:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .btn.g:hover { border-color: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
   .meta { display: flex; flex-wrap: wrap; gap: 8px 40px; margin-top: 44px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
   .worked { display: flex; align-items: center; gap: 14px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 34rem; }
   .worked small { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }

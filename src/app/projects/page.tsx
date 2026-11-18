@@ -24,7 +24,7 @@ const Tabs = styled.div`
   button[aria-pressed="true"] { color: var(--on-accent); border-color: var(--accent); }
   button .bg { position: absolute; inset: 0; border-radius: 99px; background: var(--accent); }
   button span { position: relative; }
-  button sup { position: relative; margin-left: 5px; font-size: 0.62rem; opacity: 0.7; }
+  button sup { position: relative; margin-left: 5px; font-size: 0.62rem; opacity: 1; font-weight: 600; }
 `;
 
 const Grid = styled(motion.ul)`
@@ -57,7 +57,7 @@ export default function Projects() {
           <AnimatePresence mode="popLayout">
             {ids.map((id) => (
               <motion.li key={id} layout initial={{ opacity: 0, y: 18, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.35, ease: [0.2, 0.7, 0.2, 1] }}>
-                <ProjectCard id={id} />
+                <ProjectCard id={id} level="h2" />
               </motion.li>
             ))}
           </AnimatePresence>

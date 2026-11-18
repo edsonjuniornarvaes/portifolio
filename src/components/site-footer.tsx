@@ -23,23 +23,23 @@ const Foot = styled.footer`
   form input:focus { outline: none; }
   form button { width: 54px; border: 0; cursor: pointer; background: var(--accent); color: var(--on-accent); font-size: 1.2rem; font-weight: 700; transition: filter 0.2s ease; }
   form button:hover { filter: brightness(1.12); }
-  h4 { font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  h4 { font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-ink); margin-bottom: 16px; }
   ul { list-style: none; display: grid; gap: 10px; }
   li a { transition: color 0.2s ease, padding 0.25s ease; }
-  li a:hover { color: var(--accent); padding-left: 6px; }
+  li a:hover { color: var(--accent-ink); padding-left: 6px; }
   .icons { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 44px; }
   .icons a { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
-  .icons a:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
-  .tip { margin-top: 22px; font-family: var(--font-hand); font-size: 1.3rem; color: var(--accent); }
+  .icons a:hover { color: var(--accent-ink); border-color: var(--accent); transform: translateY(-2px); }
+  .tip { margin-top: 22px; font-family: var(--font-hand); font-size: 1.3rem; color: var(--accent-ink); }
   .mini { display: flex; gap: 18px; }
-  .mini a:hover { color: var(--accent); }
+  .mini a:hover { color: var(--accent-ink); }
   .mini { display: flex; flex-wrap: wrap; gap: 6px 18px; }
   .mini a { transition: color 0.2s ease; }
-  .mini a:hover { color: var(--accent); }
+  .mini a:hover { color: var(--accent-ink); }
   .base { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; margin-top: 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.86rem; color: var(--muted); }
   .meta { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; display: flex; flex-wrap: wrap; gap: 4px 22px; }
   .base button.top { background: none; border: 0; padding: 0; cursor: pointer; color: var(--muted); font-size: inherit; transition: color 0.2s ease; }
-  .base button.top:hover { color: var(--accent); }
+  .base button.top:hover { color: var(--accent-ink); }
   --land-1: #0b1d1a; --land-2: #0e2e2b; --land-3: #123f3b;
   :root[data-theme="light"] & { --land-1: #cfe9de; --land-2: #bfe3d3; --land-3: #a9d9c6; }
 `;
