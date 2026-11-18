@@ -13,12 +13,12 @@ import { play } from "@/lib/sound";
 const P = "/images/projects/";
 // w: largura em px (celular); cq: largura em % da faixa (para caber inteira em qualquer tela larga)
 const PHONES = [
-  { id: "minha-navex", src: `${P}navex-home-new.webp`, w: 160, cq: 11.9, mt: 90, k: 24 },
-  { id: "consorcio-gazin", src: `${P}consorcio-gazin-simulador.webp`, w: 186, cq: 13.8, mt: 48, k: 44 },
-  { id: "pjbank", src: `${P}pjbank-home.webp`, w: 228, cq: 17, mt: 0, k: 100 },
-  { id: "gruvi", src: `${P}gruvi-home.webp`, w: 192, cq: 14.3, mt: 24, k: 60 },
-  { id: "clube-da-joia-app", src: `${P}clube-app-home.webp`, w: 206, cq: 15.3, mt: 52, k: 40 },
-  { id: "mont-b2b", src: `${P}mont-home-alt.webp`, w: 160, cq: 11.9, mt: 90, k: 24 },
+  { id: "minha-navex", src: `${P}navex-home-new.webp`, w: 160, cq: 11.6, mt: 84, k: 24 },
+  { id: "consorcio-gazin", src: `${P}consorcio-gazin-simulador.webp`, w: 180, cq: 13.2, mt: 42, k: 44 },
+  { id: "pjbank", src: `${P}pjbank-home.webp`, w: 210, cq: 15.6, mt: 0, k: 90 },
+  { id: "gruvi", src: `${P}gruvi-home.webp`, w: 210, cq: 15.6, mt: 0, k: 90 },
+  { id: "clube-da-joia-app", src: `${P}clube-app-home.webp`, w: 180, cq: 13.2, mt: 42, k: 44 },
+  { id: "mont-b2b", src: `${P}mont-home-alt.webp`, w: 160, cq: 11.6, mt: 84, k: 24 },
 ];
 const LAPTOPS: { id: string; admin?: boolean; img?: string; k: number }[] = [
   { id: "clube-da-joia-marketplace", img: `${P}clube-admin.webp`, k: 24 },
