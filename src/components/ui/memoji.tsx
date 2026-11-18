@@ -20,7 +20,7 @@ export default function Memoji({ label }: { label: string }) {
   }, []);
   return (
     <div ref={ref} role="img" aria-label={label} style={{ width: "100%", transition: "transform 0.25s ease-out" }}>
-      <MemojiAvatar size={140} />
+      <MemojiAvatar size={150} bare />
     </div>
   );
 }

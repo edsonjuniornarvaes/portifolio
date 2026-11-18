@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import DeskScene from "@/components/ui/desk-scene";
 
 /** Formato da abertura de cada olho (em coordenadas da imagem de 420 px) e onde fica a íris. */
 const EYES = [
@@ -12,7 +13,7 @@ const EYES = [
  * Seu Memoji em círculo. O fundo acompanha a cor de destaque do site e os olhos seguem o mouse
  * (cobrimos a íris original e desenhamos outra por cima, que se move).
  */
-export function MemojiAvatar({ size = 40, look = true }: { size?: number; look?: boolean }) {
+export function MemojiAvatar({ size = 40, look = true, bare = false }: { size?: number; look?: boolean; bare?: boolean }) {
   const box = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export function MemojiAvatar({ size = 40, look = true }: { size?: number; look?:
   return (
     <span
       ref={box}
-      style={{
+      style={bare ? { display: "block", position: "relative", width: size, height: size, flex: "none" } : {
         display: "block", position: "relative", width: size, height: size, borderRadius: "50%", overflow: "hidden", flex: "none",
         background: "linear-gradient(180deg, color-mix(in srgb, var(--accent) 52%, #fff) 0%, color-mix(in srgb, var(--accent) 78%, #000) 100%)",
         transition: "background 0.4s ease",
@@ -66,6 +67,15 @@ export function MemojiAvatar({ size = 40, look = true }: { size?: number; look?:
           {EYES.map((e, i) => <path key={`l${i}`} d={e.lid} fill="none" stroke="#1d1613" strokeWidth="2.6" strokeLinecap="round" />)}
         </svg>
       )}
+    </span>
+  );
+}
+
+/** Ícone redondo do cabeçalho: a ilustração do Edson programando, em close da cabeça e dos ombros. */
+export function SceneAvatar({ size = 34 }: { size?: number }) {
+  return (
+    <span style={{ display: "block", width: size, height: size, borderRadius: "50%", overflow: "hidden", flex: "none", boxShadow: "0 0 0 2px var(--accent)" }}>
+      <DeskScene crop="head" title="Edson Junior" />
     </span>
   );
 }
