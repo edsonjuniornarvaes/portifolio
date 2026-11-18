@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import styled from "styled-components";
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { play } from "@/lib/sound";
-import { MemojiAvatar } from "@/components/ui/avatar";
+import DeskScene from "@/components/ui/desk-scene";
 
 const Box = styled(motion.div)`
   position: absolute; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; pointer-events: auto;
@@ -250,10 +250,13 @@ export function ClockSticker() {
   );
 }
 
-export function AvatarSticker({ size = 140 }: { size?: number }) {
+/** Adesivo com a ilustração do Edson programando (cartão com cantos arredondados e borda branca de adesivo). */
+export function SceneSticker({ width = 196 }: { width?: number }) {
   return (
-    <div style={{ width: size, height: size, borderRadius: "50%", background: "#fff", padding: Math.round(size * 0.05) }}>
-      <MemojiAvatar size={size - Math.round(size * 0.1)} />
+    <div style={{ width, padding: 5, borderRadius: 26, background: "#fff" }}>
+      <div style={{ width: "100%", aspectRatio: "360 / 380", borderRadius: 22, overflow: "hidden" }}>
+        <DeskScene title="Edson Junior programando" />
+      </div>
     </div>
   );
 }
