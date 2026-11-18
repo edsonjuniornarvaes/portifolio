@@ -8,7 +8,7 @@ import Letters from "@/components/ui/letters";
 import DecodeLines from "@/components/ui/decode-lines";
 import MatrixRain from "@/components/ui/matrix-rain";
 import IDot from "@/components/ui/i-dot-machine";
-import PeelSticker, { AvatarSticker, ClockSticker, LaptopSticker, MateSticker, MugSticker } from "@/components/ui/peel-sticker";
+import PeelSticker, { AvatarSticker, ClockSticker, LaptopSticker, MugSticker, PhoneSticker } from "@/components/ui/peel-sticker";
 import { useLang } from "@/i18n/provider";
 import { CAREER_SINCE, MOBILE_SINCE } from "@/data/profile";
 import { BRAND_ICON } from "@/data/brands";
@@ -105,11 +105,11 @@ export default function Hero() {
       </Wrap>
 
       <div className="board">
-        <PeelSticker h={124} rot={-7} style={{ left: "4%", top: "10%" }} label={h.stickers.laptop}><LaptopSticker /></PeelSticker>
-        <PeelSticker h={140} rot={3} style={{ left: "36%", top: "42%" }} label={h.stickers.photo}><AvatarSticker size={140} /></PeelSticker>
-        <PeelSticker h={128} rot={9} style={{ right: "6%", top: "30%" }} label={h.stickers.coffee}><MugSticker /></PeelSticker>
-        <PeelSticker h={141} rot={-6} style={{ left: "10%", top: "60%" }} label={h.stickers.mate}><MateSticker /></PeelSticker>
-        <PeelSticker h={46} rot={3} style={{ right: "6%", top: "4%" }} label={h.stickers.clock}><ClockSticker /></PeelSticker>
+        <PeelSticker h={136} rot={-2} style={{ left: "2%", top: "8%" }} label={h.stickers.laptop}><LaptopSticker /></PeelSticker>
+        <PeelSticker h={56} rot={1.5} style={{ right: "6%", top: "8%" }} label={h.stickers.clock}><ClockSticker /></PeelSticker>
+        <PeelSticker h={140} rot={0} style={{ left: "37%", top: "40%" }} label={h.stickers.photo}><AvatarSticker size={140} /></PeelSticker>
+        <PeelSticker h={218} rot={3} style={{ left: "4%", top: "46%" }} label={h.stickers.phone}><PhoneSticker /></PeelSticker>
+        <PeelSticker h={128} rot={-3} style={{ right: "6%", top: "52%" }} label={h.stickers.coffee}><MugSticker /></PeelSticker>
       </div>
     </Box>
   );
