@@ -4,10 +4,11 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { play } from "@/lib/sound";
 
-const N = 9, GAP = 32, H = 360, PTS = 19;
+const N = 8, GAP = 22, H = 300, PTS = 17;
 
 /**
- * Cordinhas de violão no cantinho da tela, atrás do conteúdo: passe o mouse e elas vibram e tocam uma nota suave.
+ * Cordinhas de violão no cantinho da tela, atrás do conteúdo: só tocam quando você clica e ARRASTA o mouse por cima
+ * (passar o mouse sem clicar não faz nada, para não atrapalhar a leitura).
  */
 export default function CornerStrings() {
   const pathname = usePathname();
@@ -25,7 +26,7 @@ export default function CornerStrings() {
     const off = Array.from({ length: N }, () => new Float32Array(PTS));
     const vel = Array.from({ length: N }, () => new Float32Array(PTS));
     const lastHit = new Array(N).fill(0);
-    let raf = 0, running = false, px = -1, py = -1, lx = -1;
+    let raf = 0, running = false, px = -1, py = -1, lx = -1, pressed = false;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const draw = () => {
@@ -37,7 +38,7 @@ export default function CornerStrings() {
         let m = 0; for (let k = 0; k < PTS; k++) m = Math.max(m, Math.abs(off[i][k]));
         c.beginPath();
         for (let k = 0; k < PTS; k++) { const x = GAP + i * GAP + off[i][k]; const y = (k / (PTS - 1)) * H; if (k) c.lineTo(x, y); else c.moveTo(x, y); }
-        c.strokeStyle = m > 1 ? hot : base; c.globalAlpha = m > 1 ? 0.95 : 0.4; c.lineWidth = 1.4 + (N - i) * 0.28; c.stroke();
+        c.strokeStyle = m > 1 ? hot : base; c.globalAlpha = m > 1 ? 0.95 : 0.4; c.lineWidth = 1.3 + (N - i) * 0.22; c.stroke();
       }
       c.globalAlpha = 1;
     };
@@ -73,10 +74,32 @@ export default function CornerStrings() {
         }
       }
     };
-    const mv = (e: PointerEvent) => hit(e.clientX, e.clientY);
+    const inside = (x: number, y: number) => {
+      const r = canvas.getBoundingClientRect();
+      return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    };
+    const down = (e: PointerEvent) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      if (!inside(e.clientX, e.clientY)) return;
+      pressed = true; lx = -1;
+      document.documentElement.classList.add("strumming");
+    };
+    const up = () => {
+      if (!pressed) return;
+      pressed = false; lx = -1; px = -1;
+      document.documentElement.classList.remove("strumming");
+    };
+    const mv = (e: PointerEvent) => { if (pressed) hit(e.clientX, e.clientY); };
+    window.addEventListener("pointerdown", down, { passive: true });
     window.addEventListener("pointermove", mv, { passive: true });
+    window.addEventListener("pointerup", up, { passive: true });
+    window.addEventListener("pointercancel", up, { passive: true });
     draw();
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("pointermove", mv); };
+    return () => {
+      cancelAnimationFrame(raf); up();
+      window.removeEventListener("pointerdown", down); window.removeEventListener("pointermove", mv);
+      window.removeEventListener("pointerup", up); window.removeEventListener("pointercancel", up);
+    };
   }, [hidden]);
 
   if (hidden) return null;
