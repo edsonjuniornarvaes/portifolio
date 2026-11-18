@@ -110,34 +110,79 @@ const W = { fill: "#fff", stroke: "#fff", strokeWidth: 10, strokeLinejoin: "roun
 
 export function LaptopSticker() {
   return (
-    <svg width="210" height="124" viewBox="0 0 240 142" aria-hidden style={{ display: "block" }}>
+    <svg width="212" height="136" viewBox="0 0 260 168" aria-hidden style={{ display: "block", overflow: "visible" }}>
       <defs>
-        <clipPath id="lt-scr"><rect x="46" y="12" width="148" height="92" rx="3" /></clipPath>
-        <linearGradient id="lt-wall" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#0d2f2a" /><stop offset=".55" stopColor="#103e3a" /><stop offset="1" stopColor="#2b1b52" /></linearGradient>
-        <linearGradient id="lt-base" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f0f2f5" /><stop offset="1" stopColor="#b9bfc9" /></linearGradient>
-        <linearGradient id="lt-gloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff" stopOpacity=".26" /><stop offset=".4" stopColor="#fff" stopOpacity="0" /></linearGradient>
+        <filter id="lt-o" x="-25%" y="-25%" width="150%" height="150%">
+          <feMorphology in="SourceAlpha" operator="dilate" radius="4.2" result="d" />
+          <feGaussianBlur in="d" stdDeviation="2" result="b" />
+          <feComponentTransfer in="b" result="r"><feFuncA type="linear" slope="9" intercept="-3.6" /></feComponentTransfer>
+          <feFlood floodColor="#fff" />
+          <feComposite in2="r" operator="in" result="w" />
+          <feMerge><feMergeNode in="w" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <linearGradient id="lt-lid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#3b4048" /><stop offset="1" stopColor="#1d2025" /></linearGradient>
+        <linearGradient id="lt-base" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f2f4f7" /><stop offset=".55" stopColor="#d6dae1" /><stop offset="1" stopColor="#aab0ba" /></linearGradient>
+        <linearGradient id="lt-wall" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#0c2a27" /><stop offset=".55" stopColor="#12413c" /><stop offset="1" stopColor="#2a1c52" /></linearGradient>
+        <linearGradient id="lt-gloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff" stopOpacity=".22" /><stop offset=".38" stopColor="#fff" stopOpacity="0" /></linearGradient>
+        <clipPath id="lt-scr"><rect x="34" y="14" width="192" height="112" rx="3" /></clipPath>
       </defs>
-      <path d="M38 6h164a8 8 0 0 1 8 8v96H30V14a8 8 0 0 1 8-8Z M6 110h228l-1 3c-1 5-6 9-12 9H19c-6 0-11-4-12-9l-1-3Z" {...W} />
-      <path d="M38 6h164a8 8 0 0 1 8 8v96H30V14a8 8 0 0 1 8-8Z" fill="#17181b" />
-      <g clipPath="url(#lt-scr)">
-        <rect x="46" y="12" width="148" height="92" fill="url(#lt-wall)" />
-        <circle cx="168" cy="30" r="38" fill="var(--accent)" opacity=".2" />
-        <rect x="46" y="12" width="148" height="6" fill="#fff" opacity=".1" />
-        <rect x="58" y="28" width="88" height="56" rx="5" fill="#0a0b0d" opacity=".85" />
-        <circle cx="66" cy="36" r="2" fill="#ff5f57" /><circle cx="73" cy="36" r="2" fill="#febc2e" /><circle cx="80" cy="36" r="2" fill="#28c840" />
-        <g fontFamily="var(--font-jetbrains), monospace" fontSize="6.4">
-          <text x="65" y="52" fill="#c792ea">const</text><text x="88" y="52" fill="#82aaff">app</text><text x="101" y="52" fill="#e8eef2">=</text>
-          <text x="65" y="62" fill="var(--accent)">build</text><text x="87" y="62" fill="#ffcb6b">(ios, web)</text>
-          <text x="65" y="72" fill="#7fdbca">ship</text><text x="83" y="72" fill="#e8eef2">()</text>
+      <g filter="url(#lt-o)">
+        <rect x="26" y="6" width="208" height="126" rx="10" fill="url(#lt-lid)" />
+        <rect x="30" y="10" width="200" height="118" rx="7" fill="#08090b" />
+        <g clipPath="url(#lt-scr)">
+          <rect x="34" y="14" width="192" height="112" fill="url(#lt-wall)" />
+          <circle cx="196" cy="40" r="46" fill="var(--accent)" opacity=".22" />
+          <rect x="34" y="14" width="192" height="8" fill="#0a0b0d" opacity=".55" />
+          <circle cx="44" cy="18" r="1.8" fill="#ff5f57" /><circle cx="50" cy="18" r="1.8" fill="#febc2e" /><circle cx="56" cy="18" r="1.8" fill="#28c840" />
+          <rect x="48" y="30" width="112" height="72" rx="6" fill="#0a0b0d" opacity=".9" />
+          <rect x="48" y="30" width="112" height="9" rx="4" fill="#1a1d22" />
+          <g fontFamily="var(--font-jetbrains), monospace" fontSize="7.4">
+            <text x="56" y="54" fill="#c792ea">const</text><text x="82" y="54" fill="#82aaff">app</text><text x="96" y="54" fill="#e8eef2">=</text><text x="108" y="54" fill="var(--accent)">build</text><text x="130" y="54" fill="#e8eef2">()</text>
+            <text x="56" y="66" fill="#7fdbca">ship</text><text x="75" y="66" fill="#e8eef2">(</text><text x="80" y="66" fill="#ffcb6b">ios, web</text><text x="116" y="66" fill="#e8eef2">)</text>
+            <text x="56" y="78" fill="#5f6b7d">{"// no ar"}</text>
+          </g>
+          <rect x="56" y="86" width="40" height="10" rx="5" fill="var(--accent)" />
+          <rect x="168" y="38" width="48" height="60" rx="8" fill="#fff" opacity=".1" />
+          <rect x="174" y="46" width="36" height="6" rx="3" fill="#fff" opacity=".35" /><rect x="174" y="58" width="28" height="4" rx="2" fill="#fff" opacity=".2" /><rect x="174" y="68" width="32" height="4" rx="2" fill="#fff" opacity=".2" />
+          <rect x="34" y="14" width="192" height="112" fill="url(#lt-gloss)" />
         </g>
-        <rect x="152" y="40" width="34" height="44" rx="5" fill="#fff" opacity=".12" />
-        <rect x="84" y="92" width="72" height="9" rx="4.5" fill="#fff" opacity=".16" />
-        <circle cx="94" cy="96.5" r="2.5" fill="var(--accent)" /><circle cx="104" cy="96.5" r="2.5" fill="#82aaff" /><circle cx="114" cy="96.5" r="2.5" fill="#c792ea" /><circle cx="124" cy="96.5" r="2.5" fill="#ffcb6b" /><circle cx="134" cy="96.5" r="2.5" fill="#ff8a65" />
-        <rect x="46" y="12" width="148" height="92" fill="url(#lt-gloss)" />
+        <rect x="116" y="8" width="28" height="5" rx="2.5" fill="#08090b" />
+        <path d="M6 132h248c0 6-3 9-8 9H14c-5 0-8-3-8-9Z" fill="url(#lt-base)" />
+        <path d="M6 132h248l-1.5 3H7.5Z" fill="#fff" opacity=".6" />
+        <path d="M104 132h52c0 4-3 6-7 6h-38c-4 0-7-2-7-6Z" fill="#9aa1ab" />
       </g>
-      <rect x="108" y="7.4" width="24" height="3.4" rx="1.7" fill="#0a0a0c" />
-      <path d="M6 110h228l-1 3c-1 5-6 9-12 9H19c-6 0-11-4-12-9l-1-3Z" fill="url(#lt-base)" />
-      <path d="M100 110h40c0 3.4-3 5.4-6 5.4h-28c-3 0-6-2-6-5.4Z" fill="#9aa0aa" />
+    </svg>
+  );
+}
+
+/** iPhone de lado a lado com a tela de um app (as laterais e a ilha dinâmica seguem o desenho real). */
+export function PhoneSticker({ src = "/images/projects/clube-app-home.webp" }: { src?: string }) {
+  return (
+    <svg width="104" height="218" viewBox="0 0 120 252" aria-hidden style={{ display: "block", overflow: "visible" }}>
+      <defs>
+        <filter id="ph-o" x="-25%" y="-25%" width="150%" height="150%">
+          <feMorphology in="SourceAlpha" operator="dilate" radius="4.2" result="d" />
+          <feGaussianBlur in="d" stdDeviation="2" result="b" />
+          <feComponentTransfer in="b" result="r"><feFuncA type="linear" slope="9" intercept="-3.6" /></feComponentTransfer>
+          <feFlood floodColor="#fff" />
+          <feComposite in2="r" operator="in" result="w" />
+          <feMerge><feMergeNode in="w" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <linearGradient id="ph-fr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#d8dbe0" /><stop offset=".5" stopColor="#8e939c" /><stop offset="1" stopColor="#c9cdd4" /></linearGradient>
+        <linearGradient id="ph-gloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff" stopOpacity=".3" /><stop offset=".4" stopColor="#fff" stopOpacity="0" /></linearGradient>
+        <clipPath id="ph-scr"><rect x="9" y="9" width="102" height="234" rx="20" /></clipPath>
+      </defs>
+      <g filter="url(#ph-o)">
+        <rect x="4" y="4" width="112" height="244" rx="26" fill="url(#ph-fr)" />
+        <rect x="7" y="7" width="106" height="238" rx="23" fill="#0b0b0d" />
+        <g clipPath="url(#ph-scr)">
+          <rect x="9" y="9" width="102" height="234" fill="#fff" />
+          <image href={src} x="9" y="9" width="102" height="234" preserveAspectRatio="xMidYMin slice" />
+          <rect x="9" y="9" width="102" height="234" fill="url(#ph-gloss)" />
+        </g>
+        <rect x="42" y="14" width="36" height="10" rx="5" fill="#000" />
+        <rect x="114" y="62" width="3" height="22" rx="1.5" fill="#8e939c" /><rect x="3" y="56" width="3" height="14" rx="1.5" fill="#8e939c" /><rect x="3" y="76" width="3" height="26" rx="1.5" fill="#8e939c" />
+      </g>
     </svg>
   );
 }
@@ -178,44 +223,7 @@ export function MugSticker() {
   );
 }
 
-/** Guampa de tereré (copo de chifre) com bomba de metal; o contorno branco é gerado do formato, sem emendas. */
-export function MateSticker() {
-  return (
-    <svg width="112" height="141" viewBox="0 0 140 176" aria-hidden style={{ display: "block", overflow: "visible" }}>
-      <defs>
-        <filter id="mt-o" x="-25%" y="-25%" width="150%" height="150%">
-          <feMorphology in="SourceAlpha" operator="dilate" radius="4.2" result="d" />
-          <feGaussianBlur in="d" stdDeviation="2" result="b" />
-          <feComponentTransfer in="b" result="r"><feFuncA type="linear" slope="9" intercept="-3.6" /></feComponentTransfer>
-          <feFlood floodColor="#fff" />
-          <feComposite in2="r" operator="in" result="w" />
-          <feMerge><feMergeNode in="w" /><feMergeNode in="SourceGraphic" /></feMerge>
-        </filter>
-        <linearGradient id="mt-horn" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#5a3a1f" /><stop offset=".28" stopColor="#b98b55" /><stop offset=".5" stopColor="#e0bd8a" /><stop offset=".78" stopColor="#8a5c33" /><stop offset="1" stopColor="#3f2711" /></linearGradient>
-        <linearGradient id="mt-met" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#9aa2ac" /><stop offset=".4" stopColor="#fbfcfd" /><stop offset="1" stopColor="#8f97a1" /></linearGradient>
-        <radialGradient id="mt-herb" cx="45%" cy="40%" r="70%"><stop offset="0" stopColor="#a1d65c" /><stop offset="1" stopColor="#3b6c22" /></radialGradient>
-        <clipPath id="mt-hc"><path d="M24 62C20 100 36 140 62 164c4 3.6 11 3 13-2 26-24 42-64 41-100Z" /></clipPath>
-      </defs>
-      <g filter="url(#mt-o)">
-        <path d="M24 62C20 100 36 140 62 164c4 3.6 11 3 13-2 26-24 42-64 41-100Z" fill="url(#mt-horn)" />
-        <g clipPath="url(#mt-hc)">
-          <path d="M18 112c32 9 74 8 104-8v16c-30 16-72 17-104 8Z" fill="var(--accent)" opacity=".95" />
-          <path d="M18 112c32 9 74 8 104-8" stroke="#fff" strokeOpacity=".5" strokeWidth="2" fill="none" />
-          <g stroke="#2a180a" strokeOpacity=".22" strokeWidth="2" fill="none"><path d="M30 76c3 22 12 44 26 62" /><path d="M96 70c0 22-8 46-22 66" /><path d="M44 70c4 22 12 40 24 58" /></g>
-          <path d="M32 74c2 14 7 28 14 40" stroke="#fff" strokeOpacity=".55" strokeWidth="4" strokeLinecap="round" fill="none" />
-        </g>
-        <path d="M18 58c0-3 3-5 8-5h88c5 0 8 2 8 5 0 5-4 8-8 9H26c-4-1-8-4-8-9Z" fill="url(#mt-met)" />
-        <ellipse cx="70" cy="56" rx="48" ry="9" fill="#efe6d4" /><ellipse cx="70" cy="56" rx="43" ry="6.4" fill="url(#mt-herb)" />
-        <g fill="#eaf6ff" opacity=".85"><rect x="46" y="51" width="11" height="9" rx="2" transform="rotate(-12 51 55)" /><rect x="84" y="52" width="10" height="8" rx="2" transform="rotate(10 89 56)" /></g>
-        <path d="M76 62L104 14" stroke="url(#mt-met)" strokeWidth="6.6" strokeLinecap="round" fill="none" />
-        <path d="M104 14c2-5 8-7 13-4" stroke="url(#mt-met)" strokeWidth="6.6" strokeLinecap="round" fill="none" />
-        <ellipse cx="76" cy="62" rx="5.5" ry="3.4" fill="#8f97a1" transform="rotate(-30 76 62)" />
-      </g>
-    </svg>
-  );
-}
-
-/** Relógio digital (horário de Brasília) como adesivo: dá para descolar e levar para outro canto. */
+/** Relógio de placas (flip clock) com o horário de Brasília: dá para descolar e levar para outro canto. */
 export function ClockSticker() {
   const [t, setT] = useState<[string, string] | null>(null);
   const [sep, setSep] = useState(true);
@@ -229,10 +237,21 @@ export function ClockSticker() {
     const bl = setInterval(() => setSep((v) => !v), 1000);
     return () => { clearInterval(id); clearInterval(bl); };
   }, []);
+  const card = (d: string) => (
+    <div style={{ position: "relative", width: 30, height: 40, borderRadius: 6, background: "linear-gradient(#23272d 0 49%, #181b20 51% 100%)", color: "var(--accent)", display: "grid", placeItems: "center", fontFamily: "var(--font-jetbrains), monospace", fontSize: "1.35rem", fontWeight: 700, fontVariantNumeric: "tabular-nums", boxShadow: "inset 0 1px 0 rgba(255,255,255,.12), inset 0 -2px 6px rgba(0,0,0,.5)" }}>
+      <span style={{ position: "relative", zIndex: 1, textShadow: "0 0 14px color-mix(in srgb, var(--accent) 55%, transparent)" }}>{d}</span>
+      <i style={{ position: "absolute", left: 0, right: 0, top: "50%", height: 2, marginTop: -1, background: "rgba(0,0,0,.65)" }} />
+      <i style={{ position: "absolute", left: -1.5, top: "50%", width: 3, height: 6, marginTop: -3, borderRadius: 2, background: "#0c0e11" }} />
+      <i style={{ position: "absolute", right: -1.5, top: "50%", width: 3, height: 6, marginTop: -3, borderRadius: 2, background: "#0c0e11" }} />
+    </div>
+  );
+  const hh = t ? t[0] : "--", mm = t ? t[1] : "--";
   return (
-    <div style={{ padding: 5, borderRadius: 16, background: "#fff" }} aria-label={t ? `${t[0]}:${t[1]}` : undefined}>
-      <div style={{ display: "flex", alignItems: "center", gap: 3, padding: "8px 14px", borderRadius: 12, background: "#0c1013", color: "var(--accent)", fontFamily: "var(--font-mono)", fontSize: "1.15rem", fontWeight: 600, letterSpacing: "0.04em", fontVariantNumeric: "tabular-nums", boxShadow: "inset 0 0 14px color-mix(in srgb, var(--accent) 18%, transparent)" }}>
-        <span>{t ? t[0] : "--"}</span><span style={{ opacity: sep ? 1 : 0.25 }}>:</span><span>{t ? t[1] : "--"}</span>
+    <div style={{ padding: 4, borderRadius: 14, background: "#fff" }} aria-label={t ? `${t[0]}:${t[1]}` : undefined}>
+      <div style={{ display: "flex", alignItems: "center", gap: 4, padding: 5, borderRadius: 10, background: "#0b0d10" }}>
+        {card(hh[0])}{card(hh[1])}
+        <span style={{ display: "grid", gap: 5, padding: "0 1px", opacity: sep ? 1 : 0.25, transition: "opacity .2s" }}><i style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--accent)" }} /><i style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--accent)" }} /></span>
+        {card(mm[0])}{card(mm[1])}
       </div>
     </div>
   );
