@@ -14,7 +14,7 @@ const pt = {
   langSwitch: { label: "Idioma", pt: "Português", en: "English" },
   hero: {
     status: "Disponível para novos projetos",
-    based: "Umuarama, Brasil",
+    based: "Umuarama, PR, Brasil",
     h1a: "Aplicativos e sites",
     h1b: "que as pessoas usam.",
     lead: "Sou o Edson, desenvolvedor em Umuarama, no Paraná. Desde 2019 crio aplicativos de iPhone e Android e sites para bancos digitais, condomínios, telecom e lojas online, cuidando de tudo, do desenho à publicação. Hoje trabalho na Superlógica, no app da Conta Superlógica, e também desenvolvo meus próprios produtos, como a loja Clube da Joia.",
@@ -168,7 +168,7 @@ const en: Dict = {
   langSwitch: { label: "Language", pt: "Português", en: "English" },
   hero: {
     status: "Available for new projects",
-    based: "Umuarama, Brazil",
+    based: "Umuarama, PR, Brazil",
     h1a: "Apps and websites",
     h1b: "people actually use.",
     lead: "I'm Edson, a developer based in Umuarama, Brazil. Since 2019 I have built iPhone and Android apps and websites for digital banks, condominiums, telecom and online stores, handling everything from design to release. Today I work at Superlógica on the Conta Superlógica app, and I also build my own products, such as the Clube da Joia store.",
