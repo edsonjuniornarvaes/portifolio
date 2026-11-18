@@ -18,7 +18,7 @@ export default function MatrixRain() {
     const c = canvas.getContext("2d");
     if (!c) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const FS = 16;
+    const FS = 18;
     let W = 0, H = 0, cols = 0, drops: number[] = [], speeds: number[] = [];
     let accent = "#2eebaa", paper = "#090b0d";
     let raf = 0, last = 0, visible = true;
@@ -30,7 +30,7 @@ export default function MatrixRain() {
     };
     const size = () => {
       const r = el.getBoundingClientRect();
-      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      const dpr = 1;
       W = r.width; H = r.height;
       canvas.width = W * dpr; canvas.height = H * dpr;
       canvas.style.width = `${W}px`; canvas.style.height = `${H}px`;
@@ -43,7 +43,7 @@ export default function MatrixRain() {
     };
     const frame = (t: number) => {
       raf = requestAnimationFrame(frame);
-      if (!visible || t - last < 55) return;
+      if (!visible || t - last < 90) return;
       last = t;
       // rastro: escurece um pouco o quadro anterior
       c.globalAlpha = 0.16; c.fillStyle = paper; c.fillRect(0, 0, W, H); c.globalAlpha = 1;
@@ -73,8 +73,10 @@ export default function MatrixRain() {
   }, []);
 
   return (
-    <div ref={box} aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", opacity: 0.2, WebkitMaskImage: "linear-gradient(90deg, transparent 20%, #000 75%), linear-gradient(#000 60%, transparent)", maskImage: "linear-gradient(90deg, transparent 20%, #000 75%)" }}>
+    <div ref={box} aria-hidden style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: "62%", overflow: "hidden", pointerEvents: "none", opacity: 0.22 }}>
       <canvas ref={cv} style={{ display: "block" }} />
+      {/* degradê por cima (barato), no lugar de máscara na tela */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, var(--paper) 0%, transparent 45%), linear-gradient(0deg, var(--paper) 0%, transparent 35%)" }} />
     </div>
   );
 }

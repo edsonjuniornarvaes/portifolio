@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import DeskScene from "@/components/ui/desk-scene";
 
 /** Formato da abertura de cada olho (em coordenadas da imagem de 420 px) e onde fica a íris. */
 const EYES = [
@@ -71,11 +70,11 @@ export function MemojiAvatar({ size = 40, look = true, bare = false }: { size?: 
   );
 }
 
-/** Ícone redondo do cabeçalho: a ilustração do Edson programando, em close da cabeça e dos ombros. */
-export function SceneAvatar({ size = 34 }: { size?: number }) {
+/** Seu avatar em pixel art (feito por você), em círculo. Usa a versão pequena para ícones e a grande para adesivos. */
+export function PixelAvatar({ size = 36, ring = false }: { size?: number; ring?: boolean }) {
+  const src = size > 72 ? "/images/edson-px-128.png" : size > 40 ? "/images/edson-px-96.png" : "/images/edson-px-48.png";
   return (
-    <span style={{ display: "block", width: size, height: size, borderRadius: "50%", overflow: "hidden", flex: "none", boxShadow: "0 0 0 2px var(--accent)" }}>
-      <DeskScene crop="head" title="Edson Junior" />
-    </span>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={src} alt="Edson Junior" width={size} height={size} draggable={false} decoding="async" style={{ display: "block", width: size, height: size, flex: "none", imageRendering: "pixelated", borderRadius: "50%", boxShadow: ring ? "0 0 0 2px var(--accent)" : undefined }} />
   );
 }

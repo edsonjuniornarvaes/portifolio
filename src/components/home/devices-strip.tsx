@@ -29,7 +29,8 @@ const LAPTOPS: { id: string; admin?: boolean; img?: string; k: number }[] = [
 
 const Box = styled.div`
   position: relative;
-  .phones { position: relative; container-type: inline-size; margin-inline: -56px; padding-inline: 56px; height: calc(clamp(300px, 36vw, 400px) + 32px); -webkit-mask-image: linear-gradient(#000 72%, transparent); mask-image: linear-gradient(#000 72%, transparent); }
+  .phones { position: relative; container-type: inline-size; margin-inline: -56px; padding-inline: 56px; height: calc(clamp(300px, 36vw, 400px) + 32px);  }
+  .phones::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(transparent, var(--paper)); pointer-events: none; z-index: 5; }
   .row { position: absolute; left: 50%; top: 32px; display: flex; align-items: flex-start; gap: 1.9cqw; transform: translateX(-50%); }
   .go { position: relative; display: block; cursor: pointer; }
   .go:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 16px; }
@@ -47,9 +48,10 @@ const Box = styled.div`
   .base::after { content: ""; position: absolute; left: 50%; top: 0; width: 18%; height: 4px; transform: translateX(-50%); border-radius: 0 0 6px 6px; background: #868c95; }
   .glow { position: absolute; left: 10%; right: 10%; bottom: -10px; height: 24px; background: radial-gradient(closest-side, rgba(0,0,0,0.5), transparent); filter: blur(6px); }
   @media (max-width: 700px) {
-    .phones { height: auto; padding: 28px 0 0; margin: 0 calc(var(--gutter) * -1); -webkit-mask-image: none; mask-image: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .phones { height: auto; padding: 28px 0 0; margin: 0 calc(var(--gutter) * -1); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
     .phones::-webkit-scrollbar { display: none; }
     .phones { container-type: normal; }
+    .phones::after { display: none; }
     .ph { --pw: var(--pwm) !important; }
     .row { position: static; transform: none; display: flex; gap: 16px; padding: 0 calc(50vw - 95px); width: max-content; }
     .ph { scroll-snap-align: center; margin-top: 0 !important; transform: none !important; zoom: 0.82; }

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import styled from "styled-components";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import LangSwitch from "@/components/ui/lang-switch";
-import { SceneAvatar } from "@/components/ui/avatar";
+import { PixelAvatar } from "@/components/ui/avatar";
 import SoundToggle from "@/components/ui/sound-toggle";
 import { useLang } from "@/i18n/provider";
 
@@ -19,7 +19,7 @@ const LINKS = [
 
 const Bar = styled.header`
   position: sticky; top: 0; z-index: 50; height: var(--header);
-  background: color-mix(in srgb, var(--paper) 78%, transparent); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px);
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
   border-bottom: 1px solid var(--line);
   .in { position: relative; max-width: var(--wrap); height: 100%; margin: 0 auto; padding: 0 var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
   .brand { order: 1; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; white-space: nowrap; }
@@ -41,7 +41,7 @@ const Bar = styled.header`
     .in { gap: 10px; }
     .burger { margin-left: auto; }
     .burger { display: grid; }
-    .panel { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 6px; padding: 10px var(--gutter) 18px; background: color-mix(in srgb, var(--paper) 96%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); box-shadow: 0 30px 50px -30px rgba(0,0,0,0.7); }
+    .panel { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 6px; padding: 10px var(--gutter) 18px; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: 0 30px 50px -30px rgba(0,0,0,0.7); }
     .panel[data-open="true"] { display: flex; animation: drop 0.22s ease; }
     @keyframes drop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
     nav { flex-direction: column; align-items: stretch; gap: 2px; }
@@ -70,7 +70,7 @@ export default function SiteHeader() {
     <Bar>
       <div className="in">
         <Link href="/home" className="brand" aria-label={t.nav.homeAria}>
-          <SceneAvatar size={34} />
+          <PixelAvatar size={36} ring />
           <span>Edson Junior</span>
         </Link>
         <button type="button" className="burger" aria-expanded={open} aria-controls="menu" aria-label={open ? t.nav.close : t.nav.menu} onClick={() => setOpen((v) => !v)}><span /></button>

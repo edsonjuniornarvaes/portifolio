@@ -8,7 +8,7 @@ import Letters from "@/components/ui/letters";
 import DecodeLines from "@/components/ui/decode-lines";
 import MatrixRain from "@/components/ui/matrix-rain";
 import IDot from "@/components/ui/i-dot-machine";
-import PeelSticker, { ClockSticker, SceneSticker, LaptopSticker, MugSticker, PhoneSticker } from "@/components/ui/peel-sticker";
+import PeelSticker, { AvatarSticker, ClockSticker, LaptopSticker, MugSticker, PhoneSticker } from "@/components/ui/peel-sticker";
 import { useLang } from "@/i18n/provider";
 import { CAREER_SINCE, MOBILE_SINCE } from "@/data/profile";
 import { BRAND_ICON } from "@/data/brands";
@@ -106,7 +106,7 @@ export default function Hero() {
 
       <div className="board">
         <PeelSticker h={98} rot={-1} style={{ left: "4%", top: "14%" }} label={h.stickers.laptop}><LaptopSticker scale={0.72} /></PeelSticker>
-        <PeelSticker h={178} rot={0} style={{ left: "37%", top: "8%" }} label={h.stickers.photo}><SceneSticker width={168} /></PeelSticker>
+        <PeelSticker h={140} rot={0} style={{ left: "38%", top: "10%" }} label={h.stickers.photo}><AvatarSticker size={140} /></PeelSticker>
         <PeelSticker h={44} rot={1} style={{ right: "4%", top: "16%" }} label={h.stickers.clock}><ClockSticker /></PeelSticker>
         <PeelSticker h={136} rot={2} style={{ left: "12%", top: "56%" }} label={h.stickers.phone}><PhoneSticker scale={0.6} /></PeelSticker>
         <PeelSticker h={95} rot={-2} style={{ left: "52%", top: "62%" }} label={h.stickers.coffee}><MugSticker scale={0.72} /></PeelSticker>
