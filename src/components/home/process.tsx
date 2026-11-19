@@ -8,7 +8,7 @@ const Box = styled.div`
   .head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px 48px; align-items: end; margin-bottom: 34px; }
   .head h3 { font-size: clamp(1.9rem, 3.8vw, 3rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; }
   .head p { color: var(--muted); line-height: 1.65; max-width: 30rem; }
-  ol { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: color-mix(in srgb, var(--card) 70%, transparent); counter-reset: s; }
+  ol { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: color-mix(in srgb, var(--card) 70%, transparent); counter-reset: s; }
   li { position: relative; padding: 26px 24px 30px; transition: background 0.3s ease; }
   li + li { border-left: 1px solid var(--line); }
   li:hover { background: color-mix(in srgb, var(--accent) 7%, transparent); }
@@ -17,8 +17,7 @@ const Box = styled.div`
   .n i { flex: 1; height: 1px; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 50%, transparent), transparent); }
   h4 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
   li p { margin-top: 8px; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
-  @media (max-width: 960px) { ol { grid-template-columns: repeat(2, minmax(0, 1fr)); } li:nth-child(3) { border-left: 0; } li:nth-child(n+3) { border-top: 1px solid var(--line); } .head { grid-template-columns: 1fr; } }
-  @media (max-width: 560px) { ol { grid-template-columns: 1fr; } li + li { border-left: 0; border-top: 1px solid var(--line); } }
+  @media (max-width: 860px) { ol { grid-template-columns: 1fr; } li + li { border-left: 0; border-top: 1px solid var(--line); } .head { grid-template-columns: 1fr; } }
 `;
 
 /** "Como eu trabalho": quatro etapas, da conversa ao produto no ar. */

@@ -104,7 +104,22 @@ function ProjectDetailClient({ project: base }: { project: Project }) {
           {showFig && <div><dt>Figma</dt><dd><a href={project.figmaUrl} target="_blank" rel="noopener noreferrer">{t.project.figma} <ArrowUpRight /></a></dd></div>}
         </Meta>
 
-        {web && (
+        {web && project.art && (
+          <Block as="div" style={{ display: "block" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "28px 56px", padding: "28px 20px", border: "1px solid var(--line)", borderRadius: 18, background: "radial-gradient(60% 90% at 50% 100%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%), var(--card)" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={project.art} alt={project.title} style={{ height: 300, width: "auto", filter: "drop-shadow(0 20px 26px rgba(0,0,0,0.4))" }} />
+              {project.screens?.[0] && (
+                <div style={{ padding: 14, borderRadius: 14, background: "#fff" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={project.screens[0]} alt="" style={{ display: "block", height: 90, width: "auto" }} />
+                </div>
+              )}
+            </div>
+          </Block>
+        )}
+
+        {web && !project.art && (
           <Block as="div" style={{ display: "block" }}>
             <Laptop>
               <div className="lid">

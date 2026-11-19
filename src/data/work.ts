@@ -34,7 +34,7 @@ export const YEARS: Record<string, string> = {
   "mont-b2c": "2021–24",
 };
 
-const WEB_IDS = new Set<string>([...webProjects.map((p) => p.id), "clube-da-joia-marketplace"]);
+const WEB_IDS = new Set<string>([...webProjects.map((p) => p.id), "clube-da-joia-marketplace", "multjet"]);
 /** Site, loja ou sistema web (o resto é app). */
 export const isWebId = (id: string) => WEB_IDS.has(id);
 

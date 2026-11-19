@@ -22,9 +22,8 @@ const Bar = styled.header`
   background: color-mix(in srgb, var(--paper) 94%, transparent);
   border-bottom: 1px solid var(--line);
   .in { position: relative; max-width: var(--wrap); height: 100%; margin: 0 auto; padding: 0 var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .brand .logo[data-hide="true"] { opacity: 0; transform: translateX(-8px); max-width: 0; overflow: hidden; }
-  .brand .logo { transition: opacity 0.35s ease, transform 0.35s ease, max-width 0.4s ease; max-width: 14rem; }
   .brand .logo { display: flex; flex-direction: column; gap: 1px; line-height: 1.1; }
+  .brand .logo strong i { font-style: normal; color: var(--accent-ink); }
   .brand .logo strong { font-weight: 700; font-size: 1.02rem; letter-spacing: -0.025em; }
   .brand .logo small { font-family: var(--font-mono); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-ink); }
   .brand { order: 1; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; white-space: nowrap; }
@@ -62,16 +61,6 @@ export default function SiteHeader() {
   const pathname = usePathname();
   const { t } = useLang();
   const [open, setOpen] = useState(false);
-  // na home o nome já está gigante no topo: o do cabeçalho só aparece depois que o título sai da tela
-  const onHome = pathname === "/" || pathname === "/home";
-  const [past, setPast] = useState(false);
-  useEffect(() => {
-    if (!onHome) return;
-    const f = () => setPast(window.scrollY > 260);
-    f();
-    window.addEventListener("scroll", f, { passive: true });
-    return () => window.removeEventListener("scroll", f);
-  }, [onHome]);
   useEffect(() => { setOpen(false); }, [pathname]);
   useEffect(() => {
     if (!open) return;
@@ -86,7 +75,7 @@ export default function SiteHeader() {
       <div className="in">
         <Link href="/home" className="brand" aria-label={t.nav.homeAria}>
           <PixelAvatar size={38} decorative />
-          <span className="logo" data-hide={onHome && !past ? "true" : undefined}><strong>Edson Junior</strong><small>{t.nav.logoSub}</small></span>
+          <span className="logo"><strong><i>EJ</i> Sistemas</strong><small>{t.nav.logoSub}</small></span>
         </Link>
         <button type="button" className="burger" aria-expanded={open} aria-controls="menu" aria-label={open ? t.nav.close : t.nav.menu} onClick={() => setOpen((v) => !v)}><span /></button>
         <div id="menu" className="panel" data-open={open}>
