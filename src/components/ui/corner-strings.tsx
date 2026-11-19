@@ -1,18 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { play } from "@/lib/sound";
 
 const GAP = 26;      // distância entre as cordas
-const COLS = 16;     // cordas na vertical
 const ROWS = 15;     // cordas na horizontal
 const PTS = 15;      // pontos de cada corda (para ela poder envergar)
-const SIZE_W = COLS * GAP;
 const SIZE_H = ROWS * GAP;
+const MAX_W = 16 * GAP;
+const WRAP = 1240;   // largura da coluna de conteúdo do site (--wrap)
 
 /**
- * Grade de cordinhas no canto de baixo à direita, atrás do conteúdo e esmaecendo para dentro da tela.
+ * Grade de cordinhas no canto de baixo à direita, esmaecendo para dentro da tela. Ela só ocupa a margem livre ao lado
+ * da coluna de conteúdo (em telas largas), então nunca passa por cima de textos nem de cards.
  * Só toca quando você clica e ARRASTA o mouse por cima: as cordas envergam, vibram e soam como um violão.
  * Passar o mouse sem clicar não faz nada.
  */
@@ -20,10 +21,23 @@ export default function CornerStrings() {
   const pathname = usePathname();
   const cv = useRef<HTMLCanvasElement>(null);
   const hidden = pathname.startsWith("/adminaccess");
+  const [w, setW] = useState(0); // largura livre ao lado do conteúdo (0 = não cabe)
+
+  useEffect(() => {
+    const calc = () => {
+      const free = Math.floor((window.innerWidth - WRAP) / 2) + 8;
+      const cols = Math.min(16, Math.floor(free / GAP));
+      setW(cols >= 3 ? cols * GAP : 0);
+    };
+    calc();
+    window.addEventListener("resize", calc);
+    return () => window.removeEventListener("resize", calc);
+  }, []);
 
   useEffect(() => {
     const canvas = cv.current;
-    if (hidden || !canvas) return;
+    if (hidden || !canvas || w < 3 * GAP) return;
+    const COLS = Math.round(w / GAP), SIZE_W = COLS * GAP;
     const c = canvas.getContext("2d");
     if (!c) return;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -142,10 +156,10 @@ export default function CornerStrings() {
       window.removeEventListener("pointerup", up); window.removeEventListener("pointercancel", up);
       window.removeEventListener("dragstart", noDrag); window.removeEventListener("selectstart", noDrag);
     };
-  }, [hidden]);
+  }, [hidden, w]);
 
-  if (hidden) return null;
+  if (hidden || w < 3 * GAP) return null;
   return (
-    <canvas className="corner-strings" ref={cv} aria-hidden style={{ position: "fixed", right: 0, bottom: 0, width: SIZE_W, height: SIZE_H, zIndex: -1, pointerEvents: "none" }} />
+    <canvas className="corner-strings" ref={cv} aria-hidden style={{ position: "fixed", right: 0, bottom: 0, width: w, height: SIZE_H, zIndex: -1, pointerEvents: "none" }} />
   );
 }
