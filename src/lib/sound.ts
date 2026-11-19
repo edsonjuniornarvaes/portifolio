@@ -84,6 +84,36 @@ function tone(c: AudioContext, o: { f: number; f2?: number; type?: OscillatorTyp
   osc.stop(t0 + o.dur + 0.05);
 }
 
+/** Corda de violão de verdade: síntese Karplus-Strong (ruído que circula numa linha de atraso e vai se apagando). */
+const strings = new Map<number, AudioBuffer>();
+function guitar(c: AudioContext, f: number, vol: number) {
+  const key = Math.round(f * 10);
+  let buf = strings.get(key);
+  if (!buf) {
+    const sr = c.sampleRate, n = Math.floor(sr * 2.2), len = Math.max(2, Math.round(sr / f));
+    buf = c.createBuffer(1, n, sr);
+    const out = buf.getChannelData(0), line = new Float32Array(len);
+    let prev = 0;
+    for (let i = 0; i < len; i++) { const x = Math.random() * 2 - 1; line[i] = (x + prev) * 0.5; prev = x; } // palheta macia
+    let idx = 0;
+    for (let i = 0; i < n; i++) {
+      const a = line[idx], b = line[(idx + 1) % len];
+      out[i] = a;
+      line[idx] = (a + b) * 0.5 * 0.9975; // média = perde agudos aos poucos, como a corda real
+      idx = (idx + 1) % len;
+    }
+    strings.set(key, buf);
+  }
+  const src = c.createBufferSource();
+  src.buffer = buf;
+  const body = c.createBiquadFilter(); // caixa do violão
+  body.type = "lowpass"; body.frequency.value = 2600; body.Q.value = 0.7;
+  const g = c.createGain();
+  g.gain.value = Math.min(0.6, vol * 2.4);
+  src.connect(body).connect(g).connect(c.destination);
+  src.start();
+}
+
 function noise(c: AudioContext, dur: number, vol: number, f1: number, f2: number) {
   const n = Math.floor(c.sampleRate * dur);
   const buf = c.createBuffer(1, n, c.sampleRate);
@@ -116,10 +146,8 @@ export function play(name: SoundName, n = 0, v = 0.6) {
   const vol = Math.max(0.03, Math.min(0.3, v * 0.28));
   switch (name) {
     case "pluck": {
-      const f = hz(SCALE[Math.abs(n) % SCALE.length] + 12 * Math.floor(Math.abs(n) / SCALE.length % 2));
-      tone(c, { f, type: "sine", dur: 1.4, vol: vol * 0.9, attack: 0.005 });
-      tone(c, { f: f * 2.002, type: "sine", dur: 0.7, vol: vol * 0.4, attack: 0.005 });
-      tone(c, { f: f * 3.01, type: "sine", dur: 0.3, vol: vol * 0.15, attack: 0.005 });
+      const f = hz(SCALE[Math.abs(n) % SCALE.length] + 12 * Math.floor(Math.abs(n) / SCALE.length % 2), 110);
+      guitar(c, f, vol);
       break;
     }
     case "tick":
