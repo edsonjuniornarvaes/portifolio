@@ -8,7 +8,6 @@ import { useEffect, useRef, useState } from "react";
 import Letters from "@/components/ui/letters";
 import DecodeLines from "@/components/ui/decode-lines";
 import MatrixRain from "@/components/ui/matrix-rain";
-import CountUp from "@/components/ui/count-up";
 import Magnetic from "@/components/ui/magnetic";
 import IDot from "@/components/ui/i-dot-machine";
 import PeelSticker, { AvatarSticker, ClockSticker, LaptopSticker, MugSticker, PhoneSticker } from "@/components/ui/peel-sticker";
@@ -27,7 +26,7 @@ const WORKED = [
 
 const Box = styled.section`
   position: relative; display: flex; flex-direction: column; justify-content: center; min-height: min(calc(100svh - var(--header)), 800px); padding: 48px 0 56px;
-  .spot { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), color-mix(in srgb, var(--accent) 13%, transparent), transparent 62%); transition: opacity 0.4s ease; }
+  .spot { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), color-mix(in srgb, var(--accent) 13%, transparent), transparent 62%); }
   .content { position: relative; z-index: 2; max-width: 680px; }
   .kicker { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
   .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
@@ -120,9 +119,9 @@ export default function Hero() {
             <Link className="btn g" href="/projects">{h.ctaWork}</Link>
           </div>
           <dl className="stats">
-            <div><dt>{h.stats.years}</dt><dd><CountUp to={yr - CAREER_SINCE} prefix="+" /></dd></div>
-            <div><dt>{h.stats.projects}</dt><dd><CountUp to={getAllProjectsBrief().length} /></dd></div>
-            <div><dt>{h.stats.fronts}</dt><dd><CountUp to={3} /></dd></div>
+            <div><dt>{h.stats.years}</dt><dd>+{yr - CAREER_SINCE}</dd></div>
+            <div><dt>{h.stats.projects}</dt><dd>{getAllProjectsBrief().length}</dd></div>
+            <div><dt>{h.stats.fronts}</dt><dd>3</dd></div>
           </dl>
           <div className="meta">
             <span className="live"><i /> {h.status}</span>
