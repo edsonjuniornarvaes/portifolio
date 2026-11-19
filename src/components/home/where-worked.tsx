@@ -21,7 +21,10 @@ const Box = styled.div`
   .card:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
   .card:hover::before { opacity: 1; }
   .logo { display: flex; align-items: center; min-height: 44px; color: var(--ink); }
-  .logo svg { width: auto; }
+  .logo svg { width: auto; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }
+  a.logo { width: fit-content; }
+  a.logo:hover svg, a.logo:focus-visible svg { transform: translateX(4px); }
+  a.logo:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 6px; }
   .yrs { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
   .card p { color: var(--muted); line-height: 1.6; }
   .roles { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
@@ -50,7 +53,7 @@ export default function WhereWorked() {
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6, delay: i * 0.12, ease: [0.2, 0.7, 0.2, 1] }}
           >
-            <div className="logo"><Logo height={logoH} /></div>
+            <a className="logo" href={href} target="_blank" rel="noopener noreferrer" aria-label={`${w.visit}: ${key === "ecode" ? "e/code" : "Superlógica"}`}><Logo height={logoH} /></a>
             <div className="yrs">{lang === "en" && "yearsEn" in rest ? rest.yearsEn : years}</div>
             <p>{key === "ecode" ? w.ecode : w.superlogica}</p>
             <ul className="roles">{(lang === "en" ? rolesEn : roles).map((r) => <li key={r}>{r}</li>)}</ul>
