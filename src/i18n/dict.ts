@@ -9,7 +9,7 @@ const pt = {
     jobTitle: "Desenvolvedor Mobile e Web",
     ogLocale: "pt_BR",
   },
-  nav: { skip: "Pular para o conteúdo", menu: "Abrir menu", close: "Fechar menu", aria: "Principal", work: "Trabalhos", journey: "Trajetória", writing: "Artigos", contact: "Contato", homeAria: "Edson Junior, página inicial" },
+  nav: { logoSub: "web e mobile", skip: "Pular para o conteúdo", menu: "Abrir menu", close: "Fechar menu", aria: "Principal", work: "Trabalhos", journey: "Trajetória", writing: "Artigos", contact: "Contato", homeAria: "Edson Junior, página inicial" },
   theme: { toLight: "Ativar tema claro", toDark: "Ativar tema escuro" },
   langSwitch: { label: "Idioma", pt: "Português", en: "English" },
   hero: {
@@ -40,6 +40,11 @@ const pt = {
     open: "ver projeto",
     all: "Ver todos os trabalhos",
     allCount: "{n} projetos no total",
+    portfolio: "Portfólio",
+    portfolioLead: "O que eu entrego, na prática. Arraste para ver os projetos; cada um abre com o problema, o que eu fiz e as tecnologias.",
+    sliderHint: "arraste",
+    prev: "Projeto anterior",
+    next: "Próximo projeto",
     app: "Aplicativo",
     web: "Site",
     seeAll: "Ver todos",
@@ -64,6 +69,11 @@ const pt = {
       { title: "Sites e lojas online", text: "Sites, lojas e painéis de administração, com pagamento online e conteúdo que você mesmo edita.", points: ["Loja com pagamento online e frete", "Painel para você mesmo editar tudo", "Rápido e bem posicionado no Google"] },
       { title: "Pagamentos e segurança", text: "Login seguro, pagamentos, relatórios e o acompanhamento de tudo o que acontece depois que está no ar.", points: ["Login seguro e acesso por perfil", "Pagamentos e conciliação de pedidos", "Relatórios e monitoramento no ar"] },
     ],
+  },
+  worked: {
+    label: "Onde trabalhei",
+    lead: "Empresas em que construí produtos de verdade, em equipe e com usuários reais.",
+    more: "Ver a trajetória completa",
   },
   process: {
     label: "Como eu trabalho",
@@ -104,6 +114,7 @@ const pt = {
   writing: { label: "Artigos", all: "Todos os artigos", none: "Em breve, textos sobre aplicativos, tecnologia e carreira." },
   contact: {
     label: "Contato",
+    mailBtn: "Enviar e-mail",
     h2a: "Vamos",
     h2b: "conversar?",
     text: "Conte sobre o seu projeto, aplicativo ou site. Respondo por e-mail.",
@@ -165,7 +176,7 @@ const en: Dict = {
     jobTitle: "Mobile & Web Developer",
     ogLocale: "en_US",
   },
-  nav: { skip: "Skip to content", menu: "Open menu", close: "Close menu", aria: "Main", work: "Work", journey: "Journey", writing: "Articles", contact: "Contact", homeAria: "Edson Junior, home page" },
+  nav: { logoSub: "web and mobile", skip: "Skip to content", menu: "Open menu", close: "Close menu", aria: "Main", work: "Work", journey: "Journey", writing: "Articles", contact: "Contact", homeAria: "Edson Junior, home page" },
   theme: { toLight: "Switch to light theme", toDark: "Switch to dark theme" },
   langSwitch: { label: "Language", pt: "Português", en: "English" },
   hero: {
@@ -196,6 +207,11 @@ const en: Dict = {
     open: "view project",
     all: "See all work",
     allCount: "{n} projects in total",
+    portfolio: "Portfolio",
+    portfolioLead: "What I deliver, in practice. Drag to browse; each project opens with the problem, what I did and the technologies.",
+    sliderHint: "drag",
+    prev: "Previous project",
+    next: "Next project",
     app: "App",
     web: "Website",
     seeAll: "See all",
@@ -220,6 +236,11 @@ const en: Dict = {
       { title: "Websites and online stores", text: "Sites, stores and admin panels, with online payments and content you edit yourself.", points: ["Store with online payments and shipping", "A panel to edit everything yourself", "Fast and well placed on Google"] },
       { title: "Payments and security", text: "Secure login, payments, reports and monitoring of everything that happens once it's live.", points: ["Secure login and role-based access", "Payments and order reconciliation", "Reports and live monitoring"] },
     ],
+  },
+  worked: {
+    label: "Where I worked",
+    lead: "Companies where I built real products, in teams and with real users.",
+    more: "See the full journey",
   },
   process: {
     label: "How I work",
@@ -260,6 +281,7 @@ const en: Dict = {
   writing: { label: "Articles", all: "All articles", none: "Coming soon: writing about apps, technology and career." },
   contact: {
     label: "Contact",
+    mailBtn: "Send email",
     h2a: "Let's",
     h2b: "talk?",
     text: "Tell me about your project, app or website. I reply by email.",

@@ -28,7 +28,7 @@ const Tabs = styled.div`
 `;
 
 const Grid = styled(motion.ul)`
-  list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;
+  list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
   @media (max-width: 1000px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   @media (max-width: 620px) { grid-template-columns: 1fr; }
 `;
@@ -57,7 +57,7 @@ export default function Projects() {
           <AnimatePresence mode="popLayout">
             {ids.map((id) => (
               <motion.li key={id} layout initial={{ opacity: 0, y: 18, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.35, ease: [0.2, 0.7, 0.2, 1] }}>
-                <ProjectCard id={id} level="h2" />
+                <ProjectCard id={id} level="h2" compact />
               </motion.li>
             ))}
           </AnimatePresence>

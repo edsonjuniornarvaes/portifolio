@@ -46,6 +46,14 @@ const Card = styled(Link)`
   .letter { position: relative; z-index: 1; align-self: center; font-size: 4rem; font-weight: 700; letter-spacing: -0.05em; color: color-mix(in srgb, var(--pc) 80%, var(--ink)); }
 
   .body { display: flex; flex-direction: column; gap: 8px; padding: 20px 22px 22px; flex: 1; }
+  &[data-compact] { border-radius: 14px; }
+  &[data-compact] .vis { height: 196px; }
+  &[data-compact] .ph.a { margin-bottom: -56px; }
+  &[data-compact] .ph.b { margin-bottom: -96px; }
+  &[data-compact] .lap { width: 74%; }
+  &[data-compact] .body { gap: 6px; padding: 14px 16px 16px; }
+  &[data-compact] .t { font-size: 1.15rem; }
+  &[data-compact] p { font-size: 0.86rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.82rem; color: var(--muted); }
   .meta .k { color: var(--pc); font-weight: 600; }
   :root[data-theme="light"] & .meta .k { color: color-mix(in srgb, var(--pc) 55%, var(--ink)); }
@@ -64,7 +72,7 @@ const ShotImg = ({ src }: { src: string }) => <img src={src} alt="" loading="laz
 
 const STATUS_COLOR = { production: "#2eebaa", development: "#ffcb6b", paused: "#8c95a3" } as const;
 
-export default function ProjectCard({ id, level = "h3" }: { id: string; level?: "h2" | "h3" }) {
+export default function ProjectCard({ id, level = "h3", compact = false }: { id: string; level?: "h2" | "h3"; compact?: boolean }) {
   const H = level;
   const { lang, t } = useLang();
   const base = getProjectById(id);
@@ -94,7 +102,7 @@ export default function ProjectCard({ id, level = "h3" }: { id: string; level?: 
   const letter = p.iconLetter ?? p.title.slice(0, 2).toUpperCase();
 
   return (
-    <Card href={`/projects/${id}`} onPointerMove={tilt} onPointerLeave={untilt} style={{ ["--pc" as string]: color, ["--sc" as string]: STATUS_COLOR[p.status] }}>
+    <Card data-compact={compact || undefined} href={`/projects/${id}`} onPointerMove={tilt} onPointerLeave={untilt} style={{ ["--pc" as string]: color, ["--sc" as string]: STATUS_COLOR[p.status] }}>
       <div className="vis" aria-hidden>
         <span className="sheen" />
         <span className="brand" data-img={!!BRAND_ICON[id]}>{BRAND_ICON[id] ? <BrandImg src={BRAND_ICON[id]} /> : letter}</span>
@@ -109,8 +117,8 @@ export default function ProjectCard({ id, level = "h3" }: { id: string; level?: 
           </div>
         ) : first ? (
           <>
-            {second && <div className="ph b"><Phone screens={[second]} alt="" width={128} lazy /></div>}
-            <div className="ph a"><Phone screens={[first]} alt="" width={156} lazy /></div>
+            {second && <div className="ph b"><Phone screens={[second]} alt="" width={compact ? 100 : 128} lazy /></div>}
+            <div className="ph a"><Phone screens={[first]} alt="" width={compact ? 124 : 156} lazy /></div>
           </>
         ) : (
           <span className="letter">{letter}</span>
