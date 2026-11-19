@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight } from "@/components/ui/icons";
 import styled from "styled-components";
 import { motion, useReducedMotion } from "framer-motion";
 import { ExperienceData } from "@/data/experience";
@@ -49,7 +50,7 @@ export default function WhereWorked() {
           </ul>
         </motion.div>
       ))}
-      <Link className="more" href="/trajetoria">{t.worked.more} <span aria-hidden>→</span></Link>
+      <Link className="more" href="/trajetoria">{t.worked.more} <ArrowRight /></Link>
     </Box>
   );
 }

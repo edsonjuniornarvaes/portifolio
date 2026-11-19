@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ArrowLeft } from "@/components/ui/icons";
 import Link from "next/link";
 import styled from "styled-components";
 import { motion, useAnimationControls } from "framer-motion";
@@ -139,7 +140,7 @@ export default function LabView() {
   return (
     <Wrap>
       <Page>
-        <Link href="/home" style={{ color: "var(--muted)" }}>{t.lab.back}</Link>
+        <Link href="/home" style={{ color: "var(--muted)" }}><ArrowLeft style={{ marginRight: 6 }} />{t.lab.back}</Link>
         <PageTitle style={{ marginTop: 24 }}>{t.lab.title}</PageTitle>
         <Lead>{t.lab.lead}</Lead>
         <Grid>

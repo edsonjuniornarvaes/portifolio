@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "@/components/ui/icons";
 import Link from "next/link";
 import styled from "styled-components";
 import ProjectCard from "@/components/project-card";
@@ -8,7 +9,7 @@ import { getAllProjectsBrief } from "@/app/projects/helper";
 import { useLang } from "@/i18n/provider";
 
 /** Portfólio de venda: os projetos que melhor mostram o que eu entrego. Todos continuam em /projects. */
-const IDS = ["clube-da-joia-marketplace", "clube-da-joia-app", "pjbank", "gruvi", "mont-b2b", "consorcio-gazin", "minha-navex"];
+const IDS = ["clube-da-joia-marketplace", "pjbank", "gruvi", "mont-b2b", "minha-navex", "consorcio-gazin"];
 
 const Box = styled.div`
   .lead { max-width: 40rem; margin: -10px 0 22px; color: var(--muted); line-height: 1.65; }
@@ -20,7 +21,7 @@ const Box = styled.div`
   .prog { flex: 1; height: 2px; border-radius: 2px; background: var(--line); overflow: hidden; }
   .prog b { display: block; height: 100%; width: 100%; background: var(--accent); transform-origin: left; transform: scaleX(var(--p, 0.15)); transition: transform 0.15s linear; }
   .arrows { display: flex; gap: 8px; }
-  .arrows button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 1.05rem; cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+  .arrows button { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: color-mix(in srgb, var(--card) 70%, transparent); color: var(--ink); cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease; }
   .arrows button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
   .arrows button:disabled { opacity: 0.35; cursor: default; }
   .track { display: flex; gap: 20px; list-style: none; overflow-x: auto; scroll-snap-type: x proximity; padding: 10px 4px 26px; margin: 0 -4px; scrollbar-width: none; cursor: grab; overscroll-behavior-x: contain; }
@@ -74,8 +75,8 @@ export default function ProjectsSlider() {
         <span className="hint"><i aria-hidden />{t.work.sliderHint}</span>
         <div className="prog" aria-hidden><b /></div>
         <div className="arrows">
-          <button type="button" onClick={() => by(-1)} disabled={edge.start} aria-label={t.work.prev}>←</button>
-          <button type="button" onClick={() => by(1)} disabled={edge.end} aria-label={t.work.next}>→</button>
+          <button type="button" onClick={() => by(-1)} disabled={edge.start} aria-label={t.work.prev}><ChevronLeft width="18" height="18" /></button>
+          <button type="button" onClick={() => by(1)} disabled={edge.end} aria-label={t.work.next}><ChevronRight width="18" height="18" /></button>
         </div>
       </div>
       <ul
@@ -88,12 +89,18 @@ export default function ProjectsSlider() {
         onPointerCancel={up}
         onDragStart={(e) => e.preventDefault()}
       >
-        {IDS.map((id) => <li key={id}><ProjectCard id={id} level="h3" /></li>)}
+        {IDS.map((id) => (
+          <li key={id}>
+            {id === "clube-da-joia-marketplace"
+              ? <ProjectCard id={id} level="h3" pair="clube-da-joia-app" title={t.work.clubeTitle} tagline={t.work.clubeText} />
+              : <ProjectCard id={id} level="h3" />}
+          </li>
+        ))}
         <li>
           <Link className="all" href="/projects">
             <span>{t.work.allCount.replace("{n}", String(total))}</span>
             <b>{t.work.all}</b>
-            <em>{t.work.seeAll} <span aria-hidden style={{ color: "inherit" }}>→</span></em>
+            <em>{t.work.seeAll} <ChevronRight /></em>
           </Link>
         </li>
       </ul>

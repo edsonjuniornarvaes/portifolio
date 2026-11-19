@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowLeft } from "@/components/ui/icons";
+import { ArrowUpRight } from "@/components/ui/icons";
 import styled from "styled-components";
 import { useLang } from "@/i18n/provider";
 import { localizeProject, localizeCase } from "@/i18n/content";
@@ -85,7 +87,7 @@ function ProjectDetailClient({ project: base }: { project: Project }) {
   return (
     <Wrap>
       <Page>
-        <Back href="/projects">{t.project.back}</Back>
+        <Back href="/projects"><ArrowLeft style={{ marginRight: 6 }} />{t.project.back}</Back>
         <PageTitle>{project.title}</PageTitle>
         <Lead>{project.tagline}</Lead>
 
@@ -95,11 +97,11 @@ function ProjectDetailClient({ project: base }: { project: Project }) {
           {live && (
             <div>
               <dt>Link</dt>
-              <dd><a href={live} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{(project.liveCtaLabel || t.project.viewOnline).trim()} ↗</a></dd>
+              <dd><a href={live} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{(project.liveCtaLabel || t.project.viewOnline).trim()} <ArrowUpRight /></a></dd>
             </div>
           )}
-          {showGh && <div><dt>GitHub</dt><dd><a href={project.githubUrl} target="_blank" rel="noopener noreferrer">{t.project.github} ↗</a></dd></div>}
-          {showFig && <div><dt>Figma</dt><dd><a href={project.figmaUrl} target="_blank" rel="noopener noreferrer">{t.project.figma} ↗</a></dd></div>}
+          {showGh && <div><dt>GitHub</dt><dd><a href={project.githubUrl} target="_blank" rel="noopener noreferrer">{t.project.github} <ArrowUpRight /></a></dd></div>}
+          {showFig && <div><dt>Figma</dt><dd><a href={project.figmaUrl} target="_blank" rel="noopener noreferrer">{t.project.figma} <ArrowUpRight /></a></dd></div>}
         </Meta>
 
         {web && (

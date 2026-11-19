@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { ArrowRight } from "@/components/ui/icons";
 import Link from "next/link";
 import styled from "styled-components";
 import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
@@ -153,7 +154,7 @@ export default function JourneyView() {
         <Section>
           <SectionHead n="05" label={j.elsewhere} />
           <Links>
-            <Link href="/home#contato">{j.contactCta} →</Link>
+            <Link href="/home#contato">{j.contactCta} <ArrowRight style={{ marginLeft: 4 }} /></Link>
             <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
             <a href={contact.github} target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href={contact.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
