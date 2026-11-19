@@ -43,7 +43,7 @@ function useBrasilia() {
 /** No celular o adesivo é desenhado com `zoom: 0.8`; os deslocamentos precisam ser divididos por esse fator. */
 const zoom = () => (typeof window !== "undefined" && window.innerWidth <= 760 ? 0.8 : 1);
 
-export default function PeelSticker({ children, h, style, rot = 0, label }: { children: ReactNode; h: number; style: React.CSSProperties; rot?: number; label: string }) {
+export default function PeelSticker({ children, h, style, rot = 0, label, className }: { children: ReactNode; h: number; style?: React.CSSProperties; rot?: number; label: string; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const peel = useMotionValue(0); // fração da altura já descolada
   const p = useSpring(peel, { stiffness: 220, damping: 20 });
@@ -62,6 +62,7 @@ export default function PeelSticker({ children, h, style, rot = 0, label }: { ch
   return (
     <Box
       ref={ref}
+      className={className}
       style={{ ...style, x: ox, y: oy, scale, rotate: tilt }}
       role="img"
       aria-label={label}

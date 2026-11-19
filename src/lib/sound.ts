@@ -132,13 +132,13 @@ function noise(c: AudioContext, dur: number, vol: number, f1: number, f2: number
   src.start();
 }
 
-export type SoundName = "pluck" | "tick" | "pop" | "peel" | "click" | "on" | "hover" | "select" | "chirp" | "drop";
+export type SoundName = "coin" | "pluck" | "tick" | "pop" | "peel" | "click" | "on" | "hover" | "select" | "chirp" | "drop";
 
 /** Toca um som. `n` escolhe a nota (corda) e `v` a força (0 a 1). */
 export function play(name: SoundName, n = 0, v = 0.6) {
   if (!on) return;
   const now = performance.now();
-  const gap = name === "pluck" ? 70 : name === "hover" ? 90 : name === "chirp" ? 350 : 25;
+  const gap = name === "pluck" ? 70 : name === "coin" ? 60 : name === "hover" ? 90 : name === "chirp" ? 350 : 25;
   if (now - (last[name] ?? 0) < gap) return;
   last[name] = now;
   const c = audio();
@@ -150,6 +150,10 @@ export function play(name: SoundName, n = 0, v = 0.6) {
       guitar(c, f, vol);
       break;
     }
+    case "coin": // "plim" de moeda de videogame: duas notas quadradas, a segunda mais longa
+      tone(c, { f: 988, type: "square", dur: 0.07, vol: vol * 0.55, attack: 0.002 });
+      tone(c, { f: 1319, type: "square", dur: 0.42, vol: vol * 0.5, attack: 0.002, when: 0.07 });
+      break;
     case "tick":
       tone(c, { f: 1500, f2: 900, type: "square", dur: 0.03, vol: 0.05 });
       break;

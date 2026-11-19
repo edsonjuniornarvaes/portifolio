@@ -8,6 +8,8 @@ import { useLang } from "@/i18n/provider";
 import { contact } from "@/data/profile";
 import Memoji from "@/components/ui/memoji";
 import SpotifyDock from "@/components/ui/spotify-dock";
+import MarioCoin from "@/components/ui/mario-coin";
+import StubbornToggle from "@/components/ui/stubborn-toggle";
 
 const Foot = styled.footer`
   position: relative; margin-top: 140px; color: var(--ink);
@@ -30,6 +32,7 @@ const Foot = styled.footer`
   .icons { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 44px; }
   .icons a { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
   .icons a:hover { color: var(--accent-ink); border-color: var(--accent); transform: translateY(-2px); }
+  .toys { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 22px 40px; margin: 30px 0 26px; padding: 22px 24px; border: 1px dashed color-mix(in srgb, var(--ink) 26%, transparent); border-radius: 16px; background: color-mix(in srgb, var(--paper) 38%, transparent); }
   .tip { margin-top: 22px; font-family: var(--font-hand); font-size: 1.3rem; color: var(--accent-ink); }
   .mini { display: flex; gap: 18px; }
   .mini a:hover { color: var(--accent-ink); }
@@ -67,6 +70,10 @@ export default function SiteFooter() {
       <div className="body">
         <div className="in">
           <SpotifyDock />
+          <div className="toys">
+            <MarioCoin label={f.coin} hint={f.coinHint} />
+            <StubbornToggle title={f.toggle} hint={f.toggleHint} labelOn={f.on} labelOff={f.off} />
+          </div>
           <div className="base">
           <span>© {new Date().getFullYear()} Edson Junior</span>
             <nav className="mini" aria-label={f.explore}>
