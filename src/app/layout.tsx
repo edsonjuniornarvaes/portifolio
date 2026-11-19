@@ -10,11 +10,12 @@ import SoundEffects from "@/components/ui/sound-effects";
 import CoffeeRain from "@/components/ui/coffee-rain";
 import StyledComponentsRegistry from "./registry";
 import AnalyticsTracker from "@/components/analytics-tracker";
+import { SITE_URL } from "@/lib/site";
 import { LangProvider } from "@/i18n/provider";
 import { getLang } from "@/i18n/server";
 import { ui } from "@/i18n/dict";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portifolio-wheat-omega-16.vercel.app";
+const siteUrl = SITE_URL;
 
 const body = Space_Grotesk({
   subsets: ["latin"],

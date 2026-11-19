@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { SITE_URL } from '@/lib/site';
 import { createServerClient } from '@/lib/supabase';
 import { ADMIN_EMAIL } from '@/lib/admin-auth';
 import { randomBytes } from 'crypto';
@@ -38,10 +39,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const base =
-      request.headers.get('origin') ||
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      'http://localhost:3000';
+    // Nunca confie no cabeçalho Origin em produção: quem envia o pedido poderia fazer o e-mail apontar para outro site.
+    const base = process.env.NODE_ENV === 'production' ? SITE_URL : request.headers.get('origin') || 'http://localhost:3000';
     const resetUrl = `${base}/adminaccess/reset-password?token=${token}`;
 
     const resendKey = process.env.RESEND_API_KEY;
