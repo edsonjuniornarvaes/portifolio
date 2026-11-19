@@ -49,7 +49,7 @@ O arquivo `.env` funciona apenas **localmente**. Em produção no Vercel, você 
 Após o redeploy, acesse:
 
 ```
-https://portifolio-wheat-omega-16.vercel.app/adminaccess/dashboard
+https://edsonjuniordev.com.br/adminaccess/dashboard
 ```
 
 O erro deve desaparecer e o dashboard deve funcionar normalmente.

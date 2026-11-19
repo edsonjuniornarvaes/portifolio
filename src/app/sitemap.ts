@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/posts";
+import { SITE_URL } from "@/lib/site";
 import { professionalProjects, personalProjects, webProjects } from "@/app/projects/helper";
 
-const base = process.env.NEXT_PUBLIC_SITE_URL || "https://portifolio-wheat-omega-16.vercel.app";
+const base = SITE_URL;
 
 export const revalidate = 3600;
 
