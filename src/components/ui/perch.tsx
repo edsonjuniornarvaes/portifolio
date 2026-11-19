@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { animate, motion, useMotionValue, useReducedMotion } from "framer-motion";
 import { play } from "@/lib/sound";
 
-const W = 22, H = 19;
+const W = 21, H = 14;
 /** Onde ele gosta de pousar: títulos, botões e o que estiver marcado com `data-perch`. */
 const SPOTS = "[data-perch], h1, h2, .btn, section h3";
 
@@ -92,12 +92,13 @@ export default function Perch() {
 
   return (
     <motion.div aria-hidden style={{ position: "fixed", left: 0, top: 0, x, y, rotate: tilt, scaleX: flip, zIndex: 45, pointerEvents: "none", display: "var(--perch-display, block)", opacity: 0.95 }}>
-      <svg width={W} height={H} viewBox="0 0 46 40">
-        <path d="M6 26c0-9 7-16 17-16s17 7 17 16-7 12-17 12S6 35 6 26Z" fill="#2eebaa" />
-        <path d="M30 28c4-6 9-7 13-6-1 7-6 11-13 10Z" fill="#06b6d4" />
-        <circle cx="14" cy="19" r="2.8" fill="#fff" /><circle cx="14.5" cy="19" r="1.3" fill="#04130d" />
-        <path d="M5 21 0 24l6 1Z" fill="#ffcb6b" />
-        <path d="M20 38v-4M27 38v-4" stroke="#ffcb6b" strokeWidth="2.6" strokeLinecap="round" />
+      <svg width={W} height={H} viewBox="0 0 46 30">
+        {/* corpo esguio, cabeça pequena, rabinho para trás */}
+        <path d="M9 14c1-6 7-9 14-8 8 1 13 5 21 3-2 6-8 8-12 9-6 2-9 6-16 6-5 0-7-4-7-10Z" fill="#2eebaa" />
+        <path d="M20 12c6-1 11 1 15 4-4 3-9 4-14 3 1-2 0-5-1-7Z" fill="#06b6d4" />
+        <circle cx="13" cy="11" r="2" fill="#fff" /><circle cx="13.3" cy="11" r="0.95" fill="#04130d" />
+        <path d="M8 12 3 13.6l5 1.4Z" fill="#ffcb6b" />
+        <path d="M21 25.5v3M26 25.5v3" stroke="#ffcb6b" strokeWidth="1.7" strokeLinecap="round" />
       </svg>
     </motion.div>
   );

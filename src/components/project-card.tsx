@@ -47,6 +47,8 @@ const Card = styled(Link)`
   .duo .ph.a { margin-left: -22%; margin-bottom: -60px; z-index: 2; }
   &[data-compact] .duo .lap { width: 66%; }
   &[data-compact] .duo .ph.a { margin-bottom: -50px; }
+  .art { position: relative; z-index: 1; align-self: flex-end; height: 88%; width: auto; max-width: 70%; object-fit: contain; margin-bottom: -4px; filter: drop-shadow(0 18px 22px rgba(0,0,0,0.45)); transition: transform 0.45s cubic-bezier(.2,.7,.2,1); }
+  &:hover .art { transform: translateY(-8px) rotate(-2deg) scale(1.03); }
   .letter { position: relative; z-index: 1; align-self: center; font-size: 4rem; font-weight: 700; letter-spacing: -0.05em; color: color-mix(in srgb, var(--pc) 80%, var(--ink)); }
 
   .body { display: flex; flex-direction: column; gap: 8px; padding: 20px 22px 22px; flex: 1; }
@@ -69,6 +71,8 @@ const Card = styled(Link)`
 
 // eslint-disable-next-line @next/next/no-img-element
 // eslint-disable-next-line @next/next/no-img-element
+// eslint-disable-next-line @next/next/no-img-element
+const ArtImg = ({ src }: { src: string }) => <img className="art" src={src} alt="" loading="lazy" />;
 const BrandImg = ({ src }: { src: string }) => <img src={src} alt="" />;
 
 // eslint-disable-next-line @next/next/no-img-element
@@ -111,7 +115,9 @@ export default function ProjectCard({ id, level = "h3", compact = false, pair, t
       <div className={`vis${pair ? " duo" : ""}`} aria-hidden>
         <span className="sheen" />
         <span className="brand" data-img={!!BRAND_ICON[id]}>{BRAND_ICON[id] ? <BrandImg src={BRAND_ICON[id]} /> : letter}</span>
-        {web ? (
+        {p.art ? (
+          <ArtImg src={p.art} />
+        ) : web ? (
           <div className="lap">
             <div className="lid">
               <div className="scr">

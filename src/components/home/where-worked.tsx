@@ -1,56 +1,64 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "@/components/ui/icons";
 import styled from "styled-components";
 import { motion, useReducedMotion } from "framer-motion";
-import { ExperienceData } from "@/data/experience";
-import { localizeExperience } from "@/i18n/content";
+import { EcodeLogo, SuperlogicaLogo } from "@/components/ui/company-logos";
+import { ArrowRight, ArrowUpRight } from "@/components/ui/icons";
 import { useLang } from "@/i18n/provider";
+
+const COMPANIES = [
+  { key: "ecode", href: "https://www.agenciaecode.com.br/", years: "2019 – 2024", roles: ["Desenvolvedor Web", "Desenvolvedor Mobile", "Scrum Master"], rolesEn: ["Web Developer", "Mobile Developer", "Scrum Master"], Logo: EcodeLogo, logoH: 38 },
+  { key: "superlogica", href: "https://superlogica.com/", years: "2024 – hoje", yearsEn: "2024 – today", roles: ["Desenvolvedor Mobile", "Desenvolvedor Mobile Sênior"], rolesEn: ["Mobile Developer", "Senior Mobile Developer"], Logo: SuperlogicaLogo, logoH: 30 },
+] as const;
 
 const Box = styled.div`
   .lead { max-width: 38rem; margin: -10px 0 26px; color: var(--muted); line-height: 1.65; }
-  .co { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr); gap: 10px 48px; padding: 24px 0; border-top: 1px solid var(--line); }
-  .co:last-of-type { border-bottom: 1px solid var(--line); }
-  .co h3 { font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
-  .co .span { margin-top: 6px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); }
-  .roles { list-style: none; display: grid; gap: 12px; }
-  .roles li { display: grid; grid-template-columns: 11.5rem minmax(0, 1fr); gap: 4px 20px; align-items: baseline; }
-  .roles .p { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.04em; color: var(--muted); }
-  .roles b { font-weight: 600; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .card { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 30px 30px 26px; border: 1px solid var(--line); border-radius: 20px; background: color-mix(in srgb, var(--card) 80%, transparent); overflow: hidden; transition: transform 0.35s cubic-bezier(.2,.7,.2,1), border-color 0.3s ease; }
+  .card::before { content: ""; position: absolute; inset: -40% -20% auto auto; width: 70%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent), transparent 66%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+  .card:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+  .card:hover::before { opacity: 1; }
+  .logo { display: flex; align-items: center; min-height: 44px; color: var(--ink); }
+  .logo svg { width: auto; }
+  .yrs { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+  .card p { color: var(--muted); line-height: 1.6; }
+  .roles { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+  .roles li { padding: 5px 12px; border: 1px solid var(--line); border-radius: 99px; font-size: 0.84rem; }
+  .visit { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; width: fit-content; font-weight: 600; transition: gap 0.25s ease, color 0.2s ease; }
+  .visit:hover { gap: 12px; color: var(--accent-ink); }
   .more { margin-top: 22px; display: inline-flex; align-items: center; gap: 8px; color: var(--muted); transition: color 0.2s ease, gap 0.25s ease; }
   .more:hover { color: var(--accent-ink); gap: 14px; }
-  @media (max-width: 760px) { .co { grid-template-columns: 1fr; } .roles li { grid-template-columns: 1fr; } }
 `;
 
-/** "Onde trabalhei": empresas e funções em uma lista curta (o detalhe fica na página Trajetória). */
+/** "Onde trabalhei": as duas empresas, com a logo, o período, as funções e o link do site. */
 export default function WhereWorked() {
   const { lang, t } = useLang();
   const reduce = useReducedMotion();
-  const jobs = localizeExperience(ExperienceData, lang);
-  const order: string[] = [];
-  const by: Record<string, typeof jobs> = {};
-  for (const j of jobs) { if (!by[j.company]) { by[j.company] = []; order.push(j.company); } by[j.company].push(j); }
-  const range = (list: typeof jobs) => `${list[list.length - 1].period.split(" - ")[0]} – ${list[0].period.split(" - ")[1] ?? ""}`;
+  const w = t.worked;
   return (
     <Box>
-      <p className="lead">{t.worked.lead}</p>
-      {order.map((c, i) => (
-        <motion.div
-          key={c}
-          className="co"
-          initial={reduce ? false : { opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.55, delay: i * 0.08, ease: [0.2, 0.7, 0.2, 1] }}
-        >
-          <div><h3>{c}</h3><div className="span">{range(by[c])}</div></div>
-          <ul className="roles">
-            {by[c].map((j) => <li key={j.period}><span className="p">{j.period}</span><b>{j.role}</b></li>)}
-          </ul>
-        </motion.div>
-      ))}
-      <Link className="more" href="/trajetoria">{t.worked.more} <ArrowRight /></Link>
+      <p className="lead">{w.lead}</p>
+      <div className="grid">
+        {COMPANIES.map(({ key, href, years, roles, rolesEn, Logo, logoH, ...rest }, i) => (
+          <motion.article
+            key={key}
+            className="card"
+            initial={reduce ? false : { opacity: 0, y: 26 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6, delay: i * 0.12, ease: [0.2, 0.7, 0.2, 1] }}
+          >
+            <div className="logo"><Logo height={logoH} /></div>
+            <div className="yrs">{lang === "en" && "yearsEn" in rest ? rest.yearsEn : years}</div>
+            <p>{key === "ecode" ? w.ecode : w.superlogica}</p>
+            <ul className="roles">{(lang === "en" ? rolesEn : roles).map((r) => <li key={r}>{r}</li>)}</ul>
+            <a className="visit" href={href} target="_blank" rel="noopener noreferrer">{w.visit} <ArrowUpRight /></a>
+          </motion.article>
+        ))}
+      </div>
+      <Link className="more" href="/trajetoria">{w.more} <ArrowRight /></Link>
     </Box>
   );
 }

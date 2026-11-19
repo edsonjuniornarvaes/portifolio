@@ -9,7 +9,7 @@ import { getAllProjectsBrief } from "@/app/projects/helper";
 import { useLang } from "@/i18n/provider";
 
 /** Portfólio de venda: os projetos que melhor mostram o que eu entrego. Todos continuam em /projects. */
-const IDS = ["clube-da-joia-marketplace", "pjbank", "gruvi", "mont-b2b", "minha-navex", "consorcio-gazin"];
+const IDS = ["clube-da-joia-marketplace", "multjet", "pjbank", "gruvi", "mont-b2b", "minha-navex", "consorcio-gazin"];
 
 const Box = styled.div`
   .lead { max-width: 40rem; margin: -10px 0 22px; color: var(--muted); line-height: 1.65; }

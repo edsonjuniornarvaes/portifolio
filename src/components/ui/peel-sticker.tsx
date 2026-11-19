@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import styled from "styled-components";
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useAnimationControls, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { play } from "@/lib/sound";
 import { PixelAvatar } from "@/components/ui/avatar";
 
@@ -13,6 +13,9 @@ const Box = styled(motion.div)`
   .layer { position: absolute; inset: 0; }
   .base { position: relative; }
   .shadow { filter: drop-shadow(0 10px 12px rgba(0,0,0,0.38)); }
+  .bob { animation: bob 5.2s ease-in-out infinite; animation-delay: var(--bob, 0s); }
+  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-5px) rotate(0.8deg); } }
+  @media (prefers-reduced-motion: reduce) { .bob { animation: none; } }
   .lifted { filter: drop-shadow(0 4px 3px rgba(0,0,0,0.25)) drop-shadow(0 26px 28px rgba(0,0,0,0.45)); }
   /* verso do adesivo: o desenho vira papel branco */
   .flap { filter: brightness(0) invert(0.96) drop-shadow(0 6px 8px rgba(0,0,0,0.4)); }
@@ -50,6 +53,24 @@ export default function PeelSticker({ children, h, style, rot = 0, label, classN
   const ox = useMotionValue(0), oy = useMotionValue(0);
   const lift = useSpring(useMotionValue(0), { stiffness: 260, damping: 18 });
   const [mode, setMode] = useState<"idle" | "peel" | "carry">("idle");
+  const hop = useAnimationControls();
+  const modeRef = useRef(mode);
+  modeRef.current = mode;
+  // de tempos em tempos o adesivo dá um pulinho (só quando ninguém está mexendo nele)
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let t: ReturnType<typeof setTimeout>;
+    const loop = () => {
+      t = setTimeout(async () => {
+        if (modeRef.current === "idle" && document.visibilityState === "visible") {
+          await hop.start({ y: [0, -16, 0, -5, 0], rotate: [0, -5, 4, -1, 0], transition: { duration: 0.9, ease: "easeOut" } });
+        }
+        loop();
+      }, 4200 + Math.random() * 6000);
+    };
+    t = setTimeout(loop, 1500 + Math.random() * 3000);
+    return () => clearTimeout(t);
+  }, [hop]);
   const g = useRef({ sx: 0, sy: 0, ax: 0, ay: 0, aox: 0, aoy: 0, carried: false });
 
   const baseClip = useMotionTemplate`inset(${useTransform(p, (v) => v * 100)}% 0 0 0)`;
@@ -121,13 +142,15 @@ export default function PeelSticker({ children, h, style, rot = 0, label, classN
       }}
       onPointerCancel={() => { peel.set(0); lift.set(0); setMode("idle"); }}
     >
-      <div className={`stack ${mode === "carry" ? "lifted" : "shadow"}`}>
+      <motion.div animate={hop}>
+      <div className={`stack bob ${mode === "carry" ? "lifted" : "shadow"}`} style={{ ["--bob" as string]: `${-(label.length % 5) * 0.9}s` }}>
         <motion.div className="base" style={{ clipPath: baseClip }}>{children}</motion.div>
         <motion.div className="layer flap" style={{ clipPath: flapClip, scaleY: -1, transformOrigin: useMotionTemplate`0px ${fold}` }}>
           {children}
           <div className="flap-sheen" />
         </motion.div>
       </div>
+      </motion.div>
     </Box>
   );
 }
@@ -250,7 +273,7 @@ export function MugSticker({ scale = 1 }: { scale?: number }) {
 }
 
 /** Relógio digital (horário de Brasília) como adesivo: dá para descolar e levar para outro canto. */
-export function ClockSticker() {
+export function ClockSticker({ scale = 1 }: { scale?: number }) {
   const [t, setT] = useState<[string, string] | null>(null);
   const [sep, setSep] = useState(true);
   useEffect(() => {
@@ -264,7 +287,7 @@ export function ClockSticker() {
     return () => { clearInterval(id); clearInterval(bl); };
   }, []);
   return (
-    <div style={{ padding: 4, borderRadius: 14, background: "#fff" }} aria-label={t ? `${t[0]}:${t[1]}` : undefined}>
+    <div style={{ padding: 4, borderRadius: 14, background: "#fff", zoom: scale }} aria-label={t ? `${t[0]}:${t[1]}` : undefined}>
       <div style={{ display: "flex", alignItems: "center", gap: 3, padding: "7px 13px", borderRadius: 10, background: "#0c1013", color: "var(--accent)", fontFamily: "var(--font-jetbrains), monospace", fontSize: "1.05rem", fontWeight: 600, letterSpacing: "0.04em", fontVariantNumeric: "tabular-nums", boxShadow: "inset 0 0 14px color-mix(in srgb, var(--accent) 18%, transparent)" }}>
         <span>{t ? t[0] : "--"}</span><span style={{ opacity: sep ? 1 : 0.25 }}>:</span><span>{t ? t[1] : "--"}</span>
       </div>

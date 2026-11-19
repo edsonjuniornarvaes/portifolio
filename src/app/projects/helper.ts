@@ -38,6 +38,8 @@ export interface Project {
   galleryImages?: string[];
   /** Imagem de capa do card (tela do app, logo ou arte do projeto) */
   coverImage?: string;
+  /** Arte própria (mascote/logo) no lugar de celular ou notebook, para projetos sem print de tela */
+  art?: string;
   /** Telas exibidas na página do projeto, independente do SHOW_PROJECT_IMAGES */
   screens?: string[];
   /** Texto do botão do link principal (ex.: Confira) */
@@ -135,7 +137,28 @@ export const clubeDaJoiaAppProject: Project = {
 };
 
 /** Projetos pessoais */
-export const personalProjects: Project[] = [clubeDaJoiaMarketplaceProject, clubeDaJoiaAppProject];
+export const multjetProject: Project = {
+  id: "multjet",
+  title: "MultJet",
+  tagline: "Site de uma empresa de produtos de limpeza",
+  description: "Presença online da MultJet, empresa de produtos de limpeza: site com a marca, o catálogo de produtos e o contato direto.",
+  longDescription: `O site da **MultJet**, empresa de produtos de limpeza, leva a marca e o mascote para a internet: apresenta a empresa, mostra os produtos e facilita o contato.
+
+Foi publicado na Vercel, com a identidade visual da marca (logo e mascote) em todas as páginas.`,
+  icon: "",
+  iconLetter: "MJ",
+  iconColor: "#d92027",
+  art: "/images/projects/multjet-mascot.webp",
+  screens: ["/images/projects/multjet-logo.webp"],
+  tags: ["Next.js", "TypeScript", "Vercel"],
+  status: "production",
+  type: "personal",
+  showGithub: false,
+  showFigma: false,
+  showPreview: false,
+};
+
+export const personalProjects: Project[] = [clubeDaJoiaMarketplaceProject, multjetProject, clubeDaJoiaAppProject];
 
 export const professionalProjects: Project[] = [
   {

@@ -10,6 +10,13 @@ type ProjectEn = {
 };
 
 const PROJECTS_EN: Record<string, ProjectEn> = {
+  multjet: {
+    tagline: "Website for a cleaning products company",
+    description: "MultJet's online presence: a site with the brand, the product catalog and direct contact.",
+    longDescription: `The **MultJet** website, a cleaning products company, takes the brand and its mascot online: it presents the company, shows the products and makes contact easy.
+
+It was published on Vercel, with the brand identity (logo and mascot) across all pages.`,
+  },
   "clube-da-joia-marketplace": {
     tagline: "Online store for 925 silver and moissanite, with admin panel and checkout",
     description:
