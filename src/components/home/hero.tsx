@@ -44,13 +44,11 @@ const Box = styled.section`
   .btn.g { border: 1px solid var(--line); }
   .btn.g:hover { border-color: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
   .meta { display: flex; flex-wrap: wrap; gap: 8px 40px; margin-top: 44px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 34rem; margin-top: 30px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: color-mix(in srgb, var(--card) 70%, transparent); }
-  .stats > div { display: flex; flex-direction: column-reverse; gap: 4px; padding: 14px 18px; }
-  .stats > div + div { border-left: 1px solid var(--line); }
-  .stats dt { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-  .stats dd { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
-  .stats dd small { display: block; margin-top: 2px; font-family: var(--font-mono); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.04em; color: var(--muted); }
-  @media (max-width: 520px) { .stats dd { font-size: 1.35rem; } .stats > div { padding: 12px 12px; } }
+  .facts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; margin-top: 26px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--muted); }
+  .facts span { display: inline-flex; align-items: baseline; gap: 6px; }
+  .facts span:not(:last-child)::after { content: ""; width: 4px; height: 4px; margin: 0 14px; border-radius: 50%; background: var(--accent); align-self: center; }
+  @media (max-width: 520px) { .facts { font-size: 0.7rem; letter-spacing: 0.02em; } .facts span:not(:last-child)::after { margin: 0 9px; } .facts b { font-size: 0.95rem; } }
+  .facts b { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
   .worked { display: flex; align-items: center; gap: 14px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 34rem; }
   .worked small { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
   .worked .icons { display: flex; gap: 8px; }
@@ -118,11 +116,11 @@ export default function Hero() {
             <Magnetic><Link className="btn p" href="/home#contato">{h.ctaTalk} <span aria-hidden>→</span></Link></Magnetic>
             <Link className="btn g" href="/projects">{h.ctaWork}</Link>
           </div>
-          <dl className="stats">
-            <div><dt>{h.stats.years}</dt><dd>+{yr - CAREER_SINCE}</dd></div>
-            <div><dt>{h.stats.projects}</dt><dd>{getAllProjectsBrief().length}</dd></div>
-            <div><dt>{h.stats.fronts}</dt><dd>3</dd></div>
-          </dl>
+          <p className="facts">
+            <span><b>+{yr - CAREER_SINCE}</b> {h.stats.years}</span>
+            <span><b>{getAllProjectsBrief().length}</b> {h.stats.projects}</span>
+            <span>{h.stats.fronts}</span>
+          </p>
           <div className="meta">
             <span className="live"><i /> {h.status}</span>
           </div>
