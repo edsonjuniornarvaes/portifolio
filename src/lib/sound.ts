@@ -170,9 +170,10 @@ export function play(name: SoundName, n = 0, v = 0.6) {
       // pássaro: dois ou três pios curtos, cada um subindo e caindo de tom
       const base = 2400 + (n % 4) * 220;
       const notes = 2 + (n % 2);
+      const k = vol / 0.168; // volume proporcional (padrão = 0,6)
       for (let i = 0; i < notes; i++) {
-        tone(c, { f: base, f2: base * 1.35, type: "sine", dur: 0.09, vol: 0.05, attack: 0.008, when: i * 0.12 });
-        tone(c, { f: base * 1.35, f2: base * 0.9, type: "sine", dur: 0.07, vol: 0.04, attack: 0.004, when: i * 0.12 + 0.07 });
+        tone(c, { f: base, f2: base * 1.35, type: "sine", dur: 0.09, vol: 0.05 * k, attack: 0.008, when: i * 0.12 });
+        tone(c, { f: base * 1.35, f2: base * 0.9, type: "sine", dur: 0.07, vol: 0.04 * k, attack: 0.004, when: i * 0.12 + 0.07 });
       }
       break;
     }
