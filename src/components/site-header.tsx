@@ -22,9 +22,9 @@ const Bar = styled.header`
   background: color-mix(in srgb, var(--paper) 94%, transparent);
   border-bottom: 1px solid var(--line);
   .in { position: relative; max-width: var(--wrap); height: 100%; margin: 0 auto; padding: 0 var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .brand .logo { font-weight: 700; letter-spacing: -0.02em; }
-  .brand .logo b { margin-left: 2px; font-family: var(--font-mono); font-weight: 500; font-size: 0.92em; letter-spacing: -0.04em; color: var(--accent-ink); transition: transform 0.25s ease; display: inline-block; }
-  .brand:hover .logo b { transform: translateX(3px); }
+  .brand .logo { display: flex; flex-direction: column; gap: 1px; line-height: 1.1; }
+  .brand .logo strong { font-weight: 700; font-size: 1.02rem; letter-spacing: -0.025em; }
+  .brand .logo small { font-family: var(--font-mono); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-ink); }
   .brand { order: 1; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; white-space: nowrap; }
   .panel { display: contents; }
   nav { order: 2; display: flex; align-items: center; gap: 4px; }
@@ -74,7 +74,7 @@ export default function SiteHeader() {
       <div className="in">
         <Link href="/home" className="brand" aria-label={t.nav.homeAria}>
           <PixelAvatar size={38} decorative />
-          <span className="logo">Edson JR<b aria-hidden>{" </>"}</b></span>
+          <span className="logo"><strong>Edson Junior</strong><small>{t.nav.logoSub}</small></span>
         </Link>
         <button type="button" className="burger" aria-expanded={open} aria-controls="menu" aria-label={open ? t.nav.close : t.nav.menu} onClick={() => setOpen((v) => !v)}><span /></button>
         <div id="menu" className="panel" data-open={open}>
