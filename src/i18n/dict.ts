@@ -9,7 +9,7 @@ const pt = {
     jobTitle: "Desenvolvedor Mobile e Web",
     ogLocale: "pt_BR",
   },
-  nav: { menu: "Abrir menu", close: "Fechar menu", aria: "Principal", work: "Trabalhos", journey: "Trajetória", writing: "Artigos", contact: "Contato", homeAria: "Edson Junior, página inicial" },
+  nav: { skip: "Pular para o conteúdo", menu: "Abrir menu", close: "Fechar menu", aria: "Principal", work: "Trabalhos", journey: "Trajetória", writing: "Artigos", contact: "Contato", homeAria: "Edson Junior, página inicial" },
   theme: { toLight: "Ativar tema claro", toDark: "Ativar tema escuro" },
   langSwitch: { label: "Idioma", pt: "Português", en: "English" },
   hero: {
@@ -163,7 +163,7 @@ const en: Dict = {
     jobTitle: "Mobile & Web Developer",
     ogLocale: "en_US",
   },
-  nav: { menu: "Open menu", close: "Close menu", aria: "Main", work: "Work", journey: "Journey", writing: "Articles", contact: "Contact", homeAria: "Edson Junior, home page" },
+  nav: { skip: "Skip to content", menu: "Open menu", close: "Close menu", aria: "Main", work: "Work", journey: "Journey", writing: "Articles", contact: "Contact", homeAria: "Edson Junior, home page" },
   theme: { toLight: "Switch to light theme", toDark: "Switch to dark theme" },
   langSwitch: { label: "Language", pt: "Português", en: "English" },
   hero: {
