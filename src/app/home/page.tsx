@@ -4,6 +4,7 @@ import WorkList from "@/components/home/work-list";
 import DevicesStrip from "@/components/home/devices-strip";
 import Services from "@/components/home/services";
 import Radar from "@/components/home/radar";
+import Process from "@/components/home/process";
 import Writing from "@/components/home/writing";
 import Contact from "@/components/home/contact";
 import InstagramGrid from "@/components/home/instagram";
@@ -41,22 +42,27 @@ export default async function Home() {
           <Services />
         </Section>
 
+        <Section id="processo" style={{ marginTop: 90 }}>
+          <SectionHead n="03" label={t.process.label} />
+          <Process />
+        </Section>
+
         <Section style={{ marginTop: 90 }}>
           <Radar />
         </Section>
 
         <Section id="escrita">
-          <SectionHead n="03" label={t.writing.label} action={{ href: "/blog", label: t.writing.all }} />
+          <SectionHead n="04" label={t.writing.label} action={{ href: "/blog", label: t.writing.all }} />
           <Writing posts={posts} />
         </Section>
 
         <Section id="instagram">
-          <SectionHead n="04" label={t.instagram.label} action={{ href: contact.instagram, label: "@edsonjunior.dev" }} />
+          <SectionHead n="05" label={t.instagram.label} action={{ href: contact.instagram, label: "@edsonjunior.dev" }} />
           <InstagramGrid posts={igPosts} />
         </Section>
 
         <Section id="contato">
-          <SectionHead n="05" label={t.contact.label} />
+          <SectionHead n="06" label={t.contact.label} />
           <Contact />
         </Section>
       </Wrap>
