@@ -18,6 +18,7 @@ import { BRAND_ICON } from "@/data/brands";
 const WORKED = [
   { id: "pjbank", name: "Conta Superlógica" },
   { id: "gruvi", name: "Gruvi" },
+  { id: "multjet", name: "MultJet" },
   { id: "minha-navex", name: "Minha Navex" },
   { id: "mont-capital", name: "Mont Capital" },
   { id: "gazin", name: "Grupo Gazin" },
