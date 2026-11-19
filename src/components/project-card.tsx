@@ -29,7 +29,7 @@ const Card = styled(Link)`
   .ph.b { margin-bottom: -120px; opacity: 0.96; }
   &:hover .ph.a { transform: perspective(800px) translateY(-14px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
   &:hover .ph.b { transform: perspective(800px) translateY(-8px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
-  .lap { position: relative; z-index: 1; width: 82%; margin-bottom: -36px; transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 0.45s cubic-bezier(.2,.7,.2,1); }
+  .lap { position: relative; z-index: 1; width: 80%; align-self: flex-start; margin-top: 26px; margin-bottom: 0; transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 0.45s cubic-bezier(.2,.7,.2,1); }
   &:hover .lap { transform: perspective(1000px) translateY(-12px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
   /* a tela rola sozinha enquanto o mouse está em cima, como se alguém estivesse usando */
   .ph .screen img { object-position: 50% 0%; transition: object-position 0.6s ease; }
@@ -43,6 +43,10 @@ const Card = styled(Link)`
   .scr img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .scr .w > div { border-radius: 0; border: 0; box-shadow: none; }
   .base { height: 11px; margin: 0 -4%; border-radius: 0 0 14px 14px; background: linear-gradient(#e0e3e8, #a3a9b2); }
+  .duo .lap { width: 68%; margin-left: -4%; }
+  .duo .ph.a { margin-left: -22%; margin-bottom: -60px; z-index: 2; }
+  &[data-compact] .duo .lap { width: 66%; }
+  &[data-compact] .duo .ph.a { margin-bottom: -50px; }
   .letter { position: relative; z-index: 1; align-self: center; font-size: 4rem; font-weight: 700; letter-spacing: -0.05em; color: color-mix(in srgb, var(--pc) 80%, var(--ink)); }
 
   .body { display: flex; flex-direction: column; gap: 8px; padding: 20px 22px 22px; flex: 1; }
@@ -50,7 +54,7 @@ const Card = styled(Link)`
   &[data-compact] .vis { height: 196px; }
   &[data-compact] .ph.a { margin-bottom: -56px; }
   &[data-compact] .ph.b { margin-bottom: -96px; }
-  &[data-compact] .lap { width: 74%; }
+  &[data-compact] .lap { width: 74%; margin-top: 18px; }
   &[data-compact] .body { gap: 6px; padding: 14px 16px 16px; }
   &[data-compact] .t { font-size: 1.15rem; }
   &[data-compact] p { font-size: 0.86rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -72,7 +76,7 @@ const ShotImg = ({ src }: { src: string }) => <img src={src} alt="" loading="laz
 
 const STATUS_COLOR = { production: "#2eebaa", development: "#ffcb6b", paused: "#8c95a3" } as const;
 
-export default function ProjectCard({ id, level = "h3", compact = false }: { id: string; level?: "h2" | "h3"; compact?: boolean }) {
+export default function ProjectCard({ id, level = "h3", compact = false, pair, title, tagline }: { id: string; level?: "h2" | "h3"; compact?: boolean; pair?: string; title?: string; tagline?: string }) {
   const H = level;
   const { lang, t } = useLang();
   const base = getProjectById(id);
@@ -100,10 +104,11 @@ export default function ProjectCard({ id, level = "h3", compact = false }: { id:
     vis?.style.setProperty("--rx", "0deg");
   };
   const letter = p.iconLetter ?? p.title.slice(0, 2).toUpperCase();
+  const pairShot = pair ? ((getProjectById(pair)?.screens ?? []).filter((u) => !/cover|board/.test(u))[0] ?? appScreen(pair)) : undefined;
 
   return (
     <Card data-compact={compact || undefined} href={`/projects/${id}`} onPointerMove={tilt} onPointerLeave={untilt} style={{ ["--pc" as string]: color, ["--sc" as string]: STATUS_COLOR[p.status] }}>
-      <div className="vis" aria-hidden>
+      <div className={`vis${pair ? " duo" : ""}`} aria-hidden>
         <span className="sheen" />
         <span className="brand" data-img={!!BRAND_ICON[id]}>{BRAND_ICON[id] ? <BrandImg src={BRAND_ICON[id]} /> : letter}</span>
         {web ? (
@@ -123,15 +128,16 @@ export default function ProjectCard({ id, level = "h3", compact = false }: { id:
         ) : (
           <span className="letter">{letter}</span>
         )}
+        {web && pairShot && <div className="ph a"><Phone screens={[pairShot]} alt="" width={compact ? 100 : 128} lazy /></div>}
       </div>
       <div className="body">
         <div className="meta">
-          <span className="k">{web ? t.work.web : t.work.app}</span>
+          <span className="k">{pair ? t.work.siteApp : web ? t.work.web : t.work.app}</span>
           {YEARS[id] && <span>{YEARS[id]}</span>}
           <span className="st">{t.status[p.status]}</span>
         </div>
-        <H className="t">{p.title}</H>
-        <p>{p.tagline}</p>
+        <H className="t">{title ?? p.title}</H>
+        <p>{tagline ?? p.tagline}</p>
         <div className="tags"><TechIcons tags={p.tags} max={5} /></div>
       </div>
     </Card>

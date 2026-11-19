@@ -49,7 +49,7 @@ const Bar = styled.header`
     @keyframes drop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
     nav { flex-direction: column; align-items: stretch; gap: 2px; }
     nav a { display: flex; align-items: center; justify-content: space-between; padding: 14px 12px; font-size: 1.15rem; font-weight: 500; color: var(--ink); border-radius: 12px; }
-    nav a::after { content: "→"; color: var(--muted); font-family: var(--font-mono); }
+    nav a::after { content: ""; width: 9px; height: 9px; border-top: 2px solid var(--muted); border-right: 2px solid var(--muted); transform: rotate(45deg); }
     .tools { order: 3; justify-content: space-between; margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--line); }
     .tools > * { transform: scale(1.12); transform-origin: left center; }
     .tools > :last-child { transform-origin: right center; }

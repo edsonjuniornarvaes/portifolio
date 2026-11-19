@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { ArrowRight } from "@/components/ui/icons";
 import { useLang } from "@/i18n/provider";
 import { contact } from "@/data/profile";
 
@@ -33,7 +34,7 @@ export default function Radar() {
         <ul className="tags">{r.items.map((i) => <li key={i}>{i}</li>)}</ul>
       </div>
       <div className="btns">
-        <a className="btn p" href={`mailto:${contact.email}?subject=${subject}`}>{r.cta} <span aria-hidden>→</span></a>
+        <a className="btn p" href={`mailto:${contact.email}?subject=${subject}`}>{r.cta} <ArrowRight /></a>
         <a className="btn g" href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </Box>

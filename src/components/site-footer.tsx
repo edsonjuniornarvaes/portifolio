@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight, ChevronUp } from "@/components/ui/icons";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { usePathname } from "next/navigation";
@@ -74,7 +75,7 @@ export default function SiteFooter() {
           {!onHome && <div className="cta">
             <h2>{t.contact.h2a} <span>{t.contact.h2b}</span></h2>
             <div className="btns">
-              <a className="btn p" href={`mailto:${contact.email}`}>{t.contact.mailBtn} <span aria-hidden>→</span></a>
+              <a className="btn p" href={`mailto:${contact.email}`}>{t.contact.mailBtn} <ArrowRight /></a>
               <a className="btn g" href={contact.linkedin} {...ext}>LinkedIn</a>
             </div>
           </div>}
@@ -109,7 +110,7 @@ export default function SiteFooter() {
           <div className="base">
             <span>© {new Date().getFullYear()} Edson Junior · {f.made}</span>
             <span className="now"><i /> {t.hero.now}{time ? ` · ${time}` : ""}</span>
-            <button className="top" type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>{f.top} <span aria-hidden>↑</span></button>
+            <button className="top" type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>{f.top} <ChevronUp /></button>
           </div>
         </div>
       </div>

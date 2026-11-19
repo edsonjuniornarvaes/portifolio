@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight } from "@/components/ui/icons";
 import styled from "styled-components";
 
 /** Coluna central do site. */
@@ -24,7 +25,7 @@ export function SectionHead({ n, label, action }: { n: string; label: string; ac
       <span className="n">{"// "}{n}</span>
       <h2>{label}</h2>
       <span className="line" />
-      {action && <Link href={action.href}>{action.label} →</Link>}
+      {action && <Link href={action.href}>{action.label} <ArrowRight style={{ marginLeft: 4 }} /></Link>}
     </Head>
   );
 }

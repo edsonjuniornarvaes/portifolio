@@ -1,6 +1,7 @@
 "use client";
 
 import { getAllProjectsBrief } from "@/app/projects/helper";
+import { ArrowRight } from "@/components/ui/icons";
 import Link from "next/link";
 import styled from "styled-components";
 import { Wrap } from "@/components/ui/layout";
@@ -113,7 +114,7 @@ export default function Hero() {
           </h1>
           <DecodeLines lines={lines} delay={900} />
           <div className="cta">
-            <Magnetic><Link className="btn p" href="/home#contato">{h.ctaTalk} <span aria-hidden>→</span></Link></Magnetic>
+            <Magnetic><Link className="btn p" href="/home#contato">{h.ctaTalk} <ArrowRight /></Link></Magnetic>
             <Link className="btn g" href="/projects">{h.ctaWork}</Link>
           </div>
           <p className="facts">
