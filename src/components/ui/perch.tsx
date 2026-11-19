@@ -6,7 +6,7 @@ import { play } from "@/lib/sound";
 
 const W = 21, H = 14;
 /** Onde ele gosta de pousar: títulos, botões e o que estiver marcado com `data-perch`. */
-const SPOTS = "[data-perch], h1, h2, .btn, section h3";
+const SPOTS = "[data-perch], .btn, section h2, .roles li, .tags li, footer h4";
 
 /**
  * Passarinho bem pequeno que, de vez em quando, voa e pousa em alguma coisa visível da tela
@@ -27,12 +27,12 @@ export default function Perch() {
     const spot = (el: HTMLElement) => {
       const r = el.getBoundingClientRect();
       // pousa perto de uma ponta do elemento (não no meio do texto), com os pezinhos na borda de cima
-      const side = el.dataset.birdSide === "left" ? 0.12 : 0.82;
-      return { px: r.left + Math.min(r.width * side, r.width - 14) - W / 2, py: r.top - H + 2 };
+      // pousa na pontinha do lado direito, com os pezinhos bem em cima da borda
+      return { px: r.right - Math.min(18, r.width * 0.25) - W / 2, py: r.top - H + 1 };
     };
     const visible = (el: HTMLElement) => {
       const r = el.getBoundingClientRect();
-      return r.width > 48 && r.height > 14 && r.top > 84 && r.bottom < window.innerHeight - 24 && r.left > 8 && r.right < window.innerWidth - 8;
+      return r.width > 48 && r.height > 14 && r.top > (el.hasAttribute("data-perch") ? 20 : 84) && r.bottom < window.innerHeight - 24 && r.left > 8 && r.right < window.innerWidth - 8;
     };
     const pick = () => {
       const list = Array.from(document.querySelectorAll<HTMLElement>(SPOTS)).filter((e) => e !== target.current && visible(e));
@@ -65,7 +65,7 @@ export default function Perch() {
       timer = setTimeout(async () => {
         if (document.visibilityState === "visible") { const el = pick(); if (el) await fly(el); }
         next();
-      }, 6500 + Math.random() * 7000);
+      }, 9000 + Math.random() * 8000);
     };
     // chega logo no começo, sem barulho
     const start = setTimeout(() => { const el = pick(); if (el) void fly(el, true); next(); }, 1800);
@@ -94,8 +94,8 @@ export default function Perch() {
     <motion.div aria-hidden style={{ position: "fixed", left: 0, top: 0, x, y, rotate: tilt, scaleX: flip, zIndex: 45, pointerEvents: "none", display: "var(--perch-display, block)", opacity: 0.95 }}>
       <svg width={W} height={H} viewBox="0 0 46 30">
         {/* corpo esguio, cabeça pequena, rabinho para trás */}
-        <path d="M9 14c1-6 7-9 14-8 8 1 13 5 21 3-2 6-8 8-12 9-6 2-9 6-16 6-5 0-7-4-7-10Z" fill="#2eebaa" />
-        <path d="M20 12c6-1 11 1 15 4-4 3-9 4-14 3 1-2 0-5-1-7Z" fill="#06b6d4" />
+        <path d="M9 14c1-6 7-9 14-8 8 1 13 5 21 3-2 6-8 8-12 9-6 2-9 6-16 6-5 0-7-4-7-10Z" fill="var(--accent)" />
+        <path d="M20 12c6-1 11 1 15 4-4 3-9 4-14 3 1-2 0-5-1-7Z" fill="var(--accent-2)" />
         <circle cx="13" cy="11" r="2" fill="#fff" /><circle cx="13.3" cy="11" r="0.95" fill="#04130d" />
         <path d="M8 12 3 13.6l5 1.4Z" fill="#ffcb6b" />
         <path d="M21 25.5v3M26 25.5v3" stroke="#ffcb6b" strokeWidth="1.7" strokeLinecap="round" />

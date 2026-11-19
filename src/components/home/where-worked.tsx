@@ -8,8 +8,8 @@ import { ArrowRight, ArrowUpRight } from "@/components/ui/icons";
 import { useLang } from "@/i18n/provider";
 
 const COMPANIES = [
-  { key: "ecode", href: "https://www.agenciaecode.com.br/", years: "2019 – 2024", roles: ["Desenvolvedor Web", "Desenvolvedor Mobile", "Scrum Master"], rolesEn: ["Web Developer", "Mobile Developer", "Scrum Master"], Logo: EcodeLogo, logoH: 38 },
-  { key: "superlogica", href: "https://superlogica.com/", years: "2024 – hoje", yearsEn: "2024 – today", roles: ["Desenvolvedor Mobile", "Desenvolvedor Mobile Sênior"], rolesEn: ["Mobile Developer", "Senior Mobile Developer"], Logo: SuperlogicaLogo, logoH: 30 },
+  { key: "ecode", href: "https://www.agenciaecode.com.br/", years: "2019 a 2024", roles: ["Desenvolvedor Web", "Desenvolvedor Mobile", "Scrum Master"], rolesEn: ["Web Developer", "Mobile Developer", "Scrum Master"], Logo: EcodeLogo, logoH: 38 },
+  { key: "superlogica", href: "https://superlogica.com/", years: "2024 até hoje", yearsEn: "2024 to today", roles: ["Desenvolvedor Mobile", "Desenvolvedor Mobile Sênior"], rolesEn: ["Mobile Developer", "Senior Mobile Developer"], Logo: SuperlogicaLogo, logoH: 30 },
 ] as const;
 
 const Box = styled.div`

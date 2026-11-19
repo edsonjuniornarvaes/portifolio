@@ -4,9 +4,10 @@ import styled from "styled-components";
 import { ArrowRight } from "@/components/ui/icons";
 import { useLang } from "@/i18n/provider";
 import { contact } from "@/data/profile";
+import ContactForm from "@/components/home/contact-form";
 
 const Box = styled.div`
-  position: relative; display: grid; grid-template-columns: minmax(0, 1.3fr) auto; gap: 28px 48px; align-items: center; padding: clamp(28px, 4vw, 48px); border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line)); border-radius: 18px; overflow: hidden;
+  position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px 48px; align-items: center; padding: clamp(28px, 4vw, 48px); border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line)); border-radius: 18px; overflow: hidden;
   background: radial-gradient(70% 140% at 100% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%), color-mix(in srgb, var(--card) 88%, transparent);
   @media (max-width: 820px) { grid-template-columns: 1fr; }
   h3 { font-size: clamp(1.7rem, 3.4vw, 2.6rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.06; }
@@ -32,11 +33,9 @@ export default function Radar() {
         <h3>{r.title}</h3>
         <p>{r.text}</p>
         <ul className="tags">{r.items.map((i) => <li key={i}>{i}</li>)}</ul>
+        <a className="btn p" style={{ marginTop: 26 }} href={`mailto:${contact.email}?subject=${subject}`}>{r.cta} <ArrowRight /></a>
       </div>
-      <div className="btns">
-        <a className="btn p" href={`mailto:${contact.email}?subject=${subject}`}>{r.cta} <ArrowRight /></a>
-        <a className="btn g" href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
+      <ContactForm />
     </Box>
   );
 }

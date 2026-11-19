@@ -210,7 +210,7 @@ export default function PostEditor({ initial }: { initial?: PostData }) {
         }
         const d = await r.json().catch(() => ({}));
         if (!r.ok) {
-          setNotice({ tone: "err", text: [d.error, d.details].filter(Boolean).join(" — ") || "Não foi possível salvar." });
+          setNotice({ tone: "err", text: [d.error, d.details].filter(Boolean).join(" - ") || "Não foi possível salvar." });
           return;
         }
         const p = d.post as PostData;

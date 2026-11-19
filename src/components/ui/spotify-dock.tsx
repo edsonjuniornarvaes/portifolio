@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { usePathname } from "next/navigation";
 import { useLang } from "@/i18n/provider";
 
 /** Playlist de lofi no Spotify (para usar outra, troque o código depois de "playlist:"). */
@@ -15,25 +16,32 @@ type Api = { createController(el: HTMLElement, opts: object, cb: (c: Controller)
 declare global { interface Window { onSpotifyIframeApiReady?: (api: Api) => void } }
 
 const Bar = styled.div`
-  display: flex; align-items: center; gap: 14px; margin-bottom: 26px; padding: 12px 14px; max-width: 460px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--paper) 55%, transparent); backdrop-filter: blur(8px);
-  .play { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--accent); color: var(--on-accent); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  position: fixed; left: 16px; bottom: 16px; z-index: 60; display: flex; align-items: center; gap: 0; padding: 5px; border: 1px solid var(--line); border-radius: 99px; background: color-mix(in srgb, var(--paper) 88%, var(--accent)); box-shadow: 0 14px 34px -14px rgba(0,0,0,0.6);
+  transition: gap 0.3s ease, padding 0.3s ease;
+  .play { position: relative; flex: none; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--accent); color: var(--on-accent); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
   .play:hover { transform: scale(1.06); box-shadow: 0 8px 22px -8px color-mix(in srgb, var(--accent) 70%, transparent); }
   .play svg { width: 18px; height: 18px; }
-  .txt { min-width: 0; flex: 1; }
-  .txt b { display: block; font-size: 0.95rem; font-weight: 600; line-height: 1.2; }
-  .txt small { display: block; font-size: 0.74rem; color: var(--muted); }
+  .txt, .open { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transition: max-width 0.35s ease, opacity 0.25s ease, margin 0.3s ease; }
+  &:hover, &:focus-within { gap: 10px; padding-right: 8px; }
+  &:hover .txt, &:focus-within .txt { max-width: 15rem; opacity: 1; margin-left: 2px; }
+  &:hover .open, &:focus-within .open { max-width: 40px; opacity: 1; }
+  .txt b { display: block; font-size: 0.88rem; font-weight: 600; line-height: 1.2; }
+  .txt small { display: block; font-size: 0.7rem; color: var(--muted); }
   .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; margin-right: 4px; }
   .eq i { width: 3px; height: 4px; border-radius: 1px; background: var(--accent); }
   .on .eq i { animation: eq 0.9s ease-in-out infinite; } .eq i:nth-child(2) { animation-delay: -0.3s; } .eq i:nth-child(3) { animation-delay: -0.6s; }
   @keyframes eq { 0%, 100% { height: 4px; } 50% { height: 14px; } }
-  .open { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 10px; background: none; color: var(--muted); cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease; }
+  /* ondinhas ao redor do botão enquanto toca */
+  &.on .play::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--accent); opacity: 0; animation: ring 1.8s ease-out infinite; }
+  @keyframes ring { 0% { transform: scale(0.85); opacity: 0.6; } 100% { transform: scale(1.35); opacity: 0; } }
+  .open { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; background: none; color: var(--muted); cursor: pointer; transition: color 0.2s ease, border-color 0.2s ease; }
   .open:hover, .open[aria-expanded="true"] { color: var(--accent-ink); border-color: var(--accent); }
-  .open svg { width: 16px; height: 16px; }
-  @media (prefers-reduced-motion: reduce) { .eq i { animation: none !important; } }
+  .open svg { width: 15px; height: 15px; }
+  @media (prefers-reduced-motion: reduce) { .eq i, &.on .play::after { animation: none !important; } }
 `;
 
 const Frame = styled.div`
-  position: fixed; right: 16px; bottom: 16px; z-index: 70; width: min(380px, calc(100vw - 32px)); height: 392px; border-radius: 16px; overflow: hidden; background: #121212; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.85);
+  position: fixed; left: 16px; bottom: 76px; z-index: 70; width: min(380px, calc(100vw - 32px)); height: 392px; border-radius: 16px; overflow: hidden; background: #121212; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.85);
   transition: transform 0.3s cubic-bezier(.2,.7,.2,1), opacity 0.2s ease;
   &[data-open="false"] { opacity: 0; pointer-events: none; transform: translateY(140vh); }
   iframe { display: block; width: 100%; height: 100%; border: 0; }
@@ -47,6 +55,7 @@ const Frame = styled.div`
  */
 export default function SpotifyDock() {
   const { t } = useLang();
+  const pathname = usePathname();
   const s = t.spotify;
   const mount = useRef<HTMLDivElement>(null);
   const ctrl = useRef<Controller | null>(null);
@@ -91,6 +100,7 @@ export default function SpotifyDock() {
     setOpen((v) => !v);
   };
 
+  if (pathname.startsWith("/adminaccess")) return null;
   return (
     <>
       <Bar className={playing ? "on" : ""}>

@@ -108,11 +108,11 @@ export default function ProjectCard({ id, level = "h3", compact = false, pair, t
     vis?.style.setProperty("--rx", "0deg");
   };
   const letter = p.iconLetter ?? p.title.slice(0, 2).toUpperCase();
-  const pairShot = pair ? ((getProjectById(pair)?.screens ?? []).filter((u) => !/cover|board/.test(u))[0] ?? appScreen(pair)) : undefined;
+  const pairShot = p.pairScreen ?? (pair ? (getProjectById(pair)?.screens ?? []).filter((u) => !/cover|board/.test(u))[0] ?? appScreen(pair) : undefined);
 
   return (
     <Card data-compact={compact || undefined} href={`/projects/${id}`} onPointerMove={tilt} onPointerLeave={untilt} style={{ ["--pc" as string]: color, ["--sc" as string]: STATUS_COLOR[p.status] }}>
-      <div className={`vis${pair ? " duo" : ""}`} aria-hidden>
+      <div className={`vis${pair || p.pairScreen ? " duo" : ""}`} aria-hidden>
         <span className="sheen" />
         <span className="brand" data-img={!!BRAND_ICON[id]}>{BRAND_ICON[id] ? <BrandImg src={BRAND_ICON[id]} /> : letter}</span>
         {p.art ? (
@@ -138,7 +138,7 @@ export default function ProjectCard({ id, level = "h3", compact = false, pair, t
       </div>
       <div className="body">
         <div className="meta">
-          <span className="k">{pair ? t.work.siteApp : web ? t.work.web : t.work.app}</span>
+          <span className="k">{pair || p.pairScreen ? t.work.siteApp : web ? t.work.web : t.work.app}</span>
           {YEARS[id] && <span>{YEARS[id]}</span>}
           <span className="st">{t.status[p.status]}</span>
         </div>

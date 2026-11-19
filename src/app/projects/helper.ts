@@ -38,6 +38,10 @@ export interface Project {
   galleryImages?: string[];
   /** Imagem de capa do card (tela do app, logo ou arte do projeto) */
   coverImage?: string;
+  /** Tela de app mostrada ao lado do notebook, em projetos que juntam site e aplicativo */
+  pairScreen?: string;
+  /** Quantos projetos este cartão reúne (para a contagem do topo). Padrão: 1 */
+  count?: number;
   /** Arte própria (mascote/logo) no lugar de celular ou notebook, para projetos sem print de tela */
   art?: string;
   /** Telas exibidas na página do projeto, independente do SHOW_PROJECT_IMAGES */
@@ -73,7 +77,7 @@ export const clubeDaJoiaMarketplaceProject: Project = {
   id: "clube-da-joia-marketplace",
   coverImage: "/images/projects/clube-site-hero.webp",
   screens: ["/images/projects/clube-site-hero.webp", "/images/projects/clube-site-home.webp", "/images/projects/clube-site-aneis.webp"],
-  title: "Clube da Joia — Marketplace",
+  title: "Clube da Joia: Marketplace",
   tagline: "Loja online de prata 925 e moissanite, com painel administrativo e checkout",
   description:
     "Site de e-commerce com catálogo filtrável, sacola, checkout Mercado Pago e painel /admin com 2FA, tudo sobre um backend Supabase.",
@@ -107,7 +111,7 @@ export const clubeDaJoiaAppProject: Project = {
   id: "clube-da-joia-app",
   coverImage: "/images/projects/clube-app-cover.webp",
   screens: ["/images/projects/clube-app-home.webp"],
-  title: "Clube da Joia — App",
+  title: "Clube da Joia: App",
   tagline: "App iOS e Android da loja, no mesmo backend do site",
   description:
     "App em React Native (Expo) com catálogo, sacola, checkout Mercado Pago, conta e Meus Pedidos, compartilhando login e dados com o site.",
@@ -140,11 +144,17 @@ export const clubeDaJoiaAppProject: Project = {
 export const multjetProject: Project = {
   id: "multjet",
   title: "MultJet",
-  tagline: "Site de uma empresa de produtos de limpeza",
-  description: "Presença online da MultJet, empresa de produtos de limpeza: site com a marca, o catálogo de produtos e o contato direto.",
-  longDescription: `O site da **MultJet**, empresa de produtos de limpeza, leva a marca e o mascote para a internet: apresenta a empresa, mostra os produtos e facilita o contato.
+  tagline: "Site de uma fábrica de produtos de limpeza em Umuarama",
+  description: "Site da MultJet, fábrica própria de produtos de limpeza: catálogo com filtros, página para empresas, antes e depois, lojas com mapa e pedidos pelo WhatsApp.",
+  longDescription: `Site de página única da **MultJet**, fábrica de produtos de limpeza de Umuarama, pensado para vender: direto ao ponto, com pedido pelo WhatsApp em todas as seções.
 
-Foi publicado na Vercel, com a identidade visual da marca (logo e mascote) em todas as páginas.`,
+**Produtos:** catálogo em destaque com filtros (casa, empresas, automotivo e industrial) e botão "Consultar preço" em cada item.
+
+**Para empresas:** área de fornecimento recorrente para condomínios, restaurantes, clínicas, oficinas e comércios, com pedido de orçamento pelo WhatsApp do administrativo.
+
+**Confiança:** seção da indústria, slider de antes e depois para mostrar o resultado, depoimentos de clientes, perguntas frequentes e as duas lojas com horário, mapa e "Como chegar".
+
+**Marca:** a identidade visual e o mascote da MultJet em todas as páginas, publicado na Vercel.`,
   icon: "",
   iconLetter: "MJ",
   iconColor: "#d92027",
@@ -152,10 +162,18 @@ Foi publicado na Vercel, com a identidade visual da marca (logo e mascote) em to
   screens: ["/images/projects/multjet-logo.webp"],
   tags: ["Next.js", "TypeScript", "Vercel"],
   status: "production",
+  liveUrl: "https://multjet.com.br/",
+  liveCtaLabel: "Ver o site",
   type: "personal",
   showGithub: false,
   showFigma: false,
   showPreview: false,
+  features: [
+    { title: "Catálogo com filtros", description: "Produtos por categoria, com consulta de preço pelo WhatsApp.", icon: "" },
+    { title: "Área para empresas", description: "Fornecimento recorrente e orçamento empresarial.", icon: "" },
+    { title: "Antes e depois", description: "Slider para arrastar e ver o resultado da limpeza.", icon: "" },
+    { title: "Lojas e contato", description: "Duas lojas com mapa, horário e atendimento por WhatsApp.", icon: "" },
+  ],
 };
 
 export const personalProjects: Project[] = [clubeDaJoiaMarketplaceProject, multjetProject, clubeDaJoiaAppProject];
@@ -207,15 +225,15 @@ export const professionalProjects: Project[] = [
     showFigma: false,
   },
   {
-    id: "mont-b2b",
+    id: "mont-capital",
     coverImage: "/images/projects/mont-home-alt.webp",
-    screens: ["/images/projects/mont-home-alt.webp", "/images/projects/mont-b2b-login.webp"],
-    title: "Mont B2B",
-    tagline: "Gestão de Investimentos",
+    screens: ["/images/projects/mont-home-alt.webp", "/images/projects/mont-home-new.webp", "/images/projects/mont-carteira-new.webp", "/images/projects/mont-b2b-login.webp", "/images/projects/mont-b2c-login.webp"],
+    title: "Mont Capital",
+    tagline: "Investimentos para empresas e pessoas físicas",
     description:
-      "App para gestão de carteiras financeiras personalizadas com acesso a gestores profissionais.",
+      "Aplicativos de gestão de investimentos da Mont Capital: um para empresas (B2B), com carteiras personalizadas e acesso a gestores profissionais, e outro para pessoas físicas (B2C).",
     longDescription:
-      "App publicado na App Store em que atuei em evolução do produto Mont Capital.",
+      "Atuei na evolução do produto Mont Capital, que tem dois aplicativos: o **Mont B2B**, publicado na App Store, para gestão de carteiras financeiras personalizadas com acesso a gestores profissionais; e o **Mont B2C**, para clientes pessoa física, com patrimônio, carteira e exposição por classe de ativos.",
     icon: "mont",
     iconColor: "#3D7A8C",
     iconLetter: "M",
@@ -223,25 +241,14 @@ export const professionalProjects: Project[] = [
     status: "production",
     liveUrl: "https://apps.apple.com/br/app/mont-b2b/id6746648981",
     type: "professional",
+    showPreview: false,
     showGithub: false,
     showFigma: false,
-  },
-  {
-    id: "mont-b2c",
-    coverImage: "/images/projects/mont-home-new.webp",
-    screens: ["/images/projects/mont-home-new.webp", "/images/projects/mont-carteira-new.webp", "/images/projects/mont-b2c-login.webp"],
-    title: "Mont B2C",
-    tagline: "Investimentos para Pessoa Física",
-    description:
-      "App de investimentos para clientes pessoa física da Mont Capital.",
-    icon: "mont",
-    iconColor: "#3D7A8C",
-    iconLetter: "M",
-    tags: ["React Native", "TypeScript", "Redux"],
-    status: "paused",
-    type: "professional",
-    showGithub: false,
-    showFigma: false,
+    count: 2,
+    features: [
+      { title: "Mont B2B", description: "Gestão de carteiras personalizadas, com acesso a gestores profissionais. Publicado na App Store.", icon: "" },
+      { title: "Mont B2C", description: "Investimentos para pessoa física: patrimônio total, carteira e exposição por classe de ativos.", icon: "" },
+    ],
   },
   {
     id: "minha-navex",
@@ -263,108 +270,58 @@ export const professionalProjects: Project[] = [
     showFigma: false,
   },
   {
-    id: "consorcio-gazin",
-    coverImage: "/images/projects/consorcio-gazin-cover.webp",
-    screens: ["/images/projects/consorcio-gazin-simulador.webp", "/images/projects/consorcio-gazin-cover.webp"],
-    title: "Consórcio Gazin",
-    tagline: "Gestão de Consórcios",
+    id: "gazin",
+    coverImage: "/images/projects/venda-direta-site.webp",
+    screens: ["/images/projects/venda-direta-site.webp"],
+    pairScreen: "/images/projects/consorcio-gazin-simulador.webp",
+    title: "Grupo Gazin",
+    tagline: "Consórcios, e-commerce e venda direta",
     description:
-      "App para acompanhamento e gestão de consórcios do Grupo Gazin.",
+      "Três frentes para o Grupo Gazin: o app de gestão de consórcios, a plataforma de e-commerce com painéis Seller e Gestor, e o marketplace de venda direta para lojistas.",
+    longDescription:
+      "Trabalhei em três produtos do Grupo Gazin: o **Consórcio Gazin**, app para acompanhar e gerir consórcios; o **Gazin B2B & B2C**, e-commerce completo com painéis Seller e Gestor; e o **Venda Direta**, plataforma que conecta lojistas ao estoque da Gazin para vendas comissionadas.",
     icon: "gazin",
     iconColor: "#EF4444",
     iconLetter: "G",
-    tags: ["React Native", "TypeScript", "Redux"],
+    tags: ["React Native", "React.js", "Next.js", "TypeScript", "Laravel"],
     status: "paused",
     type: "professional",
     showPreview: false,
-    galleryImages: ["/images/gazin-app.webp"],
     showGithub: false,
     showFigma: false,
+    count: 3,
+    features: [
+      { title: "Consórcio Gazin (app)", description: "Acompanhamento e gestão de consórcios, com simulador de planos.", icon: "" },
+      { title: "Gazin B2B & B2C", description: "E-commerce completo, com painéis Seller e Gestor.", icon: "" },
+      { title: "Venda Direta", description: "Marketplace que conecta lojistas ao estoque da Gazin para vendas comissionadas.", icon: "" },
+    ],
   },
 ];
 
 export const webProjects: Project[] = [
   {
-    id: "gazin-b2b-b2c",
-    title: "Gazin B2B & B2C",
-    tagline: "E-commerce Completo",
+    id: "erp-sistemas",
+    title: "Sistemas de gestão (ERP)",
+    tagline: "Painéis e sistemas internos que organizam a operação das empresas",
     description:
-      "Painéis Seller, Gestor e plataforma de e-commerce completa do Grupo Gazin.",
-    icon: "gazin",
-    iconColor: "#E11D48",
-    iconLetter: "G",
-    tags: ["React.js", "Next.js", "TypeScript", "Styled-components"],
+      "Sistemas de gestão, os ERPs, onde a empresa organiza a operação em um só lugar: vendas, notas fiscais, equipe e credenciais.",
+    longDescription:
+      "Sistemas de gestão (ERP) são painéis onde a empresa **organiza o que acontece por dentro**: vendas, notas, atendimento e acessos. Alguns exemplos em que trabalhei:\n\n- **Lojas do Manão:** painel administrativo e plataforma de vendas (B2B e B2C).\n- **Agiliza Aí:** emissão e controle de notas fiscais para empresas.\n- **Mix Telecom:** dashboard e ferramentas administrativas para gestão de telecom.\n- **Gerenciador de Senhas:** sistema interno para guardar e compartilhar credenciais da equipe com segurança.",
+    icon: "erp",
+    iconColor: "#2EEBAA",
+    iconLetter: "ERP",
+    tags: ["React.js", "TypeScript", "PHP", "Laravel", "Styled-components"],
     status: "paused",
     type: "professional",
-  },
-  {
-    id: "venda-direta-gazin",
-    coverImage: "/images/projects/venda-direta-site.webp",
-    screens: ["/images/projects/venda-direta-site.webp"],
-    title: "Venda Direta Gazin",
-    tagline: "Marketplace de Lojistas",
-    description:
-      "Plataforma que conecta lojistas ao estoque da Gazin para vendas comissionadas.",
-    icon: "gazin",
-    iconColor: "#E11D48",
-    iconLetter: "VD",
-    tags: ["React.js", "TypeScript", "PHP", "Laravel"],
-    status: "paused",
-    type: "professional",
-  },
-  {
-    id: "lojas-manao",
-    coverImage: "/images/projects/lojas-manao.webp",
-    screens: ["/images/projects/lojas-manao.webp"],
-    title: "Lojas do Manão",
-    tagline: "B2B & B2C",
-    description:
-      "Painel administrativo e plataforma de vendas das Lojas do Manão.",
-    icon: "manao",
-    iconColor: "#F59E0B",
-    iconLetter: "LM",
-    tags: ["React.js", "TypeScript", "Styled-components"],
-    status: "paused",
-    type: "professional",
-  },
-  {
-    id: "agiliza-ai",
-    title: "Agiliza Aí",
-    tagline: "Gestão Fiscal",
-    description:
-      "Sistema de emissão e controle de notas fiscais para empresas.",
-    icon: "agiliza",
-    iconColor: "#10B981",
-    iconLetter: "A",
-    tags: ["React.js", "TypeScript", "PHP", "Laravel"],
-    status: "paused",
-    type: "professional",
-  },
-  {
-    id: "mix-telecom",
-    title: "Mix Telecom",
-    tagline: "Painel Administrativo",
-    description:
-      "Dashboard e ferramentas administrativas para gestão de telecom.",
-    icon: "mix",
-    iconColor: "#8B5CF6",
-    iconLetter: "MT",
-    tags: ["React.js", "TypeScript", "Styled-components"],
-    status: "paused",
-    type: "professional",
-  },
-  {
-    id: "gerenciador-senhas",
-    title: "Gerenciador de Senhas",
-    tagline: "Sistema Interno",
-    description:
-      "Sistema interno para gestão segura de credenciais da empresa.",
-    icon: "senhas",
-    iconColor: "#3B82F6",
-    iconLetter: "🔐",
-    tags: ["PHP", "Laravel", "JavaScript"],
-    status: "paused",
-    type: "professional",
+    showGithub: false,
+    showFigma: false,
+    count: 4,
+    features: [
+      { title: "Lojas do Manão", description: "Painel administrativo e plataforma de vendas, B2B e B2C.", icon: "" },
+      { title: "Agiliza Aí", description: "Emissão e controle de notas fiscais para empresas.", icon: "" },
+      { title: "Mix Telecom", description: "Dashboard e ferramentas administrativas para gestão de telecom.", icon: "" },
+      { title: "Gerenciador de Senhas", description: "Gestão segura de credenciais da equipe, em sistema interno.", icon: "" },
+    ],
   },
 ];
 
@@ -373,6 +330,11 @@ const allProjects: Project[] = [
   ...professionalProjects,
   ...webProjects,
 ];
+
+/** Total de projetos no portfólio (cada cartão pode reunir vários). */
+export function projectsTotal(): number {
+  return allProjects.reduce((n, p) => n + (p.count ?? 1), 0);
+}
 
 export function getProjectById(id: string): Project | undefined {
   return allProjects.find((p) => p.id === id);

@@ -10,12 +10,42 @@ type ProjectEn = {
 };
 
 const PROJECTS_EN: Record<string, ProjectEn> = {
-  multjet: {
-    tagline: "Website for a cleaning products company",
-    description: "MultJet's online presence: a site with the brand, the product catalog and direct contact.",
-    longDescription: `The **MultJet** website, a cleaning products company, takes the brand and its mascot online: it presents the company, shows the products and makes contact easy.
+  "mont-capital": {
+    tagline: "Investments for companies and individuals",
+    description: "Investment management apps from Mont Capital: one for companies (B2B), with personalized portfolios and access to professional managers, and one for individuals (B2C).",
+    longDescription: "I worked on evolving the Mont Capital product, which has two apps: **Mont B2B**, published on the App Store, for managing personalized financial portfolios with access to professional managers; and **Mont B2C**, for individual clients, with total assets, portfolio and exposure by asset class.",
+    features: [["Mont B2B", "Personalized portfolio management with access to professional managers. Published on the App Store."], ["Mont B2C", "Investments for individuals: total assets, portfolio and exposure by asset class."]],
+  },
+  gazin: {
+    tagline: "Consortiums, e-commerce and direct sales",
+    description: "Three fronts for Grupo Gazin: the consortium management app, the e-commerce platform with Seller and Manager panels, and the direct-sales marketplace for retailers.",
+    longDescription: "I worked on three Grupo Gazin products: **Consórcio Gazin**, an app to follow and manage consortiums; **Gazin B2B & B2C**, a full e-commerce with Seller and Manager panels; and **Venda Direta**, a platform that connects retailers to Gazin's stock for commission-based sales.",
+    features: [["Consórcio Gazin (app)", "Following and managing consortiums, with a plan simulator."], ["Gazin B2B & B2C", "Full e-commerce, with Seller and Manager panels."], ["Venda Direta", "Marketplace that connects retailers to Gazin's stock for commission-based sales."]],
+  },
+  "erp-sistemas": {
+    tagline: "Panels and internal systems that organize how companies run",
+    description: "Management systems (ERPs) where a company organizes its operation in one place: sales, invoices, team and credentials.",
+    longDescription: `Management systems (ERP) are panels where a company **organizes what happens inside**: sales, invoices, support and access. Some examples I worked on:
 
-It was published on Vercel, with the brand identity (logo and mascot) across all pages.`,
+- **Lojas do Manão:** admin panel and sales platform (B2B and B2C).
+- **Agiliza Aí:** issuing and controlling invoices for companies.
+- **Mix Telecom:** dashboard and admin tools for telecom management.
+- **Password Manager:** internal system to store and share team credentials securely.`,
+    features: [["Lojas do Manão", "Admin panel and sales platform, B2B and B2C."], ["Agiliza Aí", "Issuing and controlling invoices for companies."], ["Mix Telecom", "Dashboard and admin tools for telecom management."], ["Password Manager", "Secure credential management for the team, as an internal system."]],
+  },
+  multjet: {
+    tagline: "Website for a cleaning products factory in Umuarama",
+    description: "Website for MultJet, a cleaning products factory: filterable catalog, a business page, before and after, stores with map and WhatsApp orders.",
+    longDescription: `Single-page website for **MultJet**, a cleaning products factory in Umuarama, built to sell: straight to the point, with WhatsApp ordering in every section.
+
+**Products:** featured catalog with filters (home, business, automotive and industrial) and a "Check price" button on each item.
+
+**For companies:** recurring supply area for condominiums, restaurants, clinics, workshops and shops, with quote requests on the admin team's WhatsApp.
+
+**Trust:** a section about the factory, a before-and-after slider to show results, customer testimonials, FAQ and the two stores with hours, map and directions.
+
+**Brand:** MultJet's visual identity and mascot across the page, published on Vercel.`,
+    features: [["Filterable catalog", "Products by category, with price inquiries on WhatsApp."], ["Business area", "Recurring supply and company quotes."], ["Before and after", "A slider to drag and see the cleaning result."], ["Stores and contact", "Two stores with map, hours and WhatsApp support."]],
   },
   "clube-da-joia-marketplace": {
     tagline: "Online store for 925 silver and moissanite, with admin panel and checkout",
@@ -147,7 +177,7 @@ const CASES_EN: Record<string, Omit<CaseStudy, "id" | "name" | "color" | "stack"
   pjbank: {
     tag: "Fintech · Digital account for businesses",
     summary: "Corporate financial app in production: banking operations, Pix, boletos and financial management.",
-    role: "Mobile Developer — critical features, authentication and quality.",
+    role: "Mobile Developer: critical features, authentication and quality.",
     highlights: [
       "MVVM architecture applied and standardized to scale and ease maintenance",
       "Secure authentication flows with Auth0",
@@ -160,7 +190,7 @@ const CASES_EN: Record<string, Omit<CaseStudy, "id" | "name" | "color" | "stack"
   gruvi: {
     tag: "Super app · Condominiums",
     summary: "Super app for condominiums with millions of users: visitors, rent, reservations and chat.",
-    role: "Mid-level Mobile Developer — cross-platform features and quality.",
+    role: "Mid-level Mobile Developer: cross-platform features and quality.",
     highlights: [
       "Rent payment and other financial flows",
       "Reservations and property features",
@@ -172,7 +202,7 @@ const CASES_EN: Record<string, Omit<CaseStudy, "id" | "name" | "color" | "stack"
   "mont-b2b": {
     tag: "Investments · Telecom",
     summary: "B2B and B2C investment management apps and the Minha Navex telecom app, built from scratch.",
-    role: "Mid-level Mobile Developer — screens, flows, integrations and store publishing.",
+    role: "Mid-level Mobile Developer: screens, flows, integrations and store publishing.",
     highlights: [
       "Secure authentication and portfolio management (Mont Capital)",
       "Usage statement, invoice and customer support (Minha Navex, from scratch)",
@@ -184,7 +214,7 @@ const CASES_EN: Record<string, Omit<CaseStudy, "id" | "name" | "color" | "stack"
   "clube-da-joia-marketplace": {
     tag: "E-commerce · Own project",
     summary: "Site and admin panel of an online jewelry shop (925 silver and moissanite), with real payments.",
-    role: "Product, design, front end and backend — everything.",
+    role: "Product, design, front end and backend: everything.",
     highlights: [
       "Mercado Pago checkout (card, Pix and boleto) with server-validated prices and a signed webhook",
       "/admin panel with login, mandatory 2FA and role-based permissions via RLS",

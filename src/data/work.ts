@@ -12,10 +12,12 @@ export const SHOWCASE: Showcase[] = [
   { id: "pjbank", year: "2025", screen: `${P}pjbank-home.webp` },
   { id: "gruvi", year: "2024", screen: `${P}gruvi-home.webp` },
   { id: "clube-da-joia-marketplace", year: "2026" },
+  { id: "multjet", year: "2026" },
   { id: "clube-da-joia-app", year: "2026", screen: `${P}clube-app-home.webp` },
-  { id: "mont-b2b", year: "2021–24", screen: `${P}mont-home-alt.webp` },
-  { id: "consorcio-gazin", year: "2023", screen: `${P}consorcio-gazin-simulador.webp` },
-  { id: "minha-navex", year: "2021–23", screen: `${P}navex-home-new.webp` },
+  { id: "mont-capital", year: "2021 a 2024", screen: `${P}mont-home-alt.webp` },
+  { id: "minha-navex", year: "2021 a 2023", screen: `${P}navex-home-new.webp` },
+  { id: "gazin", year: "2022 a 2023" },
+  { id: "erp-sistemas", year: "2020 a 2023" },
 ];
 
 /** Telas que se revezam no celular do início. */
@@ -31,10 +33,9 @@ export const HERO_SCREENS = [
 /** Anos mostrados nas listas (ids fora daqui mostram o status). */
 export const YEARS: Record<string, string> = {
   ...Object.fromEntries(SHOWCASE.map((s) => [s.id, s.year])),
-  "mont-b2c": "2021–24",
 };
 
-const WEB_IDS = new Set<string>([...webProjects.map((p) => p.id), "clube-da-joia-marketplace", "multjet"]);
+const WEB_IDS = new Set<string>([...webProjects.map((p) => p.id), "clube-da-joia-marketplace", "multjet", "gazin"]);
 /** Site, loja ou sistema web (o resto é app). */
 export const isWebId = (id: string) => WEB_IDS.has(id);
 
