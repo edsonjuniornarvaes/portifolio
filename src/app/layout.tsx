@@ -6,7 +6,6 @@ import SiteFooter from "@/components/site-footer";
 import ScrollProgress from "@/components/ui/scroll-progress";
 import PullCord from "@/components/ui/pull-cord";
 import Perch from "@/components/ui/perch";
-import CornerStrings from "@/components/ui/corner-strings";
 import SoundEffects from "@/components/ui/sound-effects";
 import CoffeeRain from "@/components/ui/coffee-rain";
 import StyledComponentsRegistry from "./registry";
@@ -101,7 +100,6 @@ export default async function RootLayout({
             <SiteHeader />
             <PullCord />
             <Perch />
-            <CornerStrings />
             <SoundEffects />
             <CoffeeRain />
             <main id="conteudo" tabIndex={-1}>{children}</main>
