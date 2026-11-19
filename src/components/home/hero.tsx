@@ -1,6 +1,6 @@
 "use client";
 
-import { getAllProjectsBrief } from "@/app/projects/helper";
+import { projectsTotal } from "@/app/projects/helper";
 import { ArrowRight } from "@/components/ui/icons";
 import Link from "next/link";
 import styled from "styled-components";
@@ -9,7 +9,6 @@ import { useEffect, useRef, useState } from "react";
 import Letters from "@/components/ui/letters";
 import DecodeLines from "@/components/ui/decode-lines";
 import MatrixRain from "@/components/ui/matrix-rain";
-import Magnetic from "@/components/ui/magnetic";
 import IDot from "@/components/ui/i-dot-machine";
 import PeelSticker, { AvatarSticker, ClockSticker, LaptopSticker, MugSticker, PhoneSticker } from "@/components/ui/peel-sticker";
 import { useLang } from "@/i18n/provider";
@@ -20,8 +19,8 @@ const WORKED = [
   { id: "pjbank", name: "Conta Superlógica" },
   { id: "gruvi", name: "Gruvi" },
   { id: "minha-navex", name: "Minha Navex" },
-  { id: "mont-b2b", name: "Mont Capital" },
-  { id: "consorcio-gazin", name: "Consórcio Gazin" },
+  { id: "mont-capital", name: "Mont Capital" },
+  { id: "gazin", name: "Grupo Gazin" },
   { id: "clube-da-joia-marketplace", name: "Clube da Joia" },
 ];
 
@@ -114,12 +113,12 @@ export default function Hero() {
           </h1>
           <DecodeLines lines={lines} delay={900} />
           <div className="cta">
-            <Magnetic><Link className="btn p" href="/home#contato">{h.ctaTalk} <ArrowRight /></Link></Magnetic>
+            <Link className="btn p" href="/home#contato">{h.ctaTalk} <ArrowRight /></Link>
             <Link className="btn g" href="/projects">{h.ctaWork}</Link>
           </div>
           <p className="facts">
             <span><b>+{yr - CAREER_SINCE}</b> {h.stats.years}</span>
-            <span><b>+{getAllProjectsBrief().length}</b> {h.stats.projects}</span>
+            <span><b>+{projectsTotal()}</b> {h.stats.projects}</span>
             <span>{h.stats.fronts}</span>
           </p>
           <div className="meta">

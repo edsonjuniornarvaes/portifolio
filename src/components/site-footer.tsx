@@ -1,19 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ChevronUp } from "@/components/ui/icons";
-import { useEffect, useState } from "react";
+import { ArrowRight } from "@/components/ui/icons";
 import styled from "styled-components";
 import { usePathname } from "next/navigation";
 import { useLang } from "@/i18n/provider";
 import { contact } from "@/data/profile";
-import Memoji from "@/components/ui/memoji";
-import SpotifyDock from "@/components/ui/spotify-dock";
 import { PixelAvatar } from "@/components/ui/avatar";
 
 const Foot = styled.footer`
-  position: relative; margin-top: 130px; color: var(--ink);
-  .peek { position: absolute; left: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter) + 8px)); top: -70px; width: 128px; z-index: 0; pointer-events: auto; }
+  position: relative; margin-top: 90px; color: var(--ink);
   .body { position: relative; z-index: 1; border-top: 1px solid var(--line); background: linear-gradient(180deg, color-mix(in srgb, var(--paper) 92%, var(--accent)) 0%, var(--paper) 100%); }
   .in { max-width: var(--wrap); margin: 0 auto; padding: 48px var(--gutter) 26px; }
 
@@ -44,39 +40,26 @@ const Foot = styled.footer`
   .base button.top:hover { color: var(--accent-ink); }
   .lofi { margin-top: 26px; }
   @media (max-width: 860px) { .cols { grid-template-columns: 1fr 1fr; } .cols > :first-child { grid-column: 1 / -1; } }
-  @media (max-width: 520px) { .cols { grid-template-columns: 1fr; } .peek { width: 100px; top: -56px; } }
+  @media (max-width: 520px) { .cols { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .base .now i { animation: none; } }
 `;
-
-function useClock() {
-  const [t, setT] = useState("");
-  useEffect(() => {
-    const f = () => setT(new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "America/Sao_Paulo" }).format(new Date()));
-    f();
-    const id = setInterval(f, 15_000);
-    return () => clearInterval(id);
-  }, []);
-  return t;
-}
 
 export default function SiteFooter() {
   const pathname = usePathname();
   const { t } = useLang();
-  const time = useClock();
   if (pathname.startsWith("/adminaccess")) return null;
   const f = t.footer;
   const onHome = pathname === "/" || pathname === "/home"; // na home o convite para conversar já está logo acima
   const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
   return (
     <Foot>
-      <div className="peek"><Memoji label="Edson, avatar em estilo Memoji" /></div>
       <div className="body">
         <div className="in">
           {!onHome && <div className="cta">
             <h2>{t.contact.h2a} <span>{t.contact.h2b}</span></h2>
             <div className="btns">
               <a className="btn p" href={`mailto:${contact.email}`}>{t.contact.mailBtn} <ArrowRight /></a>
-              <a className="btn g" href={contact.linkedin} {...ext}>LinkedIn</a>
+              <Link className="btn g" href="/home#contato">{t.contact.write}</Link>
             </div>
           </div>}
 
@@ -105,12 +88,8 @@ export default function SiteFooter() {
             </div>
           </div>
 
-          <div className="lofi"><SpotifyDock /></div>
-
           <div className="base">
             <span>© {new Date().getFullYear()} Edson Junior · {f.made}</span>
-            <span className="now"><i /> {t.hero.now}{time ? ` · ${time}` : ""}</span>
-            <button className="top" type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>{f.top} <ChevronUp /></button>
           </div>
         </div>
       </div>

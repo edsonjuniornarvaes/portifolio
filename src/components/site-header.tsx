@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import styled from "styled-components";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import LangSwitch from "@/components/ui/lang-switch";
-import { PixelAvatar } from "@/components/ui/avatar";
+import BrandMark from "@/components/ui/brand-mark";
 import SoundToggle from "@/components/ui/sound-toggle";
 import { useLang } from "@/i18n/provider";
 
@@ -74,7 +74,7 @@ export default function SiteHeader() {
     <Bar>
       <div className="in">
         <Link href="/home" className="brand" aria-label={t.nav.homeAria}>
-          <PixelAvatar size={38} decorative />
+          <BrandMark size={38} />
           <span className="logo"><strong><i>EJ</i> Sistemas</strong><small>{t.nav.logoSub}</small></span>
         </Link>
         <button type="button" className="burger" aria-expanded={open} aria-controls="menu" aria-label={open ? t.nav.close : t.nav.menu} onClick={() => setOpen((v) => !v)}><span /></button>

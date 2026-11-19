@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/site-header";
+import BackToTop from "@/components/ui/back-to-top";
+import SpotifyDock from "@/components/ui/spotify-dock";
 import SiteFooter from "@/components/site-footer";
 import ScrollProgress from "@/components/ui/scroll-progress";
 import PullCord from "@/components/ui/pull-cord";
@@ -104,6 +106,8 @@ export default async function RootLayout({
             <CoffeeRain />
             <main id="conteudo" tabIndex={-1}>{children}</main>
             <SiteFooter />
+            <SpotifyDock />
+            <BackToTop />
           </StyledComponentsRegistry>
         </LangProvider>
       </body>

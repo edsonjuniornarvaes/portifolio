@@ -5,11 +5,11 @@ import { ChevronLeft, ChevronRight } from "@/components/ui/icons";
 import Link from "next/link";
 import styled from "styled-components";
 import ProjectCard from "@/components/project-card";
-import { getAllProjectsBrief } from "@/app/projects/helper";
+import { projectsTotal } from "@/app/projects/helper";
 import { useLang } from "@/i18n/provider";
 
 /** Portfólio de venda: os projetos que melhor mostram o que eu entrego. Todos continuam em /projects. */
-const IDS = ["clube-da-joia-marketplace", "multjet", "pjbank", "gruvi", "mont-b2b", "minha-navex", "consorcio-gazin"];
+const IDS = ["pjbank", "gruvi", "clube-da-joia-marketplace", "multjet", "mont-capital", "minha-navex", "gazin", "erp-sistemas"];
 
 const Box = styled.div`
   .lead { max-width: 40rem; margin: -10px 0 22px; color: var(--muted); line-height: 1.65; }
@@ -42,7 +42,7 @@ export default function ProjectsSlider() {
   const [drag, setDrag] = useState(false);
   const [edge, setEdge] = useState({ start: true, end: false });
   const g = useRef({ x: 0, left: 0, moved: false, on: false });
-  const total = getAllProjectsBrief().length;
+  const total = projectsTotal();
 
   const sync = useCallback(() => {
     const el = track.current;

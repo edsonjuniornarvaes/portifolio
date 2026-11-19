@@ -2,15 +2,12 @@
 export const BRAND_ICON: Record<string, string> = {
   pjbank: "/images/brands/conta-superlogica.webp",
   multjet: "/images/brands/multjet-icon.webp",
+  "mont-capital": "/images/brands/mont-icon.svg",
+  gazin: "/images/brands/gazin.webp",
   gruvi: "/images/brands/gruvi.webp",
   "minha-navex": "/images/brands/navex.webp",
-  "mont-b2b": "/images/brands/mont-icon.svg",
-  "mont-b2c": "/images/brands/mont-icon.svg",
   "clube-da-joia-marketplace": "/images/brands/clube-da-joia.webp",
   "clube-da-joia-app": "/images/brands/clube-da-joia.webp",
-  "consorcio-gazin": "/images/brands/gazin.webp",
-  "gazin-b2b-b2c": "/images/brands/gazin.webp",
-  "venda-direta-gazin": "/images/brands/gazin.webp",
 };
 
 /**
@@ -19,6 +16,4 @@ export const BRAND_ICON: Record<string, string> = {
  */
 export type AdminBrand = { name: string; color: string; icon?: string; pos?: string; scale?: number };
 export const ADMIN_BRAND: Record<string, AdminBrand> = {
-  "gazin-b2b-b2c": { name: "Gazin", color: "#3f7cf0" },
-  "lojas-manao": { name: "Lojas do Manão", color: "#ffd84d", icon: "/images/projects/lojas-manao.webp", pos: "22% 50%", scale: 1.7 },
 };
