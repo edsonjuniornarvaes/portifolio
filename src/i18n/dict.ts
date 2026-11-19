@@ -19,7 +19,8 @@ const pt = {
     h1b: "que as pessoas usam.",
     lead: "Sou o Edson, desenvolvedor em Umuarama, no Paraná. Desde 2019 crio aplicativos de iPhone e Android e sites para bancos digitais, condomínios, telecom e lojas online, cuidando de tudo, do desenho à publicação. Hoje trabalho na Superlógica, no app da Conta Superlógica, e também desenvolvo meus próprios produtos, como a loja Clube da Joia.",
     ctaWork: "Ver trabalhos",
-    ctaTalk: "Falar comigo",
+    ctaTalk: "Começar um projeto",
+    stats: { years: "anos construindo", projects: "projetos entregues", fronts: "frentes: celular, web, Pix" },
     portraitAlt: "Retrato de Edson Junior",
     chips: ["iPhone e Android", "Sites e lojas online", "Pagamentos Pix e cartão"],
     kicker: "Desenvolvedor de software",
@@ -27,7 +28,7 @@ const pt = {
     worked: "Projetos",
     and: "e",
     hello: "e aí!",
-    hint: "Passe o mouse no bonequinho, descole os adesivos e dedilhe as cordas no cantinho.",
+    hint: "Passe o mouse no bonequinho, descole os adesivos e brinque com a moeda e o interruptor lá no rodapé.",
     now: "Agora em Umuarama",
     index: "Índice",
     mascot: "Bonequinho do Edson, acene para ele", stickers: { phone: "Adesivo de iPhone com a hora de Brasília", web: "Adesivo de site", coffee: "Adesivo de café", star: "Adesivo de estrela", hello: "Adesivo olá", photo: "Adesivo com a foto do Edson", pix: "Adesivo Pix", gem: "Adesivo de gema", laptop: "Adesivo de notebook", key: "Adesivo de tecla Command", code: "Adesivo de código", wifi: "Adesivo de Wi-Fi", mate: "Adesivo de guampa de tereré", clock: "Adesivo de relógio (horário de Brasília)" },
@@ -59,9 +60,20 @@ const pt = {
     techLabel: "Ferramentas que uso",
     tech: "React Native, Next.js, TypeScript, Expo, Supabase, Auth0",
     items: [
-      { title: "Aplicativos de celular", text: "Aplicativos para iPhone e Android, da ideia à publicação nas lojas, com o mesmo código para os dois." },
-      { title: "Sites e lojas online", text: "Sites, lojas e painéis de administração, com pagamento por Pix e cartão e conteúdo que você mesmo edita." },
-      { title: "Pagamentos e segurança", text: "Login seguro, pagamentos, relatórios e o acompanhamento de tudo o que acontece depois que está no ar." },
+      { title: "Aplicativos de celular", text: "Aplicativos para iPhone e Android, da ideia à publicação nas lojas, com o mesmo código para os dois.", points: ["iPhone e Android com um só código", "Publicação na App Store e no Google Play", "Notificações, login e links profundos"] },
+      { title: "Sites e lojas online", text: "Sites, lojas e painéis de administração, com pagamento por Pix e cartão e conteúdo que você mesmo edita.", points: ["Loja com Pix, cartão e frete", "Painel para você mesmo editar tudo", "Rápido e bem posicionado no Google"] },
+      { title: "Pagamentos e segurança", text: "Login seguro, pagamentos, relatórios e o acompanhamento de tudo o que acontece depois que está no ar.", points: ["Login seguro e acesso por perfil", "Pagamentos e conciliação de pedidos", "Relatórios e monitoramento no ar"] },
+    ],
+  },
+  process: {
+    label: "Como eu trabalho",
+    title: "Quatro etapas, do problema ao ar.",
+    lead: "Você sabe em que ponto está a cada semana, e o que foi combinado é o que é entregue.",
+    steps: [
+      { title: "Conversa", text: "Entendo o problema, quem vai usar e o que precisa funcionar primeiro. Você sai com escopo, prazo e valor." },
+      { title: "Protótipo", text: "Desenho as telas e o fluxo antes de programar. Você vê, opina e aprova." },
+      { title: "Construção", text: "Entregas curtas e frequentes, com o produto rodando de verdade para você testar." },
+      { title: "No ar e depois", text: "Publico, acompanho o que acontece e sigo melhorando com base no uso real." },
     ],
   },
   sound: { on: "Ligar sons", off: "Desligar sons" },
@@ -85,16 +97,6 @@ const pt = {
     speed: "velocidade",
     on: "ligado",
     off: "desligado",
-  },
-  process: {
-    label: "Como eu trabalho",
-    title: "Da ideia ao ar, em quatro passos.",
-    steps: [
-      { title: "Conversa", text: "Entendo o que você precisa, para quem é e o que precisa funcionar no primeiro dia." },
-      { title: "Desenho", text: "Mostro como vai ficar antes de construir, para ajustarmos juntos sem surpresa." },
-      { title: "Construção", text: "Crio o aplicativo ou site, testo em aparelhos de verdade e mostro o andamento." },
-      { title: "No ar e depois", text: "Publico nas lojas ou na internet e continuo acompanhando, corrigindo e melhorando." },
-    ],
   },
   numbers: {
     items: ["anos estudando tecnologia", "anos como desenvolvedor", "anos criando aplicativos", "projetos no portfólio"],
@@ -149,7 +151,7 @@ const pt = {
     elsewhere: "Em outros lugares",
     contactCta: "Vamos conversar",
   },
-  notFound: { title: "404", text: "Esta página saiu para tomar um café e não voltou.", hint: "Enquanto isso, toque as cordas.", back: "Voltar ao início" },
+  notFound: { title: "404", text: "Esta página saiu para tomar um café e não voltou.", hint: "Enquanto isso, volte para o início.", back: "Voltar ao início" },
 };
 
 export type Dict = typeof pt;
@@ -173,7 +175,8 @@ const en: Dict = {
     h1b: "people actually use.",
     lead: "I'm Edson, a developer based in Umuarama, Brazil. Since 2019 I have built iPhone and Android apps and websites for digital banks, condominiums, telecom and online stores, handling everything from design to release. Today I work at Superlógica on the Conta Superlógica app, and I also build my own products, such as the Clube da Joia store.",
     ctaWork: "View work",
-    ctaTalk: "Talk to me",
+    ctaTalk: "Start a project",
+    stats: { years: "years building", projects: "projects delivered", fronts: "fronts: mobile, web, Pix" },
     portraitAlt: "Portrait of Edson Junior",
     chips: ["iPhone and Android", "Websites and online stores", "Pix and card payments"],
     kicker: "Software developer",
@@ -181,7 +184,7 @@ const en: Dict = {
     worked: "Projects",
     and: "and",
     hello: "hey!",
-    hint: "Hover the little guy, peel the stickers and strum the strings in the corner.",
+    hint: "Hover the little guy, peel the stickers and play with the coin and the switch down in the footer.",
     now: "Now in Umuarama",
     index: "Index",
     mascot: "Little Edson character, say hi", stickers: { phone: "Phone sticker", web: "Website sticker", coffee: "Coffee sticker", star: "Star sticker", hello: "Hello sticker", photo: "Sticker with Edson's photo", pix: "Pix sticker", gem: "Gem sticker", laptop: "Laptop sticker", key: "Command key sticker", code: "Code sticker", wifi: "Wi-Fi sticker", mate: "Tereré guampa sticker", clock: "Clock sticker (Brasília time)" },
@@ -213,9 +216,20 @@ const en: Dict = {
     techLabel: "Tools I use",
     tech: "React Native, Next.js, TypeScript, Expo, Supabase, Auth0",
     items: [
-      { title: "Mobile apps", text: "iPhone and Android apps, from the idea to the store, with one codebase for both." },
-      { title: "Websites and online stores", text: "Sites, stores and admin panels, with Pix and card payments and content you edit yourself." },
-      { title: "Payments and security", text: "Secure login, payments, reports and monitoring of everything that happens once it's live." },
+      { title: "Mobile apps", text: "iPhone and Android apps, from the idea to the store, with one codebase for both.", points: ["iPhone and Android, one codebase", "Published on the App Store and Google Play", "Push notifications, login and deep links"] },
+      { title: "Websites and online stores", text: "Sites, stores and admin panels, with Pix and card payments and content you edit yourself.", points: ["Store with Pix, cards and shipping", "A panel to edit everything yourself", "Fast and well placed on Google"] },
+      { title: "Payments and security", text: "Secure login, payments, reports and monitoring of everything that happens once it's live.", points: ["Secure login and role-based access", "Payments and order reconciliation", "Reports and live monitoring"] },
+    ],
+  },
+  process: {
+    label: "How I work",
+    title: "Four steps, from problem to launch.",
+    lead: "You know where things stand every week, and what was agreed is what gets delivered.",
+    steps: [
+      { title: "Talk", text: "I learn the problem, who will use it and what must work first. You leave with scope, timeline and price." },
+      { title: "Prototype", text: "I design the screens and flow before coding. You see it, comment and approve." },
+      { title: "Build", text: "Short, frequent deliveries, with the product really running for you to test." },
+      { title: "Launch and after", text: "I publish, watch what happens and keep improving from real usage." },
     ],
   },
   sound: { on: "Turn sound on", off: "Turn sound off" },
@@ -239,16 +253,6 @@ const en: Dict = {
     speed: "speed",
     on: "on",
     off: "off",
-  },
-  process: {
-    label: "How I work",
-    title: "From idea to launch, in four steps.",
-    steps: [
-      { title: "Talk", text: "I learn what you need, who it is for and what must work on day one." },
-      { title: "Design", text: "I show how it will look before building it, so we adjust together with no surprises." },
-      { title: "Build", text: "I build the app or site, test on real devices and show progress along the way." },
-      { title: "Live and beyond", text: "I publish to the stores or the web and keep watching, fixing and improving." },
-    ],
   },
   numbers: {
     items: ["years studying technology", "years as a developer", "years building apps", "projects in the portfolio"],
@@ -303,7 +307,7 @@ const en: Dict = {
     elsewhere: "Elsewhere",
     contactCta: "Let's talk",
   },
-  notFound: { title: "404", text: "This page went out for a coffee and never came back.", hint: "Meanwhile, pluck the strings.", back: "Back to home" },
+  notFound: { title: "404", text: "This page went out for a coffee and never came back.", hint: "Meanwhile, head back home.", back: "Back to home" },
 };
 
 export const ui: Record<Lang, Dict> = { pt, en };

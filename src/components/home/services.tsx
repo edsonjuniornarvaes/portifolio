@@ -18,6 +18,9 @@ const Grid = styled.div`
   .ic svg { width: 26px; height: 26px; }
   h3 { margin-top: 10px; font-size: 1.55rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; }
   p { color: var(--muted); line-height: 1.65; }
+  ul { list-style: none; display: grid; gap: 8px; margin-top: 4px; padding-top: 16px; border-top: 1px dashed var(--line); }
+  li { position: relative; padding-left: 20px; font-size: 0.93rem; line-height: 1.45; }
+  li::before { content: "✓"; position: absolute; left: 0; color: var(--accent-ink); font-weight: 700; }
   .tools { margin-top: 36px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; color: var(--muted); font-size: 0.92rem; }
   .tools b { color: var(--ink); font-weight: 600; }
 `;
@@ -48,6 +51,7 @@ export default function Services() {
             <span className="ic">{ICONS[i]}</span>
             <h3>{it.title}</h3>
             <p>{it.text}</p>
+            <ul>{it.points.map((pt) => <li key={pt}>{pt}</li>)}</ul>
           </motion.div>
         ))}
       </Grid>
