@@ -109,8 +109,8 @@ export default function ProjectCard({ id, level = "h3" }: { id: string; level?: 
           </div>
         ) : first ? (
           <>
-            {second && <div className="ph b"><Phone screens={[second]} alt="" width={128} /></div>}
-            <div className="ph a"><Phone screens={[first]} alt="" width={156} /></div>
+            {second && <div className="ph b"><Phone screens={[second]} alt="" width={128} lazy /></div>}
+            <div className="ph a"><Phone screens={[first]} alt="" width={156} lazy /></div>
           </>
         ) : (
           <span className="letter">{letter}</span>

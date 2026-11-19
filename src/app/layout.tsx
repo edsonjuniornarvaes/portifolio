@@ -95,6 +95,7 @@ export default async function RootLayout({
         />
         <LangProvider initial={lang}>
           <StyledComponentsRegistry>
+            <a href="#conteudo" className="skip-link">{ui[lang].nav.skip}</a>
             <AnalyticsTracker />
             <ScrollProgress />
             <SiteHeader />
@@ -103,7 +104,7 @@ export default async function RootLayout({
             <CornerStrings />
             <SoundEffects />
             <CoffeeRain />
-            <main>{children}</main>
+            <main id="conteudo" tabIndex={-1}>{children}</main>
             <SiteFooter />
           </StyledComponentsRegistry>
         </LangProvider>

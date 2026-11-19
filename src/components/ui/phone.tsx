@@ -16,14 +16,14 @@ const Frame = styled.div`
 `;
 
 /** Celular com uma ou mais telas (a ativa aparece, as outras ficam escondidas). */
-export default function Phone({ screens, active = 0, alt, width = 240 }: { screens: string[]; active?: number; alt: string; width?: number | string }) {
+export default function Phone({ screens, active = 0, alt, width = 240, lazy = false }: { screens: string[]; active?: number; alt: string; width?: number | string; lazy?: boolean }) {
   return (
     <Frame style={{ ["--w" as string]: typeof width === "number" ? `${width}px` : width }}>
       <div className="island" />
       <div className="screen">
         {screens.map((src, i) => (
           // eslint-disable-next-line @next/next/no-img-element
-          <img key={src} src={src} alt={i === active ? alt : ""} data-on={i === active} loading={i === active ? "eager" : "lazy"} />
+          <img key={src} src={src} alt={i === active ? alt : ""} data-on={i === active} loading={i === active && !lazy ? "eager" : "lazy"} decoding="async" />
         ))}
         <div className="home" />
         <div className="glare" />
