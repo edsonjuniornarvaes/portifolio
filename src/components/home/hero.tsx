@@ -4,10 +4,12 @@ import { getAllProjectsBrief } from "@/app/projects/helper";
 import Link from "next/link";
 import styled from "styled-components";
 import { Wrap } from "@/components/ui/layout";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Letters from "@/components/ui/letters";
 import DecodeLines from "@/components/ui/decode-lines";
 import MatrixRain from "@/components/ui/matrix-rain";
+import CountUp from "@/components/ui/count-up";
+import Magnetic from "@/components/ui/magnetic";
 import IDot from "@/components/ui/i-dot-machine";
 import PeelSticker, { AvatarSticker, ClockSticker, LaptopSticker, MugSticker, PhoneSticker } from "@/components/ui/peel-sticker";
 import { useLang } from "@/i18n/provider";
@@ -25,6 +27,7 @@ const WORKED = [
 
 const Box = styled.section`
   position: relative; display: flex; flex-direction: column; justify-content: center; min-height: min(calc(100svh - var(--header)), 800px); padding: 48px 0 56px;
+  .spot { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), color-mix(in srgb, var(--accent) 13%, transparent), transparent 62%); transition: opacity 0.4s ease; }
   .content { position: relative; z-index: 2; max-width: 680px; }
   .kicker { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
   .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
@@ -80,11 +83,25 @@ export default function Hero() {
   const { t } = useLang();
   const h = t.hero;
   const [again, setAgain] = useState(0);
+  const box = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = box.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const mv = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+    };
+    el.addEventListener("pointermove", mv, { passive: true });
+    return () => el.removeEventListener("pointermove", mv);
+  }, []);
   const yr = new Date().getFullYear();
   const lines = h.lines.map((l) => l.replace("{career}", String(yr - CAREER_SINCE)).replace("{mobile}", String(yr - MOBILE_SINCE)));
 
   return (
-    <Box>
+    <Box ref={box}>
+      <div className="spot" aria-hidden />
       <MatrixRain />
       <Wrap style={{ width: "100%", position: "relative" }}>
         <div className="content">
@@ -99,13 +116,13 @@ export default function Hero() {
           </h1>
           <DecodeLines lines={lines} delay={900} />
           <div className="cta">
-            <Link className="btn p" href="/home#contato">{h.ctaTalk} <span aria-hidden>→</span></Link>
+            <Magnetic><Link className="btn p" href="/home#contato">{h.ctaTalk} <span aria-hidden>→</span></Link></Magnetic>
             <Link className="btn g" href="/projects">{h.ctaWork}</Link>
           </div>
           <dl className="stats">
-            <div><dt>{h.stats.years}</dt><dd>+{yr - CAREER_SINCE}</dd></div>
-            <div><dt>{h.stats.projects}</dt><dd>{getAllProjectsBrief().length}</dd></div>
-            <div><dt>{h.stats.fronts}</dt><dd>3</dd></div>
+            <div><dt>{h.stats.years}</dt><dd><CountUp to={yr - CAREER_SINCE} prefix="+" /></dd></div>
+            <div><dt>{h.stats.projects}</dt><dd><CountUp to={getAllProjectsBrief().length} /></dd></div>
+            <div><dt>{h.stats.fronts}</dt><dd><CountUp to={3} /></dd></div>
           </dl>
           <div className="meta">
             <span className="live"><i /> {h.status}</span>
