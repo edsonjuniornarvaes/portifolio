@@ -63,12 +63,22 @@ const Box = styled.section`
   .board { position: absolute; top: 50%; height: min(600px, 84%); transform: translateY(-50%); right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
   .board::before { content: ""; position: absolute; left: 50%; bottom: 8%; width: 86%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 17%, transparent), transparent 66%); }
   /* disposição escolhida (desktop); no celular volta para a de baixo */
-  .s2 { left: 38%; top: 4%; }
-  .s1 { right: 1%; top: 24%; }
-  .s4 { left: 6%; top: 40%; }
-  .s5 { left: 42%; top: 66%; }
-  .s3 { right: 6%; top: 64%; }
+  .s2 { left: 36%; top: 2%; }
+  .s1 { right: 0; top: 16%; }
+  .s4 { left: 3%; top: 26%; }
+  .s3 { right: 10%; top: 50%; }
+  .s5 { left: 40%; top: 46%; }
+  .dock { position: absolute; left: 0; right: 0; bottom: 2%; z-index: 4; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 18px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--card) 78%, transparent); pointer-events: auto; }
+  .dock .live { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .dock .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
+  .dock .icons { display: flex; gap: 7px; }
+  .dock .icons a { display: block; width: 32px; height: 32px; border-radius: 9px; overflow: hidden; border: 1px solid var(--line); opacity: 0.88; transition: transform 0.25s cubic-bezier(.2,.7,.2,1), opacity 0.2s ease, border-color 0.2s ease; }
+  .dock .icons a:hover { transform: translateY(-4px); opacity: 1; border-color: var(--accent); }
+  .dock .icons img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .onleft { display: none; }
   @media (max-width: 760px) {
+    .dock { display: none; }
+    .onleft { display: block; }
     .s2 { left: 38%; top: 6%; } .s1 { left: 4%; right: auto; top: 16%; } .s3 { right: 4%; left: auto; top: 18%; } .s4 { left: 12%; top: 54%; } .s5 { left: 52%; top: 62%; }
     .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 330px; margin-top: 18px; }
     min-height: 0;
@@ -122,29 +132,42 @@ export default function Hero() {
             <span><b>+{projectsTotal()}</b> {h.stats.projects}</span>
             <span>{h.stats.fronts}</span>
           </p>
-          <div className="meta">
-            <span className="live"><i /> {h.status}</span>
-          </div>
-          <div className="worked">
-            <small>{h.worked}</small>
-            <div className="icons">
-              {WORKED.map((w) => (
-                <Link key={w.id} href={`/projects/${w.id}`} title={w.name} aria-label={w.name}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={BRAND_ICON[w.id]} alt="" />
-                </Link>
-              ))}
+          <div className="onleft">
+            <div className="meta">
+              <span className="live"><i /> {h.status}</span>
+            </div>
+            <div className="worked">
+              <small>{h.worked}</small>
+              <div className="icons">
+                {WORKED.map((w) => (
+                  <Link key={w.id} href={`/projects/${w.id}`} title={w.name} aria-label={w.name}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={BRAND_ICON[w.id]} alt="" />
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </Wrap>
 
       <div className="board">
-        <PeelSticker h={104} rot={0} className="s2" label={h.stickers.photo}><AvatarSticker size={104} /></PeelSticker>
-        <PeelSticker h={63} rot={-1} className="s1" label={h.stickers.laptop}><LaptopSticker scale={0.46} /></PeelSticker>
-        <PeelSticker h={36} rot={1} className="s3" label={h.stickers.clock}><ClockSticker scale={0.8} /></PeelSticker>
-        <PeelSticker h={86} rot={2} className="s4" label={h.stickers.phone}><PhoneSticker scale={0.38} /></PeelSticker>
-        <PeelSticker h={72} rot={-2} className="s5" label={h.stickers.coffee}><MugSticker scale={0.55} /></PeelSticker>
+        <div className="dock">
+          <span className="live"><i /> {h.status}</span>
+          <div className="icons" aria-label={h.worked}>
+            {WORKED.map((w) => (
+              <Link key={w.id} href={`/projects/${w.id}`} title={w.name} aria-label={w.name}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={BRAND_ICON[w.id]} alt="" />
+              </Link>
+            ))}
+          </div>
+        </div>
+        <PeelSticker h={128} rot={0} className="s2" label={h.stickers.photo}><AvatarSticker size={128} /></PeelSticker>
+        <PeelSticker h={80} rot={-1} className="s1" label={h.stickers.laptop}><LaptopSticker scale={0.58} /></PeelSticker>
+        <PeelSticker h={42} rot={1} className="s3" label={h.stickers.clock}><ClockSticker scale={0.95} /></PeelSticker>
+        <PeelSticker h={108} rot={2} className="s4" label={h.stickers.phone}><PhoneSticker scale={0.48} /></PeelSticker>
+        <PeelSticker h={88} rot={-2} className="s5" label={h.stickers.coffee}><MugSticker scale={0.68} /></PeelSticker>
       </div>
     </Box>
   );
