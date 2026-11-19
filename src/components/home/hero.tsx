@@ -140,10 +140,10 @@ export default function Hero() {
       </Wrap>
 
       <div className="board">
-        <PeelSticker h={98} rot={-1} className="s1" label={h.stickers.laptop}><LaptopSticker scale={0.72} /></PeelSticker>
+        <PeelSticker h={79} rot={-1} className="s1" label={h.stickers.laptop}><LaptopSticker scale={0.58} /></PeelSticker>
         <PeelSticker h={140} rot={0} className="s2" label={h.stickers.photo}><AvatarSticker size={140} /></PeelSticker>
         <PeelSticker h={44} rot={1} className="s3" label={h.stickers.clock}><ClockSticker /></PeelSticker>
-        <PeelSticker h={136} rot={2} className="s4" label={h.stickers.phone}><PhoneSticker scale={0.6} /></PeelSticker>
+        <PeelSticker h={108} rot={2} className="s4" label={h.stickers.phone}><PhoneSticker scale={0.48} /></PeelSticker>
         <PeelSticker h={95} rot={-2} className="s5" label={h.stickers.coffee}><MugSticker scale={0.72} /></PeelSticker>
       </div>
     </Box>

@@ -157,12 +157,21 @@ export function LaptopSticker({ scale = 1 }: { scale?: number }) {
         <rect x="26" y="6" width="208" height="126" rx="10" fill="url(#lt-lid)" />
         <rect x="30" y="10" width="200" height="118" rx="7" fill="#08090b" />
         <g clipPath="url(#lt-scr)">
-          <rect x="34" y="14" width="192" height="112" fill="#0a0b0d" />
-          {/* o próprio site, em versão web */}
-          <image href="/images/site-desktop.webp" x="34" y="21" width="192" height="105" preserveAspectRatio="xMidYMin slice" />
-          <rect x="34" y="14" width="192" height="8" fill="#0a0b0d" opacity=".92" />
+          <rect x="34" y="14" width="192" height="112" fill="url(#lt-wall)" />
+          <circle cx="196" cy="40" r="46" fill="var(--accent)" opacity=".22" />
+          <rect x="34" y="14" width="192" height="8" fill="#0a0b0d" opacity=".55" />
           <text x="220" y="19.6" textAnchor="end" fontFamily="var(--font-body), sans-serif" fontSize="6.6" fontWeight="600" fill="#e8eef2">{t ? `${t[0]}:${t[1]}` : "--:--"}</text>
           <circle cx="44" cy="18" r="1.8" fill="#ff5f57" /><circle cx="50" cy="18" r="1.8" fill="#febc2e" /><circle cx="56" cy="18" r="1.8" fill="#28c840" />
+          <rect x="48" y="30" width="112" height="72" rx="6" fill="#0a0b0d" opacity=".9" />
+          <rect x="48" y="30" width="112" height="9" rx="4" fill="#1a1d22" />
+          <g fontFamily="var(--font-jetbrains), monospace" fontSize="7.4">
+            <text x="56" y="54" fill="#c792ea">const</text><text x="82" y="54" fill="#82aaff">app</text><text x="96" y="54" fill="#e8eef2">=</text><text x="108" y="54" fill="var(--accent)">build</text><text x="130" y="54" fill="#e8eef2">()</text>
+            <text x="56" y="66" fill="#7fdbca">ship</text><text x="75" y="66" fill="#e8eef2">(</text><text x="80" y="66" fill="#ffcb6b">ios, web</text><text x="116" y="66" fill="#e8eef2">)</text>
+            <text x="56" y="78" fill="#5f6b7d">{"// no ar"}</text>
+          </g>
+          <rect x="56" y="86" width="40" height="10" rx="5" fill="var(--accent)" />
+          <rect x="168" y="38" width="48" height="60" rx="8" fill="#fff" opacity=".1" />
+          <rect x="174" y="46" width="36" height="6" rx="3" fill="#fff" opacity=".35" /><rect x="174" y="58" width="28" height="4" rx="2" fill="#fff" opacity=".2" /><rect x="174" y="68" width="32" height="4" rx="2" fill="#fff" opacity=".2" />
           <rect x="34" y="14" width="192" height="112" fill="url(#lt-gloss)" />
         </g>
         <rect x="116" y="8" width="28" height="5" rx="2.5" fill="#08090b" />
@@ -178,6 +187,7 @@ export function LaptopSticker({ scale = 1 }: { scale?: number }) {
 export function PhoneSticker({ scale = 1 }: { scale?: number }) {
   const tm = useBrasilia();
   const time = tm ? `${tm[0]}:${tm[1]}` : "--:--";
+  const icons = ["#ff6a3d", "#2eebaa", "#5b7cff", "#ffcb6b", "#c792ea", "#ff5f8a", "#35c8e8", "#8bd450"];
   return (
     <svg width={110 * scale} height={226 * scale} viewBox="0 0 120 246" aria-hidden style={{ display: "block", overflow: "visible" }}>
       <defs>
@@ -190,10 +200,16 @@ export function PhoneSticker({ scale = 1 }: { scale?: number }) {
       <rect x="4" y="4" width="112" height="238" rx="27" fill="url(#ph-fr)" />
       <rect x="8" y="8" width="104" height="230" rx="23" fill="#0b0c0e" />
       <g clipPath="url(#ph-scr)">
-        <rect x="11" y="11" width="98" height="224" fill="#0a0b0d" />
-        {/* o próprio site, em versão celular */}
-        <image href="/images/site-mobile.webp" x="11" y="11" width="98" height="224" preserveAspectRatio="xMidYMin slice" />
-        <text x="27" y="25.5" textAnchor="middle" fontFamily="var(--font-body), sans-serif" fontSize="8" fontWeight="700" fill="#fff" aria-label={time} style={{ fontVariantNumeric: "tabular-nums" }}>{time}</text>
+        <rect x="11" y="11" width="98" height="224" fill="url(#ph-wall)" />
+        <circle cx="86" cy="70" r="52" fill="var(--accent)" opacity=".22" />
+        <text x="60" y="66" textAnchor="middle" fontFamily="var(--font-body), sans-serif" fontSize="30" fontWeight="600" fill="#fff" aria-label={time} style={{ fontVariantNumeric: "tabular-nums" }}>{time}</text>
+        <g>
+          {icons.map((c, i) => (
+            <rect key={c} x={20 + (i % 4) * 22} y={98 + Math.floor(i / 4) * 24} width="17" height="17" rx="5" fill={c} />
+          ))}
+        </g>
+        <rect x="18" y="196" width="84" height="26" rx="13" fill="#fff" opacity=".2" />
+        {icons.slice(0, 4).map((c, i) => <rect key={`d${c}`} x={24 + i * 20} y="201" width="15" height="15" rx="5" fill={c} />)}
         <rect x="11" y="11" width="98" height="224" fill="url(#ph-gloss)" />
       </g>
       <rect x="43" y="16" width="34" height="10" rx="5" fill="#000" />
