@@ -68,18 +68,9 @@ const Box = styled.section`
   .s4 { left: 3%; top: 26%; }
   .s3 { right: 10%; top: 50%; }
   .s5 { left: 40%; top: 46%; }
-  .dock { position: absolute; left: 0; right: 0; bottom: 2%; z-index: 4; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 18px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--card) 78%, transparent); pointer-events: auto; }
-  .dock .live { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-  .dock .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
-  .dock .icons { display: flex; gap: 7px; }
-  .dock .icons a { display: block; width: 32px; height: 32px; border-radius: 9px; overflow: hidden; border: 1px solid var(--line); opacity: 0.88; transition: transform 0.25s cubic-bezier(.2,.7,.2,1), opacity 0.2s ease, border-color 0.2s ease; }
-  .dock .icons a:hover { transform: translateY(-4px); opacity: 1; border-color: var(--accent); }
-  .dock .icons img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .onleft { display: none; }
   @media (max-width: 760px) {
     min-height: 0;
-    .dock { display: none; }
-    .onleft { display: block; }
+      .onleft { display: block; }
     .meta { margin-top: 30px; }
     .worked { margin-top: 20px; padding-top: 18px; max-width: none; flex-direction: column; align-items: flex-start; gap: 12px; }
     .worked .icons { flex-wrap: wrap; }
@@ -157,17 +148,6 @@ export default function Hero() {
       </Wrap>
 
       <div className="board">
-        <div className="dock">
-          <span className="live"><i /> {h.status}</span>
-          <div className="icons" aria-label={h.worked}>
-            {WORKED.map((w) => (
-              <Link key={w.id} href={`/projects/${w.id}`} title={w.name} aria-label={w.name}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={BRAND_ICON[w.id]} alt="" />
-              </Link>
-            ))}
-          </div>
-        </div>
         <PeelSticker h={128} rot={0} className="s2" label={h.stickers.photo}><AvatarSticker size={128} /></PeelSticker>
         <PeelSticker h={80} rot={-1} className="s1" label={h.stickers.laptop}><LaptopSticker scale={0.58} /></PeelSticker>
         <PeelSticker h={42} rot={1} className="s3" label={h.stickers.clock}><ClockSticker scale={0.95} /></PeelSticker>
