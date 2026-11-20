@@ -26,15 +26,21 @@ const WORKED = [
 ];
 
 const Box = styled.section`
-  position: relative; display: flex; flex-direction: column; justify-content: center; min-height: min(calc(100svh - var(--header)), 800px); padding: 48px 0 56px;
+  position: relative; display: flex; flex-direction: column; justify-content: center; min-height: min(calc(100svh - var(--header)), 820px); padding: 36px 0 40px;
   .spot { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), color-mix(in srgb, var(--accent) 13%, transparent), transparent 62%); }
-  .content { position: relative; z-index: 2; max-width: 680px; }
+  .content { position: relative; z-index: 2; display: flex; flex-direction: column; flex: 1; gap: 0; }
+  .toprow { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .toprow .kicker { letter-spacing: 0.14em; }
+  .mid { max-width: 620px; margin-top: 34px; }
+  .rule { height: 1px; background: var(--line); margin-top: auto; }
+  .strip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; padding-top: 22px; }
   .kicker { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
   .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
   @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ping, var(--accent)) 60%, transparent); } 80%, 100% { box-shadow: 0 0 0 9px transparent; } }
-  h1 { margin-top: 22px; font-size: clamp(2.9rem, 7.2vw, 6rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.055em; }
+  h1 { margin-top: auto; padding-top: 28px; font-size: min(14vw, 12.6rem); font-weight: 700; line-height: 0.9; letter-spacing: -0.06em; white-space: nowrap; }
   h1 { cursor: default; }
-  h1 > span { display: block; }
+  h1 > span { display: inline; }
+  h1 .jr { margin-left: 0.06em; }
   h1 .jr > span { display: inline-block; }
   h1 .jr * { margin-right: 0; }
   h1 .ii { position: relative; display: inline-block; }
@@ -44,24 +50,22 @@ const Box = styled.section`
   .btn.p:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--accent-2); }
   .btn.g { border: 1px solid var(--line); }
   .btn.g:hover { border-color: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
-  .meta { display: flex; flex-wrap: wrap; gap: 8px 40px; margin-top: 44px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
   .facts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; margin-top: 26px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--muted); }
   .facts span { display: inline-flex; align-items: baseline; gap: 6px; }
   .facts span:not(:last-child)::after { content: ""; width: 4px; height: 4px; margin: 0 14px; border-radius: 50%; background: var(--accent); align-self: center; }
   @media (max-width: 520px) { .facts { font-size: 0.72rem; letter-spacing: 0.02em; } .facts span:nth-child(3) { display: none; } .facts span:nth-child(2)::after { display: none; } .facts span:not(:last-child)::after { margin: 0 9px; } .facts b { font-size: 0.95rem; } }
   .facts b { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
-  .worked { display: flex; align-items: center; gap: 14px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 34rem; }
+  .worked { display: flex; align-items: center; gap: 14px; }
   .worked small { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
   .worked .icons { display: flex; gap: 8px; }
   .worked a { display: block; width: 34px; height: 34px; border-radius: 9px; overflow: hidden; border: 1px solid var(--line); opacity: 0.85; transition: transform 0.25s cubic-bezier(.2,.7,.2,1), opacity 0.2s ease, border-color 0.2s ease; }
   .worked a:hover { transform: translateY(-4px); opacity: 1; border-color: var(--accent); }
   .worked img { width: 100%; height: 100%; object-fit: cover; display: block; }
   @media (pointer: coarse) { .worked a { width: 44px; height: 44px; } .worked .icons { gap: 10px; } }
-  .meta .live { display: inline-flex; align-items: center; gap: 10px; }
-  .meta .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
-  .meta b { color: var(--ink); font-weight: 500; }
+  .live { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
 
-  .board { position: absolute; top: 50%; height: min(600px, 84%); transform: translateY(-50%); right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
+  .board { position: absolute; top: 50%; height: min(430px, 52%); transform: translateY(-50%); margin-top: -20px; right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
   .board::before { content: ""; position: absolute; left: 50%; bottom: 8%; width: 86%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 17%, transparent), transparent 66%); }
   /* disposição escolhida (desktop); no celular volta para a de baixo */
   .s2 { left: 36%; top: 2%; }
@@ -69,11 +73,19 @@ const Box = styled.section`
   .s4 { left: 3%; top: 26%; }
   .s3 { right: 10%; top: 50%; }
   .s5 { left: 40%; top: 46%; }
+  @media (min-width: 761px) and (max-width: 1100px) { .board { width: 36vw; } .s4 { left: 20%; } .s5 { left: 34%; } }
   @media (max-width: 760px) {
     min-height: 0;
-      .onleft { display: block; }
-    .meta { margin-top: 30px; }
-    .worked { margin-top: 20px; padding-top: 18px; max-width: none; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .content { display: flex; }
+    .toprow { order: 0; }
+    .toprow > span:last-child { display: none; }
+    h1 { order: 1; margin-top: 18px; padding-top: 0; font-size: clamp(3.2rem, 18vw, 5rem); white-space: normal; line-height: 0.92; }
+    h1 > span { display: block; }
+    h1 .jr { margin-left: 0; }
+    .mid { order: 2; margin-top: 22px; max-width: none; }
+    .rule { order: 3; margin-top: 26px; }
+    .strip { order: 4; flex-direction: column; align-items: flex-start; }
+    .worked { flex-direction: column; align-items: flex-start; gap: 12px; }
     .worked .icons { flex-wrap: wrap; }
     /* no celular um adesivo por vez fica ao lado do nome, no canto de cima */
     .board { position: absolute; top: 40px; right: 6px; left: auto; transform: none; width: 150px; height: 170px; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; }
@@ -83,7 +95,7 @@ const Box = styled.section`
     .board > .on { animation: pop 0.35s cubic-bezier(0.23, 1, 0.32, 1); }
     @keyframes pop { from { opacity: 0; } to { opacity: 1; } }
   }
-  @media (prefers-reduced-motion: reduce) { .meta .live i { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .live i { animation: none; } }
 `;
 
 export default function Hero() {
@@ -123,7 +135,21 @@ export default function Hero() {
       <MatrixRain />
       <Wrap style={{ width: "100%", position: "relative" }}>
         <div className="content">
-          <div className="kicker"><i /> {h.kicker}</div>
+          <div className="toprow">
+            <span className="kicker"><i /> {h.kicker}</span>
+            <span>{h.stats.fronts} · {yr}</span>
+          </div>
+          <div className="mid">
+            <DecodeLines lines={lines} delay={900} />
+            <div className="cta">
+              <Link className="btn p" href="/home#contato">{h.ctaTalk} <ArrowRight /></Link>
+              <Link className="btn g" href="/projects">{h.ctaWork}</Link>
+            </div>
+            <p className="facts">
+              <span><b>+{yr - CAREER_SINCE}</b> {h.stats.years}</span>
+              <span><b>+{projectsTotal()}</b> {h.stats.projects}</span>
+            </p>
+          </div>
           <h1 aria-label="Edson Junior" onClick={() => setAgain((n) => n + 1)} title="↻">
             <span><Letters text="Edson" delay={0.1} /></span>
             <span className="jr" aria-hidden>
@@ -132,20 +158,8 @@ export default function Hero() {
               <Letters text="or" delay={0.6} />
             </span>
           </h1>
-          <DecodeLines lines={lines} delay={900} />
-          <div className="cta">
-            <Link className="btn p" href="/home#contato">{h.ctaTalk} <ArrowRight /></Link>
-            <Link className="btn g" href="/projects">{h.ctaWork}</Link>
-          </div>
-          <p className="facts">
-            <span><b>+{yr - CAREER_SINCE}</b> {h.stats.years}</span>
-            <span><b>+{projectsTotal()}</b> {h.stats.projects}</span>
-            <span>{h.stats.fronts}</span>
-          </p>
-          <div className="onleft">
-            <div className="meta">
-              <span className="live"><i /> {h.status}</span>
-            </div>
+          <div className="rule" />
+          <div className="strip">
             <div className="worked">
               <small>{h.worked}</small>
               <div className="icons">
@@ -157,6 +171,7 @@ export default function Hero() {
                 ))}
               </div>
             </div>
+            <span className="live"><i /> {h.status}</span>
           </div>
         </div>
       </Wrap>
