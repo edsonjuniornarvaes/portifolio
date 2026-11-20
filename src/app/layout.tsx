@@ -6,7 +6,6 @@ import BackToTop from "@/components/ui/back-to-top";
 import SpotifyDock from "@/components/ui/spotify-dock";
 import SiteFooter from "@/components/site-footer";
 import ScrollProgress from "@/components/ui/scroll-progress";
-import PullCord from "@/components/ui/pull-cord";
 import Perch from "@/components/ui/perch";
 import SoundEffects from "@/components/ui/sound-effects";
 import CoffeeRain from "@/components/ui/coffee-rain";
@@ -100,7 +99,6 @@ export default async function RootLayout({
             <AnalyticsTracker />
             <ScrollProgress />
             <SiteHeader />
-            <PullCord />
             <Perch />
             <SoundEffects />
             <CoffeeRain />
