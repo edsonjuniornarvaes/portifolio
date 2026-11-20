@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import styled from "styled-components";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import LangSwitch from "@/components/ui/lang-switch";
-import BrandMark from "@/components/ui/brand-mark";
+import Wordmark from "@/components/ui/wordmark";
 import SoundToggle from "@/components/ui/sound-toggle";
 import { useLang } from "@/i18n/provider";
 
@@ -22,10 +22,6 @@ const Bar = styled.header`
   background: color-mix(in srgb, var(--paper) 94%, transparent);
   border-bottom: 1px solid var(--line);
   .in { position: relative; max-width: var(--wrap); height: 100%; margin: 0 auto; padding: 0 var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .brand .logo { display: flex; flex-direction: column; gap: 1px; line-height: 1.1; }
-  .brand .logo strong i { font-style: normal; color: var(--accent-ink); }
-  .brand .logo strong { font-weight: 700; font-size: 1.02rem; letter-spacing: -0.025em; }
-  .brand .logo small { font-family: var(--font-mono); font-size: 0.69rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-ink); }
   .brand { order: 1; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; white-space: nowrap; }
   .panel { display: contents; }
   nav { order: 2; display: flex; align-items: center; gap: 4px; }
@@ -74,8 +70,7 @@ export default function SiteHeader() {
     <Bar>
       <div className="in">
         <Link href="/home" className="brand" aria-label={t.nav.homeAria}>
-          <BrandMark size={38} />
-          <span className="logo"><strong><i>EJ</i> Sistemas</strong><small>{t.nav.logoSub}</small></span>
+          <Wordmark />
         </Link>
         <button type="button" className="burger" aria-expanded={open} aria-controls="menu" aria-label={open ? t.nav.close : t.nav.menu} onClick={() => setOpen((v) => !v)}><span /></button>
         <div id="menu" className="panel" data-open={open}>

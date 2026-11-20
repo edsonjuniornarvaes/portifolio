@@ -7,24 +7,15 @@ import styled from "styled-components";
 import { Wrap } from "@/components/ui/layout";
 import { useEffect, useRef, useState } from "react";
 import Letters from "@/components/ui/letters";
-import DecodeLines from "@/components/ui/decode-lines";
 import MatrixRain from "@/components/ui/matrix-rain";
 import IDot from "@/components/ui/i-dot-machine";
-import PeelSticker, { AvatarSticker, ClockSticker, MugSticker } from "@/components/ui/peel-sticker";
+import TechIcons from "@/components/ui/tech-icons";
 import HeroPhone from "@/components/home/hero-phone";
 import { useLang } from "@/i18n/provider";
 import { CAREER_SINCE, MOBILE_SINCE } from "@/data/profile";
 import { BRAND_ICON } from "@/data/brands";
 
-const WORKED = [
-  { id: "pjbank", name: "Conta Superlógica" },
-  { id: "gruvi", name: "Gruvi" },
-  { id: "clube-da-joia-marketplace", name: "Clube da Joia" },
-  { id: "multjet", name: "MultJet" },
-  { id: "mont-capital", name: "Mont Capital" },
-  { id: "minha-navex", name: "Minha Navex" },
-  { id: "gazin", name: "Grupo Gazin" },
-];
+const SKILLS = ["React Native", "TypeScript", "Expo", "Next.js", "Supabase", "Redux", "Jest", "Mercado Pago"];
 
 const Box = styled.section`
   position: relative; display: flex; flex-direction: column; justify-content: center; min-height: min(calc(100svh - var(--header)), 800px); padding: 48px 0 56px;
@@ -61,7 +52,9 @@ const Box = styled.section`
   .worked a:active { transform: scale(0.97); }
   .worked a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .worked a span { white-space: nowrap; }
-  .worked.mob { display: none; }
+  .rain { opacity: 0.35; position: absolute; inset: 0; pointer-events: none; }
+  .skills { display: grid; gap: 10px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 36rem; }
+  .skills small { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
   .worked img { width: 26px; height: 26px; border-radius: 99px; object-fit: cover; display: block; }
   .meta .live { display: inline-flex; align-items: center; gap: 10px; }
   .meta .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
@@ -79,8 +72,7 @@ const Box = styled.section`
       .onleft { display: block; }
     .meta { margin-top: 30px; }
     h1 { font-size: clamp(2.5rem, 12vw, 3.4rem); }
-    .worked.desk { display: none; }
-    .worked.mob { display: grid; margin-top: 8px; padding-top: 18px; max-width: none; }
+    .skills { margin-top: 22px; padding-top: 18px; max-width: none; }
     .worked .icons { flex-wrap: wrap; }
     /* o celular vem primeiro e os adesivos viram uma faixa arrumada logo abaixo (nada flutuando sobre o texto) */
     .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: auto; margin-top: 28px; padding: 6px 8px 4px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 18px 26px; }
@@ -110,12 +102,11 @@ export default function Hero() {
     return () => el.removeEventListener("pointermove", mv);
   }, []);
   const yr = new Date().getFullYear();
-  const lines = h.lines.map((l) => l.replace("{career}", String(yr - CAREER_SINCE)).replace("{mobile}", String(yr - MOBILE_SINCE)));
 
   return (
     <Box ref={box}>
       <div className="spot" aria-hidden />
-      <MatrixRain />
+      <div className="rain" aria-hidden><MatrixRain /></div>
       <Wrap style={{ width: "100%", position: "relative" }}>
         <div className="content">
           <h1 aria-label={h.h1.join(" ")} onClick={() => setAgain((n) => n + 1)} title="↻">
@@ -138,7 +129,6 @@ export default function Hero() {
             ))}
           </h1>
           <p className="by"><b>Edson Junior</b>{h.byline}</p>
-          <DecodeLines lines={lines} delay={900} />
           <div className="cta">
             <Link className="btn p" href="/home#contato">{h.ctaTalk} <ArrowRight /></Link>
             <Link className="btn g" href="/projects">{h.ctaWork}</Link>
@@ -146,45 +136,18 @@ export default function Hero() {
           <p className="facts">
             <span><b>+{yr - CAREER_SINCE}</b> {h.stats.years}</span>
             <span><b>+{projectsTotal()}</b> {h.stats.projects}</span>
+            <span className="live"><i /> {h.status}</span>
           </p>
-          <div className="onleft">
-            <div className="meta">
-              <span className="live"><i /> {h.status}</span>
-            </div>
-            <div className="worked desk">
-              <small>{h.worked}</small>
-              <div className="icons">
-                {WORKED.map((w) => (
-                  <Link key={w.id} href={`/projects/${w.id}`} >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={BRAND_ICON[w.id]} alt="" /><span>{w.name}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
+          <div className="skills">
+            <small>{h.stack}</small>
+            <TechIcons tags={SKILLS} max={SKILLS.length} labels />
           </div>
         </div>
       </Wrap>
 
       <div className="board">
         <div className="stage"><HeroPhone /></div>
-        <PeelSticker h={112} rot={-2} className="s2" label={h.stickers.photo}><AvatarSticker size={112} /></PeelSticker>
-        <PeelSticker h={42} rot={2} className="s3" label={h.stickers.clock}><ClockSticker scale={0.95} /></PeelSticker>
-        <PeelSticker h={88} rot={-2} className="s5" label={h.stickers.coffee}><MugSticker scale={0.68} /></PeelSticker>
       </div>
-      <Wrap>
-      <div className="worked mob">
-              <small>{h.worked}</small>
-              <div className="icons">
-                {WORKED.map((w) => (
-                  <Link key={w.id} href={`/projects/${w.id}`} >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={BRAND_ICON[w.id]} alt="" /><span>{w.name}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-      </Wrap>
     </Box>
   );
 }

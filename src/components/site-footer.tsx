@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { usePathname } from "next/navigation";
 import { FaGithub, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 import { ArrowRight, ArrowUpRight } from "@/components/ui/icons";
-import BrandMark from "@/components/ui/brand-mark";
+import Wordmark from "@/components/ui/wordmark";
 import { useLang } from "@/i18n/provider";
 import { contact } from "@/data/profile";
 
@@ -79,8 +79,7 @@ export default function SiteFooter() {
         <div className="cols" data-first={onHome || undefined}>
           <div className="brand">
             <div className="id">
-              <BrandMark size={42} />
-              <div><b>EJ Sistemas</b><small>{t.nav.logoSub}</small></div>
+              <Wordmark size="1.5rem" />
             </div>
             <p>{f.talkText}</p>
             <span className="pill"><i /> {t.hero.status}</span>
