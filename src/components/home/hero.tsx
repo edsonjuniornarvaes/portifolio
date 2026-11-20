@@ -32,12 +32,14 @@ const Box = styled.section`
   .kicker { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
   .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
   @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ping, var(--accent)) 60%, transparent); } 80%, 100% { box-shadow: 0 0 0 9px transparent; } }
-  h1 { margin-top: 22px; font-size: clamp(2.9rem, 7.2vw, 6rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.055em; }
+  h1 { font-size: clamp(2.7rem, 6.2vw, 5.2rem); font-weight: 700; line-height: 1; letter-spacing: -0.04em; text-wrap: balance; }
   h1 { cursor: default; }
   h1 > span { display: block; }
-  h1 .jr > span { display: inline-block; }
-  h1 .jr * { margin-right: 0; }
+  h1 .w { display: inline-block; white-space: nowrap; margin-right: 0.22em; }
+  h1 .w * { margin-right: 0; }
   h1 .ii { position: relative; display: inline-block; }
+  .by { margin-top: 20px; font-size: 1.05rem; line-height: 1.5; color: var(--muted); }
+  .by b { color: var(--ink); font-weight: 600; }
   .cta { display: flex; flex-wrap: wrap; gap: 12px 14px; margin-top: 34px; }
   .btn { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 26px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.86rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
   .btn.p { background: var(--accent); color: var(--on-accent); font-weight: 700; box-shadow: 4px 4px 0 var(--accent-2); }
@@ -72,6 +74,7 @@ const Box = styled.section`
     min-height: 0;
       .onleft { display: block; }
     .meta { margin-top: 30px; }
+    h1 { font-size: clamp(2.5rem, 12vw, 3.4rem); }
     .worked { margin-top: 20px; padding-top: 18px; max-width: none; flex-direction: column; align-items: flex-start; gap: 12px; }
     .worked .icons { flex-wrap: wrap; }
     /* os adesivos viram uma faixa arrumada, no fluxo da página (nada flutuando por cima do texto) */
@@ -109,15 +112,26 @@ export default function Hero() {
       <MatrixRain />
       <Wrap style={{ width: "100%", position: "relative" }}>
         <div className="content">
-          <div className="kicker"><i /> {h.kicker}</div>
-          <h1 aria-label="Edson Junior" onClick={() => setAgain((n) => n + 1)} title="↻">
-            <span><Letters text="Edson" delay={0.1} /></span>
-            <span className="jr" aria-hidden>
-              <Letters text="Jun" delay={0.35} />
-              <span className="ii">ı<IDot trigger={again} /></span>
-              <Letters text="or" delay={0.6} />
-            </span>
+          <h1 aria-label={h.h1.join(" ")} onClick={() => setAgain((n) => n + 1)} title="↻">
+            {h.h1.map((line, li) => (
+              <span key={line}>
+                {line.split(" ").map((word, wi) => {
+                  const d = 0.1 + li * 0.28 + wi * 0.12;
+                  const k = li === 0 ? word.indexOf("i") : -1;
+                  if (k < 0) return <Letters key={wi} text={word} delay={d} />;
+                  // a primeira letra "i" do título vira um "ı" sem pingo: o pingo cai e quica no lugar dele
+                  return (
+                    <span key={wi} className="w" aria-hidden>
+                      <Letters text={word.slice(0, k)} delay={d} />
+                      <span className="ii">ı<IDot trigger={again} /></span>
+                      <Letters text={word.slice(k + 1)} delay={d + 0.3} />
+                    </span>
+                  );
+                })}
+              </span>
+            ))}
           </h1>
+          <p className="by"><b>Edson Junior</b>{h.byline}</p>
           <DecodeLines lines={lines} delay={900} />
           <div className="cta">
             <Link className="btn p" href="/home#contato">{h.ctaTalk} <ArrowRight /></Link>
@@ -126,7 +140,6 @@ export default function Hero() {
           <p className="facts">
             <span><b>+{yr - CAREER_SINCE}</b> {h.stats.years}</span>
             <span><b>+{projectsTotal()}</b> {h.stats.projects}</span>
-            <span>{h.stats.fronts}</span>
           </p>
           <div className="onleft">
             <div className="meta">
