@@ -128,7 +128,7 @@ const pt = {
     write: "Escrever mensagem", formTitle: "Entre em contato", formHint: "Conte o que você precisa. A resposta vai para o seu e-mail.", again: "Enviar outra mensagem", name: "Nome", email: "E-mail", message: "Mensagem", send: "Enviar mensagem", sending: "Enviando…",
     sent: "Mensagem enviada! Respondo em breve.", error: "Não foi possível enviar agora. Tente pelo e-mail.", close: "Fechar", open: "Aberto a novos projetos",
   },
-  footer: { coffee: "feito à base de café", explore: "Explorar", social: "Por aí", talk: "Edson Junior", talkText: "Aplicativos e sites feitos com carinho, em Umuarama, no Paraná.", top: "Voltar ao topo", made: "Feito em Umuarama, Paraná", sound: "Dica: ligue o som no topo e passe o mouse nas coisas.", lab: "Laboratório", mailLabel: "Contato", ask: "Quer conversar? Deixe seu e-mail e eu respondo:", emailPh: "voce@email.com", send: "Enviar", subject: "Contato pelo site", bodyPre: "Oi, Edson! Meu e-mail para resposta:" },
+  footer: { coffee: "feito à base de café", contactTitle: "Contato", explore: "Explorar", social: "Por aí", talk: "Edson Junior", talkText: "Aplicativos e sites feitos com carinho, em Umuarama, no Paraná.", top: "Voltar ao topo", made: "Feito em Umuarama, Paraná", sound: "Dica: ligue o som no topo e passe o mouse nas coisas.", lab: "Laboratório", mailLabel: "Contato", ask: "Quer conversar? Deixe seu e-mail e eu respondo:", emailPh: "voce@email.com", send: "Enviar", subject: "Contato pelo site", bodyPre: "Oi, Edson! Meu e-mail para resposta:" },
   project: {
     back: "Todos os trabalhos",
     about: "Sobre o projeto",
@@ -300,7 +300,7 @@ const en: Dict = {
     write: "Write a message", formTitle: "Get in touch", formHint: "Tell me what you need. The reply goes to your email.", again: "Send another message", name: "Name", email: "Email", message: "Message", send: "Send message", sending: "Sending…",
     sent: "Message sent! I'll reply soon.", error: "Couldn't send right now. Please use email.", close: "Close", open: "Open to new projects",
   },
-  footer: { coffee: "fueled by coffee", explore: "Explore", social: "Around the web", talk: "Edson Junior", talkText: "Apps and websites made with care, in Umuarama, Brazil.", top: "Back to top", made: "Made in Umuarama, Brazil", sound: "Tip: turn the sound on at the top and hover things.", lab: "Lab", mailLabel: "Contact", ask: "Want to talk? Leave your email and I will reply:", emailPh: "you@email.com", send: "Send", subject: "Contact from the website", bodyPre: "Hi Edson! My email for the reply:" },
+  footer: { coffee: "fueled by coffee", contactTitle: "Contact", explore: "Explore", social: "Around the web", talk: "Edson Junior", talkText: "Apps and websites made with care, in Umuarama, Brazil.", top: "Back to top", made: "Made in Umuarama, Brazil", sound: "Tip: turn the sound on at the top and hover things.", lab: "Lab", mailLabel: "Contact", ask: "Want to talk? Leave your email and I will reply:", emailPh: "you@email.com", send: "Send", subject: "Contact from the website", bodyPre: "Hi Edson! My email for the reply:" },
   project: {
     back: "All work",
     about: "About the project",
