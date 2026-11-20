@@ -95,7 +95,7 @@ export default function SiteHeader() {
     <Bar data-hidden={hidden && !open}>
       <div className="in">
         <Link href="/home" className="brand" aria-label={t.nav.homeAria}>
-          <Wordmark />
+          <Wordmark sub={t.nav.logoSub} />
         </Link>
         <button type="button" className="burger" aria-expanded={open} aria-controls="menu" aria-label={open ? t.nav.close : t.nav.menu} onClick={() => setOpen((v) => !v)}><span /></button>
         <div id="menu" className="panel" data-open={open}>
