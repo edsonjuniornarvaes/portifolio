@@ -7,9 +7,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Phone from "@/components/ui/phone";
 
 const P = "/images/projects/";
-/** Telas reais de apps que entreguei; a ordem segue a do portfólio. */
+/** Telas reais de apps que entreguei; a ordem segue a do portfólio (a Superlógica fica de fora: a única captura mostra "Área Pix"). */
 const SHOTS = [
-  { id: "pjbank", name: "Conta Superlógica", src: `${P}pjbank-home.webp` },
   { id: "gruvi", name: "Gruvi", src: `${P}gruvi-home.webp` },
   { id: "clube-da-joia-marketplace", name: "Clube da Joia", src: `${P}clube-app-home.webp` },
   { id: "mont-capital", name: "Mont Capital", src: `${P}mont-home-alt.webp` },
