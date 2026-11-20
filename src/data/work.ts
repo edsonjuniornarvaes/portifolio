@@ -11,13 +11,14 @@ const P = "/images/projects/";
 export const SHOWCASE: Showcase[] = [
   { id: "pjbank", year: "2025", screen: `${P}pjbank-home.webp` },
   { id: "gruvi", year: "2024", screen: `${P}gruvi-home.webp` },
-  { id: "clube-da-joia-marketplace", year: "2026" },
-  { id: "multjet", year: "2026" },
-  { id: "clube-da-joia-app", year: "2026", screen: `${P}clube-app-home.webp` },
   { id: "mont-capital", year: "2021 a 2024", screen: `${P}mont-home-alt.webp` },
   { id: "minha-navex", year: "2021 a 2023", screen: `${P}navex-home-new.webp` },
   { id: "gazin", year: "2022 a 2023" },
   { id: "erp-sistemas", year: "2020 a 2023" },
+  // por enquanto os projetos próprios ficam por último
+  { id: "clube-da-joia-marketplace", year: "2026" },
+  { id: "multjet", year: "2026" },
+  { id: "clube-da-joia-app", year: "2026", screen: `${P}clube-app-home.webp` },
 ];
 
 /** Telas que se revezam no celular do início. */
