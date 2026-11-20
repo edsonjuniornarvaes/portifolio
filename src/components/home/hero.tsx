@@ -56,6 +56,7 @@ const Box = styled.section`
   .worked a { display: block; width: 34px; height: 34px; border-radius: 9px; overflow: hidden; border: 1px solid var(--line); opacity: 0.85; transition: transform 0.25s cubic-bezier(.2,.7,.2,1), opacity 0.2s ease, border-color 0.2s ease; }
   .worked a:hover { transform: translateY(-4px); opacity: 1; border-color: var(--accent); }
   .worked img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (pointer: coarse) { .worked a { width: 44px; height: 44px; } .worked .icons { gap: 10px; } }
   .meta .live { display: inline-flex; align-items: center; gap: 10px; }
   .meta .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
   .meta b { color: var(--ink); font-weight: 500; }
@@ -74,13 +75,12 @@ const Box = styled.section`
     .meta { margin-top: 30px; }
     .worked { margin-top: 20px; padding-top: 18px; max-width: none; flex-direction: column; align-items: flex-start; gap: 12px; }
     .worked .icons { flex-wrap: wrap; }
-    /* os adesivos viram uma faixa arrumada, no fluxo da página (nada flutuando por cima do texto) */
-    .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: auto; margin-top: 26px; padding: 18px 8px 4px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 22px; }
-    .board::before { bottom: auto; top: 0; width: 100%; aspect-ratio: 2.2; }
-    .board > [role="img"] { position: relative !important; inset: auto !important; left: auto !important; right: auto !important; top: auto !important; }
+    /* no celular um adesivo por vez fica ao lado do nome, no canto de cima */
+    .board { position: absolute; top: 40px; right: 6px; left: auto; transform: none; width: 150px; height: 170px; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; }
+    .board::before { bottom: auto; top: 10%; width: 100%; }
+    .board > [role="img"] { position: relative !important; inset: auto !important; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; }
     .board > [role="img"]:not(.on) { display: none !important; }
     .board > .on { animation: pop 0.35s cubic-bezier(0.23, 1, 0.32, 1); }
-    .board { min-height: 150px; }
     @keyframes pop { from { opacity: 0; } to { opacity: 1; } }
   }
   @media (prefers-reduced-motion: reduce) { .meta .live i { animation: none; } }

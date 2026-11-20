@@ -1,5 +1,6 @@
 "use client";
 
+import { glow } from "@/components/ui/glow";
 import styled from "styled-components";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/i18n/provider";
@@ -9,7 +10,8 @@ const Grid = styled.div`
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;
   @media (max-width: 900px) { grid-template-columns: 1fr; }
   .card { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 30px 28px 32px; border: 1px solid var(--line); border-radius: 16px; background: color-mix(in srgb, var(--card) 80%, transparent); overflow: hidden; transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s ease; }
-  .card::before { content: ""; position: absolute; inset: auto -30% -60% -30%; height: 80%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent), transparent 65%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+  .card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(320px circle at var(--gx, 50%) var(--gy, 100%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%); opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+  .card > * { position: relative; }
   .card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
   .card:hover::before { opacity: 1; }
   .ic { display: block; color: var(--accent-ink); }
@@ -39,6 +41,7 @@ export default function Services() {
         {sv.items.map((it, i) => (
           <motion.div
             className="card"
+            {...glow}
             key={it.title}
             initial={reduce ? false : { opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
