@@ -25,7 +25,7 @@ const Bar = styled.header`
   .brand .logo { display: flex; flex-direction: column; gap: 1px; line-height: 1.1; }
   .brand .logo strong i { font-style: normal; color: var(--accent-ink); }
   .brand .logo strong { font-weight: 700; font-size: 1.02rem; letter-spacing: -0.025em; }
-  .brand .logo small { font-family: var(--font-mono); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-ink); }
+  .brand .logo small { font-family: var(--font-mono); font-size: 0.69rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-ink); }
   .brand { order: 1; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; white-space: nowrap; }
   .panel { display: contents; }
   nav { order: 2; display: flex; align-items: center; gap: 4px; }
