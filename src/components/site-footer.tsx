@@ -12,9 +12,10 @@ import { contact } from "@/data/profile";
 const FEATURED = [
   { id: "pjbank", name: "Conta Superlógica" },
   { id: "gruvi", name: "Gruvi" },
+  { id: "mont-capital", name: "Mont Capital" },
+  { id: "minha-navex", name: "Minha Navex" },
   { id: "clube-da-joia-marketplace", name: "Clube da Joia" },
   { id: "multjet", name: "MultJet" },
-  { id: "mont-capital", name: "Mont Capital" },
 ];
 
 const Foot = styled.footer`

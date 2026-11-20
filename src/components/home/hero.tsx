@@ -18,11 +18,11 @@ import { BRAND_ICON } from "@/data/brands";
 const WORKED = [
   { id: "pjbank", name: "Conta Superlógica" },
   { id: "gruvi", name: "Gruvi" },
-  { id: "clube-da-joia-marketplace", name: "Clube da Joia" },
-  { id: "multjet", name: "MultJet" },
   { id: "mont-capital", name: "Mont Capital" },
   { id: "minha-navex", name: "Minha Navex" },
   { id: "gazin", name: "Grupo Gazin" },
+  { id: "clube-da-joia-marketplace", name: "Clube da Joia" },
+  { id: "multjet", name: "MultJet" },
 ];
 
 const Box = styled.section`
@@ -44,25 +44,21 @@ const Box = styled.section`
   .btn.p:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--accent-2); }
   .btn.g { border: 1px solid var(--line); }
   .btn.g:hover { border-color: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 40px; margin-top: 44px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
   .facts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; margin-top: 26px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--muted); }
   .facts span { display: inline-flex; align-items: baseline; gap: 6px; }
   .facts span:not(:last-child)::after { content: ""; width: 4px; height: 4px; margin: 0 14px; border-radius: 50%; background: var(--accent); align-self: center; }
   @media (max-width: 520px) { .facts { font-size: 0.72rem; letter-spacing: 0.02em; } .facts span:nth-child(3) { display: none; } .facts span:nth-child(2)::after { display: none; } .facts span:not(:last-child)::after { margin: 0 9px; } .facts b { font-size: 0.95rem; } }
   .facts b { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
-  .panel { position: absolute; left: 4%; right: 0; bottom: 0; z-index: 4; pointer-events: auto; display: grid; gap: 16px; padding: 20px 22px 22px; border: 1px solid var(--line); border-radius: 16px; background: color-mix(in srgb, var(--card) 62%, transparent); backdrop-filter: blur(10px); overflow: hidden; transition: border-color 0.2s ease; }
-  .panel::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.3s ease; background: radial-gradient(260px circle at var(--px, 50%) var(--py, 50%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%); }
-  .panel:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
-  .panel:hover::before { opacity: 1; }
-  .panel > * { position: relative; }
-  .live { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-  .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
-  .worked { display: grid; gap: 12px; padding-top: 16px; border-top: 1px solid var(--line); }
-  .worked small { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-  .worked .icons { display: flex; flex-wrap: wrap; gap: 10px; }
-  .worked a { display: block; width: 44px; height: 44px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s ease, box-shadow 0.25s ease; }
-  .worked a:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 10px 24px -10px var(--accent); }
-  .worked a:active { transform: scale(0.96); }
+  .worked { display: flex; align-items: center; gap: 14px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 34rem; }
+  .worked small { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .worked .icons { display: flex; gap: 8px; }
+  .worked a { display: block; width: 34px; height: 34px; border-radius: 9px; overflow: hidden; border: 1px solid var(--line); opacity: 0.85; transition: transform 0.25s cubic-bezier(.2,.7,.2,1), opacity 0.2s ease, border-color 0.2s ease; }
+  .worked a:hover { transform: translateY(-4px); opacity: 1; border-color: var(--accent); }
   .worked img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .meta .live { display: inline-flex; align-items: center; gap: 10px; }
+  .meta .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
+  .meta b { color: var(--ink); font-weight: 500; }
 
   .board { position: absolute; top: 50%; height: min(600px, 84%); transform: translateY(-50%); right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
   .board::before { content: ""; position: absolute; left: 50%; bottom: 8%; width: 86%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 17%, transparent), transparent 66%); }
@@ -72,22 +68,39 @@ const Box = styled.section`
   .s4 { left: 3%; top: 26%; }
   .s3 { right: 10%; top: 50%; }
   .s5 { left: 40%; top: 46%; }
-  @media (max-width: 1024px) {
+  @media (max-width: 760px) {
     min-height: 0;
-      .panel { position: relative; left: auto; right: auto; bottom: auto; order: 6; width: 100%; margin-top: 8px; }
+      .onleft { display: block; }
+    .meta { margin-top: 30px; }
+    .worked { margin-top: 20px; padding-top: 18px; max-width: none; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .worked .icons { flex-wrap: wrap; }
     /* os adesivos viram uma faixa arrumada, no fluxo da página (nada flutuando por cima do texto) */
     .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: auto; margin-top: 26px; padding: 18px 8px 4px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 22px; }
     .board::before { bottom: auto; top: 0; width: 100%; aspect-ratio: 2.2; }
     .board > [role="img"] { position: relative !important; inset: auto !important; left: auto !important; right: auto !important; top: auto !important; }
-    .s2 { order: 1; } .s3 { order: 2; } .s1 { order: 3; } .s4 { order: 4; } .s5 { order: 5; }
+    .board > [role="img"]:not(.on) { display: none !important; }
+    .board > .on { animation: pop 0.35s cubic-bezier(0.23, 1, 0.32, 1); }
+    .board { min-height: 150px; }
+    @keyframes pop { from { opacity: 0; } to { opacity: 1; } }
   }
-  @media (prefers-reduced-motion: reduce) { .live i { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .meta .live i { animation: none; } }
 `;
 
 export default function Hero() {
   const { t } = useLang();
   const h = t.hero;
   const [again, setAgain] = useState(0);
+  // no celular só um adesivo aparece por vez, sorteado de tempos em tempos
+  const [act, setAct] = useState(0);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setAct(Math.floor(Math.random() * 5));
+    const id = setInterval(() => {
+      if (document.visibilityState !== "visible") return;
+      setAct((a) => { let n = a; while (n === a) n = Math.floor(Math.random() * 5); return n; });
+    }, 4500);
+    return () => clearInterval(id);
+  }, []);
   const box = useRef<HTMLElement>(null);
   useEffect(() => {
     const el = box.current;
@@ -129,29 +142,31 @@ export default function Hero() {
             <span><b>+{projectsTotal()}</b> {h.stats.projects}</span>
             <span>{h.stats.fronts}</span>
           </p>
+          <div className="onleft">
+            <div className="meta">
+              <span className="live"><i /> {h.status}</span>
+            </div>
+            <div className="worked">
+              <small>{h.worked}</small>
+              <div className="icons">
+                {WORKED.map((w) => (
+                  <Link key={w.id} href={`/projects/${w.id}`} title={w.name} aria-label={w.name}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={BRAND_ICON[w.id]} alt="" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </Wrap>
 
       <div className="board">
-        <PeelSticker h={128} rot={0} className="s2" label={h.stickers.photo}><AvatarSticker size={128} /></PeelSticker>
-        <PeelSticker h={80} rot={-1} className="s1" label={h.stickers.laptop}><LaptopSticker scale={0.58} /></PeelSticker>
-        <PeelSticker h={42} rot={1} className="s3" label={h.stickers.clock}><ClockSticker scale={0.95} /></PeelSticker>
-        <PeelSticker h={108} rot={2} className="s4" label={h.stickers.phone}><PhoneSticker scale={0.48} /></PeelSticker>
-        <PeelSticker h={88} rot={-2} className="s5" label={h.stickers.coffee}><MugSticker scale={0.68} /></PeelSticker>
-        <div className="panel" onPointerMove={(e) => { const r = e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty("--px", `${e.clientX - r.left}px`); e.currentTarget.style.setProperty("--py", `${e.clientY - r.top}px`); }}>
-          <span className="live"><i /> {h.status}</span>
-          <div className="worked">
-            <small>{h.worked}</small>
-            <div className="icons">
-              {WORKED.map((w) => (
-                <Link key={w.id} href={`/projects/${w.id}`} title={w.name} aria-label={w.name}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={BRAND_ICON[w.id]} alt="" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
+        <PeelSticker h={128} rot={0} className={`s2${act === 0 ? " on" : ""}`} label={h.stickers.photo}><AvatarSticker size={128} /></PeelSticker>
+        <PeelSticker h={80} rot={-1} className={`s1${act === 1 ? " on" : ""}`} label={h.stickers.laptop}><LaptopSticker scale={0.58} /></PeelSticker>
+        <PeelSticker h={42} rot={1} className={`s3${act === 2 ? " on" : ""}`} label={h.stickers.clock}><ClockSticker scale={0.95} /></PeelSticker>
+        <PeelSticker h={108} rot={2} className={`s4${act === 3 ? " on" : ""}`} label={h.stickers.phone}><PhoneSticker scale={0.48} /></PeelSticker>
+        <PeelSticker h={88} rot={-2} className={`s5${act === 4 ? " on" : ""}`} label={h.stickers.coffee}><MugSticker scale={0.68} /></PeelSticker>
       </div>
     </Box>
   );
