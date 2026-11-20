@@ -36,6 +36,8 @@ const Bar = styled.header`
   .burger[aria-expanded="true"] span { background: transparent; }
   .burger[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
   .burger[aria-expanded="true"] span::after { top: 0; transform: rotate(-45deg); }
+  @media (pointer: coarse) { .burger { width: 44px; height: 44px; } }
+  @media (pointer: coarse) { .brand { min-height: 44px; } }
   @media (max-width: 860px) {
     --header: 60px;
     .in { gap: 10px; }

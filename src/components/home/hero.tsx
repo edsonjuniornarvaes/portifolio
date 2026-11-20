@@ -56,6 +56,7 @@ const Box = styled.section`
   .worked a { display: block; width: 34px; height: 34px; border-radius: 9px; overflow: hidden; border: 1px solid var(--line); opacity: 0.85; transition: transform 0.25s cubic-bezier(.2,.7,.2,1), opacity 0.2s ease, border-color 0.2s ease; }
   .worked a:hover { transform: translateY(-4px); opacity: 1; border-color: var(--accent); }
   .worked img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (pointer: coarse) { .worked a { width: 44px; height: 44px; } .worked .icons { gap: 10px; } }
   .meta .live { display: inline-flex; align-items: center; gap: 10px; }
   .meta .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
   .meta b { color: var(--ink); font-weight: 500; }

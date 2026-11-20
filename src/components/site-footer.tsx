@@ -54,6 +54,7 @@ const Foot = styled.footer`
   .social a { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease; }
   .social a:hover { color: var(--accent-ink); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); transform: translateY(-3px); }
   .social svg { width: 16px; height: 16px; }
+  @media (pointer: coarse) { li a { min-height: 44px; } .social a { width: 44px; height: 44px; } }
   @media (max-width: 900px) { .cols { grid-template-columns: 1fr 1fr; } .brand { grid-column: 1 / -1; } }
   @media (max-width: 860px) { .in { padding-bottom: 92px; } }
   @media (max-width: 520px) { .in { padding-top: 56px; } .base { flex-direction: column; align-items: flex-start; } }

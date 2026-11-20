@@ -21,9 +21,10 @@ const Box = styled.div`
   .prog { flex: 1; height: 2px; border-radius: 2px; background: var(--line); overflow: hidden; }
   .prog b { display: block; height: 100%; width: 100%; background: var(--accent); transform-origin: left; transform: scaleX(var(--p, 0.15)); transition: transform 0.15s linear; }
   .arrows { display: flex; gap: 8px; }
-  .arrows button { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: color-mix(in srgb, var(--card) 70%, transparent); color: var(--ink); cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+  .arrows button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: color-mix(in srgb, var(--card) 70%, transparent); color: var(--ink); cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease; }
   .arrows button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
   .arrows button:disabled { opacity: 0.35; cursor: default; }
+  @media (pointer: coarse) { .arrows button { width: 44px; height: 44px; } }
   .track { display: flex; gap: 20px; list-style: none; overflow-x: auto; scroll-snap-type: x proximity; padding: 10px 4px 26px; margin: 0 -4px; scrollbar-width: none; cursor: grab; overscroll-behavior-x: contain; }
   .track::-webkit-scrollbar { display: none; }
   .track.drag { cursor: grabbing; scroll-snap-type: none; user-select: none; }

@@ -13,7 +13,7 @@ const Row = styled.div`
   .mail small { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
   .mail svg { width: 18px; height: 18px; color: var(--accent-ink); }
   .links { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
-  .links a { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 0.9rem; color: var(--muted); transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
+  .links a { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 0.9rem; color: var(--muted); transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
   .links a svg { width: 16px; height: 16px; }
   .links a:hover { color: var(--accent-ink); border-color: var(--accent); transform: translateY(-2px); }
   @media (max-width: 640px) { .links { margin-left: 0; } }
