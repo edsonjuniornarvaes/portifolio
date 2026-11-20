@@ -14,7 +14,7 @@ const IDS = ["pjbank", "gruvi", "clube-da-joia-marketplace", "multjet", "mont-ca
 const Box = styled.div`
   .lead { max-width: 40rem; margin: -10px 0 22px; color: var(--muted); line-height: 1.65; }
   .bar { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
-  .hint { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); display: inline-flex; align-items: center; gap: 10px; }
+  .hint { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); display: inline-flex; align-items: center; gap: 10px; }
   .hint i { display: inline-block; width: 22px; height: 12px; border: 1.5px solid var(--accent); border-radius: 99px; position: relative; }
   .hint i::after { content: ""; position: absolute; top: 1.5px; left: 2px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: nudge 1.8s ease-in-out infinite; }
   @keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(8px); } }

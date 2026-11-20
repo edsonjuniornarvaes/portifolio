@@ -10,7 +10,7 @@ const Card = styled.div`
   h3 { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.02em; }
   .sub { margin: 4px 0 18px; color: var(--muted); font-size: 0.9rem; }
   form { display: grid; gap: 14px; }
-  label { display: grid; gap: 6px; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  label { display: grid; gap: 6px; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
   input, textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: color-mix(in srgb, var(--paper) 60%, transparent); color: var(--ink); font: inherit; font-size: 0.97rem; letter-spacing: 0; text-transform: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
   textarea { min-height: 112px; resize: vertical; line-height: 1.5; }
   input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }

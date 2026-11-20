@@ -25,7 +25,7 @@ const Box = styled.div`
   a.logo { width: fit-content; }
   a.logo:hover svg, a.logo:focus-visible svg { transform: translateX(4px); }
   a.logo:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 6px; }
-  .yrs { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+  .yrs { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
   .card p { color: var(--muted); line-height: 1.6; }
   .roles { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
   .roles li { padding: 5px 12px; border: 1px solid var(--line); border-radius: 99px; font-size: 0.84rem; }
