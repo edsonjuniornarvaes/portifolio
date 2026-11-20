@@ -7,7 +7,8 @@ import { play } from "@/lib/sound";
 import { PixelAvatar } from "@/components/ui/avatar";
 
 const Box = styled(motion.div)`
-  position: absolute; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; pointer-events: auto;
+  position: absolute; touch-action: none;
+  @media (pointer: coarse) { touch-action: auto; cursor: default; } user-select: none; -webkit-user-select: none; cursor: grab; pointer-events: auto;
   &:active { cursor: grabbing; }
   .stack { position: relative; }
   .layer { position: absolute; inset: 0; }
@@ -88,6 +89,7 @@ export default function PeelSticker({ children, h, style, rot = 0, label, classN
       role="img"
       aria-label={label}
       onPointerDown={(e) => {
+        if (e.pointerType !== "mouse") return; // no celular os adesivos são só enfeite e deixam a página rolar
         (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
         g.current = { sx: e.clientX, sy: e.clientY, ax: 0, ay: 0, aox: ox.get(), aoy: oy.get(), carried: false };
         setMode("peel");

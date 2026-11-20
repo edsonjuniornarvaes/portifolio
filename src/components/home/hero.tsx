@@ -18,11 +18,11 @@ import { BRAND_ICON } from "@/data/brands";
 const WORKED = [
   { id: "pjbank", name: "Conta Superlógica" },
   { id: "gruvi", name: "Gruvi" },
-  { id: "multjet", name: "MultJet" },
-  { id: "minha-navex", name: "Minha Navex" },
-  { id: "mont-capital", name: "Mont Capital" },
-  { id: "gazin", name: "Grupo Gazin" },
   { id: "clube-da-joia-marketplace", name: "Clube da Joia" },
+  { id: "multjet", name: "MultJet" },
+  { id: "mont-capital", name: "Mont Capital" },
+  { id: "minha-navex", name: "Minha Navex" },
+  { id: "gazin", name: "Grupo Gazin" },
 ];
 
 const Box = styled.section`
@@ -48,7 +48,7 @@ const Box = styled.section`
   .facts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; margin-top: 26px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--muted); }
   .facts span { display: inline-flex; align-items: baseline; gap: 6px; }
   .facts span:not(:last-child)::after { content: ""; width: 4px; height: 4px; margin: 0 14px; border-radius: 50%; background: var(--accent); align-self: center; }
-  @media (max-width: 520px) { .facts { font-size: 0.7rem; letter-spacing: 0.02em; } .facts span:not(:last-child)::after { margin: 0 9px; } .facts b { font-size: 0.95rem; } }
+  @media (max-width: 520px) { .facts { font-size: 0.72rem; letter-spacing: 0.02em; } .facts span:nth-child(3) { display: none; } .facts span:nth-child(2)::after { display: none; } .facts span:not(:last-child)::after { margin: 0 9px; } .facts b { font-size: 0.95rem; } }
   .facts b { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
   .worked { display: flex; align-items: center; gap: 14px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 34rem; }
   .worked small { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
@@ -77,13 +77,18 @@ const Box = styled.section`
   .dock .icons img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .onleft { display: none; }
   @media (max-width: 760px) {
+    min-height: 0;
     .dock { display: none; }
     .onleft { display: block; }
-    .s2 { left: 38%; top: 6%; } .s1 { left: 4%; right: auto; top: 16%; } .s3 { right: 4%; left: auto; top: 18%; } .s4 { left: 12%; top: 54%; } .s5 { left: 52%; top: 62%; }
-    .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: 330px; margin-top: 18px; }
-    min-height: 0;
-    .meta { grid-template-columns: 1fr; gap: 8px; margin-top: 40px; }
-    }
+    .meta { margin-top: 30px; }
+    .worked { margin-top: 20px; padding-top: 18px; max-width: none; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .worked .icons { flex-wrap: wrap; }
+    /* os adesivos viram uma faixa arrumada, no fluxo da página (nada flutuando por cima do texto) */
+    .board { position: relative; top: auto; right: auto; transform: none; width: 100%; height: auto; margin-top: 26px; padding: 18px 8px 4px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 22px; }
+    .board::before { bottom: auto; top: 0; width: 100%; aspect-ratio: 2.2; }
+    .board > [role="img"] { position: relative !important; inset: auto !important; left: auto !important; right: auto !important; top: auto !important; }
+    .s2 { order: 1; } .s3 { order: 2; } .s1 { order: 3; } .s4 { order: 4; } .s5 { order: 5; }
+  }
   @media (prefers-reduced-motion: reduce) { .meta .live i { animation: none; } }
 `;
 
