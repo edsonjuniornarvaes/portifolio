@@ -16,9 +16,9 @@ const Box = styled.div`
   .lead { max-width: 38rem; margin: -10px 0 26px; color: var(--muted); line-height: 1.65; }
   .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
   @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
-  .card { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 30px 30px 26px; border: 1px solid var(--line); border-radius: 20px; background: color-mix(in srgb, var(--card) 80%, transparent); overflow: hidden; transition: transform 0.35s cubic-bezier(.2,.7,.2,1), border-color 0.3s ease; }
+  .card { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 30px 30px 26px; border: 1px solid var(--line); border-radius: 16px; background: color-mix(in srgb, var(--card) 80%, transparent); overflow: hidden; transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s ease; }
   .card::before { content: ""; position: absolute; inset: -40% -20% auto auto; width: 70%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent), transparent 66%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
-  .card:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+  .card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
   .card:hover::before { opacity: 1; }
   .logo { display: flex; align-items: center; min-height: 44px; color: var(--ink); }
   .logo svg { width: auto; transition: transform 0.3s cubic-bezier(.2,.7,.2,1); }

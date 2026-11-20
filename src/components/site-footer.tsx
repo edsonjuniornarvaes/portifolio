@@ -28,8 +28,9 @@ const Foot = styled.footer`
   .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 22px 40px; padding-bottom: 46px; }
   .cta h2 { max-width: 30rem; font-size: clamp(1.8rem, 3.8vw, 2.9rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.06; }
   .cta h2 span { color: var(--accent-ink); }
-  .btn { display: inline-flex; align-items: center; gap: 10px; height: 50px; padding: 0 24px; border-radius: 99px; font-weight: 600; background: var(--accent); color: var(--on-accent); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 24px; border-radius: 99px; font-weight: 600; background: var(--accent); color: var(--on-accent); transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.2s ease; }
   .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -12px var(--accent); }
+  .btn:active { transform: scale(0.97); }
 
   .cols { display: grid; grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 0.8fr)); gap: 40px 36px; padding: 44px 0 40px; border-top: 1px solid var(--line); }
   .cols[data-first] { border-top: 0; padding-top: 8px; }

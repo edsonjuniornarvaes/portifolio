@@ -33,7 +33,7 @@ const Box = styled.div`
   .all:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, transparent); }
   .all b { font-size: 1.7rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.12; }
   .all span { color: var(--muted); }
-  .all em { font-style: normal; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-weight: 600; }
+  .all em { font-style: normal; display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 20px; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-weight: 600; }
 `;
 
 export default function ProjectsSlider() {
