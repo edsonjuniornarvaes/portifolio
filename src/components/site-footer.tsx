@@ -81,7 +81,7 @@ export default function SiteFooter() {
         <div className="cols" data-first={onHome || undefined}>
           <div className="brand">
             <div className="id">
-              <Wordmark size="1.5rem" />
+              <Wordmark size={40} sub={t.nav.logoSub} />
             </div>
             <p>{f.talkText}</p>
             <span className="pill"><i /> {t.hero.status}</span>
