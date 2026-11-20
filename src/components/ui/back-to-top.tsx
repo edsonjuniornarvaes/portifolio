@@ -37,7 +37,7 @@ export default function BackToTop() {
     const f = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
-      setShow(window.scrollY > 520);
+      setShow(max > 0 && max - window.scrollY < 700);
     };
     f();
     window.addEventListener("scroll", f, { passive: true });
