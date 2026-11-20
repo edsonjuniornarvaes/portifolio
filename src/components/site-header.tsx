@@ -19,8 +19,12 @@ const LINKS = [
 
 const Bar = styled.header`
   position: sticky; top: 0; z-index: 50; height: var(--header);
-  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px);
   border-bottom: 1px solid var(--line);
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  &[data-hidden="true"] { transform: translateY(-100%); }
+  @media (prefers-reduced-motion: reduce) { transition: none; }
   .in { position: relative; max-width: var(--wrap); height: 100%; margin: 0 auto; padding: 0 var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
   .brand { order: 1; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; white-space: nowrap; }
   .panel { display: contents; }
@@ -66,10 +70,29 @@ export default function SiteHeader() {
     window.addEventListener("keydown", k);
     return () => window.removeEventListener("keydown", k);
   }, [open]);
+  // some ao rolar para baixo e volta ao rolar para cima (ganha espaço de leitura)
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    let last = window.scrollY, ticking = false;
+    const on = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y < 120) setHidden(false);
+        else if (y > last + 6) setHidden(true);
+        else if (y < last - 6) setHidden(false);
+        last = y;
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
   if (pathname.startsWith("/adminaccess")) return null;
 
   return (
-    <Bar>
+    <Bar data-hidden={hidden && !open}>
       <div className="in">
         <Link href="/home" className="brand" aria-label={t.nav.homeAria}>
           <Wordmark />
