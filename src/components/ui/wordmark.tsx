@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const NAMES = ["Edson Junior", "EJ Sistemas"];
 
-/** Marca do site: uma mini janela retrô (barra com três quadradinhos) com "EJ" e cursor piscando. Usa só as cores do tema. */
+/** Marca do site: "ej" entre chaves de código, com degradê nas cores do tema. */
 export default function Wordmark({ sub, size = 40 }: { sub?: string; size?: number }) {
   const reduce = useReducedMotion();
+  const gid = `wm${useId().replace(/:/g, "")}`;
   const [i, setI] = useState(0);
   useEffect(() => {
     if (reduce) return;
@@ -15,26 +16,18 @@ export default function Wordmark({ sub, size = 40 }: { sub?: string; size?: numb
     return () => clearInterval(id);
   }, [reduce]);
   const name = NAMES[i % NAMES.length];
-  const w = Math.round(size * 1.12);
-  const bar = Math.round(size * 0.28);
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: 12, whiteSpace: "nowrap" }}>
-      <span
-        aria-hidden
-        style={{ position: "relative", display: "block", width: w, height: size, borderRadius: 7, overflow: "hidden", border: "1.5px solid var(--accent-ink)", background: "var(--paper)", flex: "none", boxShadow: "3px 3px 0 color-mix(in srgb, var(--accent-ink) 35%, transparent)" }}
-      >
-        <span style={{ position: "absolute", left: 0, right: 0, top: 0, height: bar, display: "flex", alignItems: "center", gap: 3, padding: "0 5px", background: "linear-gradient(90deg, var(--accent), var(--accent-2))" }}>
-          {[0, 1, 2].map((k) => <i key={k} style={{ width: 4, height: 4, border: "1px solid var(--paper)", display: "block" }} />)}
-        </span>
-        <span style={{ position: "absolute", left: 0, right: 0, top: bar, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-mono)", fontWeight: 800, fontSize: size * 0.34, letterSpacing: "-0.04em", color: "var(--accent-ink)" }}>
-          EJ
-          <motion.i
-            style={{ display: "inline-block", width: size * 0.17, height: 2, marginLeft: 2, marginTop: size * 0.2, background: "var(--accent-ink)" }}
-            animate={reduce ? undefined : { opacity: [1, 1, 0, 0] }}
-            transition={{ duration: 1.1, repeat: Infinity, times: [0, 0.5, 0.5, 1] }}
-          />
-        </span>
-      </span>
+      <svg aria-hidden width={size} height={size} viewBox="0 0 48 48" fill="none" style={{ flex: "none", overflow: "visible" }}>
+        <defs>
+          <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="var(--accent)" />
+            <stop offset="1" stopColor="var(--accent-2)" />
+          </linearGradient>
+        </defs>
+        <path d="M17 8c-5 0-6 2-6 6v5c0 3-2 5-4 5 2 0 4 2 4 5v5c0 4 1 6 6 6M31 8c5 0 6 2 6 6v5c0 3 2 5 4 5-2 0-4 2-4 5v5c0 4-1 6-6 6" stroke={`url(#${gid})`} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        <text x="24" y="30" textAnchor="middle" style={{ fontFamily: "var(--font-mono)", fontWeight: 800, fontSize: 17, letterSpacing: -1.5 }} fill="var(--accent-ink)">ej</text>
+      </svg>
       <span style={{ display: "grid", lineHeight: 1.1 }}>
         <span style={{ display: "block", height: "1.2em", overflow: "hidden" }}>
           <AnimatePresence mode="wait" initial={false}>

@@ -337,10 +337,15 @@ p, li { text-wrap: pretty; }
 .skip-link:focus { top: 12px; outline: 2px solid var(--ink); outline-offset: 2px; }
 main:focus { outline: none; }
 
-/* código que passa pelas margens laterais ao rolar (decorativo; só aparece onde há margem livre) */
-.scroll-code { --g: 0.2; position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); }
-.scroll-code pre { position: absolute; top: 0; margin: 0; width: calc((100vw - var(--wrap)) / 2 - 14px); overflow: hidden; font-family: var(--font-mono); font-size: 0.78rem; line-height: 2; white-space: pre; color: var(--accent-ink); opacity: var(--g); will-change: transform; }
-.scroll-code .l { left: 8px; }
-.scroll-code .r { right: 8px; }
-@media (max-width: 1400px) { .scroll-code { display: none; } }
+/* código JavaScript que passa pelas laterais ao rolar e some suavemente em direção ao conteúdo (decorativo) */
+.scroll-code { --g: 0.17; position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); }
+.scroll-code pre { position: absolute; top: 0; margin: 0; width: calc((100vw - var(--wrap)) / 2 + 60px); overflow: hidden; font-family: var(--font-mono); font-size: 0.78rem; line-height: 2; white-space: pre; color: var(--muted); opacity: var(--g); will-change: transform; }
+.scroll-code pre i { font-style: normal; }
+.scroll-code .ln { display: block; height: 2em; }
+.scroll-code .k { color: var(--accent-ink); }
+.scroll-code .s { color: var(--lilac); }
+.scroll-code .c { color: var(--muted); opacity: 0.7; }
+.scroll-code .l { left: 10px; -webkit-mask-image: linear-gradient(to right, #000 38%, transparent); mask-image: linear-gradient(to right, #000 38%, transparent); }
+.scroll-code .r { right: 10px; text-align: right; -webkit-mask-image: linear-gradient(to left, #000 38%, transparent); mask-image: linear-gradient(to left, #000 38%, transparent); }
+@media (max-width: 1359px) { .scroll-code { display: none; } }
 @media (prefers-reduced-motion: reduce) { .scroll-code { display: none; } }
