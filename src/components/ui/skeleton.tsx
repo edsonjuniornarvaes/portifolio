@@ -21,18 +21,23 @@ const Stack = styled.div`
   @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
 `;
 
-/** Esqueleto de uma página com título, linha de apoio e lista de itens. */
+/** Esqueleto da lista de artigos: título, busca, ano e linhas com título, data e resumo. */
 export function ListSkeleton({ rows = 5 }: { rows?: number }) {
   return (
     <Wrap>
       <Page aria-busy="true" aria-label="Carregando">
-        <Sk $w="min(420px, 70%)" $h="clamp(2.4rem, 6vw, 4rem)" $r="12px" />
-        <Sk $w="min(560px, 90%)" $h="1.1em" style={{ marginTop: 22 }} />
-        <Stack>
+        <Sk $w="min(360px, 70%)" $h="clamp(2.6rem, 6.4vw, 4.4rem)" $r="12px" />
+        <Sk $w="min(540px, 90%)" $h="1.1em" style={{ marginTop: 22 }} />
+        <Sk $w="min(460px, 100%)" $h="50px" $r="99px" style={{ marginTop: 38 }} />
+        <Sk $w="46px" $h="0.8em" style={{ marginTop: 40 }} />
+        <Stack style={{ marginTop: 14, gap: 0, borderTop: "1px solid var(--line)" }}>
           {Array.from({ length: rows }, (_, i) => (
-            <div className="row" key={i}>
-              <Sk $w={`${60 + ((i * 13) % 30)}%`} $h="1.6rem" />
-              <Sk $w="85%" $h="0.9em" />
+            <div className="row" key={i} style={{ gap: 12, padding: "26px 0" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 24, alignItems: "center" }}>
+                <Sk $w={`${52 + ((i * 17) % 34)}%`} $h="clamp(1.5rem, 3vw, 2.1rem)" />
+                <Sk $w="54px" $h="0.8em" />
+              </div>
+              <Sk $w={`${70 + ((i * 7) % 24)}%`} $h="0.95em" />
             </div>
           ))}
         </Stack>
@@ -41,21 +46,31 @@ export function ListSkeleton({ rows = 5 }: { rows?: number }) {
   );
 }
 
-/** Esqueleto de uma grade de cartões (projetos). */
+/** Esqueleto da grade de projetos: título, abas e cartões com imagem, selo, título e texto. */
 export function GridSkeleton({ cards = 6 }: { cards?: number }) {
   return (
     <Wrap>
       <Page aria-busy="true" aria-label="Carregando">
-        <Sk $w="min(360px, 70%)" $h="clamp(2.4rem, 6vw, 4rem)" $r="12px" />
-        <Sk $w="min(520px, 90%)" $h="1.1em" style={{ marginTop: 22 }} />
+        <Sk $w="min(420px, 70%)" $h="clamp(2.6rem, 6.4vw, 4.4rem)" $r="12px" />
+        <Sk $w="min(560px, 90%)" $h="1.1em" style={{ marginTop: 22 }} />
+        <div style={{ display: "flex", gap: 8, marginTop: 40, flexWrap: "wrap" }}>
+          {[96, 112, 92, 138].map((w, i) => <Sk key={i} $w={`${w}px`} $h="42px" $r="99px" />)}
+        </div>
         <Stack>
-          <div className="grid">
+          <div className="grid" style={{ marginTop: 14 }}>
             {Array.from({ length: cards }, (_, i) => (
-              <div className="card" key={i}>
-                <Sk $h="clamp(150px, 16vw, 220px)" $r="12px" />
-                <Sk $w="40%" $h="0.8em" />
-                <Sk $w="70%" $h="1.4rem" />
-                <Sk $w="95%" $h="0.9em" />
+              <div className="card" key={i} style={{ padding: 0, overflow: "hidden", gap: 0 }}>
+                <Sk $h="clamp(170px, 17vw, 230px)" $r="0" />
+                <div style={{ display: "grid", gap: 12, padding: "18px 20px 22px" }}>
+                  <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                    <Sk $w="74px" $h="0.8em" />
+                    <Sk $w="40px" $h="0.8em" />
+                    <Sk $w="52px" $h="0.8em" />
+                  </div>
+                  <Sk $w={`${50 + ((i * 13) % 30)}%`} $h="1.5rem" />
+                  <Sk $w="92%" $h="0.9em" />
+                  <Sk $w="64%" $h="0.9em" />
+                </div>
               </div>
             ))}
           </div>
@@ -65,17 +80,22 @@ export function GridSkeleton({ cards = 6 }: { cards?: number }) {
   );
 }
 
-/** Esqueleto de uma página de texto (artigo ou projeto): título, dados e parágrafos. */
+/** Esqueleto de uma página de texto (artigo ou projeto): voltar, título, dados, imagem e parágrafos. */
 export function ArticleSkeleton() {
   return (
     <Wrap>
       <Page aria-busy="true" aria-label="Carregando">
-        <Sk $w="120px" $h="0.9em" />
-        <Sk $w="min(640px, 90%)" $h="clamp(2.6rem, 7vw, 4.6rem)" $r="12px" style={{ marginTop: 22 }} />
-        <Sk $w="min(520px, 80%)" $h="1.1em" style={{ marginTop: 20 }} />
-        <Sk $h="clamp(180px, 30vw, 340px)" $r="16px" style={{ marginTop: 36 }} />
+        <Sk $w="150px" $h="0.9em" />
+        <Sk $w="min(680px, 92%)" $h="clamp(2.8rem, 7.4vw, 5rem)" $r="12px" style={{ marginTop: 26 }} />
+        <Sk $w="min(520px, 80%)" $h="1.15em" style={{ marginTop: 22 }} />
+        <div style={{ display: "flex", gap: 40, marginTop: 34, paddingTop: 22, borderTop: "1px solid var(--line)" }}>
+          {[0, 1, 2].map((i) => (
+            <div key={i} style={{ display: "grid", gap: 10 }}><Sk $w="56px" $h="0.7em" /><Sk $w="96px" $h="1em" /></div>
+          ))}
+        </div>
+        <Sk $h="clamp(220px, 34vw, 400px)" $r="16px" style={{ marginTop: 40 }} />
         <Stack>
-          {[92, 100, 88, 96, 60].map((w, i) => <Sk key={i} $w={`${w}%`} $h="1em" />)}
+          {[94, 100, 88, 97, 62].map((w, i) => <Sk key={i} $w={`${w}%`} $h="1em" />)}
         </Stack>
       </Page>
     </Wrap>

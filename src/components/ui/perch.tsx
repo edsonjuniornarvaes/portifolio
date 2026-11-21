@@ -2,15 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import { animate, motion, useMotionValue, useReducedMotion } from "framer-motion";
-import { play } from "@/lib/sound";
 
-const W = 21, H = 14;
+const W = 18, H = 18;
 /** Onde ele gosta de pousar: títulos, botões e o que estiver marcado com `data-perch`. */
 const SPOTS = "[data-perch], .btn, section h2, .roles li, .tags li, footer h4";
 
 /**
- * Passarinho bem pequeno que, de vez em quando, voa e pousa em alguma coisa visível da tela
- * (títulos, botões, links do topo). Só faz barulho quando voa, e bem baixinho. Só em telas com mouse.
+ * Xicarazinha de café que, de vez em quando, pula e pousa em alguma coisa visível da tela
+ * (títulos, botões, links do topo). Silenciosa. Só em telas com mouse.
  */
 export default function Perch() {
   const x = useMotionValue(-60), y = useMotionValue(-60), flip = useMotionValue(1), tilt = useMotionValue(0);
@@ -39,7 +38,7 @@ export default function Perch() {
       return list.length ? list[Math.floor(Math.random() * list.length)] : null;
     };
 
-    const fly = async (el: HTMLElement, quiet = false) => {
+    const fly = async (el: HTMLElement) => {
       if (flying.current) return;
       flying.current = true;
       const { px, py } = spot(el);
@@ -48,7 +47,6 @@ export default function Perch() {
       target.current = el;
       if (first) { x.set(px); y.set(py - 120); }
       const dist = Math.hypot(px - fromX, py - fromY);
-      if (!first && !quiet && dist > 90) play("chirp", Math.floor(Math.random() * 4), 0.25);
       flip.set(px >= x.get() ? 1 : -1);
       const dur = first ? 0.9 : Math.min(1.1, 0.45 + dist / 1400);
       tilt.set(px >= x.get() ? 14 : -14);
@@ -68,7 +66,7 @@ export default function Perch() {
       }, 9000 + Math.random() * 8000);
     };
     // chega logo no começo, sem barulho
-    const start = setTimeout(() => { const el = pick(); if (el) void fly(el, true); next(); }, 1800);
+    const start = setTimeout(() => { const el = pick(); if (el) void fly(el); next(); }, 1800);
 
     // acompanha o elemento ao rolar; se ele sair da tela, escolhe outro lugar quando a rolagem parar
     const follow = () => {
@@ -92,13 +90,13 @@ export default function Perch() {
 
   return (
     <motion.div aria-hidden style={{ position: "fixed", left: 0, top: 0, x, y, rotate: tilt, scaleX: flip, zIndex: 45, pointerEvents: "none", display: "var(--perch-display, block)", opacity: 0.95 }}>
-      <svg width={W} height={H} viewBox="0 0 46 30">
-        {/* corpo esguio, cabeça pequena, rabinho para trás */}
-        <path d="M9 14c1-6 7-9 14-8 8 1 13 5 21 3-2 6-8 8-12 9-6 2-9 6-16 6-5 0-7-4-7-10Z" fill="var(--accent)" />
-        <path d="M20 12c6-1 11 1 15 4-4 3-9 4-14 3 1-2 0-5-1-7Z" fill="var(--accent-2)" />
-        <circle cx="13" cy="11" r="2" fill="#fff" /><circle cx="13.3" cy="11" r="0.95" fill="#04130d" />
-        <path d="M8 12 3 13.6l5 1.4Z" fill="#ffcb6b" />
-        <path d="M21 25.5v3M26 25.5v3" stroke="#ffcb6b" strokeWidth="1.7" strokeLinecap="round" />
+      <svg width={W} height={H} viewBox="0 0 24 24" fill="none">
+        {/* xícara de café com fumacinha */}
+        <path d="M8 5c-1.4-1.2 1.4-2 0-3.4M12 5c-1.4-1.2 1.4-2 0-3.4M16 5c-1.4-1.2 1.4-2 0-3.4" stroke="var(--accent-ink)" strokeWidth="1.2" strokeLinecap="round" opacity="0.8"><animate attributeName="opacity" values="0.25;0.9;0.25" dur="2.4s" repeatCount="indefinite" /></path>
+        <path d="M4 9h13v5.5a5.5 5.5 0 0 1-5.5 5.5h-2A5.5 5.5 0 0 1 4 14.5Z" fill="var(--accent)" />
+        <path d="M17 11h1.6a2.4 2.4 0 0 1 0 4.8H16.6" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M6.5 11.5h8" stroke="#04130d" strokeOpacity="0.35" strokeWidth="1.4" strokeLinecap="round" />
+        <rect x="2.5" y="20.6" width="16" height="1.8" rx="0.9" fill="var(--accent-2)" />
       </svg>
     </motion.div>
   );

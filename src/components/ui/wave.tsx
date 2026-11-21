@@ -7,7 +7,7 @@ const Box = styled.div`
   svg { display: block; width: 100%; height: 64px; }
 `;
 
-/** Divisor ondulado retrô: linha em degradê menta, ciano e lilás. */
+/** Divisor ondulado suave: linha em degradê menta, ciano e lilás. */
 export default function Wave({ id = "w" }: { id?: string }) {
   return (
     <Box aria-hidden>
@@ -17,7 +17,7 @@ export default function Wave({ id = "w" }: { id?: string }) {
             <stop offset="0" style={{ stopColor: "var(--lilac)" }} /><stop offset="0.35" style={{ stopColor: "var(--accent)" }} /><stop offset="0.7" style={{ stopColor: "var(--accent-2)" }} /><stop offset="1" style={{ stopColor: "var(--lilac)" }} />
           </linearGradient>
         </defs>
-        <path d="M0 40 C 120 8, 240 8, 360 32 S 600 62, 720 36 S 960 6, 1080 30 S 1320 58, 1440 28" fill="none" stroke={`url(#wv-${id})`} strokeWidth="3" vectorEffect="non-scaling-stroke" />
+        <path d="M0 40 C 120 8, 240 8, 360 32 S 600 62, 720 36 S 960 6, 1080 30 S 1320 58, 1440 28" fill="none" stroke={`url(#wv-${id})`} strokeWidth="2" opacity="0.5" vectorEffect="non-scaling-stroke" />
       </svg>
     </Box>
   );
