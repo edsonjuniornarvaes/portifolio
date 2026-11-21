@@ -23,14 +23,14 @@ const Bar = styled.div`
   .play svg { width: 18px; height: 18px; }
   .txt, .open { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transition: max-width 0.35s ease, opacity 0.25s ease, margin 0.3s ease; }
   &:hover, &:focus-within { gap: 10px; padding-right: 8px; }
-  &:hover .txt, &:focus-within .txt { max-width: 15rem; opacity: 1; margin-left: 2px; }
+  &:hover .txt, &:focus-within .txt { max-width: 21rem; opacity: 1; margin-left: 2px; }
   &:hover .open, &:focus-within .open { max-width: 40px; opacity: 1; }
   .txt b { display: block; font-size: 0.88rem; font-weight: 600; line-height: 1.2; }
   .txt small { display: block; font-size: 0.7rem; color: var(--muted); }
-  .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; margin-right: 4px; }
+  .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 10px; margin-right: 6px; vertical-align: -1px; }
   .eq i { width: 3px; height: 4px; border-radius: 1px; background: var(--accent); }
   .on .eq i { animation: eq 0.9s ease-in-out infinite; } .eq i:nth-child(2) { animation-delay: -0.3s; } .eq i:nth-child(3) { animation-delay: -0.6s; }
-  @keyframes eq { 0%, 100% { height: 4px; } 50% { height: 14px; } }
+  @keyframes eq { 0%, 100% { height: 3px; } 50% { height: 10px; } }
   /* ondinhas ao redor do botão enquanto toca */
   &.on .play::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--accent); opacity: 0; animation: ring 1.8s ease-out infinite; }
   @keyframes ring { 0% { transform: scale(0.85); opacity: 0.6; } 100% { transform: scale(1.35); opacity: 0; } }
@@ -107,7 +107,7 @@ export default function SpotifyDock() {
         <button type="button" className="play" onClick={toggle} aria-label={playing ? s.pause : s.play} title={playing ? s.pause : s.play}>
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden>{playing ? <path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z" /> : <path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2Z" />}</svg>
         </button>
-        <span className="txt"><b><span className="eq" aria-hidden><i /><i /><i /></span>{s.title}</b><small>{asked && !ready ? s.loading : s.hint}</small></span>
+        <span className="txt"><b>{s.title}</b><small>{playing ? <span className="eq" aria-hidden><i /><i /><i /></span> : null}{asked && !ready ? s.loading : playing ? s.nowPlaying : s.hint}</small></span>
         <button type="button" className="open" onClick={expand} aria-expanded={open} aria-label={open ? s.close : s.open} title={open ? s.close : s.open}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
         </button>

@@ -14,11 +14,11 @@ export const SHOWCASE: Showcase[] = [
   { id: "mont-capital", year: "2021 a 2024", screen: `${P}mont-home-alt.webp` },
   { id: "minha-navex", year: "2021 a 2023", screen: `${P}navex-home-new.webp` },
   { id: "gazin", year: "2022 a 2023" },
-  { id: "erp-sistemas", year: "2020 a 2023" },
-  // por enquanto os projetos próprios ficam por último
+  // projetos próprios logo depois do Grupo Gazin
   { id: "clube-da-joia-marketplace", year: "2026" },
   { id: "multjet", year: "2026" },
   { id: "clube-da-joia-app", year: "2026", screen: `${P}clube-app-home.webp` },
+  { id: "erp-sistemas", year: "2020 a 2023" },
 ];
 
 /** Telas que se revezam no celular do início. */
