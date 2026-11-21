@@ -11,8 +11,16 @@ import { Sk } from "@/components/ui/skeleton";
 type Post = { id: string; slug: string; title: string; excerpt: string | null; cover_image_url: string | null; created_at: string };
 
 const List = styled.div`
-  .search { margin: 40px 0 6px; display: block; width: 100%; max-width: 420px; padding: 12px 2px; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--ink); font: inherit; font-size: 1rem; }
-  .search:focus { outline: none; border-color: var(--accent); }
+  .sbox { position: relative; margin: 36px 0 4px; max-width: 460px; }
+  .sbox svg { position: absolute; left: 16px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: var(--muted); pointer-events: none; transition: color 0.2s ease; }
+  .search { display: block; width: 100%; height: 50px; padding: 0 44px 0 46px; border: 1px solid var(--line); border-radius: 99px; background: color-mix(in srgb, var(--card) 70%, transparent); color: var(--ink); font: inherit; font-size: 0.98rem; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+  .search::placeholder { color: var(--muted); }
+  .search:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent); }
+  .search::-webkit-search-cancel-button { display: none; }
+  .sbox:focus-within svg { color: var(--accent-ink); }
+  .clear { position: absolute; right: 8px; top: 50%; width: 34px; height: 34px; transform: translateY(-50%); display: grid; place-items: center; border: 0; border-radius: 50%; background: none; color: var(--muted); cursor: pointer; font-size: 1.1rem; }
+  .clear:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 8%, transparent); }
+  .count { margin: 12px 4px 0; font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
   .year { font-family: var(--font-mono); font-size: 0.76rem; color: var(--accent-ink); margin: 40px 0 10px; }
   ul { list-style: none; border-top: 1px solid var(--line); }
   li { border-bottom: 1px solid var(--line); }
@@ -56,11 +64,15 @@ export default function BlogPage() {
         <Lead>{t.blogPage.lead}</Lead>
         <List>
           {posts === null ? (
-            <div aria-busy="true" aria-label={t.blogPage.loading} style={{ marginTop: 40, display: "grid", gap: 0 }}>
+            <div aria-busy="true" aria-label={t.blogPage.loading} style={{ marginTop: 0, display: "grid", gap: 0 }}>
+              <Sk $w="min(460px, 100%)" $h="50px" $r="99px" style={{ marginBottom: 40 }} />
               {[0, 1, 2, 3, 4].map((i) => (
-                <div key={i} style={{ display: "grid", gap: 10, padding: "24px 0", borderTop: "1px solid var(--line)" }}>
-                  <Sk $w={`${58 + ((i * 11) % 30)}%`} $h="1.8rem" />
-                  <Sk $w="82%" $h="0.9em" />
+                <div key={i} style={{ display: "grid", gap: 12, padding: "26px 0", borderTop: "1px solid var(--line)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 24, alignItems: "center" }}>
+                    <Sk $w={`${52 + ((i * 17) % 34)}%`} $h="clamp(1.5rem, 3vw, 2.1rem)" />
+                    <Sk $w="54px" $h="0.8em" />
+                  </div>
+                  <Sk $w={`${70 + ((i * 7) % 24)}%`} $h="0.95em" />
                 </div>
               ))}
             </div>
@@ -68,7 +80,12 @@ export default function BlogPage() {
             <p className="empty">{t.blogPage.empty}</p>
           ) : (
             <>
-              <input className="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t.blogPage.search} aria-label={t.blogPage.searchAria} />
+              <div className="sbox">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+                <input className="search" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t.blogPage.search} aria-label={t.blogPage.searchAria} />
+                {q && <button type="button" className="clear" onClick={() => setQ("")} aria-label="Limpar busca">×</button>}
+              </div>
+              {q && <p className="count" aria-live="polite">{groups.reduce((n, [, i]) => n + i.length, 0)} / {posts.length}</p>}
               {groups.length === 0 && <p className="empty">{t.blogPage.none}</p>}
               {groups.map(([year, items]) => (
                 <section key={year}>

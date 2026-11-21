@@ -30,7 +30,8 @@ const Box = styled.section`
   .spot { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), color-mix(in srgb, var(--accent) 13%, transparent), transparent 62%); }
   .content { position: relative; z-index: 2; max-width: 680px; }
   .kicker { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-  .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .kicker i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
+  .kicker em { font-style: normal; color: var(--accent-ink); }
   @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ping, var(--accent)) 60%, transparent); } 80%, 100% { box-shadow: 0 0 0 9px transparent; } }
   h1 { margin-top: 22px; font-size: clamp(2.9rem, 7.2vw, 6rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.055em; }
   h1 { cursor: default; }
@@ -44,12 +45,11 @@ const Box = styled.section`
   .btn.p:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--accent-2); }
   .btn.g { border: 1px solid var(--line); }
   .btn.g:hover { border-color: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
-  .meta { display: flex; flex-wrap: wrap; gap: 8px 40px; margin-top: 44px; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-  .facts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; margin-top: 26px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--muted); }
+  .facts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; margin-top: 30px; font-family: var(--font-mono); font-size: 0.92rem; letter-spacing: 0.02em; color: var(--muted); }
   .facts span { display: inline-flex; align-items: baseline; gap: 6px; }
-  .facts span:not(:last-child)::after { content: ""; width: 4px; height: 4px; margin: 0 14px; border-radius: 50%; background: var(--accent); align-self: center; }
+  .facts span:not(:last-child)::after { content: ""; width: 4px; height: 4px; margin: 0 18px; border-radius: 50%; background: var(--accent); align-self: center; }
   @media (max-width: 520px) { .facts { font-size: 0.72rem; letter-spacing: 0.02em; } .facts span:nth-child(3) { display: none; } .facts span:nth-child(2)::after { display: none; } .facts span:not(:last-child)::after { margin: 0 9px; } .facts b { font-size: 0.95rem; } }
-  .facts b { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+  .facts b { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
   .worked { display: flex; align-items: center; gap: 14px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 34rem; }
   .worked small { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
   .worked .icons { display: flex; gap: 8px; }
@@ -57,9 +57,6 @@ const Box = styled.section`
   .worked a:hover { transform: translateY(-4px); opacity: 1; border-color: var(--accent); }
   .worked img { width: 100%; height: 100%; object-fit: cover; display: block; }
   @media (pointer: coarse) { .worked a { width: 44px; height: 44px; } .worked .icons { gap: 10px; } }
-  .meta .live { display: inline-flex; align-items: center; gap: 10px; }
-  .meta .live i { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; animation: ping 2.2s ease-out infinite; --ping: #3ddc84; }
-  .meta b { color: var(--ink); font-weight: 500; }
 
   .board { position: absolute; top: 50%; height: min(430px, 52%); transform: translateY(-50%); margin-top: -20px; right: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter))); width: min(46vw, 560px); z-index: 3; pointer-events: none; }
   .board::before { content: ""; position: absolute; left: 50%; bottom: 8%; width: 86%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 17%, transparent), transparent 66%); }
@@ -73,8 +70,7 @@ const Box = styled.section`
   @media (max-width: 760px) {
     min-height: 0;
       .onleft { display: block; }
-    .meta { margin-top: 30px; }
-    .worked { margin-top: 20px; padding-top: 18px; max-width: none; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .worked { margin-top: 20px; padding-top: 18px; max-width: none; flex-direction: column; align-items: flex-start; gap: 12px; }
     .worked .icons { flex-wrap: wrap; }
     /* no celular um adesivo por vez fica ao lado do nome, no canto de cima */
     .board { position: absolute; top: 40px; right: 6px; left: auto; transform: none; width: 150px; height: 170px; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; }
@@ -84,7 +80,7 @@ const Box = styled.section`
     .board > .on { animation: pop 0.35s cubic-bezier(0.23, 1, 0.32, 1); }
     @keyframes pop { from { opacity: 0; } to { opacity: 1; } }
   }
-  @media (prefers-reduced-motion: reduce) { .meta .live i { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .kicker i { animation: none; } }
 `;
 
 export default function Hero() {
@@ -124,7 +120,7 @@ export default function Hero() {
       <CodeBackdrop />
       <Wrap style={{ width: "100%", position: "relative" }}>
         <div className="content">
-          <div className="kicker"><i /> {h.kicker}</div>
+          <div className="kicker"><i /> <span>{h.kicker}<em> · {h.status}</em></span></div>
           <h1 aria-label="Edson Junior" onClick={() => setAgain((n) => n + 1)} title="↻">
             <span><Letters text="Edson" delay={0.1} /></span>
             <span className="jr" aria-hidden>
@@ -144,9 +140,6 @@ export default function Hero() {
             <span>{h.stats.fronts}</span>
           </p>
           <div className="onleft">
-            <div className="meta">
-              <span className="live"><i /> {h.status}</span>
-            </div>
             <div className="worked">
               <small>{h.worked}</small>
               <div className="icons">

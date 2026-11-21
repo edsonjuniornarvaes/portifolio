@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import MatrixRain from "@/components/ui/matrix-rain";
 
 const LINES = [
   "const app = createApp({ platforms: ['ios', 'android', 'web'] });",
@@ -33,9 +34,9 @@ const Box = styled.div`
   -webkit-mask-image: radial-gradient(ellipse 90% 85% at 55% 45%, #000 30%, transparent 100%);
   mask-image: radial-gradient(ellipse 90% 85% at 55% 45%, #000 30%, transparent 100%);
   font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-ink);
-  .layer { position: absolute; inset: 0; opacity: 0; animation: cycle 36s ease-in-out infinite; }
-  .a { animation-delay: 0s; } .b { animation-delay: 12s; } .c { animation-delay: 24s; }
-  @keyframes cycle { 0% { opacity: 0; } 8% { opacity: 1; } 29% { opacity: 1; } 37% { opacity: 0; } 100% { opacity: 0; } }
+  .layer { position: absolute; inset: 0; opacity: 0; animation: cycle 48s ease-in-out infinite; }
+  .a { animation-delay: 0s; } .b { animation-delay: 12s; } .c { animation-delay: 24s; } .d { animation-delay: 36s; }
+  @keyframes cycle { 0% { opacity: 0; } 6% { opacity: 1; } 19% { opacity: 1; } 27% { opacity: 0; } 100% { opacity: 0; } }
   /* A: linhas de código subindo bem devagar */
   .a pre { position: absolute; left: 6%; top: 0; margin: 0; line-height: 2.1; white-space: pre; opacity: 0.055; animation: drift 90s linear infinite; }
   .a pre + pre { left: auto; right: 4%; animation-duration: 120s; }
@@ -55,8 +56,8 @@ const Box = styled.div`
 const block = [...LINES, "", ...LINES].join("\n");
 
 /**
- * Fundo da capa feito de código, bem suave: três efeitos (linhas subindo, símbolos flutuando e um terminal
- * passando) se revezam a cada ~12 s com transição de opacidade. Decorativo; só o primeiro aparece com "reduzir movimento".
+ * Fundo da capa feito de código, bem suave: quatro efeitos (linhas subindo, símbolos flutuando, um terminal
+ * passando e a chuva de código antiga) se revezam a cada ~12 s com transição de opacidade. Decorativo; só o primeiro aparece com "reduzir movimento".
  */
 export default function CodeBackdrop() {
   return (
@@ -81,6 +82,7 @@ export default function CodeBackdrop() {
           </div>
         ))}
       </div>
+      <div className="layer d"><MatrixRain /></div>
     </Box>
   );
 }

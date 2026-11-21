@@ -42,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const m = ui[await getLang()].meta;
   return {
     metadataBase: new URL(siteUrl),
-    title: { default: m.title, template: "%s | Edson Junior" },
+    title: { default: m.title, template: "%s | EJ Sistemas" },
     description: m.description,
     keywords: ["React Native", "Next.js", "TypeScript", "Desenvolvedor Web", "Desenvolvedor Mobile", "iOS", "Android", "Portfólio"],
     authors: [{ name: "Edson Junior" }],

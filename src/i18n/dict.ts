@@ -2,9 +2,9 @@ import type { Lang } from "./config";
 
 const pt = {
   meta: {
-    title: "Edson Junior | Aplicativos e sites",
+    title: "EJ Sistemas | Aplicativos e sites",
     description: "Edson Junior cria aplicativos de celular e sites para empresas, de bancos digitais a lojas online. Veja alguns trabalhos no ar.",
-    ogTitle: "Edson Junior | Aplicativos e sites",
+    ogTitle: "EJ Sistemas | Aplicativos e sites",
     ogDescription: "Aplicativos de celular e sites para empresas.",
     jobTitle: "Desenvolvedor Mobile e Web",
     ogLocale: "pt_BR",
@@ -150,7 +150,7 @@ const pt = {
     lead: "Textos sobre aplicativos, tecnologia e o que aprendo no dia a dia.",
     loading: "Carregando…",
     empty: "Em breve, os primeiros textos por aqui.",
-    search: "buscar artigos…",
+    search: "Buscar artigos",
     searchAria: "Buscar artigos",
     none: "Nada encontrado.",
   },
@@ -174,9 +174,9 @@ export type Dict = typeof pt;
 
 const en: Dict = {
   meta: {
-    title: "Edson Junior | Apps and websites",
+    title: "EJ Sistemas | Apps and websites",
     description: "Edson Junior creates mobile apps and websites for companies, from digital banks to online stores. See some live work.",
-    ogTitle: "Edson Junior | Apps and websites",
+    ogTitle: "EJ Sistemas | Apps and websites",
     ogDescription: "Mobile apps and websites for companies.",
     jobTitle: "Mobile & Web Developer",
     ogLocale: "en_US",
@@ -322,7 +322,7 @@ const en: Dict = {
     lead: "Texts about apps, technology and what I learn day to day.",
     loading: "Loading…",
     empty: "The first articles are coming soon.",
-    search: "search articles…",
+    search: "Search articles",
     searchAria: "Search articles",
     none: "Nothing found.",
   },
