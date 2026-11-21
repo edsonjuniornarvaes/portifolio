@@ -93,7 +93,7 @@ const pt = {
   },
   sound: { on: "Ligar sons", off: "Desligar sons" },
   instagram: { label: "Instagram", text: "A rotina de um dev: código, café, bastidores e o que estou construindo.", follow: "Seguir @edsonjunior.dev", openPost: "Abrir post no Instagram" },
-  spotify: { title: "Lofi para codar", hint: "Dê o play e continue navegando.", loading: "Carregando o Spotify…", play: "Tocar", pause: "Pausar", open: "Abrir o player para trocar de música", close: "Fechar o player" },
+  spotify: { title: "Trilha para codar", hint: "Lo-fi no Spotify. Dê o play e continue navegando.", nowPlaying: "Tocando lo-fi no Spotify", loading: "Carregando o Spotify…", play: "Tocar", pause: "Pausar", open: "Abrir o player para trocar de música", close: "Fechar o player" },
   radar: { title: "Coloque a sua empresa no radar.", text: "Faço sites, páginas de venda, marketplaces e aplicativos para empresas. Conte a sua ideia: eu desenho, construo e coloco no ar, já pronto para vender.", items: ["Site institucional", "Página de vendas", "Loja e marketplace", "Aplicativo iOS e Android"], cta: "Enviar e-mail", subject: "Quero um projeto" },
   cord: "Corda: puxe e solte para trocar a cor do site",
   lab: {
@@ -265,7 +265,7 @@ const en: Dict = {
   },
   sound: { on: "Turn sound on", off: "Turn sound off" },
   instagram: { label: "Instagram", text: "A dev routine: code, coffee, behind the scenes and what I am building.", follow: "Follow @edsonjunior.dev", openPost: "Open post on Instagram" },
-  spotify: { title: "Lofi to code", hint: "Hit play and keep browsing.", loading: "Loading Spotify…", play: "Play", pause: "Pause", open: "Open the player to change songs", close: "Close the player" },
+  spotify: { title: "Coding soundtrack", hint: "Lo-fi on Spotify. Hit play and keep browsing.", nowPlaying: "Playing lo-fi on Spotify", loading: "Loading Spotify…", play: "Play", pause: "Pause", open: "Open the player to change songs", close: "Close the player" },
   radar: { title: "Put your business on the radar.", text: "I build websites, sales pages, marketplaces and apps for companies. Tell me your idea: I design it, build it and launch it, ready to sell.", items: ["Company website", "Sales page", "Store and marketplace", "iOS and Android app"], cta: "Let's talk", subject: "I want a project" },
   cord: "Cord: pull and release to change the site color",
   lab: {
