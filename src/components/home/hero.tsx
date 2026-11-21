@@ -8,7 +8,7 @@ import { Wrap } from "@/components/ui/layout";
 import { useEffect, useRef, useState } from "react";
 import Letters from "@/components/ui/letters";
 import DecodeLines from "@/components/ui/decode-lines";
-import MatrixRain from "@/components/ui/matrix-rain";
+import CodeBackdrop from "@/components/ui/code-backdrop";
 import IDot from "@/components/ui/i-dot-machine";
 import PeelSticker, { AvatarSticker, ClockSticker, LaptopSticker, MugSticker, PhoneSticker } from "@/components/ui/peel-sticker";
 import { useLang } from "@/i18n/provider";
@@ -122,7 +122,7 @@ export default function Hero() {
   return (
     <Box ref={box}>
       <div className="spot" aria-hidden />
-      <MatrixRain />
+      <CodeBackdrop />
       <Wrap style={{ width: "100%", position: "relative" }}>
         <div className="content">
           <div className="kicker"><i /> {h.kicker}</div>

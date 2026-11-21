@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { Lead, Page, PageTitle, Wrap } from "@/components/ui/layout";
 import { useLang } from "@/i18n/provider";
 import { LOCALE } from "@/i18n/config";
+import { Sk } from "@/components/ui/skeleton";
 
 type Post = { id: string; slug: string; title: string; excerpt: string | null; cover_image_url: string | null; created_at: string };
 
@@ -55,7 +56,14 @@ export default function BlogPage() {
         <Lead>{t.blogPage.lead}</Lead>
         <List>
           {posts === null ? (
-            <p className="empty">{t.blogPage.loading}</p>
+            <div aria-busy="true" aria-label={t.blogPage.loading} style={{ marginTop: 40, display: "grid", gap: 0 }}>
+              {[0, 1, 2, 3, 4].map((i) => (
+                <div key={i} style={{ display: "grid", gap: 10, padding: "24px 0", borderTop: "1px solid var(--line)" }}>
+                  <Sk $w={`${58 + ((i * 11) % 30)}%`} $h="1.8rem" />
+                  <Sk $w="82%" $h="0.9em" />
+                </div>
+              ))}
+            </div>
           ) : posts.length === 0 ? (
             <p className="empty">{t.blogPage.empty}</p>
           ) : (
