@@ -3,11 +3,10 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-const COLORS = ["var(--accent-ink)", "var(--accent-2)", "var(--lilac)", "#f5b942"];
 const NAMES = ["Edson Junior", "EJ Sistemas"];
 
-/** Marca do site: monograma EJ num quadrado de vidro escuro, com brilho que muda de cor, com o nome ao lado alternando entre "Edson Junior" e "EJ Sistemas". */
-export default function Wordmark({ sub, size = 38 }: { sub?: string; size?: number }) {
+/** Marca do site: uma mini janela retrô (barra com três quadradinhos) com "EJ" e cursor piscando. Usa só as cores do tema. */
+export default function Wordmark({ sub, size = 40 }: { sub?: string; size?: number }) {
   const reduce = useReducedMotion();
   const [i, setI] = useState(0);
   useEffect(() => {
@@ -15,16 +14,26 @@ export default function Wordmark({ sub, size = 38 }: { sub?: string; size?: numb
     const id = setInterval(() => { if (document.visibilityState === "visible") setI((v) => v + 1); }, 4200);
     return () => clearInterval(id);
   }, [reduce]);
-  const color = COLORS[i % COLORS.length];
   const name = NAMES[i % NAMES.length];
+  const w = Math.round(size * 1.12);
+  const bar = Math.round(size * 0.28);
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 11, whiteSpace: "nowrap" }}>
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 12, whiteSpace: "nowrap" }}>
       <span
         aria-hidden
-        style={{ position: "relative", display: "grid", placeItems: "center", width: size, height: size, borderRadius: Math.round(size * 0.3), background: "color-mix(in srgb, var(--paper) 78%, #000)", border: `1px solid color-mix(in srgb, ${color} 42%, transparent)`, boxShadow: `0 0 0 3px color-mix(in srgb, ${color} 9%, transparent), inset 0 0 ${size * 0.35}px color-mix(in srgb, ${color} 14%, transparent)`, color, transition: "color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease", flex: "none" }}
+        style={{ position: "relative", display: "block", width: w, height: size, borderRadius: 7, overflow: "hidden", border: "1.5px solid var(--accent-ink)", background: "var(--paper)", flex: "none", boxShadow: "3px 3px 0 color-mix(in srgb, var(--accent-ink) 35%, transparent)" }}
       >
-        <span style={{ fontWeight: 800, fontSize: size * 0.42, letterSpacing: "-0.08em", lineHeight: 1 }}>EJ</span>
-        <i style={{ position: "absolute", right: size * 0.13, top: size * 0.13, width: size * 0.13, height: size * 0.13, borderRadius: "50%", background: "currentColor" }} />
+        <span style={{ position: "absolute", left: 0, right: 0, top: 0, height: bar, display: "flex", alignItems: "center", gap: 3, padding: "0 5px", background: "linear-gradient(90deg, var(--accent), var(--accent-2))" }}>
+          {[0, 1, 2].map((k) => <i key={k} style={{ width: 4, height: 4, border: "1px solid var(--paper)", display: "block" }} />)}
+        </span>
+        <span style={{ position: "absolute", left: 0, right: 0, top: bar, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-mono)", fontWeight: 800, fontSize: size * 0.34, letterSpacing: "-0.04em", color: "var(--accent-ink)" }}>
+          EJ
+          <motion.i
+            style={{ display: "inline-block", width: size * 0.17, height: 2, marginLeft: 2, marginTop: size * 0.2, background: "var(--accent-ink)" }}
+            animate={reduce ? undefined : { opacity: [1, 1, 0, 0] }}
+            transition={{ duration: 1.1, repeat: Infinity, times: [0, 0.5, 0.5, 1] }}
+          />
+        </span>
       </span>
       <span style={{ display: "grid", lineHeight: 1.1 }}>
         <span style={{ display: "block", height: "1.2em", overflow: "hidden" }}>

@@ -336,3 +336,11 @@ p, li { text-wrap: pretty; }
 .skip-link { position: fixed; left: 12px; top: -60px; z-index: 200; padding: 10px 16px; border-radius: 10px; background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 0.95rem; transition: top 0.15s ease; }
 .skip-link:focus { top: 12px; outline: 2px solid var(--ink); outline-offset: 2px; }
 main:focus { outline: none; }
+
+/* código que passa pelas margens laterais ao rolar (decorativo; só aparece onde há margem livre) */
+.scroll-code { --g: 0.2; position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent); }
+.scroll-code pre { position: absolute; top: 0; margin: 0; width: calc((100vw - var(--wrap)) / 2 - 14px); overflow: hidden; font-family: var(--font-mono); font-size: 0.78rem; line-height: 2; white-space: pre; color: var(--accent-ink); opacity: var(--g); will-change: transform; }
+.scroll-code .l { left: 8px; }
+.scroll-code .r { right: 8px; }
+@media (max-width: 1400px) { .scroll-code { display: none; } }
+@media (prefers-reduced-motion: reduce) { .scroll-code { display: none; } }
