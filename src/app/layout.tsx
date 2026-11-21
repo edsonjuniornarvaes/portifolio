@@ -8,6 +8,7 @@ import SiteFooter from "@/components/site-footer";
 import ScrollProgress from "@/components/ui/scroll-progress";
 import PullCord from "@/components/ui/pull-cord";
 import Perch from "@/components/ui/perch";
+import ScrollCode from "@/components/ui/scroll-code";
 import SoundEffects from "@/components/ui/sound-effects";
 import CoffeeRain from "@/components/ui/coffee-rain";
 import StyledComponentsRegistry from "./registry";
@@ -99,6 +100,7 @@ export default async function RootLayout({
             <a href="#conteudo" className="skip-link">{ui[lang].nav.skip}</a>
             <AnalyticsTracker />
             <ScrollProgress />
+            <ScrollCode />
             <SiteHeader />
             <PullCord />
             <Perch />

@@ -17,9 +17,11 @@ const Box = styled.div`
   .lead { max-width: 38rem; margin: -10px 0 26px; color: var(--muted); line-height: 1.65; }
   .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
   @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
-  .card { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 30px 30px 26px; border: 1px solid var(--line); border-radius: 16px; background: color-mix(in srgb, var(--card) 80%, transparent); overflow: hidden; transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s ease; }
+  .card { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 50px 30px 26px; border: 1px solid var(--line); border-radius: 6px; background: color-mix(in srgb, var(--card) 80%, transparent); overflow: hidden; transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s ease; }
   .card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(360px circle at var(--gx, 85%) var(--gy, 0%), color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%); opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
-  .card > * { position: relative; }
+  .card > :not(.bar) { position: relative; }
+  .bar { position: absolute; left: 0; right: 0; top: 0; height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 12px; background: linear-gradient(90deg, var(--accent), var(--accent-2) 55%, var(--lilac)); }
+  .bar i { width: 10px; height: 10px; border: 2px solid var(--paper); display: block; }
   .card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
   .card:hover::before { opacity: 1; }
   .logo { display: flex; align-items: center; min-height: 44px; color: var(--ink); }
@@ -56,6 +58,7 @@ export default function WhereWorked() {
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6, delay: i * 0.12, ease: [0.2, 0.7, 0.2, 1] }}
           >
+            <div className="bar" aria-hidden><i /><i /><i /></div>
             <a className="logo" href={href} target="_blank" rel="noopener noreferrer" aria-label={`${w.visit}: ${key === "ecode" ? "e/code" : "Superlógica"}`}><Logo height={logoH} /></a>
             <div className="yrs">{lang === "en" && "yearsEn" in rest ? rest.yearsEn : years}</div>
             <p>{key === "ecode" ? w.ecode : w.superlogica}</p>
