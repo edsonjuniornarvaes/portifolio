@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const NAMES = ["Edson Junior", "EJ Sistemas"];
 
-/** Marca do site: "ej" entre chaves de código, com degradê nas cores do tema. */
+/** Marca do site: quadrado de contorno com o monograma EJ unido, nas cores do tema. */
 export default function Wordmark({ sub, size = 40 }: { sub?: string; size?: number }) {
   const reduce = useReducedMotion();
-  const gid = `wm${useId().replace(/:/g, "")}`;
   const [i, setI] = useState(0);
   useEffect(() => {
     if (reduce) return;
@@ -18,15 +17,12 @@ export default function Wordmark({ sub, size = 40 }: { sub?: string; size?: numb
   const name = NAMES[i % NAMES.length];
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: 12, whiteSpace: "nowrap" }}>
-      <svg aria-hidden width={size} height={size} viewBox="0 0 48 48" fill="none" style={{ flex: "none", overflow: "visible" }}>
-        <defs>
-          <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="var(--accent)" />
-            <stop offset="1" stopColor="var(--accent-2)" />
-          </linearGradient>
-        </defs>
-        <path d="M17 8c-5 0-6 2-6 6v5c0 3-2 5-4 5 2 0 4 2 4 5v5c0 4 1 6 6 6M31 8c5 0 6 2 6 6v5c0 3 2 5 4 5-2 0-4 2-4 5v5c0 4-1 6-6 6" stroke={`url(#${gid})`} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-        <text x="24" y="30" textAnchor="middle" style={{ fontFamily: "var(--font-mono)", fontWeight: 800, fontSize: 17, letterSpacing: -1.5 }} fill="var(--accent-ink)">ej</text>
+      <svg aria-hidden width={size} height={size} viewBox="0 0 64 64" fill="none" style={{ flex: "none" }}>
+        <rect x="2" y="2" width="60" height="60" rx="15" stroke="var(--accent-ink)" strokeWidth="3.5" />
+        <g stroke="var(--accent-ink)" strokeWidth="7" strokeLinejoin="miter">
+          <path d="M30 18H16v28h14M16 32h12" strokeLinecap="square" />
+          <path d="M44 18v19a9 9 0 0 1-9 9h-1" strokeLinecap="round" />
+        </g>
       </svg>
       <span style={{ display: "grid", lineHeight: 1.1 }}>
         <span style={{ display: "block", height: "1.2em", overflow: "hidden" }}>
